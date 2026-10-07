@@ -1,0 +1,39 @@
+# Po vydání Release na GitHubu automaticky zabalí plugin do ZIPu
+# a přiloží ho k Release. Weby si odtud stáhnou aktualizaci.
+name: Sestavení ZIPu pro Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kontrola, že verze v pluginu odpovídá tagu
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(grep -m1 -E '^\s*\*\s*Version:' marmal-breakdance-plus.php | sed -E 's/.*Version:\s*//' | tr -d '[:space:]')
+          echo "Tag: $TAG / Version v pluginu: $VERSION"
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "::error::Tag ($TAG) neodpovídá Version v hlavičce pluginu ($VERSION). Oprav verzi a vydej Release znovu."
+            exit 1
+          fi
+
+      - name: Sestavení ZIPu
+        run: |
+          mkdir -p dist/marmal-breakdance-plus
+          rsync -a ./ dist/marmal-breakdance-plus/ \
+            --exclude '.git' --exclude '.github' --exclude 'dist' \
+            --exclude '.gitignore' --exclude '.gitattributes' --exclude '.DS_Store'
+          cd dist && zip -rq marmal-breakdance-plus.zip marmal-breakdance-plus
+
+      - name: Přiložení ZIPu k Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" dist/marmal-breakdance-plus.zip --clobber
