@@ -1,22 +1,41 @@
 {#
   Galerie Plus – rozložení mozaiky.
-  Šablona se vykresluje pro každý breakpoint zvlášť, takže vzor, sloupce
-  i opakování lze nastavit jinak pro desktop, tablet a mobil.
+  Šablona se vykresluje pro každý breakpoint zvlášť, takže vzor, výška,
+  sloupce i opakování lze nastavit jinak pro desktop, tablet a mobil.
 
   Všechna pravidla pro dlaždice mají stejnou specifičnost
   (%%SELECTOR%% .marmal-gallery__item + :where(…)), díky tomu menší
   breakpoint vždy přepíše větší a nic „neprosakuje“.
 
-  Vzor = seznam dlaždic [šířka ve sloupcích, výška v řádcích].
-  Každý vzor vyplní přesně celý obdélník, takže spodek je vždy zarovnaný.
+  Vzor = šablona sloupců (fr), počet řádků a seznam dlaždic
+  [šířka ve sloupcích, výška v řádcích]. Každý vzor vyplní přesně celý
+  obdélník, takže spodek je vždy zarovnaný. Seznam vzorů se generuje
+  ze stejného zdroje jako nabídka v builderu – při přidání vzoru upravit obojí.
 #}
+{# VZORY-START #}
 {% set vzory = {
-  'vysoky-4-vysoky': { 'cols': 4, 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,2],[1,1],[1,1]] },
-  'velky-vlevo':     { 'cols': 4, 'rows': 2, 'tiles': [[2,2],[1,1],[1,1],[1,1],[1,1]] },
-  'velky-vpravo':    { 'cols': 4, 'rows': 2, 'tiles': [[1,1],[1,1],[2,2],[1,1],[1,1]] },
-  'vysoky-vlevo':    { 'cols': 3, 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,1],[1,1]] },
-  'velky-2':         { 'cols': 3, 'rows': 2, 'tiles': [[2,2],[1,1],[1,1]] }
+  '2-velka-3': { 'tpl': 'minmax(0, 2fr) minmax(0, 1fr)', 'rows': 3, 'tiles': [[1,3],[1,1],[1,1],[1,1]] },
+  '2-3-velka': { 'tpl': 'minmax(0, 1fr) minmax(0, 2fr)', 'rows': 3, 'tiles': [[1,1],[1,3],[1,1],[1,1]] },
+  '2-velka-2': { 'tpl': 'minmax(0, 3fr) minmax(0, 2fr)', 'rows': 2, 'tiles': [[1,2],[1,1],[1,1]] },
+  '2-2-velka': { 'tpl': 'minmax(0, 2fr) minmax(0, 3fr)', 'rows': 2, 'tiles': [[1,1],[1,2],[1,1]] },
+  '2-siroka-2': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[2,1],[1,1],[1,1]] },
+  '2-2-siroka': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,1],[1,1],[2,1]] },
+  'velky-2': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[2,2],[1,1],[1,1]] },
+  '3-2-velka': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,1],[2,2],[1,1]] },
+  'vysoky-vlevo': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,1],[1,1]] },
+  '3-vysoka-2-vysoka': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,2],[1,1],[1,2],[1,1]] },
+  '3-velka-3': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 3, 'tiles': [[2,3],[1,1],[1,1],[1,1]] },
+  '3-siroka-3': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[3,1],[1,1],[1,1],[1,1]] },
+  '3-mozaika': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 3, 'tiles': [[1,2],[1,1],[1,1],[1,1],[1,2],[1,1],[1,1]] },
+  'vysoky-4-vysoky': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,2],[1,1],[1,1]] },
+  'velky-vlevo': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[2,2],[1,1],[1,1],[1,1],[1,1]] },
+  'velky-vpravo': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,1],[1,1],[2,2],[1,1],[1,1]] },
+  '4-velka-stred': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,1],[2,2],[1,1],[1,1],[1,1]] },
+  '4-velka-2-vysoke': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[2,2],[1,2],[1,2]] },
+  '4-vysoka-6': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]] },
+  '4-siroke-6': { 'tpl': 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', 'rows': 2, 'tiles': [[2,1],[1,1],[1,1],[1,1],[1,1],[2,1]] }
 } %}
+{# VZORY-END #}
 
 {% set vzor = design.mozaika.vzor %}
 {% set sloupce = design.mozaika.sloupce %}
@@ -26,12 +45,13 @@
   {% set cols = sloupce ? sloupce + 0 : 3 %}
   {% if cols < 1 %}{% set cols = 1 %}{% endif %}
   {% if cols > 8 %}{% set cols = 8 %}{% endif %}
+  {% set tpl = 'repeat(' ~ cols ~ ', minmax(0, 1fr))' %}
   {% set rows = 1 %}
   {% set tiles = [] %}
   {% for i in 1..cols %}{% set tiles = tiles|merge([[1,1]]) %}{% endfor %}
 {% else %}
   {% set v = vzory[vzor] is defined ? vzory[vzor] : vzory['vysoky-4-vysoky'] %}
-  {% set cols = v.cols %}
+  {% set tpl = v.tpl %}
   {% set rows = v.rows %}
   {% set tiles = v.tiles %}
 {% endif %}
@@ -41,9 +61,11 @@
 {% set L = rep * K %}
 
 %%SELECTOR%% {
-  {% if design.mozaika.vyska_radku.style %}--mg-row: {{ design.mozaika.vyska_radku.style }};{% endif %}
+  {% if design.mozaika.vyska.style %}--mg-height: {{ design.mozaika.vyska.style }};{% endif %}
   {% if design.mozaika.mezera.style %}--mg-gap: {{ design.mozaika.mezera.style }};{% endif %}
   {% if design.mozaika.zaobleni.style %}--mg-radius: {{ design.mozaika.zaobleni.style }};{% endif %}
+  {% if design.mozaika.pomer %}--mg-ratio: {{ design.mozaika.pomer }};{% endif %}
+  {% if design.mozaika.vyrez %}--mg-position: {{ design.mozaika.vyrez }};{% endif %}
   {% if design.dlazdice.prekryv %}--mg-more-bg: {{ design.dlazdice.prekryv }};{% endif %}
   {% if design.dlazdice.prekryv_text %}--mg-more-color: {{ design.dlazdice.prekryv_text }};{% endif %}
   {% if design.dlazdice.video_pozadi %}--mg-video-bg: {{ design.dlazdice.video_pozadi }};{% endif %}
@@ -56,9 +78,16 @@
 %%SELECTOR%% .marmal-gallery__grid {
   grid-auto-flow: row;
   grid-auto-columns: auto;
-  grid-template-columns: repeat({{ cols }}, minmax(0, 1fr));
+  grid-template-columns: {{ tpl }};
+{% if design.mozaika.vyska_radku.style %}
+  grid-auto-rows: {{ design.mozaika.vyska_radku.style }};
+{% elseif vzor == 'mrizka' %}
+  grid-auto-rows: auto;
+{% else %}
+  grid-auto-rows: calc((var(--mg-height) - {{ rows - 1 }} * var(--mg-gap)) / {{ rows }});
+{% endif %}
 }
-{# Méně obrázků než má vzor: jedna řada stejně širokých dlaždic #}
+{# Méně obrázků než má vzor: jedna řada stejně širokých dlaždic přes celou výšku #}
 %%SELECTOR%% .marmal-gallery__grid:where(:not(:has(> :nth-child({{ K }})))) {
   grid-auto-flow: column;
   grid-template-columns: none;
@@ -70,6 +99,7 @@
   grid-column: auto / span 1;
   grid-row: auto / span 1;
   display: block;
+  aspect-ratio: {{ (vzor == 'mrizka' and not design.mozaika.vyska_radku.style) ? 'var(--mg-ratio)' : 'auto' }};
 }
 %%SELECTOR%% .marmal-gallery__item::after {
   content: none;
@@ -116,7 +146,7 @@
 
 {# ---- Efekt po najetí ---- #}
 {% if design.dlazdice.hover == 'none' %}
-%%SELECTOR%% .marmal-gallery__item:hover .marmal-gallery__img {
+%%SELECTOR%% .marmal-gallery .marmal-gallery__item:hover > .marmal-gallery__img {
   transform: none;
 }
 {% endif %}

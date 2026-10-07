@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir -p dist/marmal-breakdance-plus
           rsync -a ./ dist/marmal-breakdance-plus/ \
-            --exclude '.git' --exclude '.github' --exclude 'dist' \
+            --exclude '.git' --exclude '.github' --exclude 'dist' --exclude 'tools' \
             --exclude '.gitignore' --exclude '.gitattributes' --exclude '.DS_Store'
           cd dist && zip -rq marmal-breakdance-plus.zip marmal-breakdance-plus
 

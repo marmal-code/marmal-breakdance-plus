@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 – 2026-10-07
+- Galerie Plus – Mozaika:
+  - fotka vždy vyplní celou dlaždici bez ohledu na poměr stran (odolné vůči obecnému `img { height: auto }`),
+  - 20 vzorů pro 2, 3 a 4 sloupce (např. velká vlevo + 3 pod sebou, široká nahoře + 3 dole, mozaika 3 × 3),
+  - „Výška galerie“ místo výšky řádku – všechny vzory mají stejnou celkovou výšku,
+  - mřížka s volitelným poměrem stran dlaždic, volba výřezu fotky (střed, nahoře, dole…),
+  - vzory se generují z jednoho zdroje: `tools/vzory.py`.
+
 ## 0.2.0 – 2026-10-07
 - Nový element **Galerie Plus** – varianta Mozaika:
   - vzory se zarovnanými okraji (Vysoký–4–vysoký, Velký vlevo/vpravo + 4, Vysoký vlevo + 4, Velký + 2, rovnoměrná mřížka), nastavitelné po breakpointech,

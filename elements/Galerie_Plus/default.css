@@ -3,7 +3,9 @@
 .marmal-gallery-element {
   width: 100%;
   max-width: 100%;
-  --mg-row: 280px;
+  --mg-height: 560px;
+  --mg-ratio: 4 / 3;
+  --mg-position: center;
   --mg-gap: var(--gap-s, 16px);
   --mg-radius: var(--radius-m, 12px);
   --mg-more-bg: rgba(17, 24, 39, 0.55);
@@ -19,7 +21,7 @@
 .marmal-gallery__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: var(--mg-row);
+  grid-auto-rows: calc((var(--mg-height) - var(--mg-gap)) / 2);
   gap: var(--mg-gap);
 }
 
@@ -47,16 +49,24 @@
   outline-offset: 3px;
 }
 
-.marmal-gallery__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
+/* Fotka vždy vyplní celou dlaždici (ořez podle --mg-position), bez ohledu
+   na poměr stran. !important kvůli obecnému `img { height: auto }`
+   z Breakdance / jiných stylů webu, které by jinak výšku přebily. */
+.marmal-gallery .marmal-gallery__item > .marmal-gallery__img {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  object-position: var(--mg-position);
   transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.marmal-gallery__item:hover .marmal-gallery__img {
+.marmal-gallery .marmal-gallery__item:hover > .marmal-gallery__img {
   transform: scale(1.04);
 }
 
@@ -140,7 +150,7 @@
   .marmal-gallery__play svg {
     transition: none;
   }
-  .marmal-gallery__item:hover .marmal-gallery__img,
+  .marmal-gallery .marmal-gallery__item:hover > .marmal-gallery__img,
   .marmal-gallery__item.is-video:hover .marmal-gallery__play svg {
     transform: none;
   }
@@ -162,11 +172,11 @@
     grid-column: auto / span 1 !important;
     grid-row: auto / span 1 !important;
     display: block !important;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1 !important;
   }
   .marmal-gallery[data-mobile="auto"] .marmal-gallery__item:only-child {
     grid-column: 1 / -1 !important;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 3 !important;
   }
   /* max. 3 řady */
   .marmal-gallery[data-mobile="auto"] .marmal-gallery__item:nth-child(n+7) {
