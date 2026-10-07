@@ -23,8 +23,8 @@ Vlastní a vylepšené elementy pro [Breakdance](https://breakdance.com). Autor:
 
 1. Zvýšit `Version:` v `marmal-breakdance-plus.php` (a konstantu `MARMAL_BDP_VERSION`).
 2. Commit a push (GitHub Desktop).
-3. GitHub → Releases → Draft a new release → tag `vX.Y.Z` (stejné číslo jako Version) → Publish.
-4. GitHub Action sám vytvoří a přiloží ZIP.
+3. Vytvořit tag `vX.Y.Z` (stejné číslo jako Version) a odeslat ho – nebo na GitHubu Releases → Draft a new release → Publish.
+4. GitHub Action sama vytvoří Release a přiloží ZIP.
 
 ## Konvence
 
