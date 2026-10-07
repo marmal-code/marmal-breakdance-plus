@@ -1,0 +1,127 @@
+{#
+  Galerie Plus – rozložení mozaiky.
+  Šablona se vykresluje pro každý breakpoint zvlášť, takže vzor, sloupce
+  i opakování lze nastavit jinak pro desktop, tablet a mobil.
+
+  Všechna pravidla pro dlaždice mají stejnou specifičnost
+  (%%SELECTOR%% .marmal-gallery__item + :where(…)), díky tomu menší
+  breakpoint vždy přepíše větší a nic „neprosakuje“.
+
+  Vzor = seznam dlaždic [šířka ve sloupcích, výška v řádcích].
+  Každý vzor vyplní přesně celý obdélník, takže spodek je vždy zarovnaný.
+#}
+{% set vzory = {
+  'vysoky-4-vysoky': { 'cols': 4, 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,2],[1,1],[1,1]] },
+  'velky-vlevo':     { 'cols': 4, 'rows': 2, 'tiles': [[2,2],[1,1],[1,1],[1,1],[1,1]] },
+  'velky-vpravo':    { 'cols': 4, 'rows': 2, 'tiles': [[1,1],[1,1],[2,2],[1,1],[1,1]] },
+  'vysoky-vlevo':    { 'cols': 3, 'rows': 2, 'tiles': [[1,2],[1,1],[1,1],[1,1],[1,1]] },
+  'velky-2':         { 'cols': 3, 'rows': 2, 'tiles': [[2,2],[1,1],[1,1]] }
+} %}
+
+{% set vzor = design.mozaika.vzor %}
+{% set sloupce = design.mozaika.sloupce %}
+{% set opak = design.mozaika.opakovani %}
+
+{% if vzor == 'mrizka' %}
+  {% set cols = sloupce ? sloupce + 0 : 3 %}
+  {% if cols < 1 %}{% set cols = 1 %}{% endif %}
+  {% if cols > 8 %}{% set cols = 8 %}{% endif %}
+  {% set rows = 1 %}
+  {% set tiles = [] %}
+  {% for i in 1..cols %}{% set tiles = tiles|merge([[1,1]]) %}{% endfor %}
+{% else %}
+  {% set v = vzory[vzor] is defined ? vzory[vzor] : vzory['vysoky-4-vysoky'] %}
+  {% set cols = v.cols %}
+  {% set rows = v.rows %}
+  {% set tiles = v.tiles %}
+{% endif %}
+
+{% set K = tiles|length %}
+{% set rep = (opak is null or opak == '') ? 1 : opak + 0 %}
+{% set L = rep * K %}
+
+%%SELECTOR%% {
+  {% if design.mozaika.vyska_radku.style %}--mg-row: {{ design.mozaika.vyska_radku.style }};{% endif %}
+  {% if design.mozaika.mezera.style %}--mg-gap: {{ design.mozaika.mezera.style }};{% endif %}
+  {% if design.mozaika.zaobleni.style %}--mg-radius: {{ design.mozaika.zaobleni.style }};{% endif %}
+  {% if design.dlazdice.prekryv %}--mg-more-bg: {{ design.dlazdice.prekryv }};{% endif %}
+  {% if design.dlazdice.prekryv_text %}--mg-more-color: {{ design.dlazdice.prekryv_text }};{% endif %}
+  {% if design.dlazdice.video_pozadi %}--mg-video-bg: {{ design.dlazdice.video_pozadi }};{% endif %}
+  {% if design.dlazdice.video_barva %}--mg-video-color: {{ design.dlazdice.video_barva }};{% endif %}
+  {% if design.dlazdice.lightbox_pozadi %}--marmal-lb-bg: {{ design.dlazdice.lightbox_pozadi }};{% endif %}
+  {{ macros.spacing_margin_y(design.spacing) }}
+}
+
+{# ---- Mřížka ---- #}
+%%SELECTOR%% .marmal-gallery__grid {
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat({{ cols }}, minmax(0, 1fr));
+}
+{# Méně obrázků než má vzor: jedna řada stejně širokých dlaždic #}
+%%SELECTOR%% .marmal-gallery__grid:where(:not(:has(> :nth-child({{ K }})))) {
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+{# ---- Dlaždice: reset (přepíše hodnoty z většího breakpointu) ---- #}
+%%SELECTOR%% .marmal-gallery__item {
+  grid-column: auto / span 1;
+  grid-row: auto / span 1;
+  display: block;
+}
+%%SELECTOR%% .marmal-gallery__item::after {
+  content: none;
+}
+
+{# ---- Dlaždice: tvary podle vzoru ---- #}
+{% for t in tiles %}
+{% if t[0] > 1 or t[1] > 1 %}
+%%SELECTOR%% .marmal-gallery__item:where(:nth-child({{ K }}n+{{ loop.index }})) {
+  grid-column: auto / span {{ t[0] }};
+  grid-row: auto / span {{ t[1] }};
+}
+{% endif %}
+{% endfor %}
+
+%%SELECTOR%% .marmal-gallery__item:where(.marmal-gallery__grid:not(:has(> :nth-child({{ K }}))) > *) {
+  grid-column: auto / span 1;
+  grid-row: auto / span {{ rows }};
+}
+
+{# ---- Skrytí: nad limit opakování a neúplná poslední skupina ---- #}
+{% if L > 0 %}
+%%SELECTOR%% .marmal-gallery__item:where(:nth-child(n+{{ L + 1 }})) {
+  display: none;
+}
+%%SELECTOR%% .marmal-gallery__item:where(:nth-child({{ L }})[data-more]:not(.is-video))::after {
+  content: attr(data-more);
+}
+{% endif %}
+
+{% if K > 1 %}
+%%SELECTOR%% .marmal-gallery__item:where(
+  .marmal-gallery__grid:has(> :nth-child({{ K }})) > :nth-child({{ K }}n+1):nth-last-child(-n+{{ K - 1 }}),
+  .marmal-gallery__grid:has(> :nth-child({{ K }})) > :nth-child({{ K }}n+1):nth-last-child(-n+{{ K - 1 }}) ~ *
+) {
+  display: none;
+}
+{% endif %}
+
+{# „+N“ na poslední viditelné dlaždici #}
+%%SELECTOR%% .marmal-gallery__item:where(.marmal-gallery__grid:has(> :nth-child({{ K }})) > :nth-child({{ K }}n):nth-last-child(-n+{{ K }})[data-more]:not(.is-video))::after {
+  content: attr(data-more);
+}
+
+{# ---- Efekt po najetí ---- #}
+{% if design.dlazdice.hover == 'none' %}
+%%SELECTOR%% .marmal-gallery__item:hover .marmal-gallery__img {
+  transform: none;
+}
+{% endif %}
+
+{# ---- Písmo video dlaždice ---- #}
+%%SELECTOR%% .marmal-gallery__video-text {
+  {{ macros.typography(design.dlazdice.video_pismo, globalSettings) }}
+}

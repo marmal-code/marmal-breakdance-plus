@@ -1,0 +1,158 @@
+/* Marmal Lightbox – Galerie Plus */
+.marmal-lb {
+  --marmal-lb-bg-default: rgba(10, 12, 16, 0.94);
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--marmal-lb-bg, var(--marmal-lb-bg-default));
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  animation: marmal-lb-in 0.2s ease;
+}
+
+.marmal-lb[hidden] {
+  display: none;
+}
+
+html.marmal-lb-open,
+html.marmal-lb-open body {
+  overflow: hidden;
+}
+
+.marmal-lb__stage {
+  position: absolute;
+  inset: 56px 72px 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marmal-lb__media {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.marmal-lb__frame {
+  position: relative;
+  width: min(100%, calc((100vh - 128px) * 16 / 9));
+  aspect-ratio: 16 / 9;
+}
+
+.marmal-lb__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 4px;
+}
+
+.marmal-lb__btn {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.marmal-lb__btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.marmal-lb__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.marmal-lb__btn[hidden] {
+  display: none;
+}
+
+.marmal-lb__close {
+  top: 12px;
+  right: 12px;
+}
+
+.marmal-lb__prev,
+.marmal-lb__next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.marmal-lb__prev {
+  left: 12px;
+}
+
+.marmal-lb__next {
+  right: 12px;
+}
+
+.marmal-lb__footer {
+  position: absolute;
+  left: 72px;
+  right: 72px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 40px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.marmal-lb__counter {
+  flex-shrink: 0;
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 767px) {
+  .marmal-lb__stage {
+    inset: 64px 0 72px;
+  }
+  .marmal-lb__prev,
+  .marmal-lb__next {
+    top: auto;
+    bottom: 12px;
+    transform: none;
+  }
+  .marmal-lb__footer {
+    left: 72px;
+    right: 72px;
+    bottom: 16px;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+@keyframes marmal-lb-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marmal-lb {
+    animation: none;
+  }
+}

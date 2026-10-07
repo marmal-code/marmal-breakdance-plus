@@ -6,7 +6,7 @@ Vlastní a vylepšené elementy pro [Breakdance](https://breakdance.com). Autor:
 
 | Element | Stav | Popis |
 |---|---|---|
-| Galerie Plus | připravuje se | Mozaika se zarovnanými okraji, slider s miniaturami, lightbox |
+| Galerie Plus | Mozaika hotová, slider s miniaturami připravuje se | Mozaika se zarovnanými okraji, „+N“ dlaždice, video dlaždice, ACF galerie, vlastní lightbox |
 
 ## Požadavky
 

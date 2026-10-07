@@ -3,7 +3,7 @@
  * Plugin Name:       Marmal – Breakdance Plus
  * Plugin URI:        https://github.com/marmal-code/marmal-breakdance-plus
  * Description:       Vlastní a vylepšené elementy pro Breakdance (Galerie Plus a další). Elementy se tvoří v Element Studiu.
- * Version:           0.1.1
+ * Version:           0.2.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Martin Malý – marmal.cz
@@ -21,14 +21,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MARMAL_BDP_VERSION', '0.1.1');
+define('MARMAL_BDP_VERSION', '0.2.0');
 define('MARMAL_BDP_FILE', __FILE__);
 define('MARMAL_BDP_DIR', plugin_dir_path(__FILE__));
 define('MARMAL_BDP_URL', plugin_dir_url(__FILE__));
 
 /*
  * 1) Automatické aktualizace z GitHubu (Plugin Update Checker).
- *    Nová verze = vydaný Release na GitHubu se ZIPem (vytvoří ho GitHub Action).
+ *    Nová verze = commit se zvýšenou Version (GitHub Action sama vytvoří Release se ZIPem).
  *    Repo je veřejné, proto není potřeba žádný token.
  */
 require_once MARMAL_BDP_DIR . 'lib/plugin-update-checker/plugin-update-checker.php';
@@ -60,7 +60,12 @@ add_action('breakdance_loaded', function () {
 }, 9);
 
 /*
- * 3) Upozornění v administraci, když Breakdance není aktivní.
+ * 3) Elementy – sdílená PHP logika (Element Studio ji nepřepisuje).
+ */
+require_once MARMAL_BDP_DIR . 'includes/gallery.php';
+
+/*
+ * 4) Upozornění v administraci, když Breakdance není aktivní.
  */
 add_action('admin_notices', function () {
     if (did_action('breakdance_loaded') || !current_user_can('activate_plugins')) {
