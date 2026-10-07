@@ -10,12 +10,20 @@
     return;
   }
 
+  // Texty: přeložené z PHP (wp_localize_script → MarmalLightboxI18n), jinak česky
   var T = {
     close: 'Zavřít',
     prev: 'Předchozí',
     next: 'Další',
-    dialog: 'Galerie'
+    dialog: 'Galerie',
+    video: 'Video'
   };
+  var I = window.MarmalLightboxI18n || {};
+  Object.keys(T).forEach(function (k) {
+    if (typeof I[k] === 'string' && I[k]) {
+      T[k] = I[k];
+    }
+  });
 
   var root, stage, captionEl, counterEl, prevBtn, nextBtn, closeBtn;
   var items = [];
@@ -141,7 +149,7 @@
       var wrap = el('div', 'marmal-lb__frame');
       wrap.appendChild(el('iframe', '', {
         src: item.src,
-        title: item.caption || 'Video',
+        title: item.caption || T.video,
         allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
         allowfullscreen: ''
       }));

@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Marmal – Breakdance Plus\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: marmal-breakdance-plus\n"
+
+#: marmal-breakdance-plus.php:84
+msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou."
+msgstr "The plugin requires an active Breakdance. Elements will not load."
+
+#: includes/gallery.php:222
+msgid "Videovizualizace"
+msgstr "Video tour"
+
+#: includes/gallery.php:255
+msgid "Galerie Plus: ACF pole je prázdné nebo nenalezené. Na webu se zobrazí obrázky aktuálního příspěvku (v šabloně nastavte náhledový příspěvek)."
+msgstr "Galerie Plus: the ACF field is empty or was not found. The site will show the images of the current post (set a preview post in the template)."
+
+#: includes/gallery.php:256
+msgid "Galerie Plus: vyberte obrázky v záložce Content → Obrázky."
+msgstr "Galerie Plus: select images in Content → Obrázky."
+
+#: includes/gallery.php:314
+#, php-format
+msgid "Zvětšit obrázek %1$d z %2$d"
+msgstr "Enlarge image %1$d of %2$d"
+
+#: includes/gallery.php:347 includes/gallery.php:399
+msgid "Galerie"
+msgstr "Gallery"
+
+#: includes/gallery.php:355
+msgid "Předchozí fotka"
+msgstr "Previous photo"
+
+#: includes/gallery.php:356
+msgid "Další fotka"
+msgstr "Next photo"
+
+#: includes/gallery.php:366
+#, php-format
+msgid "Zobrazit fotku %1$d z %2$d"
+msgstr "Show photo %1$d of %2$d"
+
+#: includes/gallery.php:396
+msgid "Zavřít"
+msgstr "Close"
+
+#: includes/gallery.php:397
+msgid "Předchozí"
+msgstr "Previous"
+
+#: includes/gallery.php:398
+msgid "Další"
+msgstr "Next"
+
+#: includes/gallery.php:400
+msgid "Video"
+msgstr "Video"

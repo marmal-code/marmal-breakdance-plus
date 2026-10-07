@@ -164,20 +164,33 @@ function gallery_render(array $p): string
             . '</pre>';
     }
 
+    // Galerie nad ohybem: první fotky načíst hned, úplně první s vysokou prioritou (LCP).
+    // Jinak se všechny fotky načítají líně (lazy) – kromě první fotky slideru, která je vždy vidět.
+    $above   = (bool) gallery_get($p, 'content.obrazky.nahore', false);
+    $isSlide = gallery_get($p, 'design.rozlozeni.typ', 'mozaika') === 'slider';
+    $eagerN  = $above ? ($isSlide ? 1 : 4) : ($isSlide ? 1 : 0);
+
     // Položky: obrázky
     $tiles = [];
     foreach ($images as $i => $img) {
+        $loading  = $i < $eagerN ? 'eager' : 'lazy';
+        $priority = ($above && $i === 0) ? 'high' : '';
+
         if (isset($img['id'])) {
             $id      = $img['id'];
             $alt     = (string) get_post_meta($id, '_wp_attachment_image_alt', true);
             $caption = (string) wp_get_attachment_caption($id);
             $full    = wp_get_attachment_image_url($id, '2048x2048') ?: wp_get_attachment_image_url($id, 'full');
-            $imgHtml = wp_get_attachment_image($id, $size, false, [
+            $attrs = [
                 'class'    => 'marmal-gallery__img',
-                'loading'  => 'lazy',
-                'decoding' => 'async',
+                'loading'  => $loading,
+                'decoding' => $priority ? 'sync' : 'async',
                 'alt'      => $alt,
-            ]);
+            ];
+            if ($priority) {
+                $attrs['fetchpriority'] = $priority;
+            }
+            $imgHtml = wp_get_attachment_image($id, $size, false, $attrs);
             $thumb = wp_get_attachment_image($id, 'medium', false, [
                 'class'    => 'marmal-slider__thumb-img',
                 'loading'  => 'lazy',
@@ -188,7 +201,8 @@ function gallery_render(array $p): string
             $alt     = $img['alt'] ?? '';
             $caption = $img['caption'] ?? '';
             $full    = $img['url'];
-            $imgHtml = '<img class="marmal-gallery__img" src="' . esc_url($img['url']) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async">';
+            $imgHtml = '<img class="marmal-gallery__img" src="' . esc_url($img['url']) . '" alt="' . esc_attr($alt) . '" loading="' . $loading . '"'
+                . ($priority ? ' fetchpriority="high" decoding="sync"' : ' decoding="async"') . '>';
             $thumb   = '<img class="marmal-slider__thumb-img" src="' . esc_url($img['url']) . '" alt="" loading="lazy" decoding="async">';
         }
         if (!$imgHtml || !$full) {
@@ -228,6 +242,7 @@ function gallery_render(array $p): string
         if ($lightbox) {
             wp_enqueue_style('marmal-lightbox');
             wp_enqueue_script('marmal-lightbox');
+            gallery_lightbox_i18n();
         }
         if ($typ === 'slider') {
             wp_enqueue_script('marmal-slider');
@@ -332,10 +347,6 @@ function gallery_render_slider(array $p, array $tiles, bool $lb): string
     $html .= '<div class="marmal-slider__track" id="' . esc_attr($id) . '" data-lb-items tabindex="0" role="region" aria-roledescription="carousel" aria-label="' . esc_attr__('Galerie', 'marmal-breakdance-plus') . '">';
 
     foreach ($tiles as $i => $tile) {
-        $first = $i === 0 && isset($tile['html']) ? str_replace('loading="lazy"', 'loading="eager"', $tile['html']) : null;
-        if ($first !== null) {
-            $tile['html'] = $first;
-        }
         $html .= gallery_item_html($tile, $i, $total, $lb, 'marmal-slider__slide', ' data-index="' . $i . '"');
     }
     $html .= '</div>';
@@ -369,4 +380,23 @@ function gallery_render_slider(array $p, array $tiles, bool $lb): string
 
     $html .= '</div>';
     return $html;
+}
+
+/**
+ * Přeložené texty pro lightbox (JS). Volá se jednou na stránku.
+ */
+function gallery_lightbox_i18n(): void
+{
+    static $done = false;
+    if ($done) {
+        return;
+    }
+    $done = true;
+    wp_localize_script('marmal-lightbox', 'MarmalLightboxI18n', [
+        'close'  => __('Zavřít', 'marmal-breakdance-plus'),
+        'prev'   => __('Předchozí', 'marmal-breakdance-plus'),
+        'next'   => __('Další', 'marmal-breakdance-plus'),
+        'dialog' => __('Galerie', 'marmal-breakdance-plus'),
+        'video'  => __('Video', 'marmal-breakdance-plus'),
+    ]);
 }

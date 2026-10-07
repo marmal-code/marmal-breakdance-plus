@@ -25,6 +25,10 @@ Vlastní a vylepšené elementy pro [Breakdance](https://breakdance.com). Autor:
 2. Commit a push do `main` (GitHub Desktop).
 3. Hotovo – GitHub Action sama vytvoří tag `vX.Y.Z`, Release a přiloží ZIP. Commity bez zvýšení verze nic nevydají.
 
+## Překlady
+
+Zdrojový jazyk je čeština, angličtina je v `languages/`. Po přidání nebo změně textů v PHP spusť `python3 tools/i18n.py`, doplň prázdné překlady v `.po` souborech a spusť skript znovu (zkompiluje `.mo`).
+
 ## Konvence
 
 - PHP namespace: `MarmalElements` (neměnit)

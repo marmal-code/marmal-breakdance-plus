@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 – 2026-10-07
+- Překlady: plugin načítá jazykové soubory z `languages/`, přidána angličtina (en_US, en_GB) pro CZ + EN weby (Polylang / WPML).
+- Lightbox přebírá přeložené texty z PHP (Zavřít, Předchozí, Další…).
+- Galerie Plus: volba „Galerie je v horní části stránky“ – první fotka se načte s vysokou prioritou (lepší LCP), další hned, zbytek líně.
+- Nástroj `tools/i18n.py` – najde texty, aktualizuje .pot/.po a zkompiluje .mo.
+
 ## 0.5.0 – 2026-10-07
 - Galerie Plus – nový typ **Slider s miniaturami** (Design → Rozložení → Typ galerie):
   - pás miniatur pod hlavní fotkou, aktivní miniatura s rámečkem, pás se sám posouvá za aktivní fotkou,

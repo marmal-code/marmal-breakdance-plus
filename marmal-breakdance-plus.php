@@ -3,13 +3,14 @@
  * Plugin Name:       Marmal – Breakdance Plus
  * Plugin URI:        https://github.com/marmal-code/marmal-breakdance-plus
  * Description:       Vlastní a vylepšené elementy pro Breakdance (Galerie Plus a další). Elementy se tvoří v Element Studiu.
- * Version:           0.5.0
+ * Version:           0.6.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Martin Malý – marmal.cz
  * Author URI:        https://marmal.cz
  * License:           GPLv2 or later
  * Text Domain:       marmal-breakdance-plus
+ * Domain Path:       /languages
  * Update URI:        https://github.com/marmal-code/marmal-breakdance-plus
  */
 
@@ -21,7 +22,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MARMAL_BDP_VERSION', '0.5.0');
+define('MARMAL_BDP_VERSION', '0.6.0');
 define('MARMAL_BDP_FILE', __FILE__);
 define('MARMAL_BDP_DIR', plugin_dir_path(__FILE__));
 define('MARMAL_BDP_URL', plugin_dir_url(__FILE__));
@@ -60,12 +61,20 @@ add_action('breakdance_loaded', function () {
 }, 9);
 
 /*
- * 3) Elementy – sdílená PHP logika (Element Studio ji nepřepisuje).
+ * 3) Překlady (zdrojový jazyk je čeština; angličtina v languages/ – pro CZ + EN weby
+ *    s Polylangem / WPML se jazyk přepne podle jazyka stránky).
+ */
+add_action('init', function () {
+    load_plugin_textdomain('marmal-breakdance-plus', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}, 1);
+
+/*
+ * 4) Elementy – sdílená PHP logika (Element Studio ji nepřepisuje).
  */
 require_once MARMAL_BDP_DIR . 'includes/gallery.php';
 
 /*
- * 4) Upozornění v administraci, když Breakdance není aktivní.
+ * 5) Upozornění v administraci, když Breakdance není aktivní.
  */
 add_action('admin_notices', function () {
     if (did_action('breakdance_loaded') || !current_user_can('activate_plugins')) {

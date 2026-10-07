@@ -521,6 +521,14 @@ class GaleriePlus extends \Breakdance\Elements\Element
         false,
         [],
       ), c(
+        "nahore",
+        "Galerie je v horní části stránky (načíst první fotky hned)",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
         "bez_lightboxu",
         "Vypnout lightbox",
         [],
