@@ -1,37 +1,50 @@
-# Vydání nové verze pluginu.
-# Spustí se:
-#  a) odesláním tagu vX.Y.Z (Release vytvoří akce sama), nebo
-#  b) ručním vydáním Release na GitHubu (akce jen přiloží ZIP).
-# Weby si aktualizaci stáhnou z ZIPu přiloženého k Release.
+# Automatické vydání nové verze pluginu.
+# Po každém pushi do main akce přečte "Version:" z hlavičky pluginu.
+# Pokud Release s touto verzí ještě neexistuje, vytvoří tag vX.Y.Z,
+# Release a přiloží ZIP. Weby si aktualizaci stáhnou z tohoto ZIPu.
+# Commity bez zvýšení verze nic nevydají.
 name: Vydání verze (ZIP pro aktualizace)
 
 on:
   push:
-    tags: ['v*']
-  release:
-    types: [published]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Kontrola, že verze v pluginu odpovídá tagu
+      - name: Zjištění verze
+        id: ver
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
           VERSION=$(grep -m1 -E '^\s*\*\s*Version:' marmal-breakdance-plus.php | sed -E 's/.*Version:\s*//' | tr -d '[:space:]')
           CONST=$(grep -m1 "MARMAL_BDP_VERSION'" marmal-breakdance-plus.php | sed -E "s/.*, '([^']+)'.*/\1/")
-          echo "Tag: $TAG / Version: $VERSION / MARMAL_BDP_VERSION: $CONST"
-          if [ "$TAG" != "$VERSION" ] || [ "$TAG" != "$CONST" ]; then
-            echo "::error::Tag ($TAG) neodpovídá Version ($VERSION) nebo MARMAL_BDP_VERSION ($CONST). Oprav verzi a vydej znovu."
+          echo "Version: $VERSION / MARMAL_BDP_VERSION: $CONST"
+          if [ "$VERSION" != "$CONST" ]; then
+            echo "::error::Version ($VERSION) a MARMAL_BDP_VERSION ($CONST) se liší. Sjednoť je."
             exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "Release v$VERSION už existuje – nic se nevydává."
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Sestavení ZIPu
+        if: steps.ver.outputs.new == 'true'
         run: |
           mkdir -p dist/marmal-breakdance-plus
           rsync -a ./ dist/marmal-breakdance-plus/ \
@@ -39,11 +52,11 @@ jobs:
             --exclude '.gitignore' --exclude '.gitattributes' --exclude '.DS_Store'
           cd dist && zip -rq marmal-breakdance-plus.zip marmal-breakdance-plus
 
-      - name: Vytvoření Release (pokud ještě neexistuje) a přiložení ZIPu
+      - name: Vytvoření Release se ZIPem
+        if: steps.ver.outputs.new == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release create "$GITHUB_REF_NAME" --title "${GITHUB_REF_NAME#v}" --generate-notes
-          fi
-          gh release upload "$GITHUB_REF_NAME" dist/marmal-breakdance-plus.zip --clobber
+          V="${{ steps.ver.outputs.version }}"
+          gh release create "v$V" dist/marmal-breakdance-plus.zip \
+            --target "$GITHUB_SHA" --title "$V" --generate-notes
