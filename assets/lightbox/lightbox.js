@@ -20,6 +20,7 @@
   var root, stage, captionEl, counterEl, prevBtn, nextBtn, closeBtn;
   var items = [];
   var index = 0;
+  var currentGallery = null;
   var lastFocus = null;
   var touchStartX = null;
   var touchStartY = null;
@@ -101,17 +102,11 @@
     });
   }
 
-  function collect(grid) {
-    var nodes = grid.querySelectorAll(':scope > .marmal-gallery__item');
+  function collect(container) {
+    var nodes = container.querySelectorAll(':scope > [data-lb-item]');
     var list = [];
     Array.prototype.forEach.call(nodes, function (node) {
-      if (node.classList.contains('is-placeholder')) {
-        return;
-      }
-      if (node.classList.contains('is-video')) {
-        if (!node.getAttribute('data-video')) {
-          return;
-        }
+      if (node.hasAttribute('data-video')) {
         list.push({
           node: node,
           type: 'video',
@@ -163,6 +158,12 @@
 
     preload(index + 1);
     preload(index - 1);
+
+    // Slider se srovná na fotku, kterou si návštěvník prohlíží v lightboxu
+    var di = item.node.getAttribute('data-index');
+    if (currentGallery && di !== null) {
+      currentGallery.dispatchEvent(new CustomEvent('marmal:lightbox-change', { detail: { index: parseInt(di, 10) } }));
+    }
   }
 
   function preload(i) {
@@ -212,7 +213,8 @@
 
   function open(gallery, startNode) {
     build();
-    items = collect(gallery.querySelector('.marmal-gallery__grid'));
+    currentGallery = gallery;
+    items = collect(gallery.querySelector('[data-lb-items]') || gallery);
     if (!items.length) {
       return;
     }
@@ -253,12 +255,9 @@
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
       return;
     }
-    var tile = e.target.closest ? e.target.closest('.marmal-gallery[data-marmal-lb] .marmal-gallery__item') : null;
-    if (!tile || tile.classList.contains('is-placeholder')) {
-      return;
-    }
-    if (tile.classList.contains('is-video') && !tile.getAttribute('data-video')) {
-      return; // video bez embedu se otevře normálně v novém okně
+    var tile = e.target.closest ? e.target.closest('.marmal-gallery[data-marmal-lb] [data-lb-item]') : null;
+    if (!tile) {
+      return; // video bez embedu nemá data-lb-item a otevře se normálně v novém okně
     }
     e.preventDefault();
     open(tile.closest('.marmal-gallery'), tile);

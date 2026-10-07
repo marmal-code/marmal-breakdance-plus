@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 – 2026-10-07
+- Galerie Plus – nový typ **Slider s miniaturami** (Design → Rozložení → Typ galerie):
+  - pás miniatur pod hlavní fotkou, aktivní miniatura s rámečkem, pás se sám posouvá za aktivní fotkou,
+  - šipky, swipe na dotyku, šipky na klávesnici, volitelné počítadlo a automatické přehrávání,
+  - poměr stran nebo pevná výška hlavní fotky, režim „celá fotka“, počet a poměr miniatur po breakpointech,
+  - video jako snímek, lightbox sdílený s mozaikou (slider se srovná na fotku z lightboxu),
+  - bez externí knihovny (CSS scroll-snap + vlastní skript, načte se jen u slideru).
+
 ## 0.4.0 – 2026-10-07
 - Galerie Plus – efekty po najetí (Design → Dlaždice):
   - pohyb fotky: Přiblížení / Pomalý posun / Žádný,

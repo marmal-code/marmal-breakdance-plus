@@ -15,11 +15,12 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Registrace JS/CSS lightboxu (načtou se jen na stránkách s galerií).
+ * Registrace JS/CSS lightboxu a slideru (načtou se jen na stránkách s galerií).
  */
 add_action('init', function () {
     wp_register_style('marmal-lightbox', MARMAL_BDP_URL . 'assets/lightbox/lightbox.css', [], MARMAL_BDP_VERSION);
     wp_register_script('marmal-lightbox', MARMAL_BDP_URL . 'assets/lightbox/lightbox.js', [], MARMAL_BDP_VERSION, ['in_footer' => true, 'strategy' => 'defer']);
+    wp_register_script('marmal-slider', MARMAL_BDP_URL . 'assets/slider/slider.js', [], MARMAL_BDP_VERSION, ['in_footer' => true, 'strategy' => 'defer']);
 });
 
 /**
@@ -163,7 +164,7 @@ function gallery_render(array $p): string
             . '</pre>';
     }
 
-    // Dlaždice: obrázky
+    // Položky: obrázky
     $tiles = [];
     foreach ($images as $i => $img) {
         if (isset($img['id'])) {
@@ -177,19 +178,26 @@ function gallery_render(array $p): string
                 'decoding' => 'async',
                 'alt'      => $alt,
             ]);
+            $thumb = wp_get_attachment_image($id, 'medium', false, [
+                'class'    => 'marmal-slider__thumb-img',
+                'loading'  => 'lazy',
+                'decoding' => 'async',
+                'alt'      => '',
+            ]);
         } else {
             $alt     = $img['alt'] ?? '';
             $caption = $img['caption'] ?? '';
             $full    = $img['url'];
             $imgHtml = '<img class="marmal-gallery__img" src="' . esc_url($img['url']) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async">';
+            $thumb   = '<img class="marmal-slider__thumb-img" src="' . esc_url($img['url']) . '" alt="" loading="lazy" decoding="async">';
         }
         if (!$imgHtml || !$full) {
             continue;
         }
-        $tiles[] = ['type' => 'image', 'html' => $imgHtml, 'full' => $full, 'caption' => $caption ?: $alt];
+        $tiles[] = ['type' => 'image', 'html' => $imgHtml, 'thumb' => $thumb, 'full' => $full, 'caption' => $caption ?: $alt];
     }
 
-    // Dlaždice: video
+    // Položka: video
     $videoUrl = trim((string) gallery_get($p, 'content.video.url', ''));
     if ($videoUrl !== '' && ($tiles || $canEdit)) {
         $pos   = max(1, (int) gallery_get($p, 'content.video.pozice', 6));
@@ -201,6 +209,8 @@ function gallery_render(array $p): string
         ];
         array_splice($tiles, min($pos - 1, count($tiles)), 0, [$video]);
     }
+
+    $typ = gallery_get($p, 'design.rozlozeni.typ', 'mozaika') === 'slider' ? 'slider' : 'mozaika';
 
     // Prázdná galerie: návštěvník nevidí nic, správce vidí zástupné dlaždice.
     $placeholder = false;
@@ -214,14 +224,17 @@ function gallery_render(array $p): string
         }
     }
 
-    if ($lightbox && $isFrontend && !$placeholder) {
-        wp_enqueue_style('marmal-lightbox');
-        wp_enqueue_script('marmal-lightbox');
+    if ($isFrontend && !$placeholder) {
+        if ($lightbox) {
+            wp_enqueue_style('marmal-lightbox');
+            wp_enqueue_script('marmal-lightbox');
+        }
+        if ($typ === 'slider') {
+            wp_enqueue_script('marmal-slider');
+        }
     }
 
-    $total = count($tiles);
-    $html  = $debug;
-
+    $html = $debug;
     if ($placeholder) {
         $hint = gallery_get($p, 'content.obrazky.zdroj', 'rucne') === 'acf'
             ? __('Galerie Plus: ACF pole je prázdné nebo nenalezené. Na webu se zobrazí obrázky aktuálního příspěvku (v šabloně nastavte náhledový příspěvek).', 'marmal-breakdance-plus')
@@ -229,55 +242,131 @@ function gallery_render(array $p): string
         $html .= '<p class="marmal-gallery__hint">' . esc_html($hint) . '</p>';
     }
 
+    $lb = $lightbox && !$placeholder;
+
+    if ($typ === 'slider') {
+        return $html . gallery_render_slider($p, $tiles, $lb);
+    }
+
+    // ---------- Mozaika ----------
+    $total  = count($tiles);
     $mobile = gallery_get($p, 'design.mozaika.mobil', 'auto') === 'rucne' ? 'rucne' : 'auto';
-    $html  .= '<div class="marmal-gallery" data-mobile="' . esc_attr($mobile) . '"' . ($lightbox && !$placeholder ? ' data-marmal-lb' : '') . '>';
-    $html .= '<div class="marmal-gallery__grid" data-count="' . (int) $total . '">';
+    $html  .= '<div class="marmal-gallery" data-mobile="' . esc_attr($mobile) . '"' . ($lb ? ' data-marmal-lb' : '') . '>';
+    $html  .= '<div class="marmal-gallery__grid" data-lb-items data-count="' . (int) $total . '">';
 
     foreach ($tiles as $i => $tile) {
         $remaining = $total - 1 - $i;
         $more      = $remaining > 0 ? ' data-more="+' . (int) $remaining . '"' : '';
-
-        if ($tile['type'] === 'placeholder') {
-            $html .= '<div class="marmal-gallery__item is-placeholder"' . $more . ' aria-hidden="true"></div>';
-            continue;
-        }
-
-        if ($tile['type'] === 'video') {
-            $inner = '<span class="marmal-gallery__video-inner">'
-                . '<span class="marmal-gallery__play" aria-hidden="true"><svg viewBox="0 0 48 48" width="48" height="48"><circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M19.5 15.5v17l14-8.5z" fill="currentColor"/></svg></span>'
-                . '<span class="marmal-gallery__video-text">' . esc_html($tile['text']) . '</span>'
-                . '</span>';
-
-            if ($lightbox && $tile['embed']) {
-                $html .= '<a class="marmal-gallery__item is-video" href="' . esc_url($tile['url']) . '"'
-                    . ' data-video="' . esc_url($tile['embed']['src']) . '" data-video-type="' . esc_attr($tile['embed']['type']) . '"'
-                    . ' data-caption="' . esc_attr($tile['text']) . '"' . $more . '>' . $inner . '</a>';
-            } else {
-                $html .= '<a class="marmal-gallery__item is-video" href="' . esc_url($tile['url']) . '" target="_blank" rel="noopener"' . $more . '>' . $inner . '</a>';
-            }
-            continue;
-        }
-
-        // Popisek pro efekt „Popisek zespodu“ (zobrazí ho CSS, jen když je efekt zapnutý)
-        $caption = $tile['caption'] !== ''
-            ? '<span class="marmal-gallery__caption" aria-hidden="true">' . esc_html($tile['caption']) . '</span>'
-            : '';
-
-        if ($lightbox) {
-            $label = sprintf(
-                /* translators: 1: pořadí obrázku, 2: počet položek */
-                __('Zvětšit obrázek %1$d z %2$d', 'marmal-breakdance-plus'),
-                $i + 1,
-                $total
-            );
-            $html .= '<a class="marmal-gallery__item" href="' . esc_url($tile['full']) . '"'
-                . ' data-caption="' . esc_attr($tile['caption']) . '"'
-                . ' aria-label="' . esc_attr($label) . '"' . $more . '>' . $tile['html'] . $caption . '</a>';
-        } else {
-            $html .= '<div class="marmal-gallery__item"' . $more . '>' . $tile['html'] . $caption . '</div>';
-        }
+        $html     .= gallery_item_html($tile, $i, $total, $lb, 'marmal-gallery__item', $more, true);
     }
 
     $html .= '</div></div>';
+    return $html;
+}
+
+/**
+ * Jedna položka (dlaždice mozaiky nebo snímek slideru).
+ * Položky s atributem data-lb-item otevírá lightbox.
+ */
+function gallery_item_html(array $tile, int $i, int $total, bool $lb, string $class, string $attrs = '', bool $withCaption = false): string
+{
+    if ($tile['type'] === 'placeholder') {
+        return '<div class="' . esc_attr($class) . ' is-placeholder"' . $attrs . ' aria-hidden="true"></div>';
+    }
+
+    if ($tile['type'] === 'video') {
+        $inner = '<span class="marmal-gallery__video-inner">'
+            . '<span class="marmal-gallery__play" aria-hidden="true"><svg viewBox="0 0 48 48" width="48" height="48"><circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M19.5 15.5v17l14-8.5z" fill="currentColor"/></svg></span>'
+            . '<span class="marmal-gallery__video-text">' . esc_html($tile['text']) . '</span>'
+            . '</span>';
+
+        if ($lb && $tile['embed']) {
+            return '<a class="' . esc_attr($class) . ' is-video" href="' . esc_url($tile['url']) . '" data-lb-item'
+                . ' data-video="' . esc_url($tile['embed']['src']) . '" data-video-type="' . esc_attr($tile['embed']['type']) . '"'
+                . ' data-caption="' . esc_attr($tile['text']) . '"' . $attrs . '>' . $inner . '</a>';
+        }
+        return '<a class="' . esc_attr($class) . ' is-video" href="' . esc_url($tile['url']) . '" target="_blank" rel="noopener"' . $attrs . '>' . $inner . '</a>';
+    }
+
+    // Popisek pro efekt „Popisek zespodu“ (zobrazí ho CSS, jen když je efekt zapnutý)
+    $caption = ($withCaption && $tile['caption'] !== '')
+        ? '<span class="marmal-gallery__caption" aria-hidden="true">' . esc_html($tile['caption']) . '</span>'
+        : '';
+
+    if ($lb) {
+        $label = sprintf(
+            /* translators: 1: pořadí obrázku, 2: počet položek */
+            __('Zvětšit obrázek %1$d z %2$d', 'marmal-breakdance-plus'),
+            $i + 1,
+            $total
+        );
+        return '<a class="' . esc_attr($class) . '" href="' . esc_url($tile['full']) . '" data-lb-item'
+            . ' data-caption="' . esc_attr($tile['caption']) . '"'
+            . ' aria-label="' . esc_attr($label) . '"' . $attrs . '>' . $tile['html'] . $caption . '</a>';
+    }
+    return '<div class="' . esc_attr($class) . '"' . $attrs . '>' . $tile['html'] . $caption . '</div>';
+}
+
+/**
+ * Slider s miniaturami.
+ * Hlavní pás posouvá prohlížeč sám (CSS scroll-snap, swipe na dotyku),
+ * assets/slider/slider.js přidává šipky, miniatury, klávesnici a autoplay.
+ */
+function gallery_render_slider(array $p, array $tiles, bool $lb): string
+{
+    $total    = count($tiles);
+    $autoplay = max(0, (int) gallery_get($p, 'design.slider.autoplay', 0));
+    $arrows   = !gallery_get($p, 'design.slider.bez_sipek', false);
+    $counter  = (bool) gallery_get($p, 'design.slider.pocitadlo', false);
+    $thumbs   = !gallery_get($p, 'design.slider.bez_nahledu', false);
+    $fit      = gallery_get($p, 'design.slider.prizpusobeni', 'cover') === 'contain' ? 'contain' : 'cover';
+    $id       = 'marmal-slider-' . wp_unique_id();
+
+    $icon = function (string $d) {
+        return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="' . $d . '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    };
+
+    $html  = '<div class="marmal-gallery marmal-gallery--slider" data-marmal-slider data-fit="' . $fit . '"'
+        . ($autoplay ? ' data-autoplay="' . $autoplay . '"' : '') . ($lb ? ' data-marmal-lb' : '') . '>';
+    $html .= '<div class="marmal-slider__main">';
+    $html .= '<div class="marmal-slider__track" id="' . esc_attr($id) . '" data-lb-items tabindex="0" role="region" aria-roledescription="carousel" aria-label="' . esc_attr__('Galerie', 'marmal-breakdance-plus') . '">';
+
+    foreach ($tiles as $i => $tile) {
+        $first = $i === 0 && isset($tile['html']) ? str_replace('loading="lazy"', 'loading="eager"', $tile['html']) : null;
+        if ($first !== null) {
+            $tile['html'] = $first;
+        }
+        $html .= gallery_item_html($tile, $i, $total, $lb, 'marmal-slider__slide', ' data-index="' . $i . '"');
+    }
+    $html .= '</div>';
+
+    if ($arrows && $total > 1) {
+        $html .= '<button type="button" class="marmal-slider__arrow marmal-slider__prev" aria-controls="' . esc_attr($id) . '" aria-label="' . esc_attr__('Předchozí fotka', 'marmal-breakdance-plus') . '">' . $icon('M15 5l-7 7 7 7') . '</button>';
+        $html .= '<button type="button" class="marmal-slider__arrow marmal-slider__next" aria-controls="' . esc_attr($id) . '" aria-label="' . esc_attr__('Další fotka', 'marmal-breakdance-plus') . '">' . $icon('M9 5l7 7-7 7') . '</button>';
+    }
+    if ($counter && $total > 1) {
+        $html .= '<span class="marmal-slider__counter" aria-hidden="true"><span class="marmal-slider__current">1</span> / ' . $total . '</span>';
+    }
+    $html .= '</div>';
+
+    if ($thumbs && $total > 1) {
+        $html .= '<div class="marmal-slider__thumbs">';
+        foreach ($tiles as $i => $tile) {
+            $label = sprintf(__('Zobrazit fotku %1$d z %2$d', 'marmal-breakdance-plus'), $i + 1, $total);
+            if ($tile['type'] === 'image') {
+                $inner = $tile['thumb'];
+            } elseif ($tile['type'] === 'video') {
+                $inner = '<span class="marmal-slider__thumb-video" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>';
+                $label = $tile['text'];
+            } else {
+                $inner = '';
+            }
+            $html .= '<button type="button" class="marmal-slider__thumb' . ($i === 0 ? ' is-active' : '') . '" data-index="' . $i . '"'
+                . ' aria-controls="' . esc_attr($id) . '" aria-label="' . esc_attr($label) . '"' . ($i === 0 ? ' aria-current="true"' : '') . '>' . $inner . '</button>';
+        }
+        $html .= '</div>';
+    }
+
+    $html .= '</div>';
     return $html;
 }

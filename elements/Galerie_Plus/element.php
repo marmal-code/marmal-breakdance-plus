@@ -87,6 +87,25 @@ class GaleriePlus extends \Breakdance\Elements\Element
     static function designControls()
     {
         return [c(
+        "rozlozeni",
+        "Rozložení",
+        [c(
+        "typ",
+        "Typ galerie",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [
+            ['value' => 'mozaika', 'text' => 'Mozaika'],
+            ['value' => 'slider', 'text' => 'Slider s miniaturami'],
+        ]],
+        false,
+        false,
+        [],
+      )],
+        ['type' => 'section'],
+        false,
+        false,
+        [],
+      ), c(
         "mozaika",
         "Mozaika",
         [c(
@@ -205,6 +224,140 @@ class GaleriePlus extends \Breakdance\Elements\Element
             ['value' => 'left', 'text' => 'Vlevo'],
             ['value' => 'right', 'text' => 'Vpravo'],
         ]],
+        false,
+        false,
+        [],
+      )],
+        ['type' => 'section'],
+        false,
+        false,
+        [],
+      ), c(
+        "slider",
+        "Slider s miniaturami",
+        [c(
+        "pomer",
+        "Poměr stran hlavní fotky",
+        [],
+        ['type' => 'dropdown', 'layout' => 'inline', 'items' => [
+            ['value' => '21 / 9', 'text' => '21 : 9'],
+            ['value' => '16 / 9', 'text' => '16 : 9'],
+            ['value' => '3 / 2', 'text' => '3 : 2'],
+            ['value' => '4 / 3', 'text' => '4 : 3'],
+            ['value' => '1 / 1', 'text' => '1 : 1'],
+        ]],
+        true,
+        false,
+        [],
+      ), c(
+        "vyska",
+        "Pevná výška hlavní fotky (místo poměru)",
+        [],
+        ['type' => 'unit', 'layout' => 'inline'],
+        true,
+        false,
+        [],
+      ), c(
+        "prizpusobeni",
+        "Fotka v hlavním okně",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [
+            ['value' => 'cover', 'text' => 'Vyplnit (oříznout)'],
+            ['value' => 'contain', 'text' => 'Celá fotka (s okraji)'],
+        ]],
+        false,
+        false,
+        [],
+      ), c(
+        "pozadi",
+        "Pozadí za fotkou",
+        [],
+        ['type' => 'color', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "nahledy",
+        "Počet viditelných miniatur",
+        [],
+        ['type' => 'number', 'layout' => 'inline', 'rangeOptions' => ['min' => 2, 'max' => 10, 'step' => 1]],
+        true,
+        false,
+        [],
+      ), c(
+        "mezera",
+        "Mezera miniatur",
+        [],
+        ['type' => 'unit', 'layout' => 'inline'],
+        true,
+        false,
+        [],
+      ), c(
+        "pomer_nahledu",
+        "Poměr stran miniatur",
+        [],
+        ['type' => 'dropdown', 'layout' => 'inline', 'items' => [
+            ['value' => '16 / 9', 'text' => '16 : 9'],
+            ['value' => '3 / 2', 'text' => '3 : 2'],
+            ['value' => '4 / 3', 'text' => '4 : 3'],
+            ['value' => '1 / 1', 'text' => '1 : 1'],
+        ]],
+        false,
+        false,
+        [],
+      ), c(
+        "aktivni",
+        "Rámeček aktivní miniatury",
+        [],
+        ['type' => 'color', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "bez_nahledu",
+        "Skrýt miniatury",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "bez_sipek",
+        "Skrýt šipky",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "sipky_pozadi",
+        "Šipky – pozadí",
+        [],
+        ['type' => 'color', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "sipky_barva",
+        "Šipky – ikona",
+        [],
+        ['type' => 'color', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "pocitadlo",
+        "Zobrazit počítadlo (3 / 12)",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "autoplay",
+        "Automatické přehrávání (sekundy, 0 = vypnuto)",
+        [],
+        ['type' => 'number', 'layout' => 'inline', 'rangeOptions' => ['min' => 0, 'max' => 30, 'step' => 1]],
         false,
         false,
         [],
@@ -501,6 +654,6 @@ class GaleriePlus extends \Breakdance\Elements\Element
 
     static function propertyPathsToSsrElementWhenValueChanges()
     {
-        return ['content.obrazky', 'content.video', 'design.mozaika.mobil'];
+        return ['content.obrazky', 'content.video', 'design.mozaika.mobil', 'design.rozlozeni', 'design.slider.prizpusobeni', 'design.slider.bez_nahledu', 'design.slider.bez_sipek', 'design.slider.pocitadlo', 'design.slider.autoplay'];
     }
 }

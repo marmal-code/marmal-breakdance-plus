@@ -225,6 +225,24 @@
 }
 {% endif %}
 
+{# ---- Slider s miniaturami ---- #}
+%%SELECTOR%% {
+  {% if design.slider.pomer %}--ms-ratio: {{ design.slider.pomer }};{% endif %}
+  {% if design.slider.nahledy %}--ms-thumbs: {{ design.slider.nahledy }};{% endif %}
+  {% if design.slider.mezera.style %}--ms-thumb-gap: {{ design.slider.mezera.style }};{% endif %}
+  {% if design.slider.pomer_nahledu %}--ms-thumb-ratio: {{ design.slider.pomer_nahledu }};{% endif %}
+  {% if design.slider.pozadi %}--ms-bg: {{ design.slider.pozadi }};{% endif %}
+  {% if design.slider.aktivni %}--ms-active: {{ design.slider.aktivni }};{% endif %}
+  {% if design.slider.sipky_pozadi %}--ms-arrow-bg: {{ design.slider.sipky_pozadi }};{% endif %}
+  {% if design.slider.sipky_barva %}--ms-arrow-color: {{ design.slider.sipky_barva }};{% endif %}
+}
+{% if design.slider.vyska.style %}
+%%SELECTOR%% .marmal-slider__track {
+  aspect-ratio: auto;
+  height: {{ design.slider.vyska.style }};
+}
+{% endif %}
+
 {# ---- Písmo video dlaždice ---- #}
 %%SELECTOR%% .marmal-gallery__video-text {
   {{ macros.typography(design.dlazdice.video_pismo, globalSettings) }}
