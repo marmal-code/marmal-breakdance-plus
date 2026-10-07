@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 – 2026-10-07
+- Galerie Plus – efekty po najetí (Design → Dlaždice):
+  - pohyb fotky: Přiblížení / Pomalý posun / Žádný,
+  - kombinovatelné doplňky: Světelný přejezd, Barvy na dotek, Zaostření, Popisek zespodu (+ písmo popisku),
+  - efekty reagují i na fokus z klávesnice, pohyb respektuje „omezit pohyb“, na dotykových zařízeních jsou popisky vidět trvale.
+- Změna volby „Na mobilu“ se v builderu projeví hned.
+
 ## 0.3.0 – 2026-10-07
 - Galerie Plus – Mozaika:
   - fotka vždy vyplní celou dlaždici bez ohledu na poměr stran (odolné vůči obecnému `img { height: auto }`),

@@ -144,10 +144,84 @@
   content: attr(data-more);
 }
 
-{# ---- Efekt po najetí ---- #}
-{% if design.dlazdice.hover == 'none' %}
-%%SELECTOR%% .marmal-gallery .marmal-gallery__item:hover > .marmal-gallery__img {
+{# ---- Efekty po najetí (Design → Dlaždice) ----
+   Spouští je najetí myší i fokus z klávesnice. Pohybové efekty se vypnou,
+   když má návštěvník v systému „omezit pohyb“. #}
+{% set pohyb = design.dlazdice.hover ?: 'zoom' %}
+{% set na = '.marmal-gallery__item:is(:hover, :focus-visible)' %}
+
+@media (prefers-reduced-motion: no-preference) {
+{% if pohyb == 'zoom' %}
+  %%SELECTOR%% .marmal-gallery {{ na }} > .marmal-gallery__img {
+    transform: scale(1.04);
+  }
+{% elseif pohyb == 'drift' %}
+  %%SELECTOR%% .marmal-gallery .marmal-gallery__item > .marmal-gallery__img {
+    transform-origin: 30% 40%;
+    transition: transform 2.4s cubic-bezier(0.16, 0.8, 0.24, 1), filter 0.7s ease;
+  }
+  %%SELECTOR%% .marmal-gallery {{ na }} > .marmal-gallery__img {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+{% endif %}
+
+{% if design.dlazdice.prejezd %}
+  %%SELECTOR%% .marmal-gallery__item:not(.is-video):not(.is-placeholder)::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: 1;
+    background: linear-gradient(115deg, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.28) 50%, rgba(255, 255, 255, 0) 62%);
+    transform: translateX(-110%);
+    pointer-events: none;
+  }
+  %%SELECTOR%% {{ na }}:not(.is-video)::before {
+    transform: translateX(110%);
+    transition: transform 1.1s cubic-bezier(0.3, 0.6, 0.2, 1);
+  }
+{% endif %}
+
+{% if design.dlazdice.popisek %}
+  %%SELECTOR%% .marmal-gallery__caption {
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+{% endif %}
+}
+
+{% if design.dlazdice.barvy %}
+%%SELECTOR%% .marmal-gallery .marmal-gallery__item > .marmal-gallery__img {
+  filter: saturate(0.55) brightness(0.98);
+}
+%%SELECTOR%% .marmal-gallery {{ na }} > .marmal-gallery__img {
+  filter: saturate(1.05) brightness(1.03);
+}
+{% endif %}
+
+{% if design.dlazdice.zaostreni %}
+@media (hover: hover) {
+  %%SELECTOR%% .marmal-gallery__grid:has(> .marmal-gallery__item:hover) > .marmal-gallery__item:not(:hover) {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+  }
+}
+{% endif %}
+
+{% if design.dlazdice.popisek %}
+%%SELECTOR%% .marmal-gallery__caption {
+  display: block;
+  opacity: 0;
+  transform: translateY(8px);
+  {{ macros.typography(design.dlazdice.popisek_pismo, globalSettings) }}
+}
+%%SELECTOR%% {{ na }} > .marmal-gallery__caption {
+  opacity: 1;
   transform: none;
+}
+@media (hover: none) {
+  %%SELECTOR%% .marmal-gallery__caption {
+    opacity: 1;
+    transform: none;
+  }
 }
 {% endif %}
 

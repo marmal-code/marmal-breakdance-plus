@@ -63,11 +63,35 @@
   margin: 0 !important;
   object-fit: cover !important;
   object-position: var(--mg-position);
-  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease;
 }
 
-.marmal-gallery .marmal-gallery__item:hover > .marmal-gallery__img {
-  transform: scale(1.04);
+/* Efekty po najetí zapíná css.twig podle nastavení (Design → Dlaždice). */
+.marmal-gallery__item {
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+/* Popisek zespodu – výchozí skrytý */
+.marmal-gallery__caption {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 40px 14px 12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  background: linear-gradient(to top, rgba(12, 16, 14, 0.62), rgba(12, 16, 14, 0));
+  pointer-events: none;
+}
+
+/* „+N“ je nad popiskem i odleskem */
+.marmal-gallery__item::after {
+  z-index: 2;
 }
 
 /* „+N“ překryv na poslední viditelné dlaždici (zapíná ho css.twig) */
@@ -150,7 +174,6 @@
   .marmal-gallery__play svg {
     transition: none;
   }
-  .marmal-gallery .marmal-gallery__item:hover > .marmal-gallery__img,
   .marmal-gallery__item.is-video:hover .marmal-gallery__play svg {
     transform: none;
   }

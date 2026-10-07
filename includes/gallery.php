@@ -258,6 +258,11 @@ function gallery_render(array $p): string
             continue;
         }
 
+        // Popisek pro efekt „Popisek zespodu“ (zobrazí ho CSS, jen když je efekt zapnutý)
+        $caption = $tile['caption'] !== ''
+            ? '<span class="marmal-gallery__caption" aria-hidden="true">' . esc_html($tile['caption']) . '</span>'
+            : '';
+
         if ($lightbox) {
             $label = sprintf(
                 /* translators: 1: pořadí obrázku, 2: počet položek */
@@ -267,9 +272,9 @@ function gallery_render(array $p): string
             );
             $html .= '<a class="marmal-gallery__item" href="' . esc_url($tile['full']) . '"'
                 . ' data-caption="' . esc_attr($tile['caption']) . '"'
-                . ' aria-label="' . esc_attr($label) . '"' . $more . '>' . $tile['html'] . '</a>';
+                . ' aria-label="' . esc_attr($label) . '"' . $more . '>' . $tile['html'] . $caption . '</a>';
         } else {
-            $html .= '<div class="marmal-gallery__item"' . $more . '>' . $tile['html'] . '</div>';
+            $html .= '<div class="marmal-gallery__item"' . $more . '>' . $tile['html'] . $caption . '</div>';
         }
     }
 

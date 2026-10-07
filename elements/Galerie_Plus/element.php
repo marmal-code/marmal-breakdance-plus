@@ -218,15 +218,53 @@ class GaleriePlus extends \Breakdance\Elements\Element
         "Dlaždice",
         [c(
         "hover",
-        "Efekt po najetí",
+        "Po najetí: pohyb fotky",
         [],
-        ['type' => 'dropdown', 'layout' => 'inline', 'items' => [
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [
             ['value' => 'zoom', 'text' => 'Přiblížení'],
+            ['value' => 'drift', 'text' => 'Pomalý posun (jako kamera)'],
             ['value' => 'none', 'text' => 'Žádný'],
         ]],
         false,
         false,
         [],
+      ), c(
+        "prejezd",
+        "Po najetí: světelný přejezd",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "barvy",
+        "Po najetí: barvy na dotek",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "zaostreni",
+        "Po najetí: zaostření (ztlumit ostatní)",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), c(
+        "popisek",
+        "Po najetí: popisek zespodu",
+        [],
+        ['type' => 'toggle', 'layout' => 'inline'],
+        false,
+        false,
+        [],
+      ), getPresetSection(
+        "EssentialElements\\typography_with_effects_and_align",
+        "Popisek – písmo",
+        "popisek_pismo",
+        ['type' => 'popout']
       ), c(
         "prekryv",
         "„+N fotek“ – překryv",
@@ -463,6 +501,6 @@ class GaleriePlus extends \Breakdance\Elements\Element
 
     static function propertyPathsToSsrElementWhenValueChanges()
     {
-        return ['content.obrazky', 'content.video'];
+        return ['content.obrazky', 'content.video', 'design.mozaika.mobil'];
     }
 }
