@@ -6,8 +6,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Domain: marmal-breakdance-plus\n"
 
-#: marmal-breakdance-plus.php:84
-msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou."
+#: marmal-breakdance-plus.php:92
+msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou (modul Efekty funguje i bez něj)."
+msgstr ""
+
+#: modules/galerie/manifest.php:25
+msgid "Galerie Plus"
+msgstr ""
+
+#: modules/galerie/manifest.php:26
+msgid "Breakdance element: mozaika se zarovnanými okraji (20 vzorů) nebo slider s miniaturami, efekty po najetí, video dlaždice a vlastní lightbox. CSS a JS se načítá jen na stránkách s galerií."
+msgstr ""
+
+#: modules/efekty/manifest.php:37
+msgid "Efekty"
+msgstr ""
+
+#: modules/efekty/manifest.php:38
+msgid "Knihovna CSS efektů (rámečky, tlačítka, karty, obrázky, hero, animovaná pozadí, animace při scrollu). Efekt se zapne třídou mm-… v poli Classes. Nahrazuje plugin MarMal Effects."
+msgstr ""
+
+#: modules/efekty/manifest.php:45
+msgid "Galerie efektů"
+msgstr ""
+
+#: modules/efekty/manifest.php:46
+msgid "Nastavení"
+msgstr ""
+
+#: modules/efekty/manifest.php:56
+#, php-format
+msgid "Načítá se %1$d z %2$d kategorií efektů."
 msgstr ""
 
 #: includes/gallery.php:222
@@ -58,4 +87,81 @@ msgstr ""
 
 #: includes/gallery.php:400
 msgid "Video"
+msgstr ""
+
+#: includes/moduly.php:43 includes/moduly.php:218 includes/moduly.php:218
+msgid "Moduly"
+msgstr ""
+
+#: includes/moduly.php:232
+msgid "Nemáš oprávnění."
+msgstr ""
+
+#: includes/moduly.php:253
+msgid "Modul je zapnutý."
+msgstr ""
+
+#: includes/moduly.php:254
+msgid "Modul je vypnutý – jeho kód ani CSS se už nenačítají."
+msgstr ""
+
+#: includes/moduly.php:255
+msgid "Hotovo: starý plugin je deaktivovaný a modul zapnutý. Nastavení zůstalo. Starý plugin teď můžeš v Pluginech smazat."
+msgstr ""
+
+#: includes/moduly.php:256
+msgid "Změnu se nepodařilo uložit."
+msgstr ""
+
+#: includes/moduly.php:260
+msgid "Zapnuto"
+msgstr ""
+
+#: includes/moduly.php:261
+msgid "Vypnuto"
+msgstr ""
+
+#: includes/moduly.php:262
+msgid "Čeká na převod"
+msgstr ""
+
+#: includes/moduly.php:263
+msgid "Chybí Breakdance"
+msgstr ""
+
+#: includes/moduly.php:267
+msgid "MarMal – moduly"
+msgstr ""
+
+#: includes/moduly.php:268
+msgid "Zapni jen to, co tento web používá. Vypnutý modul nenačte žádný kód, CSS ani JavaScript."
+msgstr ""
+
+#: includes/moduly.php:285
+msgid "Vždy zapnuto"
+msgstr ""
+
+#: includes/moduly.php:293
+#, php-format
+msgid "Na webu ještě běží starý plugin %s, proto se modul nenačítá. Převod starý plugin deaktivuje a zapne modul – nastavení i třídy na stránkách zůstanou."
+msgstr ""
+
+#: includes/moduly.php:297
+msgid "Modul potřebuje aktivní Breakdance."
+msgstr ""
+
+#: includes/moduly.php:315
+msgid "Převést ze starého pluginu"
+msgstr ""
+
+#: includes/moduly.php:317
+msgid "Vypnout"
+msgstr ""
+
+#: includes/moduly.php:319
+msgid "Zapnout"
+msgstr ""
+
+#: includes/moduly.php:331
+msgid "Moduly jde přepínat i z aplikace sprava.marmal.cz (MarMal Agent)."
 msgstr ""

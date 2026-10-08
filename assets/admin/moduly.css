@@ -1,0 +1,50 @@
+/* MarMal → Moduly (administrace) */
+.marmal-moduly__uvod { max-width: 760px; font-size: 14px; }
+.marmal-moduly__mrizka {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+  max-width: 1200px;
+}
+.marmal-modul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid #dcdcde;
+  border-left: 4px solid #c3c4c7;
+  border-radius: 6px;
+}
+.marmal-modul.is-on { border-left-color: #00a32a; }
+.marmal-modul.is-warn { border-left-color: #dba617; }
+.marmal-modul__hlava { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.marmal-modul__hlava h2 { margin: 0; font-size: 16px; }
+.marmal-modul__stav {
+  flex-shrink: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #f0f0f1;
+  color: #50575e;
+}
+.marmal-modul.is-on .marmal-modul__stav { background: #edfaef; color: #00701d; }
+.marmal-modul.is-warn .marmal-modul__stav { background: #fcf9e8; color: #8a6d00; }
+.marmal-modul p { margin: 6px 0; color: #3c434a; }
+.marmal-modul__info { font-size: 13px; color: #50575e; }
+.marmal-modul__varovani { padding: 8px 10px; background: #fcf9e8; border-radius: 4px; }
+.marmal-modul__akce {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+.marmal-modul__akce form { margin: 0 0 0 auto; }
+.marmal-moduly__pata { color: #646970; }
+@media (max-width: 600px) {
+  .marmal-moduly__mrizka { grid-template-columns: 1fr; }
+}

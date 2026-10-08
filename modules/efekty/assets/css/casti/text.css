@@ -1,0 +1,61 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 7. TEXT A NADPISY ============ */
+.mm-text-gradient {
+  background-image: linear-gradient(90deg, var(--mm-accent), var(--mm-accent-2));
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mm-text-shimmer {
+  background-image: linear-gradient(110deg, var(--mm-shimmer-base, currentColor) 40%, var(--mm-accent) 50%, var(--mm-shimmer-base, currentColor) 60%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mm-shimmer 3.5s linear infinite;
+}
+@keyframes mm-shimmer { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+
+.mm-text-highlight,
+.mm-text-underline {
+  background-repeat: no-repeat;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+  transition: background-size 1s var(--mm-ease) calc(var(--mm-delay, 0s) + .15s);
+}
+.mm-text-highlight {
+  padding-inline: .08em;
+  background-image: linear-gradient(color-mix(in srgb, var(--mm-accent) 32%, transparent), color-mix(in srgb, var(--mm-accent) 32%, transparent));
+  background-position: 0 88%;
+  background-size: 100% .45em;
+}
+.mm-text-underline {
+  background-image: linear-gradient(var(--mm-accent), var(--mm-accent));
+  background-position: 0 100%;
+  background-size: 100% .12em;
+  padding-bottom: .04em;
+}
+.mm-js .mm-text-highlight:not(.mm-in) { background-size: 0% .45em; }
+.mm-js .mm-text-underline:not(.mm-in) { background-size: 0% .12em; }
+
+.mm-text-outline {
+  -webkit-text-stroke: max(1px, .025em) var(--mm-text-stroke, currentColor);
+  -webkit-text-fill-color: transparent;
+}
+
+.mm-text-balance,
+.mm-text-balance :is(h1, h2, h3, h4, h5, h6, p) { text-wrap: balance; }
+
+.mm-text-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .75em;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 600;
+  color: var(--mm-accent);
+}
+.mm-text-eyebrow::before { content: ""; width: 2em; height: 2px; background: currentColor; flex: none; }
+
+.mm-counter { font-variant-numeric: tabular-nums; }

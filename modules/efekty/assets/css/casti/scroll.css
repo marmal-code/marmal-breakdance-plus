@@ -1,0 +1,32 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 1. ANIMACE PŘI SCROLLU ============
+   Skryté stavy platí jen když běží JS (html.mm-js) a nikdy v editoru Breakdance. */
+.mm-js :is(.mm-fade-up, .mm-fade-in, .mm-fade-left, .mm-fade-right, .mm-zoom-in, .mm-blur-in),
+.mm-js .mm-stagger > * {
+  opacity: 0;
+  transition:
+    opacity var(--mm-reveal-dur) var(--mm-ease) var(--mm-delay, 0s),
+    transform var(--mm-reveal-dur) var(--mm-ease) var(--mm-delay, 0s),
+    filter var(--mm-reveal-dur) var(--mm-ease) var(--mm-delay, 0s);
+}
+.mm-js .mm-fade-up    { transform: translate3d(0, var(--mm-distance), 0); }
+.mm-js .mm-fade-left  { transform: translate3d(calc(var(--mm-distance) * -1.5), 0, 0); }
+.mm-js .mm-fade-right { transform: translate3d(calc(var(--mm-distance) * 1.5), 0, 0); }
+.mm-js .mm-zoom-in    { transform: scale(.9); }
+.mm-js .mm-blur-in    { filter: blur(12px); transform: scale(1.03); }
+.mm-js .mm-stagger > * {
+  transform: translate3d(0, calc(var(--mm-distance) * .7), 0);
+  --mm-delay: calc(var(--mm-i, 0) * 90ms);
+}
+.mm-js :is(.mm-fade-up, .mm-fade-in, .mm-fade-left, .mm-fade-right, .mm-zoom-in, .mm-blur-in).mm-in,
+.mm-js .mm-stagger.mm-in > * {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+.mm-delay-1 { --mm-delay: .1s; }
+.mm-delay-2 { --mm-delay: .2s; }
+.mm-delay-3 { --mm-delay: .3s; }
+.mm-delay-4 { --mm-delay: .4s; }
+.mm-delay-5 { --mm-delay: .5s; }
+.mm-slow { --mm-reveal-dur: 1.6s; }

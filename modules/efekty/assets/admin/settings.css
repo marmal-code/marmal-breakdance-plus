@@ -1,0 +1,36 @@
+/* MarMal Effects – stránka nastavení */
+.mm-s-modes { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; border: 0; padding: 0; }
+.mm-s-mode {
+  flex: 1 1 280px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #dcdcde;
+  border-radius: 8px;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.mm-s-mode input { margin-top: 3px; }
+.mm-s-mode strong { display: block; font-size: 14px; margin-bottom: 2px; }
+.mm-s-mode:has(input:checked) { border-color: #2271b1; box-shadow: 0 0 0 1px #2271b1; }
+.mm-s-note { margin: 0 0 12px; }
+.mm-s-table { max-width: 1100px; }
+.mm-s-table td { vertical-align: middle; }
+.mm-s-table select { max-width: 340px; }
+.mm-s-customvar { display: block; margin-top: 6px; max-width: 340px; }
+.mm-s-swatch {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  vertical-align: middle;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, .15);
+}
+.mm-s-value { font-size: 11px; background: none; }
+.mm-s .mm-s-when-bd { display: none; }
+.mm-s[data-mode="breakdance"] .mm-s-when-bd { display: inline; }
+.mm-s[data-mode="breakdance"] p.mm-s-when-bd { display: block; }
+.mm-s[data-mode="breakdance"] .mm-s-when-custom { display: none; }
+.mm-s[data-mode="custom"] .mm-s-col-source { display: none; }

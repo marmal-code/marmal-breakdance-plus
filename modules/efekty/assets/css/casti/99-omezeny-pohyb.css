@@ -1,0 +1,29 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 11. OMEZENÝ POHYB ============
+   Kdo má v systému „omezit pohyb“, uvidí vše hned a bez animací. */
+@media (prefers-reduced-motion: reduce) {
+  .mm-js :is(.mm-fade-up, .mm-fade-in, .mm-fade-left, .mm-fade-right, .mm-zoom-in, .mm-blur-in),
+  .mm-js .mm-stagger > *,
+  .mm-js .mm-img-reveal img {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .mm-js .mm-text-highlight:not(.mm-in) { background-size: 100% .45em; }
+  .mm-js .mm-text-underline:not(.mm-in) { background-size: 100% .12em; }
+  .mm-border-spin::before, :is(a, button).mm-btn-pulse::before, .mm-btn-pulse :is(.button-atom, .bde-button__button)::before,
+  .mm-img-blob img, img.mm-img-blob, .mm-img-kenburns img, .mm-hero-gradient, .mm-hero-blobs::before, .mm-hero-blobs::after,
+  .mm-hero-scroll::after, .mm-text-shimmer {
+    animation: none !important;
+  }
+  :is(.mm-anim-gradient, .mm-anim-orb, .mm-anim-orbs, .mm-anim-aurora, .mm-anim-mesh, .mm-anim-conic,
+      .mm-anim-waves, .mm-anim-beam, .mm-anim-glow, .mm-anim-dots, .mm-anim-lines, .mm-anim-grain)::before,
+  :is(.mm-anim-orbs, .mm-anim-waves)::after,
+  :is(.mm-icon-pulse, .mm-icon-bounce, .mm-icon-float, .mm-icon-spin, .mm-icon-bell, .mm-icon-glow, .mm-icon-wiggle),
+  .mm-icon-ping::after, .mm-icon-ring::before, .mm-dot-live::before {
+    animation: none !important;
+  }
+  .mm-card-tilt, .mm-btn-magnetic, .mm-img-parallax img { transform: none !important; }
+}

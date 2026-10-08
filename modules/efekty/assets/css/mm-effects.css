@@ -1,0 +1,886 @@
+/*!
+ * MarMal Effects – knihovna CSS efektů pro WordPress / Breakdance
+ * Všechny třídy začínají „mm-“. Barvy a rychlosti měníš proměnnými níže
+ * (nebo v Nastavení pluginu). Galerie s náhledy: WP admin → MarMal Efekty.
+ */
+
+/* ============ 0. PROMĚNNÉ ============ */
+:root {
+  --mm-accent: var(--bde-brand-primary-color, #2563eb);
+  --mm-accent-2: #0ea5a4;
+  --mm-accent-3: #f59e0b;
+  --mm-dark: #0f172a;
+  --mm-light: #f8fafc;
+  --mm-on-accent: #ffffff;
+  --mm-line: rgba(15, 23, 42, .12);
+  --mm-radius: 14px;
+  --mm-speed: .45s;
+  --mm-ease: cubic-bezier(.22, .61, .36, 1);
+  --mm-distance: 32px;
+  --mm-reveal-dur: .8s;
+  --mm-border-w: 2px;
+  --mm-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --mm-wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 60 C150 0 450 120 600 60 C750 0 1050 120 1200 60 V120 H0Z'/%3E%3C/svg%3E");
+}
+
+@property --mm-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@property --mm-c { syntax: "<length>"; inherits: false; initial-value: 18px; }
+@property --mm-m1 { syntax: "<percentage>"; inherits: false; initial-value: 15%; }
+@property --mm-m2 { syntax: "<percentage>"; inherits: false; initial-value: 85%; }
+@property --mm-m3 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+
+/* ============ 1. ANIMACE PŘI SCROLLU ============
+   Skryté stavy platí jen když běží JS (html.mm-js) a nikdy v editoru Breakdance. */
+.mm-js :is(.mm-fade-up, .mm-fade-in, .mm-fade-left, .mm-fade-right, .mm-zoom-in, .mm-blur-in),
+.mm-js .mm-stagger > * {
+  opacity: 0;
+  transition:
+    opacity var(--mm-reveal-dur) var(--mm-ease) var(--mm-delay, 0s),
+    transform var(--mm-reveal-dur) var(--mm-ease) var(--mm-delay, 0s),
+    filter var(--mm-reveal-dur) var(--mm-ease) var(--mm-delay, 0s);
+}
+.mm-js .mm-fade-up    { transform: translate3d(0, var(--mm-distance), 0); }
+.mm-js .mm-fade-left  { transform: translate3d(calc(var(--mm-distance) * -1.5), 0, 0); }
+.mm-js .mm-fade-right { transform: translate3d(calc(var(--mm-distance) * 1.5), 0, 0); }
+.mm-js .mm-zoom-in    { transform: scale(.9); }
+.mm-js .mm-blur-in    { filter: blur(12px); transform: scale(1.03); }
+.mm-js .mm-stagger > * {
+  transform: translate3d(0, calc(var(--mm-distance) * .7), 0);
+  --mm-delay: calc(var(--mm-i, 0) * 90ms);
+}
+.mm-js :is(.mm-fade-up, .mm-fade-in, .mm-fade-left, .mm-fade-right, .mm-zoom-in, .mm-blur-in).mm-in,
+.mm-js .mm-stagger.mm-in > * {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+.mm-delay-1 { --mm-delay: .1s; }
+.mm-delay-2 { --mm-delay: .2s; }
+.mm-delay-3 { --mm-delay: .3s; }
+.mm-delay-4 { --mm-delay: .4s; }
+.mm-delay-5 { --mm-delay: .5s; }
+.mm-slow { --mm-reveal-dur: 1.6s; }
+
+/* ============ 2. RÁMEČKY ============ */
+.mm-border-gradient,
+.mm-border-spin { position: relative; border-radius: var(--mm-radius); }
+.mm-border-gradient::before,
+.mm-border-spin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: var(--mm-border-w);
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--mm-accent), var(--mm-accent-2));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.mm-border-spin::before {
+  padding: calc(var(--mm-border-w) + 1px);
+  background: conic-gradient(from var(--mm-angle), transparent 0 62%, var(--mm-accent) 80%, var(--mm-accent-2) 92%, transparent);
+  animation: mm-spin 4s linear infinite;
+}
+@keyframes mm-spin { to { --mm-angle: 360deg; } }
+
+.mm-border-draw { position: relative; }
+.mm-border-draw::before,
+.mm-border-draw::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  border: var(--mm-border-w) solid transparent;
+  pointer-events: none;
+  transition: width .3s ease .3s, height .3s ease, border-color 0s .6s;
+}
+.mm-border-draw::before { top: 0; left: 0; }
+.mm-border-draw::after  { bottom: 0; right: 0; }
+.mm-border-draw:hover::before,
+.mm-border-draw:hover::after {
+  width: 100%;
+  height: 100%;
+  transition: width .3s ease, height .3s ease .3s, border-color 0s;
+}
+.mm-border-draw:hover::before { border-top-color: var(--mm-accent); border-right-color: var(--mm-accent); }
+.mm-border-draw:hover::after  { border-bottom-color: var(--mm-accent); border-left-color: var(--mm-accent); }
+
+.mm-border-corners { position: relative; }
+.mm-border-corners::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --g: linear-gradient(var(--mm-accent), var(--mm-accent));
+  background:
+    var(--g) top left / var(--mm-c) var(--mm-border-w),
+    var(--g) top left / var(--mm-border-w) var(--mm-c),
+    var(--g) top right / var(--mm-c) var(--mm-border-w),
+    var(--g) top right / var(--mm-border-w) var(--mm-c),
+    var(--g) bottom left / var(--mm-c) var(--mm-border-w),
+    var(--g) bottom left / var(--mm-border-w) var(--mm-c),
+    var(--g) bottom right / var(--mm-c) var(--mm-border-w),
+    var(--g) bottom right / var(--mm-border-w) var(--mm-c);
+  background-repeat: no-repeat;
+  transition: --mm-c var(--mm-speed) var(--mm-ease);
+}
+.mm-border-corners:hover::before { --mm-c: 42px; }
+
+.mm-border-glow { transition: box-shadow var(--mm-speed) var(--mm-ease); }
+.mm-border-glow:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--mm-accent) 45%, transparent),
+    0 10px 40px -8px color-mix(in srgb, var(--mm-accent) 55%, transparent);
+}
+
+.mm-border-offset {
+  box-shadow: 10px 10px 0 0 var(--mm-accent);
+  transition: box-shadow var(--mm-speed) var(--mm-ease), transform var(--mm-speed) var(--mm-ease);
+}
+.mm-border-offset:hover { box-shadow: 3px 3px 0 0 var(--mm-accent); transform: translate(7px, 7px); }
+
+.mm-border-accent-left {
+  box-shadow: inset 3px 0 0 0 var(--mm-accent);
+  transition: box-shadow var(--mm-speed) var(--mm-ease);
+}
+.mm-border-accent-left:hover { box-shadow: inset 7px 0 0 0 var(--mm-accent); }
+
+/* ============ 3. TLAČÍTKA ============
+   Funguje na <a>/<button> s třídou i na elementu Button z Breakdance (.button-atom uvnitř). */
+:is(a, button).mm-btn-shine, .mm-btn-shine :is(.button-atom, .bde-button__button),
+:is(a, button).mm-btn-fill,  .mm-btn-fill  :is(.button-atom, .bde-button__button) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+:is(a, button).mm-btn-shine::after, .mm-btn-shine :is(.button-atom, .bde-button__button)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .5), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+:is(a, button).mm-btn-shine:hover::after, .mm-btn-shine :is(.button-atom, .bde-button__button):hover::after {
+  left: 130%;
+  transition: left .75s ease;
+}
+
+:is(a, button).mm-btn-lift, .mm-btn-lift :is(.button-atom, .bde-button__button) {
+  transition: transform var(--mm-speed) var(--mm-ease), box-shadow var(--mm-speed) var(--mm-ease);
+}
+:is(a, button).mm-btn-lift:hover, .mm-btn-lift :is(.button-atom, .bde-button__button):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px -12px color-mix(in srgb, var(--mm-accent) 70%, #000);
+}
+
+:is(a, button).mm-btn-fill::before, .mm-btn-fill :is(.button-atom, .bde-button__button)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--mm-accent-2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+:is(a, button).mm-btn-fill:hover::before, .mm-btn-fill :is(.button-atom, .bde-button__button):hover::before { transform: scaleX(1); }
+
+:is(a, button).mm-btn-arrow::after, .mm-btn-arrow :is(.button-atom, .bde-button__button)::after {
+  content: "→";
+  display: inline-block;
+  margin-left: .55em;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+:is(a, button).mm-btn-arrow:hover::after, .mm-btn-arrow :is(.button-atom, .bde-button__button):hover::after { transform: translateX(5px); }
+
+:is(a, button).mm-btn-pulse, .mm-btn-pulse :is(.button-atom, .bde-button__button) { position: relative; overflow: visible; }
+:is(a, button).mm-btn-pulse::before, .mm-btn-pulse :is(.button-atom, .bde-button__button)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: mm-pulse 2.2s var(--mm-ease) infinite;
+}
+@keyframes mm-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mm-accent) 55%, transparent); }
+  75%, 100% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--mm-accent) 0%, transparent); }
+}
+
+:is(a, button).mm-btn-glow, .mm-btn-glow :is(.button-atom, .bde-button__button) { transition: box-shadow var(--mm-speed) var(--mm-ease); }
+:is(a, button).mm-btn-glow:hover, .mm-btn-glow :is(.button-atom, .bde-button__button):hover {
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--mm-accent) 25%, transparent),
+    0 8px 32px color-mix(in srgb, var(--mm-accent) 55%, transparent);
+}
+
+:is(a, button).mm-btn-magnetic, .mm-btn-magnetic :is(.button-atom, .bde-button__button) {
+  transform: translate3d(var(--mm-mx, 0px), var(--mm-my, 0px), 0);
+  transition: transform .3s var(--mm-ease);
+}
+
+:is(a.mm-btn-underline, .mm-btn-underline a) {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 2px;
+  transition: background-size var(--mm-speed) var(--mm-ease);
+}
+:is(a.mm-btn-underline, .mm-btn-underline a):hover { background-size: 100% 2px; }
+
+/* ============ 4. KARTY A SLOUPCE ============ */
+.mm-card-lift { transition: transform var(--mm-speed) var(--mm-ease), box-shadow var(--mm-speed) var(--mm-ease); }
+.mm-card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, .04), 0 22px 44px -18px rgba(15, 23, 42, .3);
+}
+
+.mm-card-tilt {
+  transform: perspective(900px) rotateX(var(--mm-rx, 0deg)) rotateY(var(--mm-ry, 0deg));
+  transition: transform .25s ease-out;
+  will-change: transform;
+}
+
+.mm-card-spotlight { position: relative; isolation: isolate; overflow: hidden; }
+.mm-card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--mm-x, 50%) var(--mm-y, 50%), color-mix(in srgb, var(--mm-accent) 40%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--mm-speed) var(--mm-ease);
+}
+.mm-card-spotlight:hover::before { opacity: 1; }
+
+.mm-card-glass {
+  background: rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+          backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .32);
+  border-radius: var(--mm-radius);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .25);
+}
+
+.mm-card-shadow {
+  box-shadow:
+    0 1px 1px rgba(15, 23, 42, .04),
+    0 2px 4px rgba(15, 23, 42, .04),
+    0 8px 16px rgba(15, 23, 42, .05),
+    0 20px 40px -10px rgba(15, 23, 42, .1);
+}
+
+.mm-card-accent-top { position: relative; overflow: hidden; }
+.mm-card-accent-top::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--mm-accent), var(--mm-accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+.mm-card-accent-top:hover::before { transform: scaleX(1); }
+
+.mm-card-fill { position: relative; isolation: isolate; overflow: hidden; transition: color var(--mm-speed); }
+.mm-card-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--mm-accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+.mm-card-fill:hover::before { transform: scaleY(1); }
+.mm-card-fill :is(h1, h2, h3, h4, h5, h6, p, li, span, a, div) { transition: color var(--mm-speed); }
+.mm-card-fill:hover,
+.mm-card-fill:hover :is(h1, h2, h3, h4, h5, h6, p, li, span, a, div) { color: var(--mm-on-accent) !important; }
+
+.mm-cols-dividers > * + * { border-left: 1px solid var(--mm-line); }
+@media (max-width: 767px) {
+  .mm-cols-dividers > * + * { border-left: 0; border-top: 1px solid var(--mm-line); }
+}
+
+.mm-cols-focus > * { transition: opacity var(--mm-speed), filter var(--mm-speed); }
+.mm-cols-focus:hover > * { opacity: .45; filter: grayscale(.6); }
+.mm-cols-focus:hover > *:hover { opacity: 1; filter: none; }
+
+/* ============ 5. OBRÁZKY ============
+   Třídu dej na element Image; efekt míří na <img> uvnitř. */
+:is(.mm-img-zoom, .mm-img-shine, .mm-img-kenburns, .mm-img-parallax, .mm-img-overlay),
+:is(.mm-img-zoom, .mm-img-kenburns, .mm-img-parallax) :is(figure, .breakdance-image-container) {
+  position: relative;
+  overflow: hidden;
+}
+:is(.mm-img-zoom, .mm-img-shine, .mm-img-kenburns, .mm-img-parallax, .mm-img-overlay, .mm-img-frame, .mm-img-reveal, .mm-img-gray, .mm-img-blob) img {
+  display: block;
+}
+
+.mm-img-zoom img { transition: transform 1s var(--mm-ease); }
+.mm-img-zoom:hover img { transform: scale(1.08); }
+
+:is(img.mm-img-gray, .mm-img-gray img) { filter: grayscale(1); transition: filter var(--mm-speed) var(--mm-ease); }
+:is(img.mm-img-gray:hover, .mm-img-gray:hover img) { filter: grayscale(0); }
+
+.mm-img-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(10, 14, 22, .72), rgba(10, 14, 22, 0) 60%);
+  opacity: 0;
+  transition: opacity var(--mm-speed) var(--mm-ease);
+}
+.mm-img-overlay:hover::after { opacity: 1; }
+
+.mm-img-frame { position: relative; isolation: isolate; }
+.mm-img-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--mm-accent);
+  transform: translate(16px, 16px);
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+.mm-img-frame:hover::before { transform: translate(8px, 8px); }
+
+:is(img.mm-img-blob, .mm-img-blob img) {
+  border-radius: 62% 38% 34% 66% / 56% 32% 68% 44%;
+  animation: mm-blob 14s ease-in-out infinite alternate;
+}
+@keyframes mm-blob {
+  50%  { border-radius: 38% 62% 58% 42% / 42% 60% 40% 58%; }
+  100% { border-radius: 52% 48% 30% 70% / 64% 44% 56% 36%; }
+}
+
+.mm-img-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .45), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+.mm-img-shine:hover::after { left: 140%; transition: left .9s ease; }
+
+.mm-img-kenburns img { animation: mm-kenburns 22s ease-in-out infinite alternate; transform-origin: 30% 40%; }
+@keyframes mm-kenburns {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.16) translate(-2%, -1.5%); }
+}
+
+.mm-js .mm-img-reveal img { clip-path: inset(0 100% 0 0); transition: clip-path 1.1s var(--mm-ease) var(--mm-delay, 0s); }
+.mm-js .mm-img-reveal.mm-in img { clip-path: inset(0 0 0 0); }
+
+.mm-img-parallax img { transform: translate3d(0, var(--mm-py, 0px), 0) scale(1.18); will-change: transform; }
+
+/* ============ 6. HERO A SEKCE ============ */
+.mm-hero-full {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+:is(.mm-hero-overlay, .mm-hero-blobs, .mm-hero-grid, .mm-hero-scroll) { position: relative; isolation: isolate; }
+
+.mm-hero-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 12, 20, .35) 0%, rgba(8, 12, 20, .78) 100%);
+}
+
+.mm-hero-gradient {
+  background-image: linear-gradient(120deg, var(--mm-accent), var(--mm-accent-2), var(--mm-dark), var(--mm-accent));
+  background-size: 300% 300%;
+  animation: mm-gradient 16s ease-in-out infinite;
+}
+@keyframes mm-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+.mm-hero-blobs { overflow: hidden; }
+.mm-hero-blobs::before,
+.mm-hero-blobs::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: min(520px, 70vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .5;
+  pointer-events: none;
+}
+.mm-hero-blobs::before { background: var(--mm-accent);   top: -20%; left: -10%; animation: mm-float-a 18s ease-in-out infinite alternate; }
+.mm-hero-blobs::after  { background: var(--mm-accent-2); bottom: -25%; right: -10%; animation: mm-float-b 22s ease-in-out infinite alternate; }
+@keyframes mm-float-a { to { transform: translate(18%, 22%) scale(1.15); } }
+@keyframes mm-float-b { to { transform: translate(-22%, -16%) scale(.9); } }
+
+.mm-hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, currentColor 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, currentColor 10%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+          mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+}
+
+.mm-hero-scroll::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 24px;
+  height: 38px;
+  margin-left: -12px;
+  box-sizing: border-box;
+  border: 2px solid currentColor;
+  border-radius: 14px;
+  opacity: .75;
+  background: radial-gradient(circle, currentColor 2.5px, transparent 3px) no-repeat 50% 7px / 8px 8px;
+  animation: mm-scroll 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes mm-scroll {
+  0%   { background-position: 50% 7px; }
+  70%  { background-position: 50% 20px; }
+  100% { background-position: 50% 7px; }
+}
+
+.mm-hero-curve { clip-path: ellipse(130% 100% at 50% 0%); }
+.mm-hero-slant { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6vw), 0 100%); }
+
+/* ============ 7. TEXT A NADPISY ============ */
+.mm-text-gradient {
+  background-image: linear-gradient(90deg, var(--mm-accent), var(--mm-accent-2));
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mm-text-shimmer {
+  background-image: linear-gradient(110deg, var(--mm-shimmer-base, currentColor) 40%, var(--mm-accent) 50%, var(--mm-shimmer-base, currentColor) 60%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mm-shimmer 3.5s linear infinite;
+}
+@keyframes mm-shimmer { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+
+.mm-text-highlight,
+.mm-text-underline {
+  background-repeat: no-repeat;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+  transition: background-size 1s var(--mm-ease) calc(var(--mm-delay, 0s) + .15s);
+}
+.mm-text-highlight {
+  padding-inline: .08em;
+  background-image: linear-gradient(color-mix(in srgb, var(--mm-accent) 32%, transparent), color-mix(in srgb, var(--mm-accent) 32%, transparent));
+  background-position: 0 88%;
+  background-size: 100% .45em;
+}
+.mm-text-underline {
+  background-image: linear-gradient(var(--mm-accent), var(--mm-accent));
+  background-position: 0 100%;
+  background-size: 100% .12em;
+  padding-bottom: .04em;
+}
+.mm-js .mm-text-highlight:not(.mm-in) { background-size: 0% .45em; }
+.mm-js .mm-text-underline:not(.mm-in) { background-size: 0% .12em; }
+
+.mm-text-outline {
+  -webkit-text-stroke: max(1px, .025em) var(--mm-text-stroke, currentColor);
+  -webkit-text-fill-color: transparent;
+}
+
+.mm-text-balance,
+.mm-text-balance :is(h1, h2, h3, h4, h5, h6, p) { text-wrap: balance; }
+
+.mm-text-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .75em;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 600;
+  color: var(--mm-accent);
+}
+.mm-text-eyebrow::before { content: ""; width: 2em; height: 2px; background: currentColor; flex: none; }
+
+.mm-counter { font-variant-numeric: tabular-nums; }
+
+/* ============ 8. POZADÍ ============ */
+.mm-bg-dots {
+  background-image: radial-gradient(color-mix(in srgb, currentColor 22%, transparent) 1px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+.mm-bg-lines {
+  background-image:
+    linear-gradient(color-mix(in srgb, currentColor 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, currentColor 8%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.mm-bg-mesh {
+  background-image:
+    radial-gradient(60% 70% at 0% 0%, color-mix(in srgb, var(--mm-accent) 20%, transparent), transparent 70%),
+    radial-gradient(60% 70% at 100% 100%, color-mix(in srgb, var(--mm-accent-2) 20%, transparent), transparent 70%);
+}
+.mm-bg-noise {
+  background-image: var(--mm-noise);
+}
+.mm-bg-diagonal {
+  background-image: repeating-linear-gradient(45deg, color-mix(in srgb, currentColor 7%, transparent) 0 2px, transparent 2px 14px);
+}
+
+/* ============ 9. ANIMOVANÁ POZADÍ ============
+   Dej na Section nebo Div. Intenzita: přidej mm-anim-subtle (jemné) nebo mm-anim-bold (výrazné).
+   Vlastní nastavení: --mm-anim-o (síla 0–1), --mm-anim-s (rychlost, 2 = 2× pomaleji).
+   Používají ::before/::after, proto je nekombinuj s třídami mm-hero-overlay/blobs/grid/scroll. */
+:is(.mm-anim-gradient, .mm-anim-orb, .mm-anim-orbs, .mm-anim-aurora, .mm-anim-mesh, .mm-anim-conic,
+    .mm-anim-waves, .mm-anim-beam, .mm-anim-glow, .mm-anim-dots, .mm-anim-lines, .mm-anim-grain) {
+  --mm-anim-o: .55;
+  --mm-anim-s: 1;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.mm-anim-subtle { --mm-anim-o: .28; --mm-anim-s: 1.6; }
+.mm-anim-bold   { --mm-anim-o: .95; --mm-anim-s: .65; }
+
+:is(.mm-anim-gradient, .mm-anim-orb, .mm-anim-orbs, .mm-anim-aurora, .mm-anim-mesh, .mm-anim-conic,
+    .mm-anim-waves, .mm-anim-beam, .mm-anim-glow, .mm-anim-dots, .mm-anim-lines, .mm-anim-grain)::before,
+:is(.mm-anim-orbs, .mm-anim-waves)::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--mm-anim-o);
+}
+.mm-paused::before, .mm-paused::after { animation-play-state: paused !important; }
+
+/* 1 Plynulý přechod */
+.mm-anim-gradient::before {
+  inset: 0;
+  background: linear-gradient(120deg, var(--mm-accent), var(--mm-accent-2), var(--mm-accent-3), var(--mm-accent));
+  background-size: 300% 300%;
+  animation: mm-gradient calc(16s * var(--mm-anim-s)) ease-in-out infinite;
+}
+
+/* 2 Putující kruh */
+.mm-anim-orb::before {
+  width: min(560px, 60%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--mm-accent) 0, transparent 70%);
+  filter: blur(40px);
+  animation: mm-orb calc(22s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+@keyframes mm-orb {
+  0%   { left: -10%; top: -25%; }
+  33%  { left: 50%;  top: 5%; }
+  66%  { left: 15%;  top: 40%; }
+  100% { left: 60%;  top: -15%; }
+}
+
+/* 3 Tři barevné skvrny */
+.mm-anim-orbs::before {
+  inset: -25%;
+  background:
+    radial-gradient(circle at 25% 30%, var(--mm-accent) 0, transparent 28%),
+    radial-gradient(circle at 75% 65%, var(--mm-accent-2) 0, transparent 30%);
+  filter: blur(50px);
+  animation: mm-orbs-a calc(20s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+.mm-anim-orbs::after {
+  inset: -25%;
+  background: radial-gradient(circle at 60% 25%, var(--mm-accent-3) 0, transparent 25%);
+  filter: blur(60px);
+  animation: mm-orbs-b calc(26s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+@keyframes mm-orbs-a { to { transform: translate(12%, 8%) rotate(25deg); } }
+@keyframes mm-orbs-b { to { transform: translate(-15%, 12%) scale(1.2); } }
+
+/* 4 Polární záře */
+.mm-anim-aurora::before {
+  inset: -40% -20% 0;
+  background: repeating-linear-gradient(100deg, var(--mm-accent) 0%, var(--mm-accent-2) 7%, transparent 10%, transparent 13%, var(--mm-accent-3) 17%, var(--mm-accent) 20%);
+  background-size: 200% 100%;
+  filter: blur(40px);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 15%, transparent 70%);
+          mask-image: radial-gradient(ellipse at 50% 0%, #000 15%, transparent 70%);
+  animation: mm-aurora calc(40s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-aurora { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+
+/* 5 Mesh přechod */
+.mm-anim-mesh::before {
+  inset: 0;
+  background:
+    radial-gradient(at var(--mm-m1) 15%, var(--mm-accent) 0, transparent 55%),
+    radial-gradient(at var(--mm-m2) var(--mm-m3), var(--mm-accent-2) 0, transparent 55%),
+    radial-gradient(at var(--mm-m3) 100%, var(--mm-accent-3) 0, transparent 50%);
+  animation: mm-mesh calc(18s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+@keyframes mm-mesh {
+  0%   { --mm-m1: 10%; --mm-m2: 90%; --mm-m3: 40%; }
+  50%  { --mm-m1: 60%; --mm-m2: 30%; --mm-m3: 85%; }
+  100% { --mm-m1: 30%; --mm-m2: 70%; --mm-m3: 10%; }
+}
+
+/* 6 Rotující kužel barev */
+.mm-anim-conic::before {
+  width: 150%;
+  aspect-ratio: 1;
+  left: -25%;
+  top: 50%;
+  margin-top: -75%;
+  background: conic-gradient(from 0deg, var(--mm-accent), var(--mm-accent-2), var(--mm-accent-3), var(--mm-accent));
+  filter: blur(70px);
+  animation: mm-rotate calc(24s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-rotate { to { transform: rotate(360deg); } }
+
+/* 7 Vlny dole */
+.mm-anim-waves::before,
+.mm-anim-waves::after {
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  height: clamp(60px, 16%, 150px);
+  -webkit-mask: var(--mm-wave) 0 100% / 50% 100% repeat-x;
+          mask: var(--mm-wave) 0 100% / 50% 100% repeat-x;
+  animation: mm-wave calc(16s * var(--mm-anim-s)) linear infinite;
+}
+.mm-anim-waves::before { background: var(--mm-accent); }
+.mm-anim-waves::after {
+  height: clamp(40px, 11%, 100px);
+  background: var(--mm-accent-2);
+  opacity: calc(var(--mm-anim-o) * .85);
+  animation-duration: calc(10s * var(--mm-anim-s));
+  animation-direction: reverse;
+}
+@keyframes mm-wave { to { transform: translateX(-50%); } }
+
+/* 8 Světelný záblesk */
+.mm-anim-beam::before {
+  inset: 0 -100%;
+  background: linear-gradient(100deg, transparent 42%, color-mix(in srgb, var(--mm-accent) 60%, #fff) 50%, transparent 58%);
+  animation: mm-beam calc(7s * var(--mm-anim-s)) ease-in-out infinite;
+}
+@keyframes mm-beam { 0% { transform: translateX(-35%); } 60%, 100% { transform: translateX(35%); } }
+
+/* 9 Dýchající záře */
+.mm-anim-glow::before {
+  width: min(720px, 85%);
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--mm-accent) 0, transparent 65%);
+  animation: mm-breathe calc(6s * var(--mm-anim-s)) ease-in-out infinite;
+}
+@keyframes mm-breathe {
+  0%, 100% { transform: scale(.8);  opacity: calc(var(--mm-anim-o) * .55); }
+  50%      { transform: scale(1.1); opacity: var(--mm-anim-o); }
+}
+
+/* 10 Plující tečky */
+.mm-anim-dots::before {
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, currentColor 60%, transparent) 1.2px, transparent 1.8px);
+  background-size: 22px 22px;
+  animation: mm-drift calc(8s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-drift { to { background-position: 22px 22px; } }
+
+/* 11 Pohyblivé proužky */
+.mm-anim-lines::before {
+  inset: 0;
+  background-image: linear-gradient(45deg,
+    color-mix(in srgb, var(--mm-accent) 30%, transparent) 25%, transparent 25% 50%,
+    color-mix(in srgb, var(--mm-accent) 30%, transparent) 50% 75%, transparent 75%);
+  background-size: 28px 28px;
+  animation: mm-stripes calc(3s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-stripes { to { background-position: 28px 0; } }
+
+/* 12 Živé zrno */
+.mm-anim-grain::before {
+  inset: -50%;
+  background-image: var(--mm-noise);
+  opacity: calc(var(--mm-anim-o) * .6);
+  animation: mm-grain calc(1s * var(--mm-anim-s)) steps(6) infinite;
+}
+@keyframes mm-grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-8%, 5%); }
+  40% { transform: translate(6%, -7%); }
+  60% { transform: translate(-4%, 9%); }
+  80% { transform: translate(9%, 3%); }
+}
+
+/* ============ 10. IKONY A DETAILY ============
+   Dej na element Icon (nebo obrázek, SVG, span). Hover efekty se spustí i při najetí
+   na rodiče s třídou mm-group (např. celá karta). */
+:is(.mm-icon-pulse, .mm-icon-ping, .mm-icon-bounce, .mm-icon-float, .mm-icon-spin, .mm-icon-wiggle,
+    .mm-icon-bell, .mm-icon-pop, .mm-icon-circle, .mm-icon-ring, .mm-icon-glow, .mm-icon-slide) {
+  width: fit-content;
+  max-width: 100%;
+  transform-origin: center;
+}
+
+.mm-icon-pulse { animation: mm-icon-pulse 2.2s ease-in-out infinite; }
+@keyframes mm-icon-pulse { 50% { transform: scale(1.1); } }
+
+.mm-icon-ping { position: relative; }
+.mm-icon-ping::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--mm-accent);
+  pointer-events: none;
+  animation: mm-ping 2s cubic-bezier(0, 0, .2, 1) infinite;
+}
+@keyframes mm-ping { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.8); opacity: 0; } }
+
+.mm-icon-bounce { animation: mm-bounce 2.4s ease-in-out infinite; }
+@keyframes mm-bounce {
+  0%, 50%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-9px); }
+  35% { transform: translateY(0); }
+  42% { transform: translateY(-3px); }
+}
+
+.mm-icon-float { animation: mm-float 4s ease-in-out infinite; }
+@keyframes mm-float { 50% { transform: translateY(-6px); } }
+
+.mm-icon-spin { animation: mm-rotate 12s linear infinite; }
+
+:is(.mm-icon-wiggle:hover, .mm-group:hover .mm-icon-wiggle) { animation: mm-wiggle .6s ease-in-out; }
+@keyframes mm-wiggle {
+  20% { transform: rotate(-12deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-6deg); }
+  80% { transform: rotate(3deg); }
+}
+
+.mm-icon-bell { transform-origin: 50% 10%; animation: mm-bell 4s ease-in-out infinite; }
+@keyframes mm-bell {
+  0%, 12%, 100% { transform: rotate(0); }
+  2% { transform: rotate(14deg); }
+  4% { transform: rotate(-12deg); }
+  6% { transform: rotate(8deg); }
+  8% { transform: rotate(-5deg); }
+  10% { transform: rotate(2deg); }
+}
+
+.mm-icon-pop { transition: transform .4s cubic-bezier(.34, 1.56, .64, 1); }
+:is(.mm-icon-pop:hover, .mm-group:hover .mm-icon-pop) { transform: scale(1.18) rotate(-6deg); }
+
+.mm-icon-circle {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: .8em;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--mm-accent) 12%, transparent);
+  color: var(--mm-accent);
+  transition: background-color var(--mm-speed) var(--mm-ease), color var(--mm-speed) var(--mm-ease), transform var(--mm-speed) var(--mm-ease);
+}
+.mm-icon-circle svg { fill: currentColor; }
+:is(.mm-icon-circle:hover, .mm-group:hover .mm-icon-circle) { background: var(--mm-accent); color: var(--mm-on-accent); transform: translateY(-2px); }
+
+.mm-icon-ring { position: relative; }
+.mm-icon-ring::before {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  border: 1.5px dashed var(--mm-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: mm-rotate 10s linear infinite;
+}
+
+.mm-icon-glow { animation: mm-icon-glow 2.6s ease-in-out infinite; }
+@keyframes mm-icon-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50%      { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mm-accent) 80%, transparent)); }
+}
+
+.mm-icon-slide { transition: transform var(--mm-speed) var(--mm-ease); }
+:is(.mm-icon-slide:hover, .mm-group:hover .mm-icon-slide) { transform: translateX(6px); }
+
+.mm-dot-live { display: inline-flex; align-items: center; gap: .55em; }
+.mm-dot-live::before {
+  content: "";
+  flex: none;
+  width: .55em;
+  height: .55em;
+  border-radius: 50%;
+  background: var(--mm-live, #22c55e);
+  animation: mm-live 2s ease-out infinite;
+}
+@keyframes mm-live {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mm-live, #22c55e) 60%, transparent); }
+  100% { box-shadow: 0 0 0 .6em color-mix(in srgb, var(--mm-live, #22c55e) 0%, transparent); }
+}
+
+/* ============ 11. OMEZENÝ POHYB ============
+   Kdo má v systému „omezit pohyb“, uvidí vše hned a bez animací. */
+@media (prefers-reduced-motion: reduce) {
+  .mm-js :is(.mm-fade-up, .mm-fade-in, .mm-fade-left, .mm-fade-right, .mm-zoom-in, .mm-blur-in),
+  .mm-js .mm-stagger > *,
+  .mm-js .mm-img-reveal img {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .mm-js .mm-text-highlight:not(.mm-in) { background-size: 100% .45em; }
+  .mm-js .mm-text-underline:not(.mm-in) { background-size: 100% .12em; }
+  .mm-border-spin::before, :is(a, button).mm-btn-pulse::before, .mm-btn-pulse :is(.button-atom, .bde-button__button)::before,
+  .mm-img-blob img, img.mm-img-blob, .mm-img-kenburns img, .mm-hero-gradient, .mm-hero-blobs::before, .mm-hero-blobs::after,
+  .mm-hero-scroll::after, .mm-text-shimmer {
+    animation: none !important;
+  }
+  :is(.mm-anim-gradient, .mm-anim-orb, .mm-anim-orbs, .mm-anim-aurora, .mm-anim-mesh, .mm-anim-conic,
+      .mm-anim-waves, .mm-anim-beam, .mm-anim-glow, .mm-anim-dots, .mm-anim-lines, .mm-anim-grain)::before,
+  :is(.mm-anim-orbs, .mm-anim-waves)::after,
+  :is(.mm-icon-pulse, .mm-icon-bounce, .mm-icon-float, .mm-icon-spin, .mm-icon-bell, .mm-icon-glow, .mm-icon-wiggle),
+  .mm-icon-ping::after, .mm-icon-ring::before, .mm-dot-live::before {
+    animation: none !important;
+  }
+  .mm-card-tilt, .mm-btn-magnetic, .mm-img-parallax img { transform: none !important; }
+}

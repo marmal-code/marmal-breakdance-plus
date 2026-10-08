@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0 – 2026-10-08
+- **Modulový systém**: nové menu **MarMal → Moduly** – karty modulů se stavem, zapnutí/vypnutí jedním kliknutím. Vypnutý modul nenačte žádný kód ani CSS.
+- **Modul Efekty** (převzatý plugin MarMal Effects 1.1.0): 89 CSS efektů, galerie s náhledy a nastavení barev pod menu MarMal.
+  - Nastavení `mm_effects_settings` i třídy `mm-…` zůstávají – přechod beze ztráty.
+  - Tlačítko **Převést ze starého pluginu** deaktivuje MarMal Effects a zapne modul. Dokud starý plugin běží, modul se nenačte.
+  - Nově volba **Kategorie načítané na webu** – na web jde jen CSS zapnutých kategorií (spojené do jednoho souboru v `uploads/marmal-bdp/`, při chybě zápisu po částech).
+  - Výchozí stav: zapnuto na webech, kde se MarMal Effects už používal, jinde vypnuto.
+- Galerie Plus je zamčený modul (vždy zapnutý – elementy nesmí zmizet ze stránek).
+- Veřejné funkce pro MarMal Agenta: `marmal_bdp_verze()`, `marmal_bdp_moduly()`, `marmal_bdp_nastavit_modul()` – moduly jde přepínat z aplikace sprava.marmal.cz.
+- Nástroj `tools/efekty_casti.py` – rozdělí CSS efektů na kategorie.
+- Překlady nových textů (en_US, en_GB).
+
 ## 0.6.0 – 2026-10-07
 - Překlady: plugin načítá jazykové soubory z `languages/`, přidána angličtina (en_US, en_GB) pro CZ + EN weby (Polylang / WPML).
 - Lightbox přebírá přeložené texty z PHP (Zavřít, Předchozí, Další…).

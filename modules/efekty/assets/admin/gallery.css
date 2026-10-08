@@ -1,0 +1,331 @@
+/* MarMal Effects – galerie náhledů (WP admin + samostatné demo) */
+:root {
+  --mmg-bg: #f3f4f6;
+  --mmg-surface: #ffffff;
+  --mmg-stage: #eceef2;
+  --mmg-ink: #15181e;
+  --mmg-muted: #5d6573;
+  --mmg-line: #dde0e6;
+  --mmg-chip: #eef1fb;
+  --mmg-chip-ink: #1d3fae;
+  --mmg-focus: #2563eb;
+  --mmg-dark-stage: #10141c;
+}
+@media (prefers-color-scheme: dark) {
+  :root.mmg-auto:not([data-theme="light"]) {
+    color-scheme: dark;
+    --mmg-bg: #0f1217;
+    --mmg-surface: #171b22;
+    --mmg-stage: #1f242d;
+    --mmg-ink: #e8eaee;
+    --mmg-muted: #9aa3b2;
+    --mmg-line: #2b313c;
+    --mmg-chip: #1d2a4d;
+    --mmg-chip-ink: #b9ccff;
+    --mmg-focus: #7aa2ff;
+    --mmg-dark-stage: #0a0d12;
+  }
+}
+:root.mmg-auto[data-theme="dark"] {
+  color-scheme: dark;
+  --mmg-bg: #0f1217;
+  --mmg-surface: #171b22;
+  --mmg-stage: #1f242d;
+  --mmg-ink: #e8eaee;
+  --mmg-muted: #9aa3b2;
+  --mmg-line: #2b313c;
+  --mmg-chip: #1d2a4d;
+  --mmg-chip-ink: #b9ccff;
+  --mmg-focus: #7aa2ff;
+  --mmg-dark-stage: #0a0d12;
+}
+
+.mm-g {
+  --mmg-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  color: var(--mmg-ink);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  max-width: 1320px;
+}
+.mm-g *, .mm-g *::before, .mm-g *::after { box-sizing: border-box; }
+
+/* Hlavička */
+.mm-g-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-block: 8px 20px; }
+.mm-g-head h1 { margin: 0; font-size: 26px; line-height: 1.2; font-weight: 700; letter-spacing: -.01em; color: var(--mmg-ink); padding: 0; }
+.mm-g-head p { margin: 4px 0 0; color: var(--mmg-muted); max-width: 62ch; }
+.mm-g-search { position: relative; flex: 0 1 320px; }
+.mm-g-search input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--mmg-line);
+  border-radius: 8px;
+  background: var(--mmg-surface);
+  color: var(--mmg-ink);
+  font: inherit;
+}
+.mm-g-search input:focus { outline: 2px solid var(--mmg-focus); outline-offset: 1px; border-color: transparent; box-shadow: none; }
+
+/* Filtry kategorií */
+.mm-g-filters {
+  position: sticky;
+  top: 32px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-block: 10px;
+  margin-bottom: 8px;
+  background: var(--mmg-bg);
+}
+.mm-g-filter {
+  appearance: none;
+  border: 1px solid var(--mmg-line);
+  background: var(--mmg-surface);
+  color: var(--mmg-ink);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.mm-g-filter span { color: var(--mmg-muted); margin-left: 4px; font-variant-numeric: tabular-nums; }
+.mm-g-filter[aria-pressed="true"] { background: var(--mmg-ink); color: var(--mmg-bg); border-color: var(--mmg-ink); }
+.mm-g-filter[aria-pressed="true"] span { color: inherit; opacity: .7; }
+.mm-g-filter:focus-visible, .mm-g-copy:focus-visible, .mm-g-replay:focus-visible { outline: 2px solid var(--mmg-focus); outline-offset: 2px; }
+
+/* Sekce a mřížka */
+.mm-g-section { margin-block: 18px 36px; }
+.mm-g-section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 12px; border-bottom: 1px solid var(--mmg-line); padding-bottom: 8px; }
+.mm-g-section-head h2 { margin: 0; font-size: 18px; font-weight: 700; color: var(--mmg-ink); }
+.mm-g-section-head p { margin: 0; color: var(--mmg-muted); font-size: 13px; }
+.mm-g-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+/* Karta efektu */
+.mm-g-item { display: flex; flex-direction: column; background: var(--mmg-surface); border: 1px solid var(--mmg-line); border-radius: 12px; overflow: hidden; }
+.mm-g-stage {
+  position: relative;
+  height: 200px;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: var(--mmg-stage);
+  overflow: hidden;
+}
+.mm-g-stage--dark { background: var(--mmg-dark-stage); }
+.mm-g-stage--photo { background: linear-gradient(135deg, #ff9a62, #d9467a 45%, #3b5bdb); }
+.mm-g-body { display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 16px; flex: 1; }
+.mm-g-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.mm-g-title h3 { margin: 0; font-size: 15px; font-weight: 650; color: var(--mmg-ink); }
+.mm-g-badges { display: flex; gap: 4px; }
+.mm-g-badge { font-size: 11px; line-height: 1; padding: 4px 6px; border-radius: 4px; background: var(--mmg-stage); color: var(--mmg-muted); letter-spacing: .02em; }
+.mm-g-desc { margin: 0; color: var(--mmg-muted); font-size: 13px; }
+.mm-g-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: auto; padding-top: 4px; }
+.mm-g-copy {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: var(--mmg-chip);
+  color: var(--mmg-chip-ink);
+  font: 600 13px/1.3 var(--mmg-mono);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+}
+.mm-g-copy::after { content: "kopírovat"; font: 500 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; opacity: .65; white-space: nowrap; }
+.mm-g-copy.is-copied::after { content: "zkopírováno ✓"; opacity: 1; }
+.mm-g-replay {
+  appearance: none;
+  margin-left: auto;
+  border: 1px solid var(--mmg-line);
+  background: transparent;
+  color: var(--mmg-ink);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.mm-g-empty { padding: 40px 0; color: var(--mmg-muted); }
+
+.mm-g-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 20px);
+  background: var(--mmg-ink);
+  color: var(--mmg-bg);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  z-index: 100000;
+}
+.mm-g-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ===== Ukázkové prvky v náhledech ===== */
+.mm-d-box, .mm-d-card {
+  width: 100%;
+  max-width: 210px;
+  padding: 18px;
+  background: var(--mmg-surface);
+  color: var(--mmg-ink);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mm-d-box strong { font-size: 15px; }
+.mm-d-box span { color: var(--mmg-muted); font-size: 12px; }
+.mm-d-card h4 { margin: 8px 0 2px; font-size: 15px; color: inherit; }
+.mm-d-card p { margin: 0; font-size: 12px; color: var(--mmg-muted); }
+.mm-d-ico { width: 30px; height: 30px; border-radius: 8px; background: color-mix(in srgb, var(--mm-accent) 16%, transparent); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--mm-accent) 50%, transparent); }
+.mm-g-stage--dark .mm-d-card { background: #171c26; color: #f1f3f7; border: 1px solid #262d3a; }
+.mm-g-stage--dark .mm-d-card p { color: #a3acbb; }
+.mm-g-stage--photo .mm-d-card { color: #fff; }
+.mm-g-stage--photo .mm-d-card p { color: rgba(255, 255, 255, .85); }
+.mm-g-stage--photo .mm-d-card.mm-card-glass { background: rgba(255, 255, 255, .14); }
+
+.mm-d-btn, .mm-g .button-atom {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: var(--mm-accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+.mm-d-btn:hover, .mm-d-btn:focus { color: #fff; }
+.mm-d-p { margin: 0; font-size: 16px; }
+.mm-d-p a { color: var(--mmg-ink); font-weight: 600; }
+
+.mm-d-cols { display: flex; width: 100%; background: var(--mmg-surface); border-radius: 12px; }
+.mm-d-cols > div { flex: 1; padding: 16px 10px; text-align: center; color: var(--mmg-ink); }
+.mm-d-cols b { display: block; font-size: 20px; }
+.mm-d-cols small { color: var(--mmg-muted); font-size: 11px; }
+.mm-d-cols.mm-cols-dividers > * + * { border-left: 1px solid var(--mmg-line); border-top: 0; }
+
+.mm-d-img { width: 100%; max-width: 230px; border-radius: 10px; }
+.mm-d-img img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
+.mm-d-img.mm-img-blob { border-radius: 0; }
+
+.mm-d-hero {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 22px;
+  background-color: #f7f8fb;
+  color: #141821;
+}
+.mm-d-hero small { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.mm-d-hero h3 { margin: 4px 0 0; font-size: 22px; line-height: 1.15; color: inherit; max-width: 14ch; }
+.mm-d-hero.mm-hero-gradient, .mm-d-hero--photo { color: #fff; }
+.mm-d-hero--photo { background-size: cover; background-position: center; }
+.mm-d-hero.mm-hero-curve, .mm-d-hero.mm-hero-slant { bottom: 26px; background-color: #1d2533; color: #fff; }
+.mm-g-stage .mm-d-hero.mm-hero-full { min-height: 0; }
+.mm-d-hero.mm-hero-full::after {
+  content: "min-height: 100svh";
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  font: 11px var(--mmg-mono);
+  opacity: .55;
+}
+
+.mm-d-h { margin: 0; font-size: 24px; line-height: 1.2; font-weight: 750; color: var(--mmg-ink); text-align: left; max-width: 15ch; }
+.mm-d-h.mm-text-outline { font-size: 34px; }
+.mm-d-small { font-size: 12px; margin-bottom: 6px; }
+.mm-d-counter { text-align: center; color: var(--mmg-ink); }
+.mm-d-num { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.mm-d-counter span { font-size: 13px; color: var(--mmg-muted); }
+
+.mm-d-bg {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--mmg-surface);
+  color: var(--mmg-ink);
+  font-weight: 600;
+}
+.mm-d-bg--color { background-color: var(--mm-accent); color: #fff; }
+
+
+/* Panel barev náhledu */
+.mm-g-colors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  background: var(--mmg-surface);
+  border: 1px solid var(--mmg-line);
+  border-radius: 10px;
+  font-size: 13px;
+}
+.mm-g-colors-label { font-weight: 650; }
+.mm-g-colors label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.mm-g-colors input[type="color"] {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--mmg-line);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+.mm-g-colors-note { color: var(--mmg-muted); font-size: 12px; }
+.mm-g-reset {
+  appearance: none;
+  border: 1px solid var(--mmg-line);
+  background: transparent;
+  color: var(--mmg-ink);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Přepínač intenzity */
+.mm-g-variants { display: inline-flex; border: 1px solid var(--mmg-line); border-radius: 6px; overflow: hidden; }
+.mm-g-variant {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--mmg-muted);
+  padding: 5px 9px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.mm-g-variant + .mm-g-variant { border-left: 1px solid var(--mmg-line); }
+.mm-g-variant[aria-pressed="true"] { background: var(--mmg-ink); color: var(--mmg-bg); }
+.mm-g-variant:focus-visible, .mm-g-reset:focus-visible, .mm-g-colors input:focus-visible { outline: 2px solid var(--mmg-focus); outline-offset: 2px; }
+
+/* Ukázky: ikony, živá tečka, animovaná pozadí */
+.mm-d-icon { display: inline-grid; place-items: center; color: var(--mm-accent); font-size: 44px; line-height: 1; }
+.mm-d-icon svg { width: 1em; height: 1em; fill: currentColor; display: block; }
+.mm-d-icon--sm { font-size: 22px; }
+.mm-d-card .mm-d-icon--sm { margin-bottom: 4px; }
+.mm-d-live { font-size: 15px; font-weight: 600; color: var(--mmg-ink); }
+.mm-d-anim { text-align: center; }
+.mm-d-anim small { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; font-weight: 500; }
+.mm-d-anim strong { font-size: 22px; }
+.mm-d-anim--dark { background-color: #0e1320; color: #fff; }
+
+@media (max-width: 600px) {
+  .mm-g-filters { top: 0; }
+  .mm-g-grid { grid-template-columns: 1fr; }
+}

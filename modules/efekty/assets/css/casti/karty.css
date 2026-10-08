@@ -1,0 +1,81 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 4. KARTY A SLOUPCE ============ */
+.mm-card-lift { transition: transform var(--mm-speed) var(--mm-ease), box-shadow var(--mm-speed) var(--mm-ease); }
+.mm-card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, .04), 0 22px 44px -18px rgba(15, 23, 42, .3);
+}
+
+.mm-card-tilt {
+  transform: perspective(900px) rotateX(var(--mm-rx, 0deg)) rotateY(var(--mm-ry, 0deg));
+  transition: transform .25s ease-out;
+  will-change: transform;
+}
+
+.mm-card-spotlight { position: relative; isolation: isolate; overflow: hidden; }
+.mm-card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--mm-x, 50%) var(--mm-y, 50%), color-mix(in srgb, var(--mm-accent) 40%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--mm-speed) var(--mm-ease);
+}
+.mm-card-spotlight:hover::before { opacity: 1; }
+
+.mm-card-glass {
+  background: rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+          backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .32);
+  border-radius: var(--mm-radius);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .25);
+}
+
+.mm-card-shadow {
+  box-shadow:
+    0 1px 1px rgba(15, 23, 42, .04),
+    0 2px 4px rgba(15, 23, 42, .04),
+    0 8px 16px rgba(15, 23, 42, .05),
+    0 20px 40px -10px rgba(15, 23, 42, .1);
+}
+
+.mm-card-accent-top { position: relative; overflow: hidden; }
+.mm-card-accent-top::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--mm-accent), var(--mm-accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+.mm-card-accent-top:hover::before { transform: scaleX(1); }
+
+.mm-card-fill { position: relative; isolation: isolate; overflow: hidden; transition: color var(--mm-speed); }
+.mm-card-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--mm-accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+.mm-card-fill:hover::before { transform: scaleY(1); }
+.mm-card-fill :is(h1, h2, h3, h4, h5, h6, p, li, span, a, div) { transition: color var(--mm-speed); }
+.mm-card-fill:hover,
+.mm-card-fill:hover :is(h1, h2, h3, h4, h5, h6, p, li, span, a, div) { color: var(--mm-on-accent) !important; }
+
+.mm-cols-dividers > * + * { border-left: 1px solid var(--mm-line); }
+@media (max-width: 767px) {
+  .mm-cols-dividers > * + * { border-left: 0; border-top: 1px solid var(--mm-line); }
+}
+
+.mm-cols-focus > * { transition: opacity var(--mm-speed), filter var(--mm-speed); }
+.mm-cols-focus:hover > * { opacity: .45; filter: grayscale(.6); }
+.mm-cols-focus:hover > *:hover { opacity: 1; filter: none; }

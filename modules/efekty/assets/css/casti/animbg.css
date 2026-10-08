@@ -1,0 +1,188 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 9. ANIMOVANÁ POZADÍ ============
+   Dej na Section nebo Div. Intenzita: přidej mm-anim-subtle (jemné) nebo mm-anim-bold (výrazné).
+   Vlastní nastavení: --mm-anim-o (síla 0–1), --mm-anim-s (rychlost, 2 = 2× pomaleji).
+   Používají ::before/::after, proto je nekombinuj s třídami mm-hero-overlay/blobs/grid/scroll. */
+:is(.mm-anim-gradient, .mm-anim-orb, .mm-anim-orbs, .mm-anim-aurora, .mm-anim-mesh, .mm-anim-conic,
+    .mm-anim-waves, .mm-anim-beam, .mm-anim-glow, .mm-anim-dots, .mm-anim-lines, .mm-anim-grain) {
+  --mm-anim-o: .55;
+  --mm-anim-s: 1;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.mm-anim-subtle { --mm-anim-o: .28; --mm-anim-s: 1.6; }
+.mm-anim-bold   { --mm-anim-o: .95; --mm-anim-s: .65; }
+
+:is(.mm-anim-gradient, .mm-anim-orb, .mm-anim-orbs, .mm-anim-aurora, .mm-anim-mesh, .mm-anim-conic,
+    .mm-anim-waves, .mm-anim-beam, .mm-anim-glow, .mm-anim-dots, .mm-anim-lines, .mm-anim-grain)::before,
+:is(.mm-anim-orbs, .mm-anim-waves)::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--mm-anim-o);
+}
+.mm-paused::before, .mm-paused::after { animation-play-state: paused !important; }
+
+/* 1 Plynulý přechod */
+.mm-anim-gradient::before {
+  inset: 0;
+  background: linear-gradient(120deg, var(--mm-accent), var(--mm-accent-2), var(--mm-accent-3), var(--mm-accent));
+  background-size: 300% 300%;
+  animation: mm-gradient calc(16s * var(--mm-anim-s)) ease-in-out infinite;
+}
+
+/* 2 Putující kruh */
+.mm-anim-orb::before {
+  width: min(560px, 60%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--mm-accent) 0, transparent 70%);
+  filter: blur(40px);
+  animation: mm-orb calc(22s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+@keyframes mm-orb {
+  0%   { left: -10%; top: -25%; }
+  33%  { left: 50%;  top: 5%; }
+  66%  { left: 15%;  top: 40%; }
+  100% { left: 60%;  top: -15%; }
+}
+
+/* 3 Tři barevné skvrny */
+.mm-anim-orbs::before {
+  inset: -25%;
+  background:
+    radial-gradient(circle at 25% 30%, var(--mm-accent) 0, transparent 28%),
+    radial-gradient(circle at 75% 65%, var(--mm-accent-2) 0, transparent 30%);
+  filter: blur(50px);
+  animation: mm-orbs-a calc(20s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+.mm-anim-orbs::after {
+  inset: -25%;
+  background: radial-gradient(circle at 60% 25%, var(--mm-accent-3) 0, transparent 25%);
+  filter: blur(60px);
+  animation: mm-orbs-b calc(26s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+@keyframes mm-orbs-a { to { transform: translate(12%, 8%) rotate(25deg); } }
+@keyframes mm-orbs-b { to { transform: translate(-15%, 12%) scale(1.2); } }
+
+/* 4 Polární záře */
+.mm-anim-aurora::before {
+  inset: -40% -20% 0;
+  background: repeating-linear-gradient(100deg, var(--mm-accent) 0%, var(--mm-accent-2) 7%, transparent 10%, transparent 13%, var(--mm-accent-3) 17%, var(--mm-accent) 20%);
+  background-size: 200% 100%;
+  filter: blur(40px);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 15%, transparent 70%);
+          mask-image: radial-gradient(ellipse at 50% 0%, #000 15%, transparent 70%);
+  animation: mm-aurora calc(40s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-aurora { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+
+/* 5 Mesh přechod */
+.mm-anim-mesh::before {
+  inset: 0;
+  background:
+    radial-gradient(at var(--mm-m1) 15%, var(--mm-accent) 0, transparent 55%),
+    radial-gradient(at var(--mm-m2) var(--mm-m3), var(--mm-accent-2) 0, transparent 55%),
+    radial-gradient(at var(--mm-m3) 100%, var(--mm-accent-3) 0, transparent 50%);
+  animation: mm-mesh calc(18s * var(--mm-anim-s)) ease-in-out infinite alternate;
+}
+@keyframes mm-mesh {
+  0%   { --mm-m1: 10%; --mm-m2: 90%; --mm-m3: 40%; }
+  50%  { --mm-m1: 60%; --mm-m2: 30%; --mm-m3: 85%; }
+  100% { --mm-m1: 30%; --mm-m2: 70%; --mm-m3: 10%; }
+}
+
+/* 6 Rotující kužel barev */
+.mm-anim-conic::before {
+  width: 150%;
+  aspect-ratio: 1;
+  left: -25%;
+  top: 50%;
+  margin-top: -75%;
+  background: conic-gradient(from 0deg, var(--mm-accent), var(--mm-accent-2), var(--mm-accent-3), var(--mm-accent));
+  filter: blur(70px);
+  animation: mm-rotate calc(24s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-rotate { to { transform: rotate(360deg); } }
+
+/* 7 Vlny dole */
+.mm-anim-waves::before,
+.mm-anim-waves::after {
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  height: clamp(60px, 16%, 150px);
+  -webkit-mask: var(--mm-wave) 0 100% / 50% 100% repeat-x;
+          mask: var(--mm-wave) 0 100% / 50% 100% repeat-x;
+  animation: mm-wave calc(16s * var(--mm-anim-s)) linear infinite;
+}
+.mm-anim-waves::before { background: var(--mm-accent); }
+.mm-anim-waves::after {
+  height: clamp(40px, 11%, 100px);
+  background: var(--mm-accent-2);
+  opacity: calc(var(--mm-anim-o) * .85);
+  animation-duration: calc(10s * var(--mm-anim-s));
+  animation-direction: reverse;
+}
+@keyframes mm-wave { to { transform: translateX(-50%); } }
+
+/* 8 Světelný záblesk */
+.mm-anim-beam::before {
+  inset: 0 -100%;
+  background: linear-gradient(100deg, transparent 42%, color-mix(in srgb, var(--mm-accent) 60%, #fff) 50%, transparent 58%);
+  animation: mm-beam calc(7s * var(--mm-anim-s)) ease-in-out infinite;
+}
+@keyframes mm-beam { 0% { transform: translateX(-35%); } 60%, 100% { transform: translateX(35%); } }
+
+/* 9 Dýchající záře */
+.mm-anim-glow::before {
+  width: min(720px, 85%);
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--mm-accent) 0, transparent 65%);
+  animation: mm-breathe calc(6s * var(--mm-anim-s)) ease-in-out infinite;
+}
+@keyframes mm-breathe {
+  0%, 100% { transform: scale(.8);  opacity: calc(var(--mm-anim-o) * .55); }
+  50%      { transform: scale(1.1); opacity: var(--mm-anim-o); }
+}
+
+/* 10 Plující tečky */
+.mm-anim-dots::before {
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, currentColor 60%, transparent) 1.2px, transparent 1.8px);
+  background-size: 22px 22px;
+  animation: mm-drift calc(8s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-drift { to { background-position: 22px 22px; } }
+
+/* 11 Pohyblivé proužky */
+.mm-anim-lines::before {
+  inset: 0;
+  background-image: linear-gradient(45deg,
+    color-mix(in srgb, var(--mm-accent) 30%, transparent) 25%, transparent 25% 50%,
+    color-mix(in srgb, var(--mm-accent) 30%, transparent) 50% 75%, transparent 75%);
+  background-size: 28px 28px;
+  animation: mm-stripes calc(3s * var(--mm-anim-s)) linear infinite;
+}
+@keyframes mm-stripes { to { background-position: 28px 0; } }
+
+/* 12 Živé zrno */
+.mm-anim-grain::before {
+  inset: -50%;
+  background-image: var(--mm-noise);
+  opacity: calc(var(--mm-anim-o) * .6);
+  animation: mm-grain calc(1s * var(--mm-anim-s)) steps(6) infinite;
+}
+@keyframes mm-grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-8%, 5%); }
+  40% { transform: translate(6%, -7%); }
+  60% { transform: translate(-4%, 9%); }
+  80% { transform: translate(9%, 3%); }
+}

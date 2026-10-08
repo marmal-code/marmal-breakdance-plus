@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Marmal – Breakdance Plus
  * Plugin URI:        https://github.com/marmal-code/marmal-breakdance-plus
- * Description:       Vlastní a vylepšené elementy pro Breakdance (Galerie Plus a další). Elementy se tvoří v Element Studiu.
- * Version:           0.6.0
+ * Description:       Moduly pro weby MarMal: vlastní Breakdance elementy (Galerie Plus) a knihovna CSS efektů. Moduly se zapínají v MarMal → Moduly.
+ * Version:           0.7.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Martin Malý – marmal.cz
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MARMAL_BDP_VERSION', '0.6.0');
+define('MARMAL_BDP_VERSION', '0.7.0');
 define('MARMAL_BDP_FILE', __FILE__);
 define('MARMAL_BDP_DIR', plugin_dir_path(__FILE__));
 define('MARMAL_BDP_URL', plugin_dir_url(__FILE__));
@@ -74,13 +74,21 @@ add_action('init', function () {
 require_once MARMAL_BDP_DIR . 'includes/gallery.php';
 
 /*
- * 5) Upozornění v administraci, když Breakdance není aktivní.
+ * 5) Moduly (MarMal → Moduly) a veřejné funkce pro MarMal Agenta.
+ *    Galerie Plus je zamčený modul (načítá se výše), Efekty se zapínají podle webu.
+ */
+require_once MARMAL_BDP_DIR . 'includes/moduly.php';
+require_once MARMAL_BDP_DIR . 'includes/api.php';
+Moduly::init();
+
+/*
+ * 6) Upozornění v administraci, když Breakdance není aktivní.
  */
 add_action('admin_notices', function () {
     if (did_action('breakdance_loaded') || !current_user_can('activate_plugins')) {
         return;
     }
     echo '<div class="notice notice-warning"><p><strong>Marmal – Breakdance Plus:</strong> '
-        . esc_html__('Plugin potřebuje aktivní Breakdance. Elementy se nenačtou.', 'marmal-breakdance-plus')
+        . esc_html__('Plugin potřebuje aktivní Breakdance. Elementy se nenačtou (modul Efekty funguje i bez něj).', 'marmal-breakdance-plus')
         . '</p></div>';
 });

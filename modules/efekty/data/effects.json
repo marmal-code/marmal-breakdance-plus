@@ -1,0 +1,883 @@
+{
+ "categories": [
+  {
+   "id": "ramecky",
+   "name": "Rámečky",
+   "hint": "Dej na Div, Column nebo kartu."
+  },
+  {
+   "id": "tlacitka",
+   "name": "Tlačítka",
+   "hint": "Dej na element Button (třída se propíše na odkaz uvnitř)."
+  },
+  {
+   "id": "karty",
+   "name": "Karty a sloupce",
+   "hint": "Dej na Div / Column. Třídy „mm-cols-…“ dej na rodiče sloupců."
+  },
+  {
+   "id": "obrazky",
+   "name": "Obrázky",
+   "hint": "Dej na element Image (efekt míří na <img> uvnitř)."
+  },
+  {
+   "id": "ikony",
+   "name": "Ikony a detaily",
+   "hint": "Dej na element Icon (nebo obrázek, SVG). Hover efekty spustíš i najetím na celou kartu: dej jí třídu mm-group."
+  },
+  {
+   "id": "hero",
+   "name": "Hero a sekce",
+   "hint": "Dej na element Section."
+  },
+  {
+   "id": "animbg",
+   "name": "Animovaná pozadí",
+   "hint": "Dej na Section nebo Div. Intenzitu přepneš třídou mm-anim-subtle (jemné) nebo mm-anim-bold (výrazné)."
+  },
+  {
+   "id": "text",
+   "name": "Text a nadpisy",
+   "hint": "Dej na Heading nebo Text. Na zvýraznění části věty použij <span class=…>."
+  },
+  {
+   "id": "scroll",
+   "name": "Animace při scrollu",
+   "hint": "Dej na cokoliv. Kombinuj s mm-delay-1 až mm-delay-5."
+  },
+  {
+   "id": "pozadi",
+   "name": "Pozadí",
+   "hint": "Dej na Section nebo Div."
+  }
+ ],
+ "effects": [
+  {
+   "cls": "mm-border-gradient",
+   "cat": "ramecky",
+   "name": "Barevný přechodový rámeček",
+   "desc": "Rámeček s přechodem mezi barvou 1 a 2. Pozadí prvku zůstává tvoje.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-border-spin",
+   "cat": "ramecky",
+   "name": "Rotující rámeček",
+   "desc": "Světelný pruh neustále obíhá po obvodu. Na zvýraznění jednoho balíčku nebo nabídky.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-border-draw",
+   "cat": "ramecky",
+   "name": "Vykreslení rámečku",
+   "desc": "Po najetí myší se rámeček „dokreslí“ ze dvou rohů.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-border-corners",
+   "cat": "ramecky",
+   "name": "Rohové značky",
+   "desc": "Jen čtyři rohy místo celého rámečku. Po najetí se roztáhnou.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-border-glow",
+   "cat": "ramecky",
+   "name": "Záře při najetí",
+   "desc": "Jemná barevná záře kolem prvku při najetí myší.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-border-offset",
+   "cat": "ramecky",
+   "name": "Posunutý blok",
+   "desc": "Plný barevný blok posunutý za prvkem. Po najetí se prvek do něj „zamáčkne“.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-border-accent-left",
+   "cat": "ramecky",
+   "name": "Akcentní linka vlevo",
+   "desc": "Svislá barevná linka vlevo, po najetí zesílí. Hodí se na citace a výhody.",
+   "demo": "box"
+  },
+  {
+   "cls": "mm-btn-shine",
+   "cat": "tlacitka",
+   "name": "Odlesk",
+   "desc": "Přes tlačítko přejede světelný odlesk při najetí.",
+   "demo": "btn"
+  },
+  {
+   "cls": "mm-btn-lift",
+   "cat": "tlacitka",
+   "name": "Nadzvednutí",
+   "desc": "Tlačítko se nadzvedne a vrhne stín.",
+   "demo": "btn"
+  },
+  {
+   "cls": "mm-btn-fill",
+   "cat": "tlacitka",
+   "name": "Výplň zleva",
+   "desc": "Při najetí se tlačítko zleva vyplní barvou 2.",
+   "demo": "btn"
+  },
+  {
+   "cls": "mm-btn-arrow",
+   "cat": "tlacitka",
+   "name": "Šipka",
+   "desc": "Za textem je šipka →, která při najetí popojede.",
+   "demo": "btn"
+  },
+  {
+   "cls": "mm-btn-pulse",
+   "cat": "tlacitka",
+   "name": "Pulzující kruh",
+   "desc": "Kolem tlačítka pulzuje vlna. Jen na jedno hlavní CTA na stránce.",
+   "demo": "btn"
+  },
+  {
+   "cls": "mm-btn-glow",
+   "cat": "tlacitka",
+   "name": "Barevná záře",
+   "desc": "Záře v barvě akcentu při najetí.",
+   "demo": "btn"
+  },
+  {
+   "cls": "mm-btn-magnetic",
+   "cat": "tlacitka",
+   "name": "Magnetické tlačítko",
+   "desc": "Tlačítko se lehce přitahuje ke kurzoru. Jen na počítači.",
+   "demo": "btn",
+   "js": true
+  },
+  {
+   "cls": "mm-btn-underline",
+   "cat": "tlacitka",
+   "name": "Rostoucí podtržení",
+   "desc": "Pro textové odkazy: podtržení vyroste zleva doprava.",
+   "demo": "link"
+  },
+  {
+   "cls": "mm-card-lift",
+   "cat": "karty",
+   "name": "Nadzvednutí karty",
+   "desc": "Karta se po najetí zvedne a stín se prohloubí.",
+   "demo": "card"
+  },
+  {
+   "cls": "mm-card-tilt",
+   "cat": "karty",
+   "name": "3D náklon",
+   "desc": "Karta se naklání podle polohy kurzoru.",
+   "demo": "card",
+   "js": true
+  },
+  {
+   "cls": "mm-card-spotlight",
+   "cat": "karty",
+   "name": "Reflektor za kurzorem",
+   "desc": "Světelný kruh sleduje kurzor po kartě. Nejlépe vypadá na tmavém pozadí.",
+   "demo": "card-dark",
+   "js": true
+  },
+  {
+   "cls": "mm-card-glass",
+   "cat": "karty",
+   "name": "Matné sklo",
+   "desc": "Průsvitná karta s rozmazaným pozadím. Dej ji přes fotku nebo barevné pozadí.",
+   "demo": "card-glass"
+  },
+  {
+   "cls": "mm-card-shadow",
+   "cat": "karty",
+   "name": "Měkký vrstvený stín",
+   "desc": "Přirozený stín z několika vrstev místo jednoho tvrdého.",
+   "demo": "card"
+  },
+  {
+   "cls": "mm-card-accent-top",
+   "cat": "karty",
+   "name": "Linka nahoře",
+   "desc": "Nahoře vyroste barevná linka při najetí.",
+   "demo": "card"
+  },
+  {
+   "cls": "mm-card-fill",
+   "cat": "karty",
+   "name": "Výplň odspodu",
+   "desc": "Karta se po najetí zespodu vyplní barvou a text zbělá.",
+   "demo": "card"
+  },
+  {
+   "cls": "mm-cols-dividers",
+   "cat": "karty",
+   "name": "Oddělovače sloupců",
+   "desc": "Svislé linky mezi sloupci. Dej na rodiče (Columns / Div se sloupci).",
+   "demo": "cols"
+  },
+  {
+   "cls": "mm-cols-focus",
+   "cat": "karty",
+   "name": "Zvýraznění sloupce",
+   "desc": "Při najetí na jeden sloupec ostatní zešednou. Dej na rodiče.",
+   "demo": "cols"
+  },
+  {
+   "cls": "mm-img-zoom",
+   "cat": "obrazky",
+   "name": "Přiblížení",
+   "desc": "Fotka se po najetí pomalu přiblíží uvnitř svého rámu.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-gray",
+   "cat": "obrazky",
+   "name": "Šedá → barevná",
+   "desc": "Fotka je černobílá, po najetí se vybarví. Dobré pro tým a loga klientů.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-overlay",
+   "cat": "obrazky",
+   "name": "Tmavý přechod",
+   "desc": "Přes spodek fotky se při najetí objeví tmavý přechod.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-frame",
+   "cat": "obrazky",
+   "name": "Odsazený barevný rám",
+   "desc": "Za fotkou je posunutý barevný blok. Po najetí se přiblíží.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-blob",
+   "cat": "obrazky",
+   "name": "Organický tvar",
+   "desc": "Fotka v měkkém, pomalu se měnícím tvaru.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-shine",
+   "cat": "obrazky",
+   "name": "Odlesk přes fotku",
+   "desc": "Přes obrázek přejede světelný pruh.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-kenburns",
+   "cat": "obrazky",
+   "name": "Ken Burns",
+   "desc": "Pomalé nekonečné přibližování a posun. Na velké fotky.",
+   "demo": "img"
+  },
+  {
+   "cls": "mm-img-reveal",
+   "cat": "obrazky",
+   "name": "Odkrytí při scrollu",
+   "desc": "Fotka se odkryje zleva, když se dostane na obrazovku.",
+   "demo": "img",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-img-parallax",
+   "cat": "obrazky",
+   "name": "Parallax",
+   "desc": "Fotka se při scrollu posouvá pomaleji než stránka.",
+   "demo": "img",
+   "js": true
+  },
+  {
+   "cls": "mm-icon-pulse",
+   "cat": "ikony",
+   "name": "Pulzování",
+   "desc": "Ikona se jemně zvětšuje a zmenšuje. Nenápadné upozornění.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-ping",
+   "cat": "ikony",
+   "name": "Vlna kolem",
+   "desc": "Z ikony se šíří kruhová vlna jako u notifikace.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-bounce",
+   "cat": "ikony",
+   "name": "Poskakování",
+   "desc": "Ikona občas dvakrát poskočí. Třeba šipka „dolů“.",
+   "demo": "icon",
+   "icon": "arrow-down"
+  },
+  {
+   "cls": "mm-icon-float",
+   "cat": "ikony",
+   "name": "Vznášení",
+   "desc": "Ikona se pomalu vznáší nahoru a dolů.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-spin",
+   "cat": "ikony",
+   "name": "Pomalé otáčení",
+   "desc": "Ikona se pomalu a nepřetržitě otáčí. Pro ozubené kolo, slunce, logo.",
+   "demo": "icon",
+   "icon": "sun"
+  },
+  {
+   "cls": "mm-icon-wiggle",
+   "cat": "ikony",
+   "name": "Zakývání při najetí",
+   "desc": "Po najetí myší se ikona krátce zakývá.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-bell",
+   "cat": "ikony",
+   "name": "Zvoneček",
+   "desc": "Každé 4 sekundy se ikona rozhoupe jako zvonek.",
+   "demo": "icon",
+   "icon": "bell"
+  },
+  {
+   "cls": "mm-icon-pop",
+   "cat": "ikony",
+   "name": "Pružné zvětšení",
+   "desc": "Po najetí se ikona pružně zvětší a pootočí.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-circle",
+   "cat": "ikony",
+   "name": "Kruh s výplní",
+   "desc": "Ikona v jemném kruhu, který se po najetí vyplní barvou 1.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-ring",
+   "cat": "ikony",
+   "name": "Obíhající kroužek",
+   "desc": "Kolem ikony se otáčí čárkovaný kruh.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-glow",
+   "cat": "ikony",
+   "name": "Pulzující záře",
+   "desc": "Kolem ikony se rozsvěcí a zhasíná záře v barvě 1.",
+   "demo": "icon"
+  },
+  {
+   "cls": "mm-icon-slide",
+   "cat": "ikony",
+   "name": "Posun doprava",
+   "desc": "Po najetí ikona popojede doprava. Na šipky u odkazů.",
+   "demo": "icon",
+   "icon": "arrow"
+  },
+  {
+   "cls": "mm-dot-live",
+   "cat": "ikony",
+   "name": "Živá tečka",
+   "desc": "Zelená pulzující tečka před textem: „Volné termíny“, „Online“. Barvu změníš proměnnou --mm-live.",
+   "demo": "live"
+  },
+  {
+   "cls": "mm-group",
+   "cat": "ikony",
+   "name": "Spouštěč pro celou kartu",
+   "desc": "Dej na kartu. Hover efekty ikon uvnitř (pop, kruh, zakývání, posun) se spustí najetím kamkoliv na kartu.",
+   "demo": "group"
+  },
+  {
+   "cls": "mm-hero-full",
+   "cat": "hero",
+   "name": "Na celou výšku",
+   "desc": "Sekce na výšku obrazovky, obsah vycentrovaný. Správně i na mobilu (svh).",
+   "demo": "hero"
+  },
+  {
+   "cls": "mm-hero-overlay",
+   "cat": "hero",
+   "name": "Tmavý závoj",
+   "desc": "Tmavý přechod přes pozadí, aby byl bílý text čitelný na fotce.",
+   "demo": "hero-photo"
+  },
+  {
+   "cls": "mm-hero-gradient",
+   "cat": "hero",
+   "name": "Živý přechod",
+   "desc": "Pomalu se přelévající barevný přechod v pozadí.",
+   "demo": "hero"
+  },
+  {
+   "cls": "mm-hero-blobs",
+   "cat": "hero",
+   "name": "Plovoucí skvrny",
+   "desc": "Dvě rozmazané barevné skvrny se pomalu pohybují v pozadí.",
+   "demo": "hero"
+  },
+  {
+   "cls": "mm-hero-grid",
+   "cat": "hero",
+   "name": "Mřížka",
+   "desc": "Jemná mřížka, která se k okrajům ztrácí. Technický, čistý dojem.",
+   "demo": "hero"
+  },
+  {
+   "cls": "mm-hero-scroll",
+   "cat": "hero",
+   "name": "Ukazatel scrollu",
+   "desc": "Dole animovaná „myška“, která říká: pokračuj dolů.",
+   "demo": "hero-photo"
+  },
+  {
+   "cls": "mm-hero-curve",
+   "cat": "hero",
+   "name": "Oblý spodní okraj",
+   "desc": "Spodní hrana sekce je prohnutá do oblouku.",
+   "demo": "hero"
+  },
+  {
+   "cls": "mm-hero-slant",
+   "cat": "hero",
+   "name": "Šikmý spodní okraj",
+   "desc": "Spodní hrana sekce je šikmá.",
+   "demo": "hero"
+  },
+  {
+   "cls": "mm-anim-gradient",
+   "cat": "animbg",
+   "name": "Plynulý přechod",
+   "desc": "Přechod ze tří barev se pomalu přelévá po celé ploše.",
+   "demo": "anim",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-orb",
+   "cat": "animbg",
+   "name": "Putující kruh",
+   "desc": "Jeden velký rozostřený kruh pomalu putuje po sekci.",
+   "demo": "anim",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-orbs",
+   "cat": "animbg",
+   "name": "Tři barevné skvrny",
+   "desc": "Tři rozmazané skvrny v barvách 1–3, které se pomalu posouvají a otáčí.",
+   "demo": "anim-dark",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-aurora",
+   "cat": "animbg",
+   "name": "Polární záře",
+   "desc": "Barevné pásy splývají od horního okraje dolů jako polární záře.",
+   "demo": "anim-dark",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-mesh",
+   "cat": "animbg",
+   "name": "Mesh přechod",
+   "desc": "Tři měkké barevné body se pohybují a prolínají. Moderní „Apple“ dojem.",
+   "demo": "anim",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-conic",
+   "cat": "animbg",
+   "name": "Rotující kužel barev",
+   "desc": "Obrovský rozmazaný kruh barev se pomalu otáčí za obsahem.",
+   "demo": "anim-dark",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-waves",
+   "cat": "animbg",
+   "name": "Vlny",
+   "desc": "Dvě vrstvy vln plují u spodního okraje sekce. Hodí se nad patičku.",
+   "demo": "anim",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-beam",
+   "cat": "animbg",
+   "name": "Světelný záblesk",
+   "desc": "Přes sekci občas přejede pruh světla. Pro CTA a tmavé sekce.",
+   "demo": "anim-dark",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-glow",
+   "cat": "animbg",
+   "name": "Dýchající záře",
+   "desc": "Záře uprostřed sekce se pomalu zvětšuje a zmenšuje. Klidná, prémiová.",
+   "demo": "anim-dark",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-dots",
+   "cat": "animbg",
+   "name": "Plující tečky",
+   "desc": "Rastr teček se pomalu posouvá šikmo. Barva podle textu sekce.",
+   "demo": "anim",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-lines",
+   "cat": "animbg",
+   "name": "Pohyblivé proužky",
+   "desc": "Šikmé proužky v barvě 1 pomalu jedou do strany. Pro akční pruhy a bannery.",
+   "demo": "anim",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-anim-grain",
+   "cat": "animbg",
+   "name": "Živé zrno",
+   "desc": "Filmové zrno, které se chvěje. Dodá plné barvě „analogový“ charakter.",
+   "demo": "anim-dark",
+   "variants": [
+    {
+     "label": "Jemné",
+     "cls": "mm-anim-subtle"
+    },
+    {
+     "label": "Střední",
+     "cls": ""
+    },
+    {
+     "label": "Výrazné",
+     "cls": "mm-anim-bold"
+    }
+   ]
+  },
+  {
+   "cls": "mm-text-gradient",
+   "cat": "text",
+   "name": "Přechodový text",
+   "desc": "Text vyplněný přechodem barvy 1 → 2.",
+   "demo": "heading"
+  },
+  {
+   "cls": "mm-text-shimmer",
+   "cat": "text",
+   "name": "Třpytivý text",
+   "desc": "Přes text neustále přejíždí světlo.",
+   "demo": "heading"
+  },
+  {
+   "cls": "mm-text-highlight",
+   "cat": "text",
+   "name": "Zvýrazňovač",
+   "desc": "Za textem se při scrollu natáhne pruh jako od fixy. Dej na <span> v nadpisu.",
+   "demo": "heading-span",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-text-underline",
+   "cat": "text",
+   "name": "Tlusté podtržení",
+   "desc": "Barevné podtržení pod částí nadpisu, vykreslí se při scrollu.",
+   "demo": "heading-span",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-text-outline",
+   "cat": "text",
+   "name": "Obrysový text",
+   "desc": "Jen obrys písma bez výplně. Na velké nadpisy a čísla.",
+   "demo": "heading"
+  },
+  {
+   "cls": "mm-text-balance",
+   "cat": "text",
+   "name": "Vyvážené řádky",
+   "desc": "Prohlížeč rozdělí nadpis do rovnoměrných řádků, bez osamoceného slova na konci.",
+   "demo": "heading"
+  },
+  {
+   "cls": "mm-text-eyebrow",
+   "cat": "text",
+   "name": "Nadtitulek",
+   "desc": "Malý text verzálkami s linkou před sebou. Nad hlavní nadpis.",
+   "demo": "eyebrow"
+  },
+  {
+   "cls": "mm-counter",
+   "cat": "text",
+   "name": "Počítadlo",
+   "desc": "Číslo naběhne od nuly, když ho uvidíš. Text může mít příponu: „250+“, „98 %“.",
+   "demo": "counter",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-fade-up",
+   "cat": "scroll",
+   "name": "Vyjetí zespodu",
+   "desc": "Prvek se objeví a vyjede zespodu. Nejuniverzálnější.",
+   "demo": "box",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-fade-in",
+   "cat": "scroll",
+   "name": "Prolnutí",
+   "desc": "Prvek se jen plynule objeví.",
+   "demo": "box",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-fade-left",
+   "cat": "scroll",
+   "name": "Příjezd zleva",
+   "desc": "Prvek přijede zleva.",
+   "demo": "box",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-fade-right",
+   "cat": "scroll",
+   "name": "Příjezd zprava",
+   "desc": "Prvek přijede zprava.",
+   "demo": "box",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-zoom-in",
+   "cat": "scroll",
+   "name": "Zvětšení",
+   "desc": "Prvek se objeví ze zmenšeného stavu.",
+   "demo": "box",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-blur-in",
+   "cat": "scroll",
+   "name": "Zaostření",
+   "desc": "Prvek se objeví z rozmazání.",
+   "demo": "box",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-stagger",
+   "cat": "scroll",
+   "name": "Postupně po dětech",
+   "desc": "Dej na rodiče: jeho přímé děti (karty, sloupce) naskočí jedno po druhém.",
+   "demo": "cols",
+   "js": true,
+   "replay": true
+  },
+  {
+   "cls": "mm-delay-1",
+   "cat": "scroll",
+   "name": "Zpoždění 1–5",
+   "desc": "Přidej k animaci: mm-delay-1 (0,1 s) až mm-delay-5 (0,5 s). Příklad: „mm-fade-up mm-delay-2“.",
+   "demo": "box",
+   "js": true,
+   "replay": true,
+   "extra": "mm-fade-up"
+  },
+  {
+   "cls": "mm-slow",
+   "cat": "scroll",
+   "name": "Pomalejší animace",
+   "desc": "Přidej k animaci, poběží dvakrát pomaleji. Příklad: „mm-fade-up mm-slow“.",
+   "demo": "box",
+   "js": true,
+   "replay": true,
+   "extra": "mm-fade-up"
+  },
+  {
+   "cls": "mm-bg-dots",
+   "cat": "pozadi",
+   "name": "Tečky",
+   "desc": "Jemný rastr teček přes pozadí.",
+   "demo": "bg"
+  },
+  {
+   "cls": "mm-bg-lines",
+   "cat": "pozadi",
+   "name": "Linky",
+   "desc": "Jemné čtvercové linky přes pozadí.",
+   "demo": "bg"
+  },
+  {
+   "cls": "mm-bg-mesh",
+   "cat": "pozadi",
+   "name": "Měkký barevný nádech",
+   "desc": "Dvě rozmazané barevné plochy v rozích. Nenápadně oživí bílou sekci.",
+   "demo": "bg"
+  },
+  {
+   "cls": "mm-bg-noise",
+   "cat": "pozadi",
+   "name": "Zrnitost",
+   "desc": "Filmové zrno přes pozadí. Ubere sterilní „digitální“ dojem z plných barev.",
+   "demo": "bg-color"
+  },
+  {
+   "cls": "mm-bg-diagonal",
+   "cat": "pozadi",
+   "name": "Šikmé proužky",
+   "desc": "Jemné šikmé proužky. Hodí se na patičky a oddělovací pásy.",
+   "demo": "bg"
+  }
+ ]
+}

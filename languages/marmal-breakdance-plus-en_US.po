@@ -8,9 +8,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: marmal-breakdance-plus\n"
 
-#: marmal-breakdance-plus.php:84
-msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou."
-msgstr "The plugin requires an active Breakdance. Elements will not load."
+#: marmal-breakdance-plus.php:92
+msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou (modul Efekty funguje i bez něj)."
+msgstr "The plugin requires an active Breakdance. Elements will not load (the Effects module works without it)."
+
+#: modules/galerie/manifest.php:25
+msgid "Galerie Plus"
+msgstr "Gallery Plus"
+
+#: modules/galerie/manifest.php:26
+msgid "Breakdance element: mozaika se zarovnanými okraji (20 vzorů) nebo slider s miniaturami, efekty po najetí, video dlaždice a vlastní lightbox. CSS a JS se načítá jen na stránkách s galerií."
+msgstr "Breakdance element: an aligned-edge mosaic (20 patterns) or a slider with thumbnails, hover effects, video tiles and a custom lightbox. CSS and JS load only on pages with a gallery."
+
+#: modules/efekty/manifest.php:37
+msgid "Efekty"
+msgstr "Effects"
+
+#: modules/efekty/manifest.php:38
+msgid "Knihovna CSS efektů (rámečky, tlačítka, karty, obrázky, hero, animovaná pozadí, animace při scrollu). Efekt se zapne třídou mm-… v poli Classes. Nahrazuje plugin MarMal Effects."
+msgstr "A library of CSS effects (borders, buttons, cards, images, hero, animated backgrounds, scroll animations). Turn an effect on with an mm-… class in the Classes field. Replaces the MarMal Effects plugin."
+
+#: modules/efekty/manifest.php:45
+msgid "Galerie efektů"
+msgstr "Effects gallery"
+
+#: modules/efekty/manifest.php:46
+msgid "Nastavení"
+msgstr "Settings"
+
+#: modules/efekty/manifest.php:56
+#, php-format
+msgid "Načítá se %1$d z %2$d kategorií efektů."
+msgstr "Loading %1$d of %2$d effect categories."
 
 #: includes/gallery.php:222
 msgid "Videovizualizace"
@@ -61,3 +90,80 @@ msgstr "Next"
 #: includes/gallery.php:400
 msgid "Video"
 msgstr "Video"
+
+#: includes/moduly.php:43 includes/moduly.php:218 includes/moduly.php:218
+msgid "Moduly"
+msgstr "Modules"
+
+#: includes/moduly.php:232
+msgid "Nemáš oprávnění."
+msgstr "You do not have permission."
+
+#: includes/moduly.php:253
+msgid "Modul je zapnutý."
+msgstr "The module is on."
+
+#: includes/moduly.php:254
+msgid "Modul je vypnutý – jeho kód ani CSS se už nenačítají."
+msgstr "The module is off – its code and CSS no longer load."
+
+#: includes/moduly.php:255
+msgid "Hotovo: starý plugin je deaktivovaný a modul zapnutý. Nastavení zůstalo. Starý plugin teď můžeš v Pluginech smazat."
+msgstr "Done: the old plugin is deactivated and the module is on. Settings were kept. You can now delete the old plugin in Plugins."
+
+#: includes/moduly.php:256
+msgid "Změnu se nepodařilo uložit."
+msgstr "The change could not be saved."
+
+#: includes/moduly.php:260
+msgid "Zapnuto"
+msgstr "On"
+
+#: includes/moduly.php:261
+msgid "Vypnuto"
+msgstr "Off"
+
+#: includes/moduly.php:262
+msgid "Čeká na převod"
+msgstr "Waiting for migration"
+
+#: includes/moduly.php:263
+msgid "Chybí Breakdance"
+msgstr "Breakdance missing"
+
+#: includes/moduly.php:267
+msgid "MarMal – moduly"
+msgstr "MarMal – modules"
+
+#: includes/moduly.php:268
+msgid "Zapni jen to, co tento web používá. Vypnutý modul nenačte žádný kód, CSS ani JavaScript."
+msgstr "Turn on only what this website uses. A module that is off loads no code, CSS or JavaScript."
+
+#: includes/moduly.php:285
+msgid "Vždy zapnuto"
+msgstr "Always on"
+
+#: includes/moduly.php:293
+#, php-format
+msgid "Na webu ještě běží starý plugin %s, proto se modul nenačítá. Převod starý plugin deaktivuje a zapne modul – nastavení i třídy na stránkách zůstanou."
+msgstr "The old %s plugin is still running on this website, so the module does not load. Migration deactivates the old plugin and turns the module on – settings and classes on pages are kept."
+
+#: includes/moduly.php:297
+msgid "Modul potřebuje aktivní Breakdance."
+msgstr "The module requires an active Breakdance."
+
+#: includes/moduly.php:315
+msgid "Převést ze starého pluginu"
+msgstr "Migrate from the old plugin"
+
+#: includes/moduly.php:317
+msgid "Vypnout"
+msgstr "Turn off"
+
+#: includes/moduly.php:319
+msgid "Zapnout"
+msgstr "Turn on"
+
+#: includes/moduly.php:331
+msgid "Moduly jde přepínat i z aplikace sprava.marmal.cz (MarMal Agent)."
+msgstr "Modules can also be switched from the sprava.marmal.cz app (MarMal Agent)."

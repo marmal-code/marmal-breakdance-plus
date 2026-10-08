@@ -1,0 +1,107 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 10. IKONY A DETAILY ============
+   Dej na element Icon (nebo obrázek, SVG, span). Hover efekty se spustí i při najetí
+   na rodiče s třídou mm-group (např. celá karta). */
+:is(.mm-icon-pulse, .mm-icon-ping, .mm-icon-bounce, .mm-icon-float, .mm-icon-spin, .mm-icon-wiggle,
+    .mm-icon-bell, .mm-icon-pop, .mm-icon-circle, .mm-icon-ring, .mm-icon-glow, .mm-icon-slide) {
+  width: fit-content;
+  max-width: 100%;
+  transform-origin: center;
+}
+
+.mm-icon-pulse { animation: mm-icon-pulse 2.2s ease-in-out infinite; }
+@keyframes mm-icon-pulse { 50% { transform: scale(1.1); } }
+
+.mm-icon-ping { position: relative; }
+.mm-icon-ping::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--mm-accent);
+  pointer-events: none;
+  animation: mm-ping 2s cubic-bezier(0, 0, .2, 1) infinite;
+}
+@keyframes mm-ping { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.8); opacity: 0; } }
+
+.mm-icon-bounce { animation: mm-bounce 2.4s ease-in-out infinite; }
+@keyframes mm-bounce {
+  0%, 50%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-9px); }
+  35% { transform: translateY(0); }
+  42% { transform: translateY(-3px); }
+}
+
+.mm-icon-float { animation: mm-float 4s ease-in-out infinite; }
+@keyframes mm-float { 50% { transform: translateY(-6px); } }
+
+.mm-icon-spin { animation: mm-rotate 12s linear infinite; }
+
+:is(.mm-icon-wiggle:hover, .mm-group:hover .mm-icon-wiggle) { animation: mm-wiggle .6s ease-in-out; }
+@keyframes mm-wiggle {
+  20% { transform: rotate(-12deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-6deg); }
+  80% { transform: rotate(3deg); }
+}
+
+.mm-icon-bell { transform-origin: 50% 10%; animation: mm-bell 4s ease-in-out infinite; }
+@keyframes mm-bell {
+  0%, 12%, 100% { transform: rotate(0); }
+  2% { transform: rotate(14deg); }
+  4% { transform: rotate(-12deg); }
+  6% { transform: rotate(8deg); }
+  8% { transform: rotate(-5deg); }
+  10% { transform: rotate(2deg); }
+}
+
+.mm-icon-pop { transition: transform .4s cubic-bezier(.34, 1.56, .64, 1); }
+:is(.mm-icon-pop:hover, .mm-group:hover .mm-icon-pop) { transform: scale(1.18) rotate(-6deg); }
+
+.mm-icon-circle {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: .8em;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--mm-accent) 12%, transparent);
+  color: var(--mm-accent);
+  transition: background-color var(--mm-speed) var(--mm-ease), color var(--mm-speed) var(--mm-ease), transform var(--mm-speed) var(--mm-ease);
+}
+.mm-icon-circle svg { fill: currentColor; }
+:is(.mm-icon-circle:hover, .mm-group:hover .mm-icon-circle) { background: var(--mm-accent); color: var(--mm-on-accent); transform: translateY(-2px); }
+
+.mm-icon-ring { position: relative; }
+.mm-icon-ring::before {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  border: 1.5px dashed var(--mm-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: mm-rotate 10s linear infinite;
+}
+
+.mm-icon-glow { animation: mm-icon-glow 2.6s ease-in-out infinite; }
+@keyframes mm-icon-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50%      { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mm-accent) 80%, transparent)); }
+}
+
+.mm-icon-slide { transition: transform var(--mm-speed) var(--mm-ease); }
+:is(.mm-icon-slide:hover, .mm-group:hover .mm-icon-slide) { transform: translateX(6px); }
+
+.mm-dot-live { display: inline-flex; align-items: center; gap: .55em; }
+.mm-dot-live::before {
+  content: "";
+  flex: none;
+  width: .55em;
+  height: .55em;
+  border-radius: 50%;
+  background: var(--mm-live, #22c55e);
+  animation: mm-live 2s ease-out infinite;
+}
+@keyframes mm-live {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mm-live, #22c55e) 60%, transparent); }
+  100% { box-shadow: 0 0 0 .6em color-mix(in srgb, var(--mm-live, #22c55e) 0%, transparent); }
+}

@@ -1,0 +1,86 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 2. RÁMEČKY ============ */
+.mm-border-gradient,
+.mm-border-spin { position: relative; border-radius: var(--mm-radius); }
+.mm-border-gradient::before,
+.mm-border-spin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: var(--mm-border-w);
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--mm-accent), var(--mm-accent-2));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.mm-border-spin::before {
+  padding: calc(var(--mm-border-w) + 1px);
+  background: conic-gradient(from var(--mm-angle), transparent 0 62%, var(--mm-accent) 80%, var(--mm-accent-2) 92%, transparent);
+  animation: mm-spin 4s linear infinite;
+}
+@keyframes mm-spin { to { --mm-angle: 360deg; } }
+
+.mm-border-draw { position: relative; }
+.mm-border-draw::before,
+.mm-border-draw::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  border: var(--mm-border-w) solid transparent;
+  pointer-events: none;
+  transition: width .3s ease .3s, height .3s ease, border-color 0s .6s;
+}
+.mm-border-draw::before { top: 0; left: 0; }
+.mm-border-draw::after  { bottom: 0; right: 0; }
+.mm-border-draw:hover::before,
+.mm-border-draw:hover::after {
+  width: 100%;
+  height: 100%;
+  transition: width .3s ease, height .3s ease .3s, border-color 0s;
+}
+.mm-border-draw:hover::before { border-top-color: var(--mm-accent); border-right-color: var(--mm-accent); }
+.mm-border-draw:hover::after  { border-bottom-color: var(--mm-accent); border-left-color: var(--mm-accent); }
+
+.mm-border-corners { position: relative; }
+.mm-border-corners::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --g: linear-gradient(var(--mm-accent), var(--mm-accent));
+  background:
+    var(--g) top left / var(--mm-c) var(--mm-border-w),
+    var(--g) top left / var(--mm-border-w) var(--mm-c),
+    var(--g) top right / var(--mm-c) var(--mm-border-w),
+    var(--g) top right / var(--mm-border-w) var(--mm-c),
+    var(--g) bottom left / var(--mm-c) var(--mm-border-w),
+    var(--g) bottom left / var(--mm-border-w) var(--mm-c),
+    var(--g) bottom right / var(--mm-c) var(--mm-border-w),
+    var(--g) bottom right / var(--mm-border-w) var(--mm-c);
+  background-repeat: no-repeat;
+  transition: --mm-c var(--mm-speed) var(--mm-ease);
+}
+.mm-border-corners:hover::before { --mm-c: 42px; }
+
+.mm-border-glow { transition: box-shadow var(--mm-speed) var(--mm-ease); }
+.mm-border-glow:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--mm-accent) 45%, transparent),
+    0 10px 40px -8px color-mix(in srgb, var(--mm-accent) 55%, transparent);
+}
+
+.mm-border-offset {
+  box-shadow: 10px 10px 0 0 var(--mm-accent);
+  transition: box-shadow var(--mm-speed) var(--mm-ease), transform var(--mm-speed) var(--mm-ease);
+}
+.mm-border-offset:hover { box-shadow: 3px 3px 0 0 var(--mm-accent); transform: translate(7px, 7px); }
+
+.mm-border-accent-left {
+  box-shadow: inset 3px 0 0 0 var(--mm-accent);
+  transition: box-shadow var(--mm-speed) var(--mm-ease);
+}
+.mm-border-accent-left:hover { box-shadow: inset 7px 0 0 0 var(--mm-accent); }

@@ -1,0 +1,88 @@
+/* Generováno nástrojem tools/efekty_casti.py z mm-effects.css – neupravovat ručně. */
+/* ============ 3. TLAČÍTKA ============
+   Funguje na <a>/<button> s třídou i na elementu Button z Breakdance (.button-atom uvnitř). */
+:is(a, button).mm-btn-shine, .mm-btn-shine :is(.button-atom, .bde-button__button),
+:is(a, button).mm-btn-fill,  .mm-btn-fill  :is(.button-atom, .bde-button__button) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+:is(a, button).mm-btn-shine::after, .mm-btn-shine :is(.button-atom, .bde-button__button)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .5), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+:is(a, button).mm-btn-shine:hover::after, .mm-btn-shine :is(.button-atom, .bde-button__button):hover::after {
+  left: 130%;
+  transition: left .75s ease;
+}
+
+:is(a, button).mm-btn-lift, .mm-btn-lift :is(.button-atom, .bde-button__button) {
+  transition: transform var(--mm-speed) var(--mm-ease), box-shadow var(--mm-speed) var(--mm-ease);
+}
+:is(a, button).mm-btn-lift:hover, .mm-btn-lift :is(.button-atom, .bde-button__button):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px -12px color-mix(in srgb, var(--mm-accent) 70%, #000);
+}
+
+:is(a, button).mm-btn-fill::before, .mm-btn-fill :is(.button-atom, .bde-button__button)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--mm-accent-2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+:is(a, button).mm-btn-fill:hover::before, .mm-btn-fill :is(.button-atom, .bde-button__button):hover::before { transform: scaleX(1); }
+
+:is(a, button).mm-btn-arrow::after, .mm-btn-arrow :is(.button-atom, .bde-button__button)::after {
+  content: "→";
+  display: inline-block;
+  margin-left: .55em;
+  transition: transform var(--mm-speed) var(--mm-ease);
+}
+:is(a, button).mm-btn-arrow:hover::after, .mm-btn-arrow :is(.button-atom, .bde-button__button):hover::after { transform: translateX(5px); }
+
+:is(a, button).mm-btn-pulse, .mm-btn-pulse :is(.button-atom, .bde-button__button) { position: relative; overflow: visible; }
+:is(a, button).mm-btn-pulse::before, .mm-btn-pulse :is(.button-atom, .bde-button__button)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: mm-pulse 2.2s var(--mm-ease) infinite;
+}
+@keyframes mm-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mm-accent) 55%, transparent); }
+  75%, 100% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--mm-accent) 0%, transparent); }
+}
+
+:is(a, button).mm-btn-glow, .mm-btn-glow :is(.button-atom, .bde-button__button) { transition: box-shadow var(--mm-speed) var(--mm-ease); }
+:is(a, button).mm-btn-glow:hover, .mm-btn-glow :is(.button-atom, .bde-button__button):hover {
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--mm-accent) 25%, transparent),
+    0 8px 32px color-mix(in srgb, var(--mm-accent) 55%, transparent);
+}
+
+:is(a, button).mm-btn-magnetic, .mm-btn-magnetic :is(.button-atom, .bde-button__button) {
+  transform: translate3d(var(--mm-mx, 0px), var(--mm-my, 0px), 0);
+  transition: transform .3s var(--mm-ease);
+}
+
+:is(a.mm-btn-underline, .mm-btn-underline a) {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 2px;
+  transition: background-size var(--mm-speed) var(--mm-ease);
+}
+:is(a.mm-btn-underline, .mm-btn-underline a):hover { background-size: 100% 2px; }
