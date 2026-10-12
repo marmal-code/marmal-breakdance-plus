@@ -1,0 +1,39 @@
+{#
+  superHERO – typografie jednotlivých prvků (presety Typography z Breakdance).
+  Ostatní styly počítá PHP (includes/hero.php) jako CSS proměnné a default.css.
+  Šablona se vykresluje pro každý breakpoint, takže velikost písma jde nastavit
+  zvlášť pro desktop, tablet i mobil přímo v presetu.
+#}
+%%SELECTOR%% .marmal-hero__badge {
+  {{ macros.typography(design.pismo.odznak, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__eyebrow {
+  {{ macros.typography(design.pismo.eyebrow, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__title {
+  {{ macros.typography(design.pismo.nadpis, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__text {
+  {{ macros.typography(design.pismo.text, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn {
+  {{ macros.typography(design.pismo.tlacitka, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__list:not(.marmal-hero__list--cisla) li,
+%%SELECTOR%% .marmal-hero__lab {
+  {{ macros.typography(design.pismo.vyhody, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero-num {
+  {{ macros.typography(design.pismo.cisla, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__trust,
+%%SELECTOR%% .marmal-hero__strip small,
+%%SELECTOR%% .marmal-hero__lg {
+  {{ macros.typography(design.pismo.duvera, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__open {
+  {{ macros.typography(design.pismo.oteviraci, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__float {
+  {{ macros.typography(design.pismo.stitek, globalSettings) }}
+}

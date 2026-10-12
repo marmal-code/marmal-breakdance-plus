@@ -8,7 +8,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: marmal-breakdance-plus\n"
 
-#: marmal-breakdance-plus.php:92
+#: marmal-breakdance-plus.php:93
 msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou (modul Efekty funguje i bez něj)."
 msgstr "The plugin requires an active Breakdance. Elements will not load (the Effects module works without it)."
 
@@ -19,6 +19,14 @@ msgstr "Gallery Plus"
 #: modules/galerie/manifest.php:26
 msgid "Breakdance element: mozaika se zarovnanými okraji (20 vzorů) nebo slider s miniaturami, efekty po najetí, video dlaždice a vlastní lightbox. CSS a JS se načítá jen na stránkách s galerií."
 msgstr "Breakdance element: an aligned-edge mosaic (20 patterns) or a slider with thumbnails, hover effects, video tiles and a custom lightbox. CSS and JS load only on pages with a gallery."
+
+#: modules/hero/manifest.php:26
+msgid "superHERO"
+msgstr "superHERO"
+
+#: modules/hero/manifest.php:27
+msgid "Breakdance element pro úvodní sekci: 5 rozložení, pozadí z fotky, videa, slideru nebo živého přechodu, tlačítka s efekty, důvěra, otevírací doba, masky obrázků, dividery a typografie každého prvku. JS se načítá jen na stránkách s elementem."
+msgstr "Breakdance element for the hero section: 5 layouts, photo, video, slider or animated gradient background, buttons with effects, trust signals, opening hours, image masks, dividers and typography for every part. JS loads only on pages with the element."
 
 #: modules/efekty/manifest.php:37
 msgid "Efekty"
@@ -79,11 +87,11 @@ msgstr "Show photo %1$d of %2$d"
 msgid "Zavřít"
 msgstr "Close"
 
-#: includes/gallery.php:397
+#: includes/gallery.php:397 includes/hero.php:946
 msgid "Předchozí"
 msgstr "Previous"
 
-#: includes/gallery.php:398
+#: includes/gallery.php:398 includes/hero.php:947
 msgid "Další"
 msgstr "Next"
 
@@ -91,79 +99,177 @@ msgstr "Next"
 msgid "Video"
 msgstr "Video"
 
-#: includes/moduly.php:43 includes/moduly.php:218 includes/moduly.php:218
+#: includes/hero.php:725
+msgid "Po–Pá"
+msgstr "Mon–Fri"
+
+#: includes/hero.php:725
+msgid "Po–So"
+msgstr "Mon–Sat"
+
+#: includes/hero.php:725
+msgid "Denně"
+msgstr "Daily"
+
+#: includes/hero.php:807
+#, php-format
+msgid "Hodnocení %s z 5"
+msgstr "Rated %s out of 5"
+
+#: includes/hero.php:893
+msgid "superHERO: vyberte video v Content → Médium."
+msgstr "superHERO: choose a video in Content → Media."
+
+#: includes/hero.php:908
+msgid "superHERO: vyberte obrázek v Content → Médium."
+msgstr "superHERO: choose an image in Content → Media."
+
+#: includes/hero.php:926
+msgid "Přehrát video"
+msgstr "Play video"
+
+#: includes/hero.php:932
+msgid "superHERO: vložte shortcode formuláře (např. Global Block s formulářem Breakdance) v Content → Médium."
+msgstr "superHERO: add a form shortcode (e.g. a Global Block with a Breakdance form) in Content → Media."
+
+#: includes/hero.php:943
+#, php-format
+msgid "Slide %d"
+msgstr "Slide %d"
+
+#: includes/hero.php:963
+msgid "Posunout"
+msgstr "Scroll"
+
+#: includes/hero.php:967 includes/hero.php:967 includes/hero.php:967
+msgid "Pozastavit pohyb"
+msgstr "Pause motion"
+
+#: includes/hero.php:967
+msgid "Spustit pohyb"
+msgstr "Play motion"
+
+#: includes/hero.php:1010
+#, php-format
+msgid "Teď máme otevřeno · do %s"
+msgstr "Open now · until %s"
+
+#: includes/hero.php:1012
+#, php-format
+msgid "Zavřeno · otevíráme dnes v %s"
+msgstr "Closed · opens today at %s"
+
+#: includes/hero.php:1014
+#, php-format
+msgid "Zavřeno · otevíráme zítra v %s"
+msgstr "Closed · opens tomorrow at %s"
+
+#: includes/hero.php:1016
+#, php-format
+msgid "Zavřeno · otevíráme %1$s v %2$s"
+msgstr "Closed · opens %1$s at %2$s"
+
+#: includes/hero.php:1017
+msgid "v neděli"
+msgstr "on Sunday"
+
+#: includes/hero.php:1017
+msgid "v pondělí"
+msgstr "on Monday"
+
+#: includes/hero.php:1017
+msgid "v úterý"
+msgstr "on Tuesday"
+
+#: includes/hero.php:1017
+msgid "ve středu"
+msgstr "on Wednesday"
+
+#: includes/hero.php:1017
+msgid "ve čtvrtek"
+msgstr "on Thursday"
+
+#: includes/hero.php:1017
+msgid "v pátek"
+msgstr "on Friday"
+
+#: includes/hero.php:1017
+msgid "v sobotu"
+msgstr "on Saturday"
+
+#: includes/moduly.php:43 includes/moduly.php:229 includes/moduly.php:229
 msgid "Moduly"
 msgstr "Modules"
 
-#: includes/moduly.php:232
+#: includes/moduly.php:243
 msgid "Nemáš oprávnění."
 msgstr "You do not have permission."
 
-#: includes/moduly.php:253
+#: includes/moduly.php:264
 msgid "Modul je zapnutý."
 msgstr "The module is on."
 
-#: includes/moduly.php:254
+#: includes/moduly.php:265
 msgid "Modul je vypnutý – jeho kód ani CSS se už nenačítají."
 msgstr "The module is off – its code and CSS no longer load."
 
-#: includes/moduly.php:255
+#: includes/moduly.php:266
 msgid "Hotovo: starý plugin je deaktivovaný a modul zapnutý. Nastavení zůstalo. Starý plugin teď můžeš v Pluginech smazat."
 msgstr "Done: the old plugin is deactivated and the module is on. Settings were kept. You can now delete the old plugin in Plugins."
 
-#: includes/moduly.php:256
+#: includes/moduly.php:267
 msgid "Změnu se nepodařilo uložit."
 msgstr "The change could not be saved."
 
-#: includes/moduly.php:260
+#: includes/moduly.php:271
 msgid "Zapnuto"
 msgstr "On"
 
-#: includes/moduly.php:261
+#: includes/moduly.php:272
 msgid "Vypnuto"
 msgstr "Off"
 
-#: includes/moduly.php:262
+#: includes/moduly.php:273
 msgid "Čeká na převod"
 msgstr "Waiting for migration"
 
-#: includes/moduly.php:263
+#: includes/moduly.php:274
 msgid "Chybí Breakdance"
 msgstr "Breakdance missing"
 
-#: includes/moduly.php:267
+#: includes/moduly.php:278
 msgid "MarMal – moduly"
 msgstr "MarMal – modules"
 
-#: includes/moduly.php:268
+#: includes/moduly.php:279
 msgid "Zapni jen to, co tento web používá. Vypnutý modul nenačte žádný kód, CSS ani JavaScript."
 msgstr "Turn on only what this website uses. A module that is off loads no code, CSS or JavaScript."
 
-#: includes/moduly.php:285
+#: includes/moduly.php:296
 msgid "Vždy zapnuto"
 msgstr "Always on"
 
-#: includes/moduly.php:293
+#: includes/moduly.php:304
 #, php-format
 msgid "Na webu ještě běží starý plugin %s, proto se modul nenačítá. Převod starý plugin deaktivuje a zapne modul – nastavení i třídy na stránkách zůstanou."
 msgstr "The old %s plugin is still running on this website, so the module does not load. Migration deactivates the old plugin and turns the module on – settings and classes on pages are kept."
 
-#: includes/moduly.php:297
+#: includes/moduly.php:308
 msgid "Modul potřebuje aktivní Breakdance."
 msgstr "The module requires an active Breakdance."
 
-#: includes/moduly.php:315
+#: includes/moduly.php:326
 msgid "Převést ze starého pluginu"
 msgstr "Migrate from the old plugin"
 
-#: includes/moduly.php:317
+#: includes/moduly.php:328
 msgid "Vypnout"
 msgstr "Turn off"
 
-#: includes/moduly.php:319
+#: includes/moduly.php:330
 msgid "Zapnout"
 msgstr "Turn on"
 
-#: includes/moduly.php:331
+#: includes/moduly.php:342
 msgid "Moduly jde přepínat i z aplikace sprava.marmal.cz (MarMal Agent)."
 msgstr "Modules can also be switched from the sprava.marmal.cz app (MarMal Agent)."
