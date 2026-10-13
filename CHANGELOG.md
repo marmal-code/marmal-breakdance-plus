@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.8.0 – 2026-10-12
+## 0.8.0 – 2026-10-13
 - **Nový element superHERO** (modul `hero`, vždy zapnutý) – úvodní sekce stránky postavená podle odladěného prototypu:
   - 5 rozložení, poměr sloupců, svislé zarovnání, minimální výška, šířka a mezery z design systému webu nebo vlastní,
   - pozadí: barva, přechod, živý přechod, fotka (Ken Burns), video (načte se jen na desktopu a bez šetření dat), slider jen pozadí nebo celé sekce (prolnutí, posun, zoom; tečky, šipky, čísla, průběh; swipe; termíny slidů),
