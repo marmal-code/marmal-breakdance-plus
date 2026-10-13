@@ -18,13 +18,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ------------------------------------------------------------------ pomocné konstruktory
 def text(k, l, d=''):            return dict(k=k, l=l, t='text', d=d)
-def area(k, l, d=''):            return dict(k=k, l=l, t='textarea', d=d)
 def dd(k, l, items, d):          return dict(k=k, l=l, t='dropdown', items=items, d=d)
 def tog(k, l, d=False):          return dict(k=k, l=l, t='toggle', d=d)
 def num(k, l, mn, mx, st, d):    return dict(k=k, l=l, t='number', min=mn, max=mx, step=st, d=d)
 def unit(k, l, d):               return dict(k=k, l=l, t='unit', d=d)
 def color(k, l, d=''):           return dict(k=k, l=l, t='color', d=d)
-def media(k, l, kind='image', multi=False): return dict(k=k, l=l, t='wpmedia', kind=kind, multi=multi, d=None)
+def media(k, l, multi=False):    return dict(k=k, l=l, t='wpmedia', multi=multi, d=None)
 def icon(k, l):                  return dict(k=k, l=l, t='icon', d=None)
 def typo(k, l):                  return dict(k=k, l=l, t='typography', d=None)
 
@@ -46,9 +45,9 @@ CONTENT = [
         dd('odznak_styl', 'Styl odznaku', [('obrys', 'Obrys'), ('tecka', 'Blikající tečka'), ('sklo', 'Sklo')], 'tecka'),
         icon('odznak_ikona', 'Ikona odznaku (u stylu Obrys / Sklo)'),
         text('eyebrow', 'Nadnadpis (eyebrow)', 'Nadnadpis'),
-        area('nadpis', 'Nadpis – *slovo* = zvýraznění, [a|b|c] = rotující slova', 'Hlavní sdělení, které *zaujme*'),
+        text('nadpis', 'Nadpis – *slovo* = zvýraznění, [a|b|c] = rotující slova', 'Hlavní sdělení, které *zaujme*'),
         dd('nadpis_tag', 'HTML tag nadpisu', [('h1', 'H1'), ('h2', 'H2'), ('p', 'p')], 'h1'),
-        area('text', 'Podpůrný text', 'Jedna až dvě věty o tom, co nabízíte a proč právě vy.'),
+        text('text', 'Podpůrný text', 'Jedna až dvě věty o tom, co nabízíte a proč právě vy.'),
     ]),
     ('tlacitka', 'Tlačítka', [
         text('btn1_text', 'Tlačítko 1 – text (prázdné = skryto)', 'Nezávazná poptávka'),
@@ -63,7 +62,7 @@ CONTENT = [
     ('video', 'Video v lightboxu', [
         dd('spoustec', 'Otevřít video', [('zadny', 'Ne'), ('tlacitko2', 'Tlačítkem 2'), ('medium', 'Play na obrázku'), ('oboje', 'Obojí')], 'zadny'),
         text('url', 'Odkaz na video (YouTube / Vimeo / MP4)'),
-        media('soubor', 'Nebo video z knihovny médií', 'video'),
+        text('soubor', 'Nebo adresa MP4 z knihovny médií (Média → Kopírovat URL)'),
     ]),
     ('duvera', 'Důvěra', [
         dd('typ', 'Typ', [('zadna', 'Žádná'), ('hodnoceni', 'Hodnocení'), ('avatary', 'Zákazníci (fotky)'), ('loga', 'Loga')], 'zadna'),
@@ -71,10 +70,10 @@ CONTENT = [
         text('hodnoceni_text', 'Text u hodnocení', 'z 87 recenzí na Googlu'),
         text('avatary_text', 'Text u fotek', '+120 spokojených zákazníků'),
         num('avatary_pocet', 'Počet kroužků bez fotek', 3, 6, 1, 4),
-        media('avatary_foto', 'Fotky zákazníků (jen se souhlasem)', 'image', True),
+        media('avatary_foto', 'Fotky zákazníků (jen se souhlasem)', True),
         text('loga_nadpis', 'Nadpis u log', 'Pracovali jsme pro'),
-        media('loga_soubory', 'Loga', 'image', True),
-        area('loga', 'Nebo názvy (jeden na řádek)'),
+        media('loga_soubory', 'Loga', True),
+        text('loga', 'Nebo názvy oddělené čárkou'),
         dd('loga_pozice', 'Umístění log', [('dole', 'Pruh dole'), ('pod', 'Pod tlačítky')], 'dole'),
         tog('loga_pohyb', 'Loga pomalu jedou (jen pruh dole)'),
     ]),
@@ -87,14 +86,19 @@ CONTENT = [
         dd('pozice', 'Umístění', [('pod', 'Pod tlačítky'), ('nahore', 'Nad nadpisem')], 'pod'),
     ]),
     ('vyhody', 'Výhody / čísla', [
-        area('polozky', 'Položky (jedna na řádek; pro čísla „120+ | dokončených zakázek“)', 'Výhoda číslo jedna\nVýhoda číslo dva\nVýhoda číslo tři'),
+        text('polozka1', 'Položka 1 (pro čísla „120+ | dokončených zakázek“; prázdné = skryto)', 'Výhoda číslo jedna'),
+        text('polozka2', 'Položka 2', 'Výhoda číslo dva'),
+        text('polozka3', 'Položka 3', 'Výhoda číslo tři'),
+        text('polozka4', 'Položka 4'),
+        text('polozka5', 'Položka 5'),
+        text('polozka6', 'Položka 6'),
         icon('ikona', 'Ikona položek (prázdné = fajfka)'),
     ]),
     ('medium', 'Médium vedle textu', [
         dd('typ', 'Typ', [('obrazek', 'Obrázek'), ('video', 'Video'), ('formular', 'Formulář'), ('zadne', 'Nic')], 'obrazek'),
         media('obrazek', 'Obrázek'),
         text('alt', 'Alt text (prázdné = z knihovny médií)'),
-        media('video', 'Video (MP4, bez zvuku)', 'video'),
+        text('video', 'Video – adresa MP4 bez zvuku (Média → Kopírovat URL)'),
         text('form_nadpis', 'Nadpis nad formulářem'),
         text('form_shortcode', 'Formulář – shortcode (např. Global Block s formulářem)'),
         text('stitek', 'Plovoucí štítek u obrázku (prázdné = skryto)'),
@@ -103,12 +107,23 @@ CONTENT = [
     ('pozadi', 'Pozadí sekce', [
         dd('typ', 'Typ pozadí', [('zadne', 'Žádné'), ('barva', 'Barva'), ('gradient', 'Přechod'), ('zivy', 'Živý přechod (animovaný)'), ('obrazek', 'Obrázek'), ('video', 'Video')], 'barva'),
         media('obrazek', 'Obrázek / poster videa'),
-        media('video', 'Video pozadí (MP4, bez zvuku, 2–4 MB)', 'video'),
+        text('video', 'Video pozadí – adresa MP4 bez zvuku, 2–4 MB (Média → Kopírovat URL)'),
     ]),
     ('slider', 'Slider', [
         dd('rezim', 'Slider', [('vypnuto', 'Vypnuto'), ('pozadi', 'Jen pozadí'), ('cely', 'Celá sekce')], 'vypnuto'),
-        media('obrazky', 'Obrázky slidů', 'image', True),
-        area('slidy', 'Další slidy: nadpis | text | termín (např. 1.12.–31.12.)'),
+        media('obrazky', 'Obrázky slidů', True),
+        text('slide2_nadpis', 'Slide 2 – nadpis (prázdné = slide se nezobrazí)'),
+        text('slide2_text', 'Slide 2 – text'),
+        text('slide2_termin', 'Slide 2 – zobrazit jen v termínu (např. 1.12.–31.12.)'),
+        text('slide3_nadpis', 'Slide 3 – nadpis (prázdné = slide se nezobrazí)'),
+        text('slide3_text', 'Slide 3 – text'),
+        text('slide3_termin', 'Slide 3 – zobrazit jen v termínu (např. 1.12.–31.12.)'),
+        text('slide4_nadpis', 'Slide 4 – nadpis (prázdné = slide se nezobrazí)'),
+        text('slide4_text', 'Slide 4 – text'),
+        text('slide4_termin', 'Slide 4 – zobrazit jen v termínu (např. 1.12.–31.12.)'),
+        text('slide5_nadpis', 'Slide 5 – nadpis (prázdné = slide se nezobrazí)'),
+        text('slide5_text', 'Slide 5 – text'),
+        text('slide5_termin', 'Slide 5 – zobrazit jen v termínu (např. 1.12.–31.12.)'),
     ]),
     ('doplnky', 'Doplňky', [
         dd('sipka', 'Ukazatel „posunout dolů“', [('zadna', 'Žádný'), ('kruh', 'Šipka'), ('mys', 'Myš'), ('cara', 'Čára')], 'zadna'),
@@ -248,8 +263,8 @@ def control(c, ind):
     if t == 'typography':
         return (f'{p}getPresetSection(\n{p}    "EssentialElements\\\\typography_with_effects_and_align",\n'
                 f'{p}    {q(c["l"])},\n{p}    {q(c["k"])},\n{p}    [\'type\' => \'popout\']\n{p})')
-    if t in ('text', 'textarea'):
-        opts = f"['type' => '{t}', 'layout' => 'vertical']"
+    if t == 'text':
+        opts = "['type' => 'text', 'layout' => 'vertical']"
     elif t == 'dropdown':
         items = ', '.join(f"['value' => {q(v)}, 'text' => {q(x)}]" for v, x in c['items'])
         opts = f"['type' => 'dropdown', 'layout' => 'vertical', 'items' => [{items}]]"
@@ -263,7 +278,7 @@ def control(c, ind):
         opts = "['type' => 'color', 'layout' => 'inline']"
     elif t == 'wpmedia':
         multi = 'true' if c['multi'] else 'false'
-        opts = f"['type' => 'wpmedia', 'layout' => 'vertical', 'mediaOptions' => ['acceptedFileTypes' => ['{c['kind']}'], 'multiple' => {multi}]]"
+        opts = f"['type' => 'wpmedia', 'layout' => 'vertical', 'mediaOptions' => ['acceptedFileTypes' => ['image'], 'multiple' => {multi}]]"
     elif t == 'icon':
         opts = "['type' => 'icon', 'layout' => 'vertical']"
     else:
@@ -494,10 +509,10 @@ def main():
                     continue
                 path = f"{tab}.{sid}.{c['k']}"
                 hodnoty.append(f"        '{path}' => {php_val(c['d'])},")
-                if c['t'] in ('text', 'textarea'):
+                if c['t'] == 'text':
                     textove.append(f"        '{path}',")
                 # výchozí vlastnosti nově vloženého elementu (jen jednoduché typy)
-                if c['t'] in ('text', 'textarea', 'dropdown', 'toggle', 'number') and c['d'] not in (None, ''):
+                if c['t'] in ('text', 'dropdown', 'toggle', 'number') and c['d'] not in (None, ''):
                     vlastnosti.setdefault(tab, {}).setdefault(sid, {})[c['k']] = c['d']
     vych = ('<?php\n/**\n * superHERO – výchozí hodnoty ovládacích prvků.\n'
             ' * VYGENEROVÁNO nástrojem tools/hero_prvky.py – neupravuj ručně.\n'

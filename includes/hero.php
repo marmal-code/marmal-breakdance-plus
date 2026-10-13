@@ -204,6 +204,16 @@ function hero_img(?array $m, string $class, string $velikost, string $sizes, boo
     return $html . '>';
 }
 
+/** Adresa videa souboru (MP4/WebM) – jen http(s) nebo relativní cesta, jinak prázdné. */
+function hero_url_mp4(string $url): string
+{
+    $url = trim($url);
+    if ($url === '' || !preg_match('~^(https?://|/)[^\s"<>]+\.(mp4|webm|ogv)(\?[^\s"<>]*)?$~i', $url)) {
+        return '';
+    }
+    return esc_url_raw($url, ['http', 'https']);
+}
+
 // ===================================================================== ikony
 
 /** Záložní ikony (když v prvku ikona není vybraná). */
@@ -502,7 +512,7 @@ function hero_render(array $p): string
     $mImg   = $dyn['obrazek'] === null ? hero_media($v('content.medium.obrazek')) : ($dyn['obrazek'] ?: null);
 
     // médium ve frontendu bez obrázku/videa se nevykreslí
-    $mVideo = $mTyp === 'video' ? hero_media_url(hero_media($v('content.medium.video'))) : '';
+    $mVideo = $mTyp === 'video' ? hero_url_mp4((string) $v('content.medium.video')) : '';
     $formHtml = '';
     if ($mTyp === 'formular') {
         // Jen skutečný shortcode ([nazev …]) – žádné volné HTML ani text.
@@ -519,9 +529,12 @@ function hero_render(array $p): string
     // ---------------------------------------------------------------- slidy
     $slidy = [['h' => $nadpis, 't' => $text, 'term' => '']];
     if ($sRezim === 'cely') {
-        foreach (hero_radky((string) $v('content.slider.slidy')) as $radek) {
-            $c = array_map('trim', explode('|', $radek));
-            $slidy[] = ['h' => $c[0] ?? '', 't' => $c[1] ?? '', 'term' => hero_termin($c[2] ?? '')];
+        for ($n = 2; $n <= 5; $n++) {
+            $h = (string) $v("content.slider.slide{$n}_nadpis");
+            if ($h === '') {
+                continue;
+            }
+            $slidy[] = ['h' => $h, 't' => (string) $v("content.slider.slide{$n}_text"), 'term' => hero_termin((string) $v("content.slider.slide{$n}_termin"))];
         }
     }
     $sliderObr = $sRezim !== 'vypnuto' ? hero_media_vse($v('content.slider.obrazky')) : [];
@@ -669,7 +682,7 @@ function hero_render(array $p): string
         $pohyb     = true;
     } elseif ($bgTyp === 'obrazek' || $bgTyp === 'video') {
         $poster = hero_media($v('content.pozadi.obrazek'));
-        $video  = $bgTyp === 'video' ? hero_media_url(hero_media($v('content.pozadi.video'))) : '';
+        $video  = $bgTyp === 'video' ? hero_url_mp4((string) $v('content.pozadi.video')) : '';
         $kbOn   = $bgTyp === 'obrazek' && $kb;
         $bg     = '<div class="marmal-hero__bg' . ($kbOn ? ' marmal-hero__bg--kb' : '') . '">';
         $bg    .= hero_img($poster, 'marmal-hero__bg-img', 'full', '100vw', $lcp, '');
@@ -820,7 +833,7 @@ function hero_render(array $p): string
             $loga .= hero_img($m, 'marmal-hero__logo', 'medium', '160px', false);
         }
         if ($loga === '') {
-            foreach (hero_radky((string) $v('content.duvera.loga')) as $nazev) {
+            foreach (array_filter(array_map('trim', explode(',', (string) $v('content.duvera.loga'))), 'strlen') as $nazev) {
                 $loga .= '<span class="marmal-hero__lg">' . esc_html($nazev) . '</span>';
             }
         }
@@ -844,7 +857,13 @@ function hero_render(array $p): string
     }
 
     // výhody / čísla
-    $polozky = hero_radky((string) $v('content.vyhody.polozky'));
+    $polozky = [];
+    for ($n = 1; $n <= 6; $n++) {
+        $x = (string) $v("content.vyhody.polozka{$n}");
+        if ($x !== '') {
+            $polozky[] = $x;
+        }
+    }
     if ($polozky) {
         $vst = $volba('design.vyhody.styl', ['seznam', 'karty', 'cisla']);
         if ($vst === 'cisla') {
@@ -981,7 +1000,7 @@ function hero_render(array $p): string
     // video do lightboxu (sdílený lightbox Galerie Plus)
     $lb = '';
     if ($vsp !== 'zadny') {
-        $soubor = hero_media_url(hero_media($v('content.video.soubor')));
+        $soubor = hero_url_mp4((string) $v('content.video.soubor'));
         $url    = (string) $v('content.video.url');
         $embed  = $soubor !== '' ? ['type' => 'file', 'src' => $soubor] : (function_exists(__NAMESPACE__ . '\\gallery_video_embed') ? gallery_video_embed($url) : null);
         if ($embed) {
