@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Marmal – Breakdance Plus
  * Plugin URI:        https://github.com/marmal-code/marmal-breakdance-plus
- * Description:       Moduly pro weby MarMal: vlastní Breakdance elementy (Galerie Plus) a knihovna CSS efektů. Moduly se zapínají v MarMal → Moduly.
- * Version:           0.7.0
+ * Description:       Moduly pro weby MarMal: vlastní Breakdance elementy (Galerie Plus, superHERO) a knihovna CSS efektů. Moduly se zapínají v MarMal → Moduly.
+ * Version:           0.8.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Martin Malý – marmal.cz
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MARMAL_BDP_VERSION', '0.7.0');
+define('MARMAL_BDP_VERSION', '0.8.0');
 define('MARMAL_BDP_FILE', __FILE__);
 define('MARMAL_BDP_DIR', plugin_dir_path(__FILE__));
 define('MARMAL_BDP_URL', plugin_dir_url(__FILE__));
@@ -72,10 +72,11 @@ add_action('init', function () {
  * 4) Elementy – sdílená PHP logika (Element Studio ji nepřepisuje).
  */
 require_once MARMAL_BDP_DIR . 'includes/gallery.php';
+require_once MARMAL_BDP_DIR . 'includes/hero.php';
 
 /*
  * 5) Moduly (MarMal → Moduly) a veřejné funkce pro MarMal Agenta.
- *    Galerie Plus je zamčený modul (načítá se výše), Efekty se zapínají podle webu.
+ *    Galerie Plus a superHERO jsou zamčené moduly (načítají se výše), Efekty se zapínají podle webu.
  */
 require_once MARMAL_BDP_DIR . 'includes/moduly.php';
 require_once MARMAL_BDP_DIR . 'includes/api.php';

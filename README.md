@@ -8,6 +8,7 @@ Co web používá, se zapíná v **WP admin → MarMal → Moduly**. Autor: Mart
 | Modul | Zapínání | Popis |
 |---|---|---|
 | Galerie Plus | vždy zapnuto | Breakdance element: mozaika (20 vzorů), slider s miniaturami, efekty po najetí, video, ACF galerie, vlastní lightbox. CSS/JS jen na stránkách s galerií. |
+| superHERO | vždy zapnuto | Breakdance element pro úvodní sekci: 5 rozložení, pozadí (barva, přechod, živý přechod, fotka, video, slider), tlačítka s efekty, důvěra (hodnocení, zákazníci, loga), otevírací doba, výhody / čísla, masky obrázků, dividery, typografie každého prvku, dynamická data. JS jen na stránkách s elementem. |
 | Efekty | podle webu | Knihovna CSS efektů (třídy `mm-…`, 89 efektů v 10 kategoriích), galerie s náhledy, barvy z Global Settings Breakdance. Nahrazuje plugin MarMal Effects. Na web se načítají jen zapnuté kategorie. |
 
 Moduly s elementy z Element Studia jsou **zamčené** (vždy zapnuté) – vypnutím by elementy zmizely ze stránek.
@@ -28,6 +29,14 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 - Nový efekt přidej i do `modules/efekty/data/effects.json` (galerie v adminu).
 - Nová kategorie = nová sekce v CSS + doplnit `SEKCE` v `tools/efekty_casti.py` a `mm_effects_kategorie()` v `modules/efekty/modul.php`.
 - Třídy `mm-…`, funkce `mm_effects_…` a option `mm_effects_settings` se **nepřejmenovávají** (jsou v obsahu stránek a nastavení webů).
+
+## superHERO – úpravy
+
+- Ovládací prvky se **negenerují v Element Studiu**, ale nástrojem `tools/hero_prvky.py` (jediný zdroj prvků i výchozích hodnot). Po změně spusť `python3 tools/hero_prvky.py` – přepíše `elements/Super_Hero/element.php` a `includes/hero-vychozi.php`.
+- Vykreslení: `includes/hero.php`, styly: `elements/Super_Hero/default.css`, typografie: `css.twig`, chování: `assets/hero/hero.js`.
+- Slug `MarmalElements\SuperHero` a cesty prvků (`content.obsah.nadpis`…) se **nemění** – rozbily by se vložené elementy.
+- Barvy bez nastavení berou Global Settings (`--bde-brand-primary-color`, `--bde-links-color`, `--bde-headings-color`), mezery proměnné webu (`--content-width`, `--section-space`, `--gap-l`, `--radius-m`, `--btn-radius`). Pro celý web jde přepsat `--marmal-accent`, `--marmal-dark`, `--marmal-light`, `--marmal-header-h`.
+- Otevírací doba a termíny slidů se počítají v prohlížeči (funguje s page cache).
 
 ## Nový modul
 

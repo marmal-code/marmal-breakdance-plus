@@ -6,7 +6,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Domain: marmal-breakdance-plus\n"
 
-#: marmal-breakdance-plus.php:92
+#: marmal-breakdance-plus.php:93
 msgid "Plugin potřebuje aktivní Breakdance. Elementy se nenačtou (modul Efekty funguje i bez něj)."
 msgstr ""
 
@@ -16,6 +16,14 @@ msgstr ""
 
 #: modules/galerie/manifest.php:26
 msgid "Breakdance element: mozaika se zarovnanými okraji (20 vzorů) nebo slider s miniaturami, efekty po najetí, video dlaždice a vlastní lightbox. CSS a JS se načítá jen na stránkách s galerií."
+msgstr ""
+
+#: modules/hero/manifest.php:26
+msgid "superHERO"
+msgstr ""
+
+#: modules/hero/manifest.php:27
+msgid "Breakdance element pro úvodní sekci: 5 rozložení, pozadí z fotky, videa, slideru nebo živého přechodu, tlačítka s efekty, důvěra, otevírací doba, masky obrázků, dividery a typografie každého prvku. JS se načítá jen na stránkách s elementem."
 msgstr ""
 
 #: modules/efekty/manifest.php:37
@@ -77,11 +85,11 @@ msgstr ""
 msgid "Zavřít"
 msgstr ""
 
-#: includes/gallery.php:397
+#: includes/gallery.php:397 includes/hero.php:946
 msgid "Předchozí"
 msgstr ""
 
-#: includes/gallery.php:398
+#: includes/gallery.php:398 includes/hero.php:947
 msgid "Další"
 msgstr ""
 
@@ -89,79 +97,177 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: includes/moduly.php:43 includes/moduly.php:218 includes/moduly.php:218
+#: includes/hero.php:725
+msgid "Po–Pá"
+msgstr ""
+
+#: includes/hero.php:725
+msgid "Po–So"
+msgstr ""
+
+#: includes/hero.php:725
+msgid "Denně"
+msgstr ""
+
+#: includes/hero.php:807
+#, php-format
+msgid "Hodnocení %s z 5"
+msgstr ""
+
+#: includes/hero.php:893
+msgid "superHERO: vyberte video v Content → Médium."
+msgstr ""
+
+#: includes/hero.php:908
+msgid "superHERO: vyberte obrázek v Content → Médium."
+msgstr ""
+
+#: includes/hero.php:926
+msgid "Přehrát video"
+msgstr ""
+
+#: includes/hero.php:932
+msgid "superHERO: vložte shortcode formuláře (např. Global Block s formulářem Breakdance) v Content → Médium."
+msgstr ""
+
+#: includes/hero.php:943
+#, php-format
+msgid "Slide %d"
+msgstr ""
+
+#: includes/hero.php:963
+msgid "Posunout"
+msgstr ""
+
+#: includes/hero.php:967 includes/hero.php:967 includes/hero.php:967
+msgid "Pozastavit pohyb"
+msgstr ""
+
+#: includes/hero.php:967
+msgid "Spustit pohyb"
+msgstr ""
+
+#: includes/hero.php:1010
+#, php-format
+msgid "Teď máme otevřeno · do %s"
+msgstr ""
+
+#: includes/hero.php:1012
+#, php-format
+msgid "Zavřeno · otevíráme dnes v %s"
+msgstr ""
+
+#: includes/hero.php:1014
+#, php-format
+msgid "Zavřeno · otevíráme zítra v %s"
+msgstr ""
+
+#: includes/hero.php:1016
+#, php-format
+msgid "Zavřeno · otevíráme %1$s v %2$s"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "v neděli"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "v pondělí"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "v úterý"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "ve středu"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "ve čtvrtek"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "v pátek"
+msgstr ""
+
+#: includes/hero.php:1017
+msgid "v sobotu"
+msgstr ""
+
+#: includes/moduly.php:43 includes/moduly.php:229 includes/moduly.php:229
 msgid "Moduly"
 msgstr ""
 
-#: includes/moduly.php:232
+#: includes/moduly.php:243
 msgid "Nemáš oprávnění."
 msgstr ""
 
-#: includes/moduly.php:253
+#: includes/moduly.php:264
 msgid "Modul je zapnutý."
 msgstr ""
 
-#: includes/moduly.php:254
+#: includes/moduly.php:265
 msgid "Modul je vypnutý – jeho kód ani CSS se už nenačítají."
 msgstr ""
 
-#: includes/moduly.php:255
+#: includes/moduly.php:266
 msgid "Hotovo: starý plugin je deaktivovaný a modul zapnutý. Nastavení zůstalo. Starý plugin teď můžeš v Pluginech smazat."
 msgstr ""
 
-#: includes/moduly.php:256
+#: includes/moduly.php:267
 msgid "Změnu se nepodařilo uložit."
 msgstr ""
 
-#: includes/moduly.php:260
+#: includes/moduly.php:271
 msgid "Zapnuto"
 msgstr ""
 
-#: includes/moduly.php:261
+#: includes/moduly.php:272
 msgid "Vypnuto"
 msgstr ""
 
-#: includes/moduly.php:262
+#: includes/moduly.php:273
 msgid "Čeká na převod"
 msgstr ""
 
-#: includes/moduly.php:263
+#: includes/moduly.php:274
 msgid "Chybí Breakdance"
 msgstr ""
 
-#: includes/moduly.php:267
+#: includes/moduly.php:278
 msgid "MarMal – moduly"
 msgstr ""
 
-#: includes/moduly.php:268
+#: includes/moduly.php:279
 msgid "Zapni jen to, co tento web používá. Vypnutý modul nenačte žádný kód, CSS ani JavaScript."
 msgstr ""
 
-#: includes/moduly.php:285
+#: includes/moduly.php:296
 msgid "Vždy zapnuto"
 msgstr ""
 
-#: includes/moduly.php:293
+#: includes/moduly.php:304
 #, php-format
 msgid "Na webu ještě běží starý plugin %s, proto se modul nenačítá. Převod starý plugin deaktivuje a zapne modul – nastavení i třídy na stránkách zůstanou."
 msgstr ""
 
-#: includes/moduly.php:297
+#: includes/moduly.php:308
 msgid "Modul potřebuje aktivní Breakdance."
 msgstr ""
 
-#: includes/moduly.php:315
+#: includes/moduly.php:326
 msgid "Převést ze starého pluginu"
 msgstr ""
 
-#: includes/moduly.php:317
+#: includes/moduly.php:328
 msgid "Vypnout"
 msgstr ""
 
-#: includes/moduly.php:319
+#: includes/moduly.php:330
 msgid "Zapnout"
 msgstr ""
 
-#: includes/moduly.php:331
+#: includes/moduly.php:342
 msgid "Moduly jde přepínat i z aplikace sprava.marmal.cz (MarMal Agent)."
 msgstr ""

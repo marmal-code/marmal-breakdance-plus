@@ -7,3 +7,4 @@ dist/
 *.zip
 .idea/
 .vscode/
+__pycache__/

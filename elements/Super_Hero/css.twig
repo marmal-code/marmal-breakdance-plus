@@ -1,0 +1,95 @@
+{#
+  superHERO – CSS z ovládacích prvků Breakdance:
+  šířka elementu, barvy (výběr barvy s kapátkem a globálními barvami),
+  vlastní styl tlačítek (presety okraje a odsazení) a typografie prvků.
+  Ostatní styly počítá PHP (includes/hero.php) jako CSS proměnné a default.css.
+#}
+{% set sirka = design.rozlozeni.sirka_elementu|default('full') %}
+{% if sirka == 'full' %}
+%%SELECTOR%% {
+  width: calc(100vw - var(--marmal-sbw, 0px));
+  max-width: none;
+  margin-left: calc(50% - 50vw + var(--marmal-sbw, 0px) / 2);
+  margin-right: calc(50% - 50vw + var(--marmal-sbw, 0px) / 2);
+}
+{% elseif sirka == 'content' %}
+%%SELECTOR%% { width: 100%; max-width: var(--content-width, 1200px); margin-left: auto; margin-right: auto; }
+{% elseif sirka == 'custom' %}
+%%SELECTOR%% { width: 100%; max-width: {{ design.rozlozeni.sirka_elementu_vlastni.style|default('1400px') }}; margin-left: auto; margin-right: auto; }
+{% endif %}
+
+%%SELECTOR%% .marmal-hero {
+  {% if design.barvy.brand %}--mh-brand: {{ design.barvy.brand }};{% endif %}
+  {% if design.barvy.accent %}--mh-accent: {{ design.barvy.accent }};{% endif %}
+  {% if design.barvy.tmava %}--mh-dark: {{ design.barvy.tmava }};{% endif %}
+  {% if design.barvy.svetla %}--mh-light: {{ design.barvy.svetla }};{% endif %}
+  {% if design.pozadi.barva_pozadi %}--mh-bg1: {{ design.pozadi.barva_pozadi }};{% endif %}
+  {% if design.pozadi.barva_pozadi2 %}--mh-bg2: {{ design.pozadi.barva_pozadi2 }};{% endif %}
+  {% if design.pozadi.barva_prekryvu %}--mh-ov-c: {{ design.pozadi.barva_prekryvu }};{% endif %}
+  {% if design.pozadi.barva_textu_vlastni %}--mh-fg: {{ design.pozadi.barva_textu_vlastni }};{% endif %}
+  {% if design.pismo.barva_hl %}--mh-hl: {{ design.pismo.barva_hl }};{% endif %}
+  {% if design.divider.barva %}--mh-dv-c: {{ design.divider.barva }};{% endif %}
+  {% if design.vyhody.predel_barva %}--mh-predel: {{ design.vyhody.predel_barva }};{% endif %}
+}
+
+%%SELECTOR%% .marmal-hero__badge {
+  {{ macros.typography(design.pismo.odznak, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__eyebrow {
+  {{ macros.typography(design.pismo.eyebrow, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__title {
+  {{ macros.typography(design.pismo.nadpis, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__text {
+  {{ macros.typography(design.pismo.text, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn {
+  {{ macros.typography(design.pismo.tlacitka, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__list:not(.marmal-hero__list--cisla) li,
+%%SELECTOR%% .marmal-hero__lab {
+  {{ macros.typography(design.pismo.vyhody, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero-num {
+  {{ macros.typography(design.pismo.cisla, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__trust,
+%%SELECTOR%% .marmal-hero__strip small,
+%%SELECTOR%% .marmal-hero__lg {
+  {{ macros.typography(design.pismo.duvera, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__open {
+  {{ macros.typography(design.pismo.oteviraci, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__float {
+  {{ macros.typography(design.pismo.stitek, globalSettings) }}
+}
+
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn--v1 {
+  {% if design.tlacitko1.pozadi %}background: {{ design.tlacitko1.pozadi }}; border-color: {{ design.tlacitko1.pozadi }};{% endif %}
+  {% if design.tlacitko1.text %}color: {{ design.tlacitko1.text }};{% endif %}
+  {{ macros.borders_without_shadows(design.tlacitko1.okraj) }}
+  {{ macros.spacing_padding_all(design.tlacitko1.odsazeni) }}
+  {{ macros.typography(design.tlacitko1.pismo, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn--v1:hover,
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn--v1:focus-visible {
+  {% if design.tlacitko1.pozadi_hover %}background: {{ design.tlacitko1.pozadi_hover }};{% endif %}
+  {% if design.tlacitko1.text_hover %}color: {{ design.tlacitko1.text_hover }};{% endif %}
+  {% if design.tlacitko1.okraj_hover %}border-color: {{ design.tlacitko1.okraj_hover }};{% endif %}
+}
+
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn--v2 {
+  {% if design.tlacitko2.pozadi %}background: {{ design.tlacitko2.pozadi }}; border-color: {{ design.tlacitko2.pozadi }};{% endif %}
+  {% if design.tlacitko2.text %}color: {{ design.tlacitko2.text }};{% endif %}
+  {{ macros.borders_without_shadows(design.tlacitko2.okraj) }}
+  {{ macros.spacing_padding_all(design.tlacitko2.odsazeni) }}
+  {{ macros.typography(design.tlacitko2.pismo, globalSettings) }}
+}
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn--v2:hover,
+%%SELECTOR%% .marmal-hero__btns .marmal-hero-btn--v2:focus-visible {
+  {% if design.tlacitko2.pozadi_hover %}background: {{ design.tlacitko2.pozadi_hover }};{% endif %}
+  {% if design.tlacitko2.text_hover %}color: {{ design.tlacitko2.text_hover }};{% endif %}
+  {% if design.tlacitko2.okraj_hover %}border-color: {{ design.tlacitko2.okraj_hover }};{% endif %}
+}

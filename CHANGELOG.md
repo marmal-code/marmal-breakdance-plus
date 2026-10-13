@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.8.0 – 2026-10-13
+- **Nový element superHERO** (modul `hero`, vždy zapnutý) – úvodní sekce stránky postavená podle odladěného prototypu:
+  - 5 rozložení, poměr sloupců, svislé zarovnání, minimální výška, šířka a mezery z design systému webu nebo vlastní,
+  - pozadí: barva, přechod, živý přechod, fotka (Ken Burns), video (načte se jen na desktopu a bez šetření dat), slider jen pozadí nebo celé sekce (prolnutí, posun, zoom; tečky, šipky, čísla, průběh; swipe; termíny slidů),
+  - text: odznak (blikající tečka / obrys / sklo, ikona), eyebrow, nadpis se *zvýrazněním* (barva, podtržení, zvýrazňovač, přelévání) a [rotujícími|slovy],
+  - 2 tlačítka (6 stylů, ikony z knihovny Breakdance, 7 efektů po najetí vč. magnetu, upoutání pozornosti),
+  - důvěra (hodnocení s hvězdičkami, fotky zákazníků, loga i jako jedoucí pruh), otevírací doba s živým stavem, výhody (seznam, karty, napočítávaná čísla),
+  - médium: obrázek, video, formulář (shortcode), 10 masek, dekor, plovoucí štítek, play → video v lightboxu Galerie Plus,
+  - efekty: 10 vstupních animací, dekorace pozadí (tečky, mřížka, zrno, světla, částice, paprsky, světlo za kurzorem), animace obrázku (vznášení, morph, zoom, 3D náklon), zeslábnutí / paralaxa při odscrollování, styl efektů na jedno kliknutí (Klidný / Moderní / Výrazný),
+  - 9 dividerů (vlny i v pohybu), přichycené CTA na mobilu, tlačítko „Pozastavit pohyb“ (WCAG 2.2.2), typografie pro 10 textových prvků (presety Breakdance),
+  - dynamická data: nadpis, text a obrázek z příspěvku nebo ACF (hero v šabloně),
+  - výkon: LCP obrázek s `fetchpriority="high"` a srcset, ostatní lazy; JS jen se superHERO; respektuje prefers-reduced-motion.
+- Všechny barvy superHERO přes výběr barvy Breakdance (kapátko, globální barvy), šířka elementu (celé okno / šířka obsahu / vlastní), vlastní styl tlačítek (pozadí, text, okraj, odsazení, písmo, stavy po najetí), výhody ve stylu „Předěl“.
+- Nástroj `tools/hero_prvky.py` – generuje ovládací prvky elementu a výchozí hodnoty.
+- Překlady nových textů (en_US, en_GB).
+
 ## 0.7.0 – 2026-10-08
 - **Modulový systém**: nové menu **MarMal → Moduly** – karty modulů se stavem, zapnutí/vypnutí jedním kliknutím. Vypnutý modul nenačte žádný kód ani CSS.
 - **Modul Efekty** (převzatý plugin MarMal Effects 1.1.0): 89 CSS efektů, galerie s náhledy a nastavení barev pod menu MarMal.
