@@ -21,7 +21,7 @@ def text(k, l, d=''):            return dict(k=k, l=l, t='text', d=d)
 def dd(k, l, items, d):          return dict(k=k, l=l, t='dropdown', items=items, d=d)
 def tog(k, l, d=False):          return dict(k=k, l=l, t='toggle', d=d)
 def num(k, l, mn, mx, st, d):    return dict(k=k, l=l, t='number', min=mn, max=mx, step=st, d=d)
-def unit(k, l, d):               return dict(k=k, l=l, t='unit', d=d)
+def unit(k, l, d=None, bp=False): return dict(k=k, l=l, t='unit', d=d, bp=bp)
 def color(k, l, d=''):           return dict(k=k, l=l, t='color', d=d)
 def media(k, l, multi=False):    return dict(k=k, l=l, t='wpmedia', multi=multi, d=None)
 def icon(k, l):                  return dict(k=k, l=l, t='icon', d=None)
@@ -198,6 +198,86 @@ DESIGN = [
         typo('pismo', 'Písmo'),
     ]),
 
+    ('mezery', 'Mezery mezi prvky', [
+        unit('prvky', 'Výchozí mezera mezi prvky (odznak, nadpis, text, tlačítka…)', bp=True),
+        unit('pod_odznakem', 'Mezera pod odznakem', bp=True),
+        unit('pod_eyebrow', 'Mezera pod eyebrow', bp=True),
+        unit('pod_nadpisem', 'Mezera pod nadpisem', bp=True),
+        unit('pod_textem', 'Mezera pod podpůrným textem', bp=True),
+        unit('pod_tlacitky', 'Mezera pod tlačítky', bp=True),
+        unit('pod_duverou', 'Mezera pod důvěrou / otevírací dobou', bp=True),
+        unit('mezi_tlacitky', 'Mezera mezi tlačítky', bp=True),
+        unit('mezi_vyhodami', 'Mezera mezi výhodami', bp=True),
+        unit('predel_nad', 'Mezera nad předělem / pruhem log', bp=True),
+    ]),
+    ('vzhled_odznak', 'Odznak – vzhled', [
+        color('pozadi', 'Pozadí odznaku'),
+        color('ikona', 'Barva ikony'),
+        unit('ikona_velikost', 'Velikost ikony'),
+        color('tecka', 'Barva blikající tečky'),
+        unit('mezera_ikona', 'Mezera ikona – text'),
+        preset('okraj', 'Rámeček (barva, tloušťka, zaoblení)', 'borders_without_shadows'),
+        preset('odsazeni', 'Vnitřní odsazení', 'spacing_padding_all'),
+    ]),
+    ('vzhled_eyebrow', 'Eyebrow – vzhled', [
+        color('pozadi', 'Pozadí (u stylu Pilulka)'),
+        preset('okraj', 'Rámeček (barva, tloušťka, zaoblení)', 'borders_without_shadows'),
+        preset('odsazeni', 'Vnitřní odsazení', 'spacing_padding_all'),
+    ]),
+    ('vzhled_nadpis', 'Nadpis – zvýraznění', [
+        color('podtrzeni', 'Barva podtržení / zvýrazňovače (prázdné = barva zvýraznění)'),
+        unit('podtrzeni_tloustka', 'Tloušťka podtržení'),
+    ]),
+    ('vzhled_tlacitka', 'Tlačítka – ikona', [
+        unit('ikona_velikost', 'Velikost ikony'),
+        unit('ikona_mezera', 'Mezera ikona – text'),
+        dd('ikona_pozice', 'Pozice ikony', [('vpravo', 'Vpravo od textu'), ('vlevo', 'Vlevo od textu')], 'vpravo'),
+    ]),
+    ('vzhled_vyhody', 'Výhody – vzhled', [
+        color('ikona', 'Barva ikony'),
+        unit('ikona_velikost', 'Velikost ikony'),
+        color('kruh', 'Barva kruhu (u stylu Ikona v kruhu)'),
+        unit('kruh_velikost', 'Velikost kruhu'),
+        color('tecka', 'Barva tečky / blikající tečky'),
+        unit('mezera_ikona', 'Mezera ikona – text'),
+        color('karta_pozadi', 'Karty – pozadí'),
+        color('karta_pozadi_hover', 'Karty – pozadí po najetí'),
+        preset('karta_okraj', 'Karty – rámeček', 'borders_without_shadows'),
+        preset('karta_odsazeni', 'Karty – vnitřní odsazení', 'spacing_padding_all'),
+        color('cislo_pripona', 'Čísla – barva přípony (+, let…)'),
+    ]),
+    ('vzhled_duvera', 'Důvěra a otevírací doba – vzhled', [
+        color('hvezdy', 'Barva hvězdiček'),
+        unit('hvezdy_velikost', 'Velikost hvězdiček'),
+        color('avatar_okraj', 'Barva okraje kroužků zákazníků'),
+        unit('avatar_velikost', 'Velikost kroužků zákazníků'),
+        unit('loga_vyska', 'Výška log'),
+        unit('loga_mezera', 'Mezera mezi logy'),
+        color('otevreno', 'Otevírací doba – barva tečky'),
+    ]),
+    ('vzhled_medium', 'Médium – štítek, video, formulář, dekor', [
+        color('dekor', 'Barva dekoru za obrázkem'),
+        preset('obrazek_okraj', 'Obrázek – rámeček', 'borders_without_shadows'),
+        color('stitek_pozadi', 'Štítek – pozadí'),
+        color('stitek_ikona', 'Štítek – barva ikony'),
+        preset('stitek_okraj', 'Štítek – rámeček', 'borders_without_shadows'),
+        preset('stitek_odsazeni', 'Štítek – vnitřní odsazení', 'spacing_padding_all'),
+        color('play_pozadi', 'Tlačítko Play – pozadí'),
+        color('play_ikona', 'Tlačítko Play – ikona'),
+        unit('play_velikost', 'Tlačítko Play – velikost'),
+        color('form_pozadi', 'Formulář – pozadí boxu'),
+        color('form_text', 'Formulář – barva textu'),
+        preset('form_okraj', 'Formulář – rámeček', 'borders_without_shadows'),
+        preset('form_odsazeni', 'Formulář – vnitřní odsazení', 'spacing_padding_all'),
+    ]),
+    ('vzhled_ovladani', 'Slider, šipka dolů a pauza – vzhled', [
+        color('barva', 'Barva teček, šipek a čísel'),
+        color('aktivni', 'Aktivní tečka / průběh'),
+        color('sipky_pozadi', 'Pozadí šipek slideru'),
+        unit('sipky_velikost', 'Velikost šipek slideru'),
+        color('scroll', 'Barva ukazatele „posunout dolů“'),
+        color('pauza', 'Barva tlačítka Pozastavit'),
+    ]),
     ('vyhody', 'Výhody / čísla', [
         dd('styl', 'Styl', [('seznam', 'Seznam'), ('karty', 'Karty'), ('cisla', 'Čísla'), ('predel', 'Předěl – přes celou šířku se svislými čarami')], 'seznam'),
         color('predel_barva', 'Barva čar předělu (prázdné = text se 25 % průhledností)'),
@@ -248,11 +328,13 @@ DESIGN = [
     ]),
     ('tlacitka_efekt', 'Efekty tlačítek', [
         dd('hover', 'Efekt po najetí', [('zadny', 'Žádný'), ('zvednuti', 'Zvednutí se stínem'), ('sipka', 'Posun ikony'), ('vypln', 'Výplň zleva'), ('lesk', 'Přejezd lesku'), ('zare', 'Záře'), ('magnet', 'Magnet')], 'sipka'),
+        color('barva', 'Barva efektu (záře, pulz, výplň, lesk, stín – prázdné = podle stylu)'),
         dd('upoutat', 'Upoutat pozornost (tlačítko 1)', [('zadne', 'Ne'), ('pulz', 'Pulz'), ('lesk', 'Lesk'), ('houpnuti', 'Zahoupání')], 'zadne'),
     ]),
     ('pozadi_efekt', 'Efekty pozadí', [
         dd('dekor', 'Dekorace pozadí', [('zadny', 'Žádná'), ('tecky', 'Tečkový rastr'), ('mrizka', 'Mřížka'), ('sum', 'Filmové zrno'), ('bloby', 'Plovoucí světla'), ('castice', 'Stoupající částice'), ('paprsky', 'Otáčející se paprsky'), ('reflektor', 'Světlo za kurzorem')], 'zadny'),
         tog('dekor_pohyb', 'Dekorace v pohybu', True),
+        color('barva', 'Barva dekorace (prázdné = podle textu / accent)'),
         tog('kenburns', 'Pomalý zoom fotky (Ken Burns)', True),
     ]),
     ('medium_efekt', 'Efekty média', [
@@ -310,7 +392,8 @@ def control(c, ind):
         opts = "['type' => 'icon', 'layout' => 'vertical']"
     else:
         raise ValueError(t)
-    return f'{p}c(\n{p}    {q(c["k"])},\n{p}    {q(c["l"])},\n{p}    [],\n{p}    {opts},\n{p}    false,\n{p}    false,\n{p}    [],\n{p})'
+    bp = 'true' if c.get('bp') else 'false'
+    return f'{p}c(\n{p}    {q(c["k"])},\n{p}    {q(c["l"])},\n{p}    [],\n{p}    {opts},\n{p}    {bp},\n{p}    false,\n{p}    [],\n{p})'
 
 def sections(spec):
     out = []

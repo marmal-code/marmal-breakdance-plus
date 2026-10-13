@@ -3,7 +3,7 @@
  * Plugin Name:       Marmal – Breakdance Plus
  * Plugin URI:        https://github.com/marmal-code/marmal-breakdance-plus
  * Description:       Moduly pro weby MarMal: vlastní Breakdance elementy (Galerie Plus, superHERO) a knihovna CSS efektů. Moduly se zapínají v MarMal → Moduly.
- * Version:           0.8.0
+ * Version:           0.9.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Martin Malý – marmal.cz
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MARMAL_BDP_VERSION', '0.8.0');
+define('MARMAL_BDP_VERSION', '0.9.0');
 define('MARMAL_BDP_FILE', __FILE__);
 define('MARMAL_BDP_DIR', plugin_dir_path(__FILE__));
 define('MARMAL_BDP_URL', plugin_dir_url(__FILE__));

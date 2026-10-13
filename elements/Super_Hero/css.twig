@@ -32,6 +32,111 @@
   {% if design.vyhody.predel_barva %}--mh-predel: {{ design.vyhody.predel_barva }};{% endif %}
 }
 
+{# ---------- vzhled jednotlivých částí (barvy, velikosti, mezery) ---------- #}
+%%SELECTOR%% .marmal-hero {
+  {% if design.vzhled_odznak.ikona %}--mh-badge-ic: {{ design.vzhled_odznak.ikona }};{% endif %}
+  {% if design.vzhled_odznak.tecka %}--mh-badge-dot: {{ design.vzhled_odznak.tecka }};{% endif %}
+  {% if design.vzhled_eyebrow.pozadi %}--mh-eb-bg: {{ design.vzhled_eyebrow.pozadi }};{% endif %}
+  {% if design.vzhled_nadpis.podtrzeni %}--mh-ul: {{ design.vzhled_nadpis.podtrzeni }};{% endif %}
+  {% if design.tlacitka_efekt.barva %}--mh-fx: {{ design.tlacitka_efekt.barva }};{% endif %}
+  {% if design.vzhled_vyhody.ikona %}--mh-li-ic: {{ design.vzhled_vyhody.ikona }};{% endif %}
+  {% if design.vzhled_vyhody.kruh %}--mh-li-kr: {{ design.vzhled_vyhody.kruh }};{% endif %}
+  {% if design.vzhled_vyhody.tecka %}--mh-li-dot: {{ design.vzhled_vyhody.tecka }};{% endif %}
+  {% if design.vzhled_vyhody.karta_pozadi %}--mh-card-bg: {{ design.vzhled_vyhody.karta_pozadi }};{% endif %}
+  {% if design.vzhled_vyhody.karta_pozadi_hover %}--mh-card-bgh: {{ design.vzhled_vyhody.karta_pozadi_hover }};{% endif %}
+  {% if design.vzhled_vyhody.cislo_pripona %}--mh-num-suf: {{ design.vzhled_vyhody.cislo_pripona }};{% endif %}
+  {% if design.vzhled_duvera.hvezdy %}--mh-stars: {{ design.vzhled_duvera.hvezdy }};{% endif %}
+  {% if design.vzhled_duvera.avatar_okraj %}--mh-av-bc: {{ design.vzhled_duvera.avatar_okraj }};{% endif %}
+  {% if design.vzhled_duvera.otevreno %}--mh-open-dot: {{ design.vzhled_duvera.otevreno }};{% endif %}
+  {% if design.vzhled_medium.dekor %}--mh-dekor: {{ design.vzhled_medium.dekor }};{% endif %}
+  {% if design.vzhled_medium.stitek_pozadi %}--mh-tag-bg: {{ design.vzhled_medium.stitek_pozadi }};{% endif %}
+  {% if design.vzhled_medium.stitek_ikona %}--mh-tag-ic: {{ design.vzhled_medium.stitek_ikona }};{% endif %}
+  {% if design.vzhled_medium.play_pozadi %}--mh-play-bg: {{ design.vzhled_medium.play_pozadi }};{% endif %}
+  {% if design.vzhled_medium.play_ikona %}--mh-play-ic: {{ design.vzhled_medium.play_ikona }};{% endif %}
+  {% if design.vzhled_medium.form_pozadi %}--mh-form-bg: {{ design.vzhled_medium.form_pozadi }};{% endif %}
+  {% if design.vzhled_medium.form_text %}--mh-form-c: {{ design.vzhled_medium.form_text }};{% endif %}
+  {% if design.vzhled_ovladani.barva %}--mh-nav-c: {{ design.vzhled_ovladani.barva }};{% endif %}
+  {% if design.vzhled_ovladani.aktivni %}--mh-nav-a: {{ design.vzhled_ovladani.aktivni }};{% endif %}
+  {% if design.vzhled_ovladani.sipky_pozadi %}--mh-arr-bg: {{ design.vzhled_ovladani.sipky_pozadi }};{% endif %}
+  {% if design.vzhled_ovladani.scroll %}--mh-scroll-c: {{ design.vzhled_ovladani.scroll }};{% endif %}
+  {% if design.vzhled_ovladani.pauza %}--mh-pause-c: {{ design.vzhled_ovladani.pauza }};{% endif %}
+  {% if design.pozadi_efekt.barva %}--mh-deco: {{ design.pozadi_efekt.barva }};{% endif %}
+  {% if design.mezery.prvky.style %}--mh-gc: {{ design.mezery.prvky.style }};{% endif %}
+  {% if design.mezery.mezi_tlacitky.style %}--mh-btn-gap: {{ design.mezery.mezi_tlacitky.style }};{% endif %}
+  {% if design.mezery.mezi_vyhodami.style %}--mh-li-gap: {{ design.mezery.mezi_vyhodami.style }};{% endif %}
+  {% if design.mezery.predel_nad.style %}--mh-strip-mt: {{ design.mezery.predel_nad.style }};{% endif %}
+  {% if design.vzhled_odznak.ikona_velikost.style %}--mh-badge-ics: {{ design.vzhled_odznak.ikona_velikost.style }};{% endif %}
+  {% if design.vzhled_odznak.mezera_ikona.style %}--mh-badge-gap: {{ design.vzhled_odznak.mezera_ikona.style }};{% endif %}
+  {% if design.vzhled_nadpis.podtrzeni_tloustka.style %}--mh-ul-t: {{ design.vzhled_nadpis.podtrzeni_tloustka.style }};{% endif %}
+  {% if design.vzhled_tlacitka.ikona_velikost.style %}--mh-bi-s: {{ design.vzhled_tlacitka.ikona_velikost.style }};{% endif %}
+  {% if design.vzhled_tlacitka.ikona_mezera.style %}--mh-bi-gap: {{ design.vzhled_tlacitka.ikona_mezera.style }};{% endif %}
+  {% if design.vzhled_vyhody.ikona_velikost.style %}--mh-li-ics: {{ design.vzhled_vyhody.ikona_velikost.style }};{% endif %}
+  {% if design.vzhled_vyhody.kruh_velikost.style %}--mh-li-krs: {{ design.vzhled_vyhody.kruh_velikost.style }};{% endif %}
+  {% if design.vzhled_vyhody.mezera_ikona.style %}--mh-li-icg: {{ design.vzhled_vyhody.mezera_ikona.style }};{% endif %}
+  {% if design.vzhled_duvera.hvezdy_velikost.style %}--mh-stars-s: {{ design.vzhled_duvera.hvezdy_velikost.style }};{% endif %}
+  {% if design.vzhled_duvera.avatar_velikost.style %}--mh-av-s: {{ design.vzhled_duvera.avatar_velikost.style }};{% endif %}
+  {% if design.vzhled_duvera.loga_vyska.style %}--mh-logo-h: {{ design.vzhled_duvera.loga_vyska.style }};{% endif %}
+  {% if design.vzhled_duvera.loga_mezera.style %}--mh-logo-gap: {{ design.vzhled_duvera.loga_mezera.style }};{% endif %}
+  {% if design.vzhled_medium.play_velikost.style %}--mh-play-s: {{ design.vzhled_medium.play_velikost.style }};{% endif %}
+  {% if design.vzhled_ovladani.sipky_velikost.style %}--mh-arr-s: {{ design.vzhled_ovladani.sipky_velikost.style }};{% endif %}
+  {% if design.tlacitka_efekt.barva %}
+  --mh-fx-sh: color-mix(in srgb, {{ design.tlacitka_efekt.barva }} 55%, transparent);
+  --mh-fx-l: color-mix(in srgb, {{ design.tlacitka_efekt.barva }} 65%, transparent);
+  {% endif %}
+}
+{% if design.tlacitka_efekt.barva %}
+%%SELECTOR%% .marmal-hero .marmal-hero-btn { --mh-fill: {{ design.tlacitka_efekt.barva }}; }
+{% endif %}
+
+{# mezery pod jednotlivými prvky: přesná vzdálenost k dalšímu prvku #}
+{% if design.mezery.pod_odznakem.style %}
+%%SELECTOR%% .marmal-hero__badge { margin-bottom: calc({{ design.mezery.pod_odznakem.style }} - var(--mh-gc, 20px)); }
+{% endif %}
+{% if design.mezery.pod_eyebrow.style %}
+%%SELECTOR%% .marmal-hero__eyebrow { margin-bottom: calc({{ design.mezery.pod_eyebrow.style }} - var(--mh-gc, 20px)); }
+{% endif %}
+{% if design.mezery.pod_nadpisem.style %}
+%%SELECTOR%% .marmal-hero__title { margin-bottom: calc({{ design.mezery.pod_nadpisem.style }} - var(--mh-gc, 20px)); }
+{% endif %}
+{% if design.mezery.pod_textem.style %}
+%%SELECTOR%% .marmal-hero__text { margin-bottom: calc({{ design.mezery.pod_textem.style }} - var(--mh-gc, 20px)); }
+{% endif %}
+{% if design.mezery.pod_tlacitky.style %}
+%%SELECTOR%% .marmal-hero__btns { margin-bottom: calc({{ design.mezery.pod_tlacitky.style }} - var(--mh-gc, 20px)); }
+{% endif %}
+{% if design.mezery.pod_duverou.style %}
+%%SELECTOR%% .marmal-hero__trust, %%SELECTOR%% .marmal-hero__open, %%SELECTOR%% .marmal-hero__strip--pod { margin-bottom: calc({{ design.mezery.pod_duverou.style }} - var(--mh-gc, 20px)); }
+{% endif %}
+{% if design.mezery.pod_textem.style %}
+%%SELECTOR%% .marmal-hero__btns { margin-top: 0; }
+{% endif %}
+
+{# rámečky, pozadí a odsazení (presety Breakdance) #}
+%%SELECTOR%% .marmal-hero__badge {
+  {% if design.vzhled_odznak.pozadi %}background: {{ design.vzhled_odznak.pozadi }};{% endif %}
+  {{ macros.borders_without_shadows(design.vzhled_odznak.okraj) }}
+  {{ macros.spacing_padding_all(design.vzhled_odznak.odsazeni) }}
+}
+%%SELECTOR%% .marmal-hero__eyebrow {
+  {{ macros.borders_without_shadows(design.vzhled_eyebrow.okraj) }}
+  {{ macros.spacing_padding_all(design.vzhled_eyebrow.odsazeni) }}
+}
+%%SELECTOR%% .marmal-hero__list--karty li {
+  {{ macros.borders_without_shadows(design.vzhled_vyhody.karta_okraj) }}
+  {{ macros.spacing_padding_all(design.vzhled_vyhody.karta_odsazeni) }}
+}
+%%SELECTOR%% .marmal-hero__pic {
+  {{ macros.borders_without_shadows(design.vzhled_medium.obrazek_okraj) }}
+}
+%%SELECTOR%% .marmal-hero__float {
+  {{ macros.borders_without_shadows(design.vzhled_medium.stitek_okraj) }}
+  {{ macros.spacing_padding_all(design.vzhled_medium.stitek_odsazeni) }}
+}
+%%SELECTOR%% .marmal-hero-form {
+  {{ macros.borders_without_shadows(design.vzhled_medium.form_okraj) }}
+  {{ macros.spacing_padding_all(design.vzhled_medium.form_odsazeni) }}
+}
+
 %%SELECTOR%% .marmal-hero__badge {
   {{ macros.typography(design.pismo.odznak, globalSettings) }}
 }

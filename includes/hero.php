@@ -611,6 +611,9 @@ function hero_render(array $p): string
     if ($odjezd !== 'zadny') {
         $cls[] = 'marmal-hero--odjezd-' . $odjezd;
     }
+    if ($volba('design.vzhled_tlacitka.ikona_pozice', ['vpravo', 'vlevo']) === 'vlevo') {
+        $cls[] = 'marmal-hero--bi-vlevo';
+    }
     if (!$isFrontend) {
         $cls[] = 'marmal-hero--builder';
     }

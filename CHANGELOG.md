@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.0 – 2026-10-13
+- **superHERO – nastavení vzhledu každé části** (Design, nové sekce):
+  - **Mezery mezi prvky**: výchozí mezera a přesná mezera pod odznakem, eyebrow, nadpisem, textem, tlačítky a důvěrou; mezera mezi tlačítky, mezi výhodami a nad předělem / pruhem log (vše po breakpointech),
+  - **Odznak – vzhled**: pozadí, barva a velikost ikony, barva blikající tečky, mezera ikona – text, rámeček (barva, tloušťka, zaoblení) a vnitřní odsazení,
+  - **Eyebrow – vzhled**: pozadí pilulky, rámeček, odsazení; **Nadpis – zvýraznění**: barva a tloušťka podtržení / zvýrazňovače,
+  - **Tlačítka – ikona**: velikost, mezera, pozice vlevo / vpravo; **Efekty tlačítek – barva efektu** (záře, pulz, výplň, lesk, stín),
+  - **Výhody – vzhled**: barva a velikost ikony, barva a velikost kruhu, barva tečky, mezera, karty (pozadí, po najetí, rámeček, odsazení), barva přípony čísel,
+  - **Důvěra a otevírací doba**: barva a velikost hvězdiček, kroužky zákazníků (velikost, okraj), výška a mezera log, barva tečky otevírací doby,
+  - **Médium**: barva dekoru, rámeček obrázku, štítek (pozadí, ikona, rámeček, odsazení), tlačítko Play (pozadí, ikona, velikost), formulář (pozadí, text, rámeček, odsazení),
+  - **Slider, šipka dolů a pauza**: barvy, aktivní tečka / průběh, pozadí a velikost šipek; **Efekty pozadí – barva dekorace**.
+- Ikony z knihovny Breakdance se barví podle zvolené barvy (výplň `currentColor`).
+- Opakovaný efekt tlačítka (pulz, zahoupání) se při najetí zastaví, aby byl vidět efekt po najetí.
+
 ## 0.8.0 – 2026-10-13
 - **Nový element superHERO** (modul `hero`, vždy zapnutý) – úvodní sekce stránky postavená podle odladěného prototypu:
   - 5 rozložení, poměr sloupců, svislé zarovnání, minimální výška, šířka a mezery z design systému webu nebo vlastní,
