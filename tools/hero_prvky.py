@@ -25,9 +25,10 @@ def unit(k, l, d):               return dict(k=k, l=l, t='unit', d=d)
 def color(k, l, d=''):           return dict(k=k, l=l, t='color', d=d)
 def media(k, l, multi=False):    return dict(k=k, l=l, t='wpmedia', multi=multi, d=None)
 def icon(k, l):                  return dict(k=k, l=l, t='icon', d=None)
-def typo(k, l):                  return dict(k=k, l=l, t='typography', d=None)
+def typo(k, l):                  return dict(k=k, l=l, t='typography', d=None, preset='typography_with_effects_and_align')
+def preset(k, l, name):          return dict(k=k, l=l, t='typography', d=None, preset=name)
 
-BTN = [('primary', 'Primary'), ('secondary', 'Secondary'), ('outline', 'Outline'), ('sklo', 'Sklo'), ('prechod', 'Přechod'), ('link', 'Odkaz')]
+BTN = [('primary', 'Primary'), ('secondary', 'Secondary'), ('outline', 'Outline'), ('sklo', 'Sklo'), ('prechod', 'Přechod'), ('link', 'Odkaz'), ('vlastni', 'Vlastní (Design → Tlačítko 1/2 – vlastní)')]
 ANO_NE = None
 
 CONTENT = [
@@ -142,7 +143,9 @@ DESIGN = [
         dd('pomer', 'Poměr sloupců (text : médium)', [('1fr 1fr', '1:1'), ('1.2fr 1fr', '6:5'), ('1.5fr 1fr', '3:2'), ('1fr 1.2fr', '5:6')], '1.2fr 1fr'),
         dd('zarovnani', 'Svislé zarovnání', [('start', 'Nahoru'), ('center', 'Na střed'), ('end', 'Dolů')], 'center'),
         dd('min_vyska', 'Minimální výška', [('auto', 'Auto'), ('60', '60 % výšky okna'), ('75', '75 %'), ('85', '85 %'), ('100', '100 %')], '85'),
-        tog('z_webu', 'Šířka, mezery a zaoblení z design systému webu', True),
+        dd('sirka_elementu', 'Šířka elementu', [('full', 'Na celou šířku okna'), ('content', 'Šířka obsahu webu'), ('custom', 'Vlastní'), ('auto', 'Podle rodiče (bez úprav)')], 'full'),
+        unit('sirka_elementu_vlastni', 'Vlastní šířka elementu (max.)', '1400px'),
+        tog('z_webu', 'Šířka obsahu, mezery a zaoblení z design systému webu', True),
         unit('sirka', 'Šířka obsahu (vlastní)', '1200px'),
         unit('odsazeni', 'Svislé odsazení sekce (vlastní)', '120px'),
         unit('mezera', 'Mezera mezi sloupci (vlastní)', '64px'),
@@ -154,11 +157,13 @@ DESIGN = [
         color('svetla', 'Světlá barva'),
     ]),
     ('pozadi', 'Pozadí a překryv', [
-        dd('barva', 'Barva pozadí', [('tmava', 'Tmavá'), ('brand', 'Brand'), ('accent', 'Accent'), ('svetla', 'Světlá'), ('bila', 'Bílá')], 'tmava'),
-        dd('prekryv', 'Barva překryvu', [('tmava', 'Tmavá'), ('brand', 'Brand')], 'tmava'),
+        color('barva_pozadi', 'Barva pozadí (prázdné = tmavá barva)'),
+        color('barva_pozadi2', 'Druhá barva přechodu (prázdné = hlavní barva)'),
+        color('barva_prekryvu', 'Barva překryvu (prázdné = tmavá barva)'),
         num('prekryv_sila', 'Síla překryvu (%)', 0, 90, 5, 60),
         dd('prekryv_styl', 'Tvar překryvu', [('prechod', 'Přechod od textu'), ('plny', 'Plný')], 'prechod'),
-        dd('barva_textu', 'Barva textu', [('auto', 'Auto'), ('svetly', 'Světlý'), ('tmavy', 'Tmavý')], 'auto'),
+        dd('barva_textu', 'Text na pozadí', [('auto', 'Auto'), ('svetly', 'Světlý'), ('tmavy', 'Tmavý')], 'auto'),
+        color('barva_textu_vlastni', 'Barva textu (prázdné = podle volby výše)'),
     ]),
     ('typografie', 'Nadpis a eyebrow', [
         dd('velikost', 'Velikost nadpisu', [('S', 'S'), ('M', 'M'), ('L', 'L'), ('XL', 'XL')], 'L'),
@@ -172,8 +177,30 @@ DESIGN = [
         dd('tvar', 'Tvar (vlastní)', [('hranaty', 'Hranatý'), ('zaobleny', 'Zaoblený'), ('pilulka', 'Pilulka')], 'zaobleny'),
         dd('velikost', 'Velikost (vlastní)', [('S', 'S'), ('M', 'M'), ('L', 'L')], 'M'),
     ]),
+    ('tlacitko1', 'Tlačítko 1 – vlastní styl', [
+        color('pozadi', 'Pozadí'),
+        color('pozadi_hover', 'Pozadí po najetí'),
+        color('text', 'Text a ikona'),
+        color('text_hover', 'Text a ikona po najetí'),
+        color('okraj_hover', 'Barva okraje po najetí'),
+        preset('okraj', 'Okraj a zaoblení', 'borders_without_shadows'),
+        preset('odsazeni', 'Vnitřní odsazení', 'spacing_padding_all'),
+        typo('pismo', 'Písmo'),
+    ]),
+    ('tlacitko2', 'Tlačítko 2 – vlastní styl', [
+        color('pozadi', 'Pozadí'),
+        color('pozadi_hover', 'Pozadí po najetí'),
+        color('text', 'Text a ikona'),
+        color('text_hover', 'Text a ikona po najetí'),
+        color('okraj_hover', 'Barva okraje po najetí'),
+        preset('okraj', 'Okraj a zaoblení', 'borders_without_shadows'),
+        preset('odsazeni', 'Vnitřní odsazení', 'spacing_padding_all'),
+        typo('pismo', 'Písmo'),
+    ]),
+
     ('vyhody', 'Výhody / čísla', [
-        dd('styl', 'Styl', [('seznam', 'Seznam'), ('karty', 'Karty'), ('cisla', 'Čísla')], 'seznam'),
+        dd('styl', 'Styl', [('seznam', 'Seznam'), ('karty', 'Karty'), ('cisla', 'Čísla'), ('predel', 'Předěl – přes celou šířku se svislými čarami')], 'seznam'),
+        color('predel_barva', 'Barva čar předělu (prázdné = text se 25 % průhledností)'),
         dd('ikona_styl', 'Ikona', [('kruh', 'Ikona v kruhu'), ('ikona', 'Ikona'), ('tecka', 'Tečka'), ('blikajici', 'Blikající tečka')], 'kruh'),
     ]),
     ('medium', 'Médium', [
@@ -261,7 +288,7 @@ def control(c, ind):
     p = ' ' * ind
     t = c['t']
     if t == 'typography':
-        return (f'{p}getPresetSection(\n{p}    "EssentialElements\\\\typography_with_effects_and_align",\n'
+        return (f'{p}getPresetSection(\n{p}    "EssentialElements\\\\{c["preset"]}",\n'
                 f'{p}    {q(c["l"])},\n{p}    {q(c["k"])},\n{p}    [\'type\' => \'popout\']\n{p})')
     if t == 'text':
         opts = "['type' => 'text', 'layout' => 'vertical']"

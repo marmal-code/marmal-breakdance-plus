@@ -12,6 +12,7 @@
   - 9 dividerů (vlny i v pohybu), přichycené CTA na mobilu, tlačítko „Pozastavit pohyb“ (WCAG 2.2.2), typografie pro 10 textových prvků (presety Breakdance),
   - dynamická data: nadpis, text a obrázek z příspěvku nebo ACF (hero v šabloně),
   - výkon: LCP obrázek s `fetchpriority="high"` a srcset, ostatní lazy; JS jen se superHERO; respektuje prefers-reduced-motion.
+- Všechny barvy superHERO přes výběr barvy Breakdance (kapátko, globální barvy), šířka elementu (celé okno / šířka obsahu / vlastní), vlastní styl tlačítek (pozadí, text, okraj, odsazení, písmo, stavy po najetí), výhody ve stylu „Předěl“.
 - Nástroj `tools/hero_prvky.py` – generuje ovládací prvky elementu a výchozí hodnoty.
 - Překlady nových textů (en_US, en_GB).
 

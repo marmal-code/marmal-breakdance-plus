@@ -8,7 +8,7 @@
  * Breakpointy: tablet ≤ 1023 px, mobil ≤ 767 px.
  */
 
-.marmal-hero-element { display: block; position: relative; }
+.marmal-hero-element { display: block; position: relative; width: 100%; }
 
 .marmal-hero {
   --mh-brand: var(--bde-brand-primary-color, #1d4e89);
@@ -24,6 +24,9 @@
   --mh-b-py: 14px; --mh-b-px: 24px; --mh-b-fs: 16px;
   --mh-dv-h: 0px;
   --mh-head: var(--marmal-header-h, 80px);
+  --mh-bg1: var(--mh-dark);
+  --mh-bg2: var(--mh-brand);
+  --mh-ov-c: var(--mh-dark);
   --mh-bgc: var(--mh-dark);
   --mh-fg: var(--mh-dark);
   --mh-contrast: #fff;
@@ -39,6 +42,9 @@
 }
 .marmal-hero *, .marmal-hero *::before, .marmal-hero *::after { box-sizing: border-box; }
 .marmal-hero--own { --mh-pad: var(--mh-pad-own); --mh-gap: var(--mh-gap-own); }
+.marmal-hero--bg-barva { --mh-bgc: var(--mh-bg1); }
+.marmal-hero--bg-gradient { --mh-bgc: linear-gradient(135deg, var(--mh-bg1) 0%, var(--mh-bg2) 100%); }
+.marmal-hero--bg-zadne { --mh-bgc: transparent; }
 .marmal-hero--light { --mh-fg: #fff; --mh-contrast: var(--mh-dark); --mh-eyebrow: var(--mh-accent); --mh-bgsolid: var(--mh-dark); }
 .marmal-hero--head { padding-top: calc(var(--mh-pad) + var(--mh-head)); }
 .marmal-hero--h60 { min-height: 60vh; min-height: 60svh; }
@@ -148,6 +154,7 @@
 .marmal-hero-btn--sklo { background: color-mix(in srgb, var(--mh-fg) 12%, transparent); border-color: color-mix(in srgb, var(--mh-fg) 28%, transparent); color: inherit; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); --mh-fill: var(--mh-fg); --mh-fill-c: var(--mh-contrast); }
 .marmal-hero-btn--prechod { background: linear-gradient(110deg, var(--mh-brand), var(--mh-accent), var(--mh-brand)); background-size: 220% 100%; border: 0; padding: calc(var(--mh-b-py) + 2px) calc(var(--mh-b-px) + 2px); color: #fff; transition: background-position .6s, transform .25s, box-shadow .25s; }
 .marmal-hero-btn--prechod:hover { background-position: 100% 0; }
+.marmal-hero-btn--vlastni { background: var(--mh-brand); border-color: var(--mh-brand); color: #fff; }
 .marmal-hero-btn--link { background: none; padding-inline: 4px; color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; --mh-fill: transparent; }
 .marmal-hero--hover-zvednuti .marmal-hero-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -12px rgba(0, 0, 0, .55); }
 .marmal-hero--hover-sipka .marmal-hero-btn:hover .marmal-hero-btn__ic { transform: translateX(5px); }
@@ -206,6 +213,10 @@
 .marmal-hero-num { font-size: clamp(28px, 3.2vw, 42px); font-weight: 800; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .marmal-hero-num small { color: var(--mh-accent); font-size: inherit; }
 .marmal-hero__lab { font-size: 13.5px; opacity: .8; }
+.marmal-hero__list--predel { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 0; width: 100%; max-width: var(--mh-w); margin: 48px auto 0; }
+.marmal-hero__list--predel li { flex-direction: column; justify-content: center; gap: 4px; padding: 6px 24px; text-align: center; border-left: 1px solid var(--mh-predel, color-mix(in srgb, var(--mh-fg) 25%, transparent)); }
+.marmal-hero__list--predel li:first-child { border-left: 0; }
+.marmal-hero__predel-t { font-size: 16px; font-weight: 600; line-height: 1.35; }
 
 /* ---------- médium ---------- */
 .marmal-hero__media { position: relative; margin: 0; min-width: 0; translate: 0 calc(var(--mh-sp, 0) * var(--mh-px-m, 0px)); }
@@ -368,6 +379,10 @@
   .marmal-hero--btnfull .marmal-hero__btns { flex-direction: column; align-self: stretch; }
   .marmal-hero--btnfull .marmal-hero__btns .marmal-hero-btn { width: 100%; }
   .marmal-hero__divider { height: calc(var(--mh-dv-h) * .55); }
+  .marmal-hero__list--predel { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 32px; }
+  .marmal-hero__list--predel li { padding: 14px 12px; }
+  .marmal-hero__list--predel li:nth-child(odd) { border-left: 0; }
+  .marmal-hero__list--predel li:nth-child(n+3) { border-top: 1px solid var(--mh-predel, color-mix(in srgb, var(--mh-fg) 25%, transparent)); }
   .marmal-hero__ghost { transform: translate(10px, 10px); }
   .marmal-hero--calm-mob .marmal-hero__deco, .marmal-hero--calm-mob .marmal-hero__deco *, .marmal-hero--calm-mob .marmal-hero__deco::before,
   .marmal-hero--calm-mob .marmal-hero__bg img, .marmal-hero--calm-mob .marmal-hero__mesh i, .marmal-hero--calm-mob .marmal-hero__mwrap,

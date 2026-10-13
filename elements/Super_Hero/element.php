@@ -152,11 +152,10 @@ class SuperHero extends \Breakdance\Elements\Element
                     'pomer' => '1.2fr 1fr',
                     'zarovnani' => 'center',
                     'min_vyska' => '85',
+                    'sirka_elementu' => 'full',
                     'z_webu' => true
                 ],
                 'pozadi' => [
-                    'barva' => 'tmava',
-                    'prekryv' => 'tmava',
                     'prekryv_sila' => 60,
                     'prekryv_styl' => 'prechod',
                     'barva_textu' => 'auto'
@@ -295,8 +294,26 @@ class SuperHero extends \Breakdance\Elements\Element
                     [],
                 ),
                 c(
+                    'sirka_elementu',
+                    'Šířka elementu',
+                    [],
+                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'full', 'text' => 'Na celou šířku okna'], ['value' => 'content', 'text' => 'Šířka obsahu webu'], ['value' => 'custom', 'text' => 'Vlastní'], ['value' => 'auto', 'text' => 'Podle rodiče (bez úprav)']]],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'sirka_elementu_vlastni',
+                    'Vlastní šířka elementu (max.)',
+                    [],
+                    ['type' => 'unit', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
                     'z_webu',
-                    'Šířka, mezery a zaoblení z design systému webu',
+                    'Šířka obsahu, mezery a zaoblení z design systému webu',
                     [],
                     ['type' => 'toggle', 'layout' => 'inline'],
                     false,
@@ -387,19 +404,28 @@ class SuperHero extends \Breakdance\Elements\Element
                 'Pozadí a překryv',
                 [
                 c(
-                    'barva',
-                    'Barva pozadí',
+                    'barva_pozadi',
+                    'Barva pozadí (prázdné = tmavá barva)',
                     [],
-                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'tmava', 'text' => 'Tmavá'], ['value' => 'brand', 'text' => 'Brand'], ['value' => 'accent', 'text' => 'Accent'], ['value' => 'svetla', 'text' => 'Světlá'], ['value' => 'bila', 'text' => 'Bílá']]],
+                    ['type' => 'color', 'layout' => 'inline'],
                     false,
                     false,
                     [],
                 ),
                 c(
-                    'prekryv',
-                    'Barva překryvu',
+                    'barva_pozadi2',
+                    'Druhá barva přechodu (prázdné = hlavní barva)',
                     [],
-                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'tmava', 'text' => 'Tmavá'], ['value' => 'brand', 'text' => 'Brand']]],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'barva_prekryvu',
+                    'Barva překryvu (prázdné = tmavá barva)',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
                     false,
                     false,
                     [],
@@ -424,9 +450,18 @@ class SuperHero extends \Breakdance\Elements\Element
                 ),
                 c(
                     'barva_textu',
-                    'Barva textu',
+                    'Text na pozadí',
                     [],
                     ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'auto', 'text' => 'Auto'], ['value' => 'svetly', 'text' => 'Světlý'], ['value' => 'tmavy', 'text' => 'Tmavý']]],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'barva_textu_vlastni',
+                    'Barva textu (prázdné = podle volby výše)',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
                     false,
                     false,
                     [],
@@ -482,7 +517,7 @@ class SuperHero extends \Breakdance\Elements\Element
                     'btn1_styl',
                     'Tlačítko 1 – styl',
                     [],
-                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'primary', 'text' => 'Primary'], ['value' => 'secondary', 'text' => 'Secondary'], ['value' => 'outline', 'text' => 'Outline'], ['value' => 'sklo', 'text' => 'Sklo'], ['value' => 'prechod', 'text' => 'Přechod'], ['value' => 'link', 'text' => 'Odkaz']]],
+                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'primary', 'text' => 'Primary'], ['value' => 'secondary', 'text' => 'Secondary'], ['value' => 'outline', 'text' => 'Outline'], ['value' => 'sklo', 'text' => 'Sklo'], ['value' => 'prechod', 'text' => 'Přechod'], ['value' => 'link', 'text' => 'Odkaz'], ['value' => 'vlastni', 'text' => 'Vlastní (Design → Tlačítko 1/2 – vlastní)']]],
                     false,
                     false,
                     [],
@@ -491,7 +526,7 @@ class SuperHero extends \Breakdance\Elements\Element
                     'btn2_styl',
                     'Tlačítko 2 – styl',
                     [],
-                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'primary', 'text' => 'Primary'], ['value' => 'secondary', 'text' => 'Secondary'], ['value' => 'outline', 'text' => 'Outline'], ['value' => 'sklo', 'text' => 'Sklo'], ['value' => 'prechod', 'text' => 'Přechod'], ['value' => 'link', 'text' => 'Odkaz']]],
+                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'primary', 'text' => 'Primary'], ['value' => 'secondary', 'text' => 'Secondary'], ['value' => 'outline', 'text' => 'Outline'], ['value' => 'sklo', 'text' => 'Sklo'], ['value' => 'prechod', 'text' => 'Přechod'], ['value' => 'link', 'text' => 'Odkaz'], ['value' => 'vlastni', 'text' => 'Vlastní (Design → Tlačítko 1/2 – vlastní)']]],
                     false,
                     false,
                     [],
@@ -530,6 +565,152 @@ class SuperHero extends \Breakdance\Elements\Element
                 [],
             ),
             c(
+                'tlacitko1',
+                'Tlačítko 1 – vlastní styl',
+                [
+                c(
+                    'pozadi',
+                    'Pozadí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'pozadi_hover',
+                    'Pozadí po najetí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'text',
+                    'Text a ikona',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'text_hover',
+                    'Text a ikona po najetí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'okraj_hover',
+                    'Barva okraje po najetí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                getPresetSection(
+                    "EssentialElements\\borders_without_shadows",
+                    'Okraj a zaoblení',
+                    'okraj',
+                    ['type' => 'popout']
+                ),
+                getPresetSection(
+                    "EssentialElements\\spacing_padding_all",
+                    'Vnitřní odsazení',
+                    'odsazeni',
+                    ['type' => 'popout']
+                ),
+                getPresetSection(
+                    "EssentialElements\\typography_with_effects_and_align",
+                    'Písmo',
+                    'pismo',
+                    ['type' => 'popout']
+                )
+                ],
+                ['type' => 'section', 'layout' => 'vertical'],
+                false,
+                false,
+                [],
+            ),
+            c(
+                'tlacitko2',
+                'Tlačítko 2 – vlastní styl',
+                [
+                c(
+                    'pozadi',
+                    'Pozadí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'pozadi_hover',
+                    'Pozadí po najetí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'text',
+                    'Text a ikona',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'text_hover',
+                    'Text a ikona po najetí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'okraj_hover',
+                    'Barva okraje po najetí',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
+                    false,
+                    false,
+                    [],
+                ),
+                getPresetSection(
+                    "EssentialElements\\borders_without_shadows",
+                    'Okraj a zaoblení',
+                    'okraj',
+                    ['type' => 'popout']
+                ),
+                getPresetSection(
+                    "EssentialElements\\spacing_padding_all",
+                    'Vnitřní odsazení',
+                    'odsazeni',
+                    ['type' => 'popout']
+                ),
+                getPresetSection(
+                    "EssentialElements\\typography_with_effects_and_align",
+                    'Písmo',
+                    'pismo',
+                    ['type' => 'popout']
+                )
+                ],
+                ['type' => 'section', 'layout' => 'vertical'],
+                false,
+                false,
+                [],
+            ),
+            c(
                 'vyhody',
                 'Výhody / čísla',
                 [
@@ -537,7 +718,16 @@ class SuperHero extends \Breakdance\Elements\Element
                     'styl',
                     'Styl',
                     [],
-                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'seznam', 'text' => 'Seznam'], ['value' => 'karty', 'text' => 'Karty'], ['value' => 'cisla', 'text' => 'Čísla']]],
+                    ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'seznam', 'text' => 'Seznam'], ['value' => 'karty', 'text' => 'Karty'], ['value' => 'cisla', 'text' => 'Čísla'], ['value' => 'predel', 'text' => 'Předěl – přes celou šířku se svislými čarami']]],
+                    false,
+                    false,
+                    [],
+                ),
+                c(
+                    'predel_barva',
+                    'Barva čar předělu (prázdné = text se 25 % průhledností)',
+                    [],
+                    ['type' => 'color', 'layout' => 'inline'],
                     false,
                     false,
                     [],
@@ -2024,6 +2214,6 @@ class SuperHero extends \Breakdance\Elements\Element
 
     static function propertyPathsToSsrElementWhenValueChanges()
     {
-        return ['content.zdroj', 'content.obsah', 'content.tlacitka', 'content.video', 'content.duvera', 'content.oteviraci', 'content.vyhody', 'content.medium', 'content.pozadi', 'content.slider', 'content.doplnky', 'design.rozlozeni', 'design.barvy', 'design.pozadi', 'design.typografie', 'design.tlacitka', 'design.vyhody', 'design.medium', 'design.slider', 'design.vykon', 'design.styl', 'design.animace', 'design.nadpis_efekt', 'design.tlacitka_efekt', 'design.pozadi_efekt', 'design.medium_efekt', 'design.odjezd', 'design.divider', 'design.mobil'];
+        return ['content.zdroj', 'content.obsah', 'content.tlacitka', 'content.video', 'content.duvera', 'content.oteviraci', 'content.vyhody', 'content.medium', 'content.pozadi', 'content.slider', 'content.doplnky', 'design.rozlozeni', 'design.barvy', 'design.pozadi', 'design.typografie', 'design.tlacitka', 'design.tlacitko1', 'design.tlacitko2', 'design.vyhody', 'design.medium', 'design.slider', 'design.vykon', 'design.styl', 'design.animace', 'design.nadpis_efekt', 'design.tlacitka_efekt', 'design.pozadi_efekt', 'design.medium_efekt', 'design.odjezd', 'design.divider', 'design.mobil'];
     }
 }

@@ -90,23 +90,34 @@ function hero_unit($val, string $default): string
     return preg_match('/^\d{1,4}(\.\d{1,3})?(px|rem|em|%|vw|vh|svh|ch)$/', $kandidat) ? $kandidat : $default;
 }
 
-/** Bezpečná CSS barva (hex, rgb/hsl, var(--…), název). Jinak prázdné. */
-function hero_barva($val): string
+/**
+ * Je barva pozadí tmavá? (pro automatickou barvu textu)
+ * Prázdná = výchozí tmavá barva. Hex / rgb se změří, proměnnou (globální barvu)
+ * změřit nejde – bere se jako tmavá, světlý text jde přepnout ručně.
+ */
+function hero_je_tmava(string $barva): bool
 {
-    if (is_array($val)) {
-        $val = $val['value'] ?? $val['color'] ?? '';
+    $barva = trim($barva);
+    if ($barva === '') {
+        return true;
     }
-    if (!is_string($val)) {
-        return '';
+    $rgb = null;
+    if (preg_match('/^#([0-9a-f]{3}|[0-9a-f]{6})([0-9a-f]{2})?$/i', $barva, $m)) {
+        $h   = strlen($m[1]) === 3 ? $m[1][0] . $m[1][0] . $m[1][1] . $m[1][1] . $m[1][2] . $m[1][2] : $m[1];
+        $rgb = [hexdec(substr($h, 0, 2)), hexdec(substr($h, 2, 2)), hexdec(substr($h, 4, 2))];
+    } elseif (preg_match('/^rgba?\(\s*(\d{1,3})[\s,]+(\d{1,3})[\s,]+(\d{1,3})/i', $barva, $m)) {
+        $rgb = [(int) $m[1], (int) $m[2], (int) $m[3]];
     }
-    $val = trim($val);
-    if (preg_match('/^#[0-9a-f]{3,8}$/i', $val)
-        || preg_match('/^(rgb|rgba|hsl|hsla)\([0-9.,%\s\/-]{3,60}\)$/i', $val)
-        || preg_match('/^var\(--[a-z0-9_-]{1,80}(,\s*[#a-z0-9(),.%\s-]{1,60})?\)$/i', $val)
-        || preg_match('/^[a-z]{3,20}$/i', $val)) {
-        return $val;
+    if (!$rgb) {
+        return true;
     }
-    return '';
+    $l = 0;
+    foreach ($rgb as $k => $c) {
+        $c  /= 255;
+        $c   = $c <= .03928 ? $c / 12.92 : pow(($c + .055) / 1.055, 2.4);
+        $l  += $c * [.2126, .7152, .0722][$k];
+    }
+    return $l < .4;
 }
 
 // ===================================================================== média
@@ -496,11 +507,12 @@ function hero_render(array $p): string
     $layout    = $volba('design.rozlozeni.varianta', ['split', 'split-rev', 'center', 'stack', 'text']);
     $sRezim    = $volba('content.slider.rezim', ['vypnuto', 'pozadi', 'cely']);
     $bgTyp     = $sRezim !== 'vypnuto' ? 'slider' : $volba('content.pozadi.typ', ['zadne', 'barva', 'gradient', 'zivy', 'obrazek', 'video']);
-    $bgBarva   = $volba('design.pozadi.barva', ['tmava', 'brand', 'accent', 'svetla', 'bila']);
+    $bgBarva   = (string) (is_scalar($v('design.pozadi.barva_pozadi')) ? $v('design.pozadi.barva_pozadi') : '');
+    $bgTmava   = hero_je_tmava($bgBarva);
     $mTyp      = $layout === 'text' ? 'zadne' : $volba('content.medium.typ', ['obrazek', 'video', 'formular', 'zadne']);
     $textBarva = $volba('design.pozadi.barva_textu', ['auto', 'svetly', 'tmavy']);
     $svetly    = $textBarva === 'svetly' || ($textBarva === 'auto' && (in_array($bgTyp, ['obrazek', 'video', 'slider', 'zivy'], true)
-        || (in_array($bgTyp, ['barva', 'gradient'], true) && in_array($bgBarva, ['tmava', 'brand'], true))));
+        || (in_array($bgTyp, ['barva', 'gradient'], true) && $bgTmava)));
     $anim      = $volba('design.animace.vstup', ['zadna', 'fade', 'nahoru', 'zleva', 'zprava', 'zoom', 'rozostreni', 'odkryti', 'preklopeni', 'slova']);
     $poSlovech = $anim === 'slova';
     $lcp       = $ano('design.vykon.lcp');
@@ -613,7 +625,6 @@ function hero_render(array $p): string
     $mAnim = $anim === 'zadna' ? 'none' : $MAN[$volba('design.animace.medium_vstup', ['stejne', 'zoom', 'zprava', 'odkryti', 'rotace'])];
     $pom   = explode(' ', $volba('design.rozlozeni.pomer', ['1fr 1fr', '1.2fr 1fr', '1.5fr 1fr', '1fr 1.2fr']));
     $cols  = $layout === 'split-rev' ? "minmax(0,{$pom[1]}) minmax(0,{$pom[0]})" : "minmax(0,{$pom[0]}) minmax(0,{$pom[1]})";
-    $barvaVar = ['tmava' => 'var(--mh-dark)', 'brand' => 'var(--mh-brand)', 'accent' => 'var(--mh-accent)', 'svetla' => 'var(--mh-light)', 'bila' => '#fff'];
 
     $vars = [
         '--mh-cols'    => $cols,
@@ -623,16 +634,8 @@ function hero_render(array $p): string
         '--mh-hmax'    => max(10, min(40, (int) $v('design.typografie.nadpis_max'))) . 'ch',
         '--mh-ar'      => $volba('design.medium.pomer', ['4/3', 'auto', '1/1', '3/4', '16/9']),
         '--mh-ov-a'    => max(0, min(90, (int) $v('design.pozadi.prekryv_sila'))),
-        '--mh-ov-c'    => $volba('design.pozadi.prekryv', ['tmava', 'brand']) === 'brand' ? 'var(--mh-brand)' : 'var(--mh-dark)',
         '--mh-int'     => max(3, min(12, (int) $v('design.slider.interval'))) . 's',
     ];
-    if ($bgTyp === 'barva') {
-        $vars['--mh-bgc'] = $barvaVar[$bgBarva];
-    } elseif ($bgTyp === 'gradient') {
-        $vars['--mh-bgc'] = 'linear-gradient(135deg,' . $barvaVar[$bgBarva] . ' 0%,' . ($bgBarva === 'tmava' ? 'var(--mh-brand)' : 'var(--mh-dark)') . ' 100%)';
-    } elseif ($bgTyp === 'zadne') {
-        $vars['--mh-bgc'] = 'transparent';
-    }
     if (!$zWebu) {
         $vars['--mh-w']   = hero_unit($v('design.rozlozeni.sirka'), '1200px');
         $vars['--mh-pad-own'] = hero_unit($v('design.rozlozeni.odsazeni'), '120px');
@@ -646,20 +649,9 @@ function hero_render(array $p): string
         $vars['--mh-b-px'] = ['S' => '18px', 'M' => '24px', 'L' => '32px'][$vel];
         $vars['--mh-b-fs'] = ['S' => '14px', 'M' => '16px', 'L' => '18px'][$vel];
     }
-    foreach (['brand' => '--mh-brand', 'accent' => '--mh-accent', 'tmava' => '--mh-dark', 'svetla' => '--mh-light'] as $k => $var) {
-        $b = hero_barva($v('design.barvy.' . $k));
-        if ($b !== '') {
-            $vars[$var] = $b;
-        }
-    }
-    $hl = hero_barva($v('design.pismo.barva_hl'));
-    if ($hl !== '') {
-        $vars['--mh-hl'] = $hl;
-    }
+    // Barvy (výběr barvy Breakdance) zapisuje css.twig, sem patří jen to, co počítá PHP.
     if ($dvTvar !== 'zadny') {
         $vars['--mh-dv-h'] = hero_unit($v('design.divider.vyska'), '90px');
-        $dvB = hero_barva($v('design.divider.barva'));
-        $vars['--mh-dv-c'] = $dvB !== '' ? $dvB : '#fff';
     }
     $style = '';
     foreach ($vars as $k => $val) {
@@ -792,12 +784,12 @@ function hero_render(array $p): string
         if ($t === '') {
             continue;
         }
-        $st    = $volba("design.tlacitka.btn{$n}_styl", ['primary', 'secondary', 'outline', 'sklo', 'prechod', 'link']);
+        $st    = $volba("design.tlacitka.btn{$n}_styl", ['primary', 'secondary', 'outline', 'sklo', 'prechod', 'link', 'vlastni']);
         $ic    = hero_ikona($v("content.tlacitka.btn{$n}_ikona"));
         $video = $n === 2 && in_array($vsp, ['tlacitko2', 'oboje'], true);
         $url   = (string) $v("content.tlacitka.btn{$n}_url");
         $nove  = $ano("content.tlacitka.btn{$n}_nove_okno") && !$video;
-        $btns .= '<a class="marmal-hero-btn marmal-hero-btn--' . esc_attr($st) . ($n === 1 && $upoutat !== 'zadne' ? ' marmal-hero-btn--att-' . esc_attr($upoutat) : '') . '"'
+        $btns .= '<a class="marmal-hero-btn marmal-hero-btn--' . esc_attr($st) . ($st === 'vlastni' ? ' marmal-hero-btn--v' . $n : '') . ($n === 1 && $upoutat !== 'zadne' ? ' marmal-hero-btn--att-' . esc_attr($upoutat) : '') . '"'
             . ' href="' . esc_url($url !== '' ? $url : '#') . '"' . ($nove ? ' target="_blank" rel="noopener"' : '') . ($video ? ' data-mh-video role="button"' : '') . '>'
             . '<span>' . esc_html($t) . '</span>'
             . ($ic ? '<span class="marmal-hero-btn__ic">' . $ic . '</span>' : '')
@@ -857,6 +849,7 @@ function hero_render(array $p): string
     }
 
     // výhody / čísla
+    $predel = '';
     $polozky = [];
     for ($n = 1; $n <= 6; $n++) {
         $x = (string) $v("content.vyhody.polozka{$n}");
@@ -865,8 +858,23 @@ function hero_render(array $p): string
         }
     }
     if ($polozky) {
-        $vst = $volba('design.vyhody.styl', ['seznam', 'karty', 'cisla']);
-        if ($vst === 'cisla') {
+        $vst = $volba('design.vyhody.styl', ['seznam', 'karty', 'cisla', 'predel']);
+        if ($vst === 'predel') {
+            // Předěl: pruh přes celou šířku obsahu, položky oddělené svislou čarou.
+            $li = '';
+            foreach ($polozky as $x) {
+                $kusy = array_map('trim', explode('|', $x, 2));
+                if (isset($kusy[1]) && preg_match('/^(\D*?)(\d+(?:[ \x{00a0}]\d{3})*(?:[.,]\d+)?)(.*)$/u', $kusy[0], $m)) {
+                    $do  = str_replace([' ', "\xc2\xa0", ','], ['', '', '.'], $m[2]);
+                    $des = strpos($m[2], ',') !== false || strpos($m[2], '.') !== false ? strlen((string) preg_replace('/^.*[.,]/', '', $m[2])) : 0;
+                    $li .= '<li><span class="marmal-hero-num">' . esc_html($m[1]) . '<span class="marmal-hero-cnt" data-to="' . esc_attr($do) . '" data-dec="' . (int) $des . '">' . esc_html($m[2]) . '</span><small>' . esc_html($m[3]) . '</small></span>'
+                        . ($kusy[1] !== '' ? '<span class="marmal-hero__lab">' . esc_html($kusy[1]) . '</span>' : '') . '</li>';
+                } else {
+                    $li .= '<li><span class="marmal-hero__predel-t">' . esc_html(isset($kusy[1]) ? $kusy[0] . ' ' . $kusy[1] : $x) . '</span></li>';
+                }
+            }
+            $predel = '<ul class="marmal-hero__list marmal-hero__list--predel marmal-hero-a" style="--i:' . ($i + 3) . '">' . $li . '</ul>';
+        } elseif ($vst === 'cisla') {
             $li = '';
             foreach ($polozky as $x) {
                 $kusy = array_map('trim', explode('|', $x, 2));
@@ -1047,6 +1055,6 @@ function hero_render(array $p): string
     return '<div class="' . esc_attr(implode(' ', $cls)) . '" style="' . esc_attr($style) . '" data-mh="' . esc_attr(wp_json_encode($cfg)) . '">'
         . $bg
         . '<div class="marmal-hero__inner"><div class="marmal-hero__content">' . $c . '</div>' . $media . '</div>'
-        . $nav . $pruh . $sipkaHtml . $pauza . $divider . $sticky . $lb
+        . $predel . $nav . $pruh . $sipkaHtml . $pauza . $divider . $sticky . $lb
         . '</div>';
 }

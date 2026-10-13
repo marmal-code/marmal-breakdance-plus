@@ -385,7 +385,15 @@
     if (dot) { dot.className = isOpen ? 'marmal-hero-live' : 'marmal-hero-off'; }
   }
 
+  /* Šířka posuvníku – superHERO „na celou šířku okna“ pak nepřeteče do strany. */
+  function scrollbar() {
+    var w = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--marmal-sbw', (w > 0 ? w : 0) + 'px');
+  }
+
   function start() {
+    scrollbar();
+    window.addEventListener('resize', scrollbar, { passive: true });
     each(document.querySelectorAll('.marmal-hero[data-mh]'), init);
   }
   if (document.readyState === 'loading') {
