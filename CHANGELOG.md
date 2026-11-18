@@ -10,6 +10,7 @@
   - každé ID se ověří podle tvaru (neplatné se neuloží a ukáže se chyba), do stránky jde jen ověřené ID,
   - služby se samy objeví v kategoriích a v tabulce cookies (`_gcl_au`, `IDE`, `sid`, `udid`, `li_fat_id`, `bcookie`, `li_sugr`, `UserMatchHistory`…).
 - **Blokování** ručně vložených kódů nově pozná i GTM, Google Ads (gtag.js s ID AW- = marketingové), Sklik (`rc.js`, `sul.js`, `retargetingHit`), LinkedIn a nový kód Hotjaru.
+- Návod v MarMal → Cookies připomíná vypnutí vlastních cookies Breakdance (Breakdance → Settings → Privacy → „Disable Page & Session Cookies“).
 - Prvky čekající na souhlas můžou mít víc kategorií (`data-marmal-kat="analyticke marketingove"` = stačí kterákoli).
 
 ## 0.11.1 – 2026-11-18

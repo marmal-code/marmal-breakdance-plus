@@ -184,6 +184,9 @@ function stranka(): void
 
             <section class="mmck-tp<?php echo $tab === 'kategorie' ? ' on' : ''; ?>" data-tp="kategorie">
                 <p class="description"><?php esc_html_e('Kategorie se v liště zobrazí jen tehdy, když v ní je aspoň jedna cookie. Služby označené „automaticky“ plugin pozná sám, „nalezeno“ našlo blokování přímo na stránkách webu.', 'marmal-breakdance-plus'); ?></p>
+                <?php if (did_action('breakdance_loaded')) : ?>
+                    <p class="description"><strong><?php esc_html_e('Breakdance:', 'marmal-breakdance-plus'); ?></strong> <?php esc_html_e('vlastní cookies pro počítání zobrazení a návštěv vypneš v Breakdance → Settings → Privacy → „Disable Page & Session Cookies“ (doporučeno, pokud nepoužíváš podmínky Page View Count / Session Count).', 'marmal-breakdance-plus'); ?></p>
+                <?php endif; ?>
                 <?php foreach (kategorie_zaklad() as $kid => $k) : ?>
                     <div class="mmck-sl">
                         <h3><?php echo esc_html($k[0]); ?></h3>
@@ -279,6 +282,7 @@ function stranka(): void
             <section class="mmck-tp<?php echo $tab === 'navod' ? ' on' : ''; ?>" data-tp="navod">
                 <ol class="mmck-kroky">
                     <li><?php esc_html_e('Vypni starý cookie plugin (CookieYes apod.) – dvě lišty najednou nesmí běžet.', 'marmal-breakdance-plus'); ?></li>
+                    <li><?php esc_html_e('Vypni cookies Breakdance: Breakdance → Settings → Privacy → „Disable Page & Session Cookies“. Breakdance jinak ukládá počet zobrazení stránek a návštěv (pro podmínky Page View Count a Session Count u popupů) – nejsou nezbytné a lišta je nezná. Pokud tyto podmínky na webu používáš, nech je zapnuté a dopiš je do Vlastních cookies (kategorie preferencni).', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Záložka Měření: vlož ID služeb (GA4, Google Ads, GTM, Sklik, Meta Pixel, LinkedIn, Clarity, Hotjar) a stejné kódy odstraň odjinud (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce).', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Patička: odkaz „Nastavení cookies“ v elementu Marmal – Patička otevře okno tohoto modulu automaticky.', 'marmal-breakdance-plus'); ?></li>
                     <li><?php echo wp_kses(__('Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama.', 'marmal-breakdance-plus'), array('code' => array())); ?></li>
