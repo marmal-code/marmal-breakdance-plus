@@ -77,6 +77,19 @@ function sluzby(): array
                 return function_exists('pll_current_language');
             },
         ),
+        // Google Ads před GA4: v blokování vyhrává první shoda (gtag.js s ID AW- = marketingové).
+        'gads'        => array(
+            'nazev' => 'Google Ads', 'kat' => 'marketingove',
+            'cookies' => array(
+                array('_gcl_au', 'Google Ads (' . $google . ')', __('Měření konverzí z reklam Google', 'marmal-breakdance-plus'), __('3 měsíce', 'marmal-breakdance-plus')),
+                array('IDE', 'Google (' . $google . ', doubleclick.net)', __('Cílení a vyhodnocení reklamy', 'marmal-breakdance-plus'), __('13 měsíců', 'marmal-breakdance-plus')),
+            ),
+            'skript' => array('googleadservices.com/pagead/conversion', 'googletagmanager.com/gtag/js?id=AW-'),
+            'inline' => array('/gtag\s*\(\s*[\'"]config[\'"]\s*,\s*[\'"]AW-/'),
+            'auto'   => function () {
+                return merici_id('gads') !== '';
+            },
+        ),
         'ga4'         => array(
             'nazev' => 'Google Analytics 4', 'kat' => 'analyticke',
             'cookies' => array(
@@ -95,8 +108,11 @@ function sluzby(): array
                 array('_hjSessionUser_*', 'Hotjar Ltd.', __('Rozlišuje návštěvníky pro analýzu chování', 'marmal-breakdance-plus'), __('1 rok', 'marmal-breakdance-plus')),
                 array('_hjSession_*', 'Hotjar Ltd.', __('Data aktuální návštěvy', 'marmal-breakdance-plus'), __('30 minut', 'marmal-breakdance-plus')),
             ),
-            'skript' => array('static.hotjar.com'),
-            'inline' => array('/static\.hotjar\.com/', '/_hjSettings/'),
+            'skript' => array('static.hotjar.com', 'hj.contentsquare.net'),
+            'inline' => array('/static\.hotjar\.com/', '/hj\.contentsquare\.net/', '/_hjSettings/'),
+            'auto'   => function () {
+                return merici_id('hotjar') !== '';
+            },
         ),
         'clarity'     => array(
             'nazev' => 'Microsoft Clarity', 'kat' => 'analyticke',
@@ -106,6 +122,9 @@ function sluzby(): array
             ),
             'skript' => array('clarity.ms/tag'),
             'inline' => array('/clarity\.ms\/tag/'),
+            'auto'   => function () {
+                return merici_id('clarity') !== '';
+            },
         ),
         'meta'        => array(
             'nazev' => 'Meta Pixel', 'kat' => 'marketingove',
@@ -115,6 +134,41 @@ function sluzby(): array
             ),
             'skript' => array('connect.facebook.net'),
             'inline' => array('/fbq\s*\(\s*[\'"]init[\'"]/', '/connect\.facebook\.net/'),
+            'auto'   => function () {
+                return merici_id('meta') !== '';
+            },
+        ),
+        'sklik'       => array(
+            'nazev' => 'Sklik (Seznam.cz)', 'kat' => 'marketingove',
+            'cookies' => array(
+                array('sid', 'Seznam.cz, a.s.', __('Propojení návštěvy s reklamou Sklik a měření konverzí', 'marmal-breakdance-plus'), __('30 dní', 'marmal-breakdance-plus')),
+                array('udid', 'Seznam.cz, a.s.', __('Identifikátor prohlížeče pro reklamu Sklik', 'marmal-breakdance-plus'), __('podle Seznam.cz', 'marmal-breakdance-plus')),
+            ),
+            'skript' => array('l.seznam.cz/sul.js', 'c.seznam.cz/js/rc.js', 'c.imedia.cz/js/retargeting.js'),
+            'inline' => array('/retargetingHit/', '/conversionHit/', '/SEM\s*\(\s*[\'"]track/'),
+            'auto'   => function () {
+                return merici_id('sem') !== '';
+            },
+        ),
+        'linkedin'    => array(
+            'nazev' => 'LinkedIn Insight Tag', 'kat' => 'marketingove',
+            'cookies' => array(
+                array('li_fat_id', 'LinkedIn Ireland Unlimited Company', __('Měření konverzí z reklam na LinkedInu', 'marmal-breakdance-plus'), __('30 dní', 'marmal-breakdance-plus')),
+                array('bcookie', 'LinkedIn (linkedin.com)', __('Identifikátor prohlížeče', 'marmal-breakdance-plus'), __('1 rok', 'marmal-breakdance-plus')),
+                array('li_sugr', 'LinkedIn (linkedin.com)', __('Cílení reklamy', 'marmal-breakdance-plus'), __('3 měsíce', 'marmal-breakdance-plus')),
+                array('UserMatchHistory', 'LinkedIn (linkedin.com)', __('Synchronizace reklamních identifikátorů', 'marmal-breakdance-plus'), __('30 dní', 'marmal-breakdance-plus')),
+            ),
+            'skript' => array('snap.licdn.com/li.lms-analytics'),
+            'inline' => array('/_linkedin_partner_id/'),
+            'auto'   => function () {
+                return merici_id('linkedin') !== '';
+            },
+        ),
+        'gtm'         => array(
+            'nazev' => 'Google Tag Manager', 'kat' => 'analyticke',
+            'cookies' => array(),
+            'skript' => array('googletagmanager.com/gtm.js'),
+            'inline' => array('/gtm\.start/'),
         ),
         'youtube'     => array(
             'nazev' => 'YouTube', 'kat' => 'marketingove', 'vlozeny' => __('Video z YouTube', 'marmal-breakdance-plus'),
@@ -153,6 +207,7 @@ function vychozi(): array
         'sluzby' => array(),
         'vlastni' => '',
         'ga' => '', 'gcm' => 'basic', 'gaShort' => true,
+        'gtm' => '', 'gtm_rezim' => 'souhlas', 'gads' => '', 'sem' => '', 'meta' => '', 'clarity' => '', 'hotjar' => '', 'linkedin' => '',
         'valid' => 6, 'rev' => 1, 'uchovat' => 3,
     );
 }
@@ -203,6 +258,43 @@ function ga_id(): string
 {
     $id = strtoupper(trim((string) nastaveni()['ga']));
     return preg_match('/^G-[A-Z0-9]{4,20}$/', $id) ? $id : '';
+}
+
+/**
+ * Měřicí kódy (od 0.12.0): klíč nastavení => [popis tvaru, regex, převod].
+ * Regex hlídá, že ID je jen to, co má být – do HTML/JS se nikdy nedostane nic jiného.
+ */
+function merici_vzory(): array
+{
+    return array(
+        'gtm'      => array('GTM-XXXXXXX', '/^GTM-[A-Z0-9]{4,12}$/', 'upper'),
+        'gads'     => array('AW-123456789', '/^AW-[0-9]{6,15}$/', 'upper'),
+        'sem'      => array(__('SEM ID ze Skliku', 'marmal-breakdance-plus'), '/^[A-Za-z0-9_-]{3,64}$/', ''),
+        'meta'     => array('123456789012345', '/^[0-9]{8,20}$/', ''),
+        'clarity'  => array('abcd1234ef', '/^[a-z0-9]{6,20}$/', 'lower'),
+        'hotjar'   => array('1234567', '/^[0-9]{4,12}$/', ''),
+        'linkedin' => array('1234567', '/^[0-9]{3,12}$/', ''),
+    );
+}
+
+function merici_nazev(string $klic): string
+{
+    $n = array(
+        'gtm' => 'Google Tag Manager', 'gads' => 'Google Ads', 'sem' => 'Sklik (Seznam Event Measurement)', 'meta' => 'Meta Pixel',
+        'clarity' => 'Microsoft Clarity', 'hotjar' => 'Hotjar', 'linkedin' => 'LinkedIn Insight Tag',
+    );
+    return $n[$klic] ?? $klic;
+}
+
+function merici_id(string $klic): string
+{
+    $vzory = merici_vzory();
+    if (!isset($vzory[$klic])) {
+        return '';
+    }
+    $id = trim((string) (nastaveni()[$klic] ?? ''));
+    $id = $vzory[$klic][2] === 'upper' ? strtoupper($id) : ($vzory[$klic][2] === 'lower' ? strtolower($id) : $id);
+    return preg_match($vzory[$klic][1], $id) ? $id : '';
 }
 
 /** Platnost GA cookies v sekundách (13 měsíců ≈ 395 dní) nebo null = výchozí Google (2 roky). */
@@ -416,6 +508,17 @@ function sanitizovat($vstup): array
     $c['ga']      = $ga;
     $c['gcm']     = z_vyctu($v['gcm'] ?? '', array('basic', 'advanced'), $d['gcm']);
     $c['gaShort'] = !empty($v['gaShort']);
+    foreach (merici_vzory() as $k => $vzor) {
+        $id = trim(sanitize_text_field((string) ($v[$k] ?? '')));
+        $id = $vzor[2] === 'upper' ? strtoupper($id) : ($vzor[2] === 'lower' ? strtolower($id) : $id);
+        if ($id !== '' && !preg_match($vzor[1], $id)) {
+            /* translators: 1: název pole, 2: ukázka tvaru */
+            add_settings_error(OPTION, $k, sprintf(__('%1$s: neplatné ID (tvar %2$s) – neuloženo.', 'marmal-breakdance-plus'), merici_nazev($k), $vzor[0]), 'error');
+            $id = '';
+        }
+        $c[$k] = $id;
+    }
+    $c['gtm_rezim'] = z_vyctu($v['gtm_rezim'] ?? '', array('souhlas', 'vzdy'), $d['gtm_rezim']);
     $valid        = (int) ($v['valid'] ?? 6);
     $c['valid']   = in_array($valid, array(3, 6, 12), true) ? $valid : 6;
     $c['uchovat'] = max(1, min(5, (int) ($v['uchovat'] ?? 3)));

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.12.0 – 2026-11-18
+- **Cookies – měřicí kódy** (MarMal → Cookies → Měření): kromě GA4 nově **Google Ads** (AW-…), **Google Tag Manager** (GTM-…), **Sklik – Seznam Event Measurement** (sul.js, SEM ID), **Meta Pixel**, **LinkedIn Insight Tag**, **Microsoft Clarity** a **Hotjar** (Contentsquare). Stačí vložit ID, kód vloží modul sám:
+  - GA4 a Google Ads sdílí jeden Google tag; v základním Consent Mode se načte po souhlasu s analytickými nebo marketingovými, GA4 se nastaví jen s analytickými a Ads jen s marketingovými,
+  - GTM: výchozí „až po souhlasu“ (analytické nebo marketingové), volitelně „vždy“ (Consent Mode hlídá značky); do dataLayer jde událost `marmal_consent` s proměnnými `marmal_analyticke`, `marmal_marketingove`, `marmal_preferencni` – při načtení stránky s uloženou volbou i při každé změně,
+  - Sklik SEM po souhlasu s marketingovými, souhlas se předá `SEM('updateConsent')` před PageView,
+  - Clarity po souhlasu s analytickými a s `clarity('consentv2')`; při změně volby modul aktualizuje Clarity i Sklik,
+  - Meta Pixel a LinkedIn po souhlasu s marketingovými, Hotjar po souhlasu s analytickými,
+  - každé ID se ověří podle tvaru (neplatné se neuloží a ukáže se chyba), do stránky jde jen ověřené ID,
+  - služby se samy objeví v kategoriích a v tabulce cookies (`_gcl_au`, `IDE`, `sid`, `udid`, `li_fat_id`, `bcookie`, `li_sugr`, `UserMatchHistory`…).
+- **Blokování** ručně vložených kódů nově pozná i GTM, Google Ads (gtag.js s ID AW- = marketingové), Sklik (`rc.js`, `sul.js`, `retargetingHit`), LinkedIn a nový kód Hotjaru.
+- Návod v MarMal → Cookies připomíná vypnutí vlastních cookies Breakdance (Breakdance → Settings → Privacy → „Disable Page & Session Cookies“).
+- Prvky čekající na souhlas můžou mít víc kategorií (`data-marmal-kat="analyticke marketingove"` = stačí kterákoli).
+
 ## 0.11.1 – 2026-11-18
 - Stejný obsah jako 0.11.0 (modul Cookies + rozvržení Patičky). Nové číslo verze, aby aktualizaci dostaly i weby s testovacím ZIPem 0.11.0 (bez rozvržení Patičky).
 

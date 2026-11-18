@@ -68,9 +68,11 @@
     }
     ulozeny = data;
     stav = k.slice();
+    w.marmalCookiesStav = k.slice();
     if (typeof w.gtag === 'function' && w.marmalCookiesMapa) {
       w.gtag('consent', 'update', w.marmalCookiesMapa(k));
     }
+    predat(k);
     try { d.dispatchEvent(new CustomEvent('marmal:cookies', { detail: { kategorie: k.slice() } })); } catch (e) { /* starý prohlížeč */ }
     zavritListu();
     zavritOkno();
@@ -118,8 +120,26 @@
   }
 
   /* ---------- spuštění zablokovaného obsahu ---------- */
+  /* kat může být víc kategorií oddělených mezerou – stačí souhlas s kteroukoli (např. Google tag pro GA4 i Ads). */
   function povoleno(kat) {
-    return kat === 'nezbytne' || (stav !== null && stav.indexOf(kat) > -1);
+    return String(kat || '').split(/\s+/).some(function (x) {
+      return x === 'nezbytne' || (stav !== null && x !== '' && stav.indexOf(x) > -1);
+    });
+  }
+
+  /* Změna souhlasu pro služby, které už běží: GTM (událost), Clarity a Sklik (vlastní consent API). */
+  function predat(k) {
+    w.dataLayer = w.dataLayer || [];
+    if (w.marmalCookiesUdalost) { w.dataLayer.push(w.marmalCookiesUdalost(k)); }
+    var m = w.marmalCookiesMapa ? w.marmalCookiesMapa(k) : null;
+    if (!m) { return; }
+    if (typeof w.clarity === 'function') {
+      w.clarity('consentv2', { ad_Storage: m.ad_storage, analytics_Storage: m.analytics_storage });
+    }
+    if (typeof w.SEM === 'function') {
+      w.SEM('updateConsent', { consent_mode: { ad_storage: m.ad_storage, ad_user_data: m.ad_user_data,
+        ad_personalization: m.ad_personalization, functionality_storage: m.functionality_storage, analytics_storage: m.analytics_storage } });
+    }
   }
 
   function aktivovat() {

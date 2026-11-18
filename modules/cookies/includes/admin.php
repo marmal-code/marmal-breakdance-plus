@@ -184,6 +184,9 @@ function stranka(): void
 
             <section class="mmck-tp<?php echo $tab === 'kategorie' ? ' on' : ''; ?>" data-tp="kategorie">
                 <p class="description"><?php esc_html_e('Kategorie se v liště zobrazí jen tehdy, když v ní je aspoň jedna cookie. Služby označené „automaticky“ plugin pozná sám, „nalezeno“ našlo blokování přímo na stránkách webu.', 'marmal-breakdance-plus'); ?></p>
+                <?php if (did_action('breakdance_loaded')) : ?>
+                    <p class="description"><strong><?php esc_html_e('Breakdance:', 'marmal-breakdance-plus'); ?></strong> <?php esc_html_e('vlastní cookies pro počítání zobrazení a návštěv vypneš v Breakdance → Settings → Privacy → „Disable Page & Session Cookies“ (doporučeno, pokud nepoužíváš podmínky Page View Count / Session Count).', 'marmal-breakdance-plus'); ?></p>
+                <?php endif; ?>
                 <?php foreach (kategorie_zaklad() as $kid => $k) : ?>
                     <div class="mmck-sl">
                         <h3><?php echo esc_html($k[0]); ?></h3>
@@ -222,12 +225,27 @@ function stranka(): void
             <section class="mmck-tp<?php echo $tab === 'mereni' ? ' on' : ''; ?>" data-tp="mereni">
                 <table class="form-table" role="presentation">
                     <tr><th scope="row"><label for="mmck-ga"><?php esc_html_e('Google Analytics 4 – ID měření', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('ga', 'G-XXXXXXXXXX'); ?>
-                        <p class="description"><?php esc_html_e('Kód vloží modul sám, včetně Consent Mode v2. GA4 odjinud (Site Kit, kód v hlavičce, Breakdance → Custom Code) odstraň – jinak by se měřilo dvakrát. Pokud tam zůstane, modul ho aspoň zablokuje do souhlasu.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                        <p class="description"><?php esc_html_e('Kód vloží modul sám, včetně Consent Mode v2. GA4 odjinud (Site Kit, GTM, kód v hlavičce, Breakdance → Custom Code) odstraň – jinak by se měřilo dvakrát.', 'marmal-breakdance-plus'); ?></p></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Consent Mode v2', 'marmal-breakdance-plus'); ?></th><td><?php radio('gcm', array('basic' => __('Základní (doporučeno)', 'marmal-breakdance-plus'), 'advanced' => __('Rozšířený', 'marmal-breakdance-plus'))); ?>
-                        <p class="description"><?php esc_html_e('Základní: bez souhlasu se Google tag vůbec nenačte. Rozšířený: bez souhlasu posílá Google anonymní pingy bez cookies pro modelování dat – výklad úřadů není jednotný, jen na přání klienta.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                        <p class="description"><?php esc_html_e('Základní: bez souhlasu se Google tagy (GA4, Google Ads) vůbec nenačtou. Rozšířený: GA4 a Google Ads se načtou hned a bez souhlasu posílají Googlu pingy bez cookies pro modelování dat – výklad úřadů není jednotný, jen na přání klienta. Ostatní služby čekají na souhlas vždy.', 'marmal-breakdance-plus'); ?></p></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Platnost GA cookies', 'marmal-breakdance-plus'); ?></th><td><label><input type="hidden" name="<?php echo esc_attr(OPTION); ?>[gaShort]" value="0"><input type="checkbox" name="<?php echo esc_attr(OPTION); ?>[gaShort]" value="1" <?php checked($s['gaShort']); ?>> <?php esc_html_e('Zkrátit na 13 měsíců (výchozí Google jsou 2 roky – ÚOOÚ vytýká neúměrně dlouhou platnost)', 'marmal-breakdance-plus'); ?></label></td></tr>
+                    <tr><th scope="row"><label for="mmck-gads"><?php esc_html_e('Google Ads – ID konverzí', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('gads', 'AW-123456789'); ?>
+                        <p class="description"><?php esc_html_e('Remarketing a propojení konverzí (cookie _gcl_au). Až po souhlasu s marketingovými cookies; sdílí Google tag s GA4.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-gtm"><?php esc_html_e('Google Tag Manager', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('gtm', 'GTM-XXXXXXX'); ?>
+                        <?php radio('gtm_rezim', array('souhlas' => __('Načíst až po souhlasu (doporučeno)', 'marmal-breakdance-plus'), 'vzdy' => __('Načíst vždy – značky v GTM hlídají souhlas samy', 'marmal-breakdance-plus'))); ?>
+                        <p class="description"><?php esc_html_e('„Až po souhlasu“: kontejner se načte po souhlasu s analytickými nebo marketingovými cookies. Značky v GTM pak spouštěj podle Consent Mode nebo události marmal_consent (proměnné dataLayer marmal_analyticke, marmal_marketingove, marmal_preferencni). „Vždy“ jen když máš u každé značky v GTM nastavenou kontrolu souhlasu. GA4 vlož buď sem do pole GA4, nebo do GTM – ne obojí.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-sem"><?php esc_html_e('Sklik – SEM ID', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('sem', __('SEM ID ze Skliku', 'marmal-breakdance-plus')); ?>
+                        <p class="description"><?php esc_html_e('Seznam Event Measurement (sul.js) – nový měřicí kód Skliku pro retargeting a konverze. SEM ID najdeš ve Skliku → Nastavení účtu → Zobrazit kód SEM. Až po souhlasu s marketingovými cookies, souhlas se Seznamu předá automaticky. Starý retargetingový kód (rc.js) na webu modul jen zablokuje do souhlasu.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-meta"><?php esc_html_e('Meta Pixel – ID', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('meta', '123456789012345'); ?>
+                        <p class="description"><?php esc_html_e('Facebook / Instagram reklamy. Až po souhlasu s marketingovými cookies.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-linkedin"><?php esc_html_e('LinkedIn Insight Tag – Partner ID', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('linkedin', '1234567'); ?>
+                        <p class="description"><?php esc_html_e('Až po souhlasu s marketingovými cookies.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-clarity"><?php esc_html_e('Microsoft Clarity – Project ID', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('clarity', 'abcd1234ef'); ?>
+                        <p class="description"><?php esc_html_e('Heatmapy a záznamy návštěv. Až po souhlasu s analytickými cookies; volbu modul předá Clarity přes její consent API. V Clarity zapni Settings → Setup → Cookie consent.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-hotjar"><?php esc_html_e('Hotjar – Site ID', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('hotjar', '1234567'); ?>
+                        <p class="description"><?php esc_html_e('Hotjar (Contentsquare). Až po souhlasu s analytickými cookies.', 'marmal-breakdance-plus'); ?></p></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Google Search Console', 'marmal-breakdance-plus'); ?></th><td><p class="description"><?php esc_html_e('Ověření webu metaznačkou nebo DNS. Na webu nenastavuje žádné cookies, souhlas není potřeba.', 'marmal-breakdance-plus'); ?></p></td></tr>
-                    <tr><th scope="row"><?php esc_html_e('Další služby', 'marmal-breakdance-plus'); ?></th><td><p class="description"><?php esc_html_e('Meta Pixel, Hotjar, Microsoft Clarity, YouTube, Vimeo a Google Mapy modul už pozná a zablokuje do souhlasu. Vlastní pole pro jejich ID (a GTM, Google Ads, Sklik, LinkedIn) přibudou ve fázi 2.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><?php esc_html_e('Kód vložený jinde', 'marmal-breakdance-plus'); ?></th><td><p class="description"><?php esc_html_e('Měřicí kódy vlož jen sem – ne do Breakdance → Custom Code ani jiného pluginu. Když na webu nějaký zůstane, modul ho pozná a zablokuje do souhlasu (objeví se jako „nalezeno“), ale měřilo by se dvakrát.', 'marmal-breakdance-plus'); ?></p></td></tr>
                 </table>
             </section>
 
@@ -264,13 +282,14 @@ function stranka(): void
             <section class="mmck-tp<?php echo $tab === 'navod' ? ' on' : ''; ?>" data-tp="navod">
                 <ol class="mmck-kroky">
                     <li><?php esc_html_e('Vypni starý cookie plugin (CookieYes apod.) – dvě lišty najednou nesmí běžet.', 'marmal-breakdance-plus'); ?></li>
-                    <li><?php esc_html_e('Záložka Měření: vlož ID GA4 a odstraň GA4 vložené jinde (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce).', 'marmal-breakdance-plus'); ?></li>
+                    <li><?php esc_html_e('Vypni cookies Breakdance: Breakdance → Settings → Privacy → „Disable Page & Session Cookies“. Breakdance jinak ukládá počet zobrazení stránek a návštěv (pro podmínky Page View Count a Session Count u popupů) – nejsou nezbytné a lišta je nezná. Pokud tyto podmínky na webu používáš, nech je zapnuté a dopiš je do Vlastních cookies (kategorie preferencni).', 'marmal-breakdance-plus'); ?></li>
+                    <li><?php esc_html_e('Záložka Měření: vlož ID služeb (GA4, Google Ads, GTM, Sklik, Meta Pixel, LinkedIn, Clarity, Hotjar) a stejné kódy odstraň odjinud (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce).', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Patička: odkaz „Nastavení cookies“ v elementu Marmal – Patička otevře okno tohoto modulu automaticky.', 'marmal-breakdance-plus'); ?></li>
                     <li><?php echo wp_kses(__('Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama.', 'marmal-breakdance-plus'), array('code' => array())); ?></li>
                     <li><?php esc_html_e('Projdi web: videa a mapy mají místo sebe náhled, dokud návštěvník nesouhlasí. Nové služby se objeví v záložce Kategorie a cookies jako „nalezeno“.', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Tlačítkem Náhled lišty na webu zkontroluj vzhled (náhled nic neukládá).', 'marmal-breakdance-plus'); ?></li>
                 </ol>
-                <p class="description"><?php echo wp_kses(__('Vlastní odkaz na otevření nastavení: třída <code>marmal-cookies-nastaveni</code>, odkaz na <code>#nastaveni-cookies</code> nebo shortcode <code>[marmal_cookies_nastaveni]</code>. Ve skriptech: <code>MarmalCookies.souhlas(\'analyticke\')</code>, událost <code>marmal:cookies</code>.', 'marmal-breakdance-plus'), array('code' => array())); ?></p>
+                <p class="description"><?php echo wp_kses(__('Vlastní odkaz na otevření nastavení: třída <code>marmal-cookies-nastaveni</code>, odkaz na <code>#nastaveni-cookies</code> nebo shortcode <code>[marmal_cookies_nastaveni]</code>. Ve skriptech: <code>MarmalCookies.souhlas(\'analyticke\')</code>, událost <code>marmal:cookies</code>. V Google Tag Manageru: událost <code>marmal_consent</code> a proměnné dataLayer <code>marmal_analyticke</code>, <code>marmal_marketingove</code>, <code>marmal_preferencni</code>.', 'marmal-breakdance-plus'), array('code' => array())); ?></p>
             </section>
 
             <?php submit_button(__('Uložit nastavení', 'marmal-breakdance-plus')); ?>
