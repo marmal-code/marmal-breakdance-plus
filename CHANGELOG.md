@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.11.1 – 2026-11-18
+- Stejný obsah jako 0.11.0 (modul Cookies + rozvržení Patičky). Nové číslo verze, aby aktualizaci dostaly i weby s testovacím ZIPem 0.11.0 (bez rozvržení Patičky).
+
 ## 0.11.0 – 2026-11-18
 - **Nový modul Cookies** (`cookies`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – vlastní cookie lišta podle pravidel ÚOOÚ místo CookieYes, nastavení v **MarMal → Cookies**:
   - lišta jako box v rohu (výchozí vpravo dole), lišta dole / nahoře nebo okno uprostřed; okno „Nastavení cookies“ uprostřed nebo jako panel z boku; na mobilu spodní panel,
