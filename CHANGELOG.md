@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0 – 2026-11-18
+- **Cookies – stránka Zásady cookies**:
+  - MarMal → Cookies → Texty: „Stránka Zásady cookies“ (výchozí automaticky podle adresy `zasady-cookies`, `zasady-pouzivani-cookies` nebo `cookies`) a tlačítko **„Vytvořit stránku Zásady cookies“** – založí koncept se vzorovým textem (správce z Patičky, co jsou cookies, právní základ podle § 89 odst. 3 ZEK a čl. 6 odst. 1 písm. a) GDPR, tabulka `[marmal_cookies_seznam]`, změna a odvolání souhlasu s tlačítkem `[marmal_cookies_nastaveni]`, cookies třetích stran, mazání v prohlížeči, platnost),
+  - odkaz „Více o cookies“ v liště i v okně nastavení vede na publikovanou stránku Zásady cookies, jinak na zásady ochrany osobních údajů,
+  - upozornění v administraci, když je ikonka skrytá a na webu se 7 dní neobjevil odkaz „Nastavení cookies“ (ÚOOÚ: odkaz v patičce je minimum),
+  - návod „Jak zapojit“: postup se stránkou Zásady cookies a věta pro Zásady ochrany osobních údajů.
+- **Patička – odkaz „Zásady cookies“**: nový odkaz mezi „Ochrana osobních údajů“ a „Nastavení cookies“; stránka z MarMal → Patička, jinak z modulu Cookies, jinak podle adresy; když web samostatnou stránku nemá (nebo je stejná jako ochrana osobních údajů), odkaz se nezobrazí. Element „Marmal – Patička“: přepínač „Skrýt odkaz Zásady cookies“; shortcody `zasady_cookies="ne"`; dynamická data „Zásady cookies – text / odkaz“.
+
 ## 0.13.0 – 2026-11-18
 - **Nový modul Fonty** (`fonty`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – Google Fonts z vlastní domény (GDPR: Google nedostane IP adresy návštěvníků; rychlejší načtení):
   - ve výsledné stránce najde každý odkaz na `fonts.googleapis.com/css` i `/css2` (`<link>`, `@import`, přednačtení) – nezáleží, jestli ho přidal Breakdance, jiný plugin, nebo Custom Code,

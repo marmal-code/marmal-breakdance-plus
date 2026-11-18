@@ -384,6 +384,14 @@ class PatickaWebu extends \Breakdance\Elements\Element
         false,
         [],
       ), c(
+        "skryt_zasady_cookies",
+        "Skrýt odkaz Zásady cookies",
+        [],
+        ['type' => 'toggle', 'layout' => 'vertical'],
+        false,
+        false,
+        [],
+      ), c(
         "skryt_cookies",
         "Skrýt odkaz Nastavení cookies",
         [],

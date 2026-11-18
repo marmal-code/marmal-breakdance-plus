@@ -42,6 +42,12 @@ add_action('admin_notices', function () {
             : __('Web načítá Google Fonts ze serverů Googlu – Google tak dostává IP adresy návštěvníků (GDPR). Zapni modul Fonty v MarMal → Moduly, fonty se pak načítají z tvého webu.', 'marmal-breakdance-plus'));
         echo '</p></div>';
     }
+    // Skrytá ikonka a na webu není odkaz „Nastavení cookies“ → návštěvník nemá jak změnit souhlas.
+    if ($kde && nastaveni()['icon'] === 'off' && time() - (int) get_option(OPTION_ODKAZ, 0) > 7 * DAY_IN_SECONDS) {
+        echo '<div class="notice notice-error"><p><strong>MarMal – Cookies:</strong> ';
+        echo esc_html__('Ikonka cookies je skrytá a na webu jsme v posledních 7 dnech nenašli odkaz „Nastavení cookies“. Návštěvník tak nemá jak změnit nebo odvolat souhlas (ÚOOÚ: odkaz v patičce je minimum). Přidej do patičky element Marmal – Patička, nebo zapni ikonku v MarMal → Cookies → Vzhled.', 'marmal-breakdance-plus');
+        echo '</p></div>';
+    }
     $jine = konkurence();
     if (!$jine) {
         return;
@@ -127,6 +133,13 @@ function stranka(): void
         <?php settings_errors(); ?>
         <?php if ($zprava === 'revize') : ?>
             <div class="notice notice-success is-dismissible"><p><?php esc_html_e('Revize zvýšena – všem návštěvníkům se lišta zobrazí znovu.', 'marmal-breakdance-plus'); ?></p></div>
+        <?php elseif ($zprava === 'zasady-vytvoreny') : ?>
+            <div class="notice notice-success is-dismissible"><p><?php esc_html_e('Stránka Zásady cookies je založená jako koncept. Zkontroluj text (hlavně údaje o správci) a publikuj ji.', 'marmal-breakdance-plus'); ?>
+                <?php if (stranka_zasad() > 0) : ?><a href="<?php echo esc_url((string) get_edit_post_link(stranka_zasad(), 'url')); ?>"><?php esc_html_e('Otevřít stránku', 'marmal-breakdance-plus'); ?></a><?php endif; ?></p></div>
+        <?php elseif ($zprava === 'zasady-existuji') : ?>
+            <div class="notice notice-info is-dismissible"><p><?php esc_html_e('Stránka Zásady cookies už na webu je – modul ji používá.', 'marmal-breakdance-plus'); ?></p></div>
+        <?php elseif ($zprava === 'zasady-chyba') : ?>
+            <div class="notice notice-error is-dismissible"><p><?php esc_html_e('Stránku se nepodařilo vytvořit.', 'marmal-breakdance-plus'); ?></p></div>
         <?php elseif ($zprava === 'zapomenuto') : ?>
             <div class="notice notice-success is-dismissible"><p><?php esc_html_e('Nalezené služby zapomenuty – při dalších návštěvách webu se najdou znovu, pokud tam jsou.', 'marmal-breakdance-plus'); ?></p></div>
         <?php endif; ?>
@@ -172,7 +185,8 @@ function stranka(): void
                     <tr><th scope="row"><label for="mmck-radius"><?php esc_html_e('Zaoblení (px)', 'marmal-breakdance-plus'); ?></label></th><td><input type="number" id="mmck-radius" class="small-text" min="0" max="24" name="<?php echo esc_attr(OPTION); ?>[radius]" value="<?php echo esc_attr((string) $s['radius']); ?>"></td></tr>
                     <tr><th scope="row"><label for="mmck-width"><?php esc_html_e('Šířka boxu (px)', 'marmal-breakdance-plus'); ?></label></th><td><input type="number" id="mmck-width" class="small-text" min="320" max="480" step="10" name="<?php echo esc_attr(OPTION); ?>[width]" value="<?php echo esc_attr((string) $s['width']); ?>"></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Stín', 'marmal-breakdance-plus'); ?></th><td><?php radio('shadow', array('none' => __('Žádný', 'marmal-breakdance-plus'), 'soft' => __('Jemný', 'marmal-breakdance-plus'), 'strong' => __('Výrazný', 'marmal-breakdance-plus'))); ?></td></tr>
-                    <tr><th scope="row"><?php esc_html_e('Ikonka po volbě', 'marmal-breakdance-plus'); ?></th><td><?php radio('icon', array('l' => __('Vlevo dole', 'marmal-breakdance-plus'), 'r' => __('Vpravo dole', 'marmal-breakdance-plus'), 'off' => __('Skrýt – stačí odkaz v patičce', 'marmal-breakdance-plus'))); ?></td></tr>
+                    <tr><th scope="row"><?php esc_html_e('Ikonka po volbě', 'marmal-breakdance-plus'); ?></th><td><?php radio('icon', array('l' => __('Vlevo dole', 'marmal-breakdance-plus'), 'r' => __('Vpravo dole', 'marmal-breakdance-plus'), 'off' => __('Skrýt – stačí odkaz v patičce', 'marmal-breakdance-plus'))); ?>
+                        <p class="description"><?php esc_html_e('Ikonka je doplněk. ÚOOÚ považuje za minimum odkaz „Nastavení cookies“ v patičce webu – skryj ikonku jen tehdy, když ho patička má (element Marmal – Patička ho přidá sám).', 'marmal-breakdance-plus'); ?></p></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Křížek', 'marmal-breakdance-plus'); ?></th><td><label><input type="hidden" name="<?php echo esc_attr(OPTION); ?>[close]" value="0"><input type="checkbox" name="<?php echo esc_attr(OPTION); ?>[close]" value="1" <?php checked($s['close']); ?>> <?php esc_html_e('Zobrazit křížek – zavře lištu bez souhlasu, na další stránce se ukáže znovu', 'marmal-breakdance-plus'); ?></label></td></tr>
                 </table>
             </section>
@@ -186,9 +200,24 @@ function stranka(): void
                     <tr><th scope="row"><label for="mmck-lReject"><?php esc_html_e('Tlačítko Odmítnout', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('lReject', $tx['lReject']); ?></td></tr>
                     <tr><th scope="row"><label for="mmck-lPrefs"><?php esc_html_e('Odkaz Nastavení', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('lPrefs', $tx['lPrefs']); ?></td></tr>
                     <tr><th scope="row"><label for="mmck-lMore"><?php esc_html_e('Odkaz Více o cookies', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('lMore', $tx['lMore']); ?></td></tr>
-                    <tr><th scope="row"><label for="mmck-odkaz"><?php esc_html_e('Stránka „Více o cookies“', 'marmal-breakdance-plus'); ?></label></th><td>
-                        <?php wp_dropdown_pages(array('name' => OPTION . '[odkaz_stranka]', 'id' => 'mmck-odkaz', 'selected' => (int) $s['odkaz_stranka'], 'show_option_none' => __('— stránka zásad z Patičky / Nastavení → Soukromí —', 'marmal-breakdance-plus'), 'option_none_value' => '0')); ?>
-                        <p class="description"><?php echo esc_html(odkaz_vice() !== '' ? sprintf(/* translators: %s: adresa */ __('Teď vede na: %s', 'marmal-breakdance-plus'), odkaz_vice()) : __('Žádná stránka – odkaz se v liště nezobrazí.', 'marmal-breakdance-plus')); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-odkaz"><?php esc_html_e('Stránka Zásady cookies', 'marmal-breakdance-plus'); ?></label></th><td>
+                        <?php wp_dropdown_pages(array('name' => OPTION . '[odkaz_stranka]', 'id' => 'mmck-odkaz', 'selected' => (int) $s['odkaz_stranka'], 'post_status' => array('publish', 'draft', 'pending', 'private'), 'show_option_none' => __('— automaticky (stránka s adresou zasady-cookies) —', 'marmal-breakdance-plus'), 'option_none_value' => '0')); ?>
+                        <?php $zid = stranka_zasad();
+                        if ($zid > 0 && get_post_status($zid) === 'publish') : ?>
+                            <p class="description">✓ <?php
+                                /* translators: %s: adresa */
+                                echo esc_html(sprintf(__('Odkaz „Více o cookies“ v liště a odkaz „Zásady cookies“ v Patičce vedou na: %s', 'marmal-breakdance-plus'), zasady_url())); ?></p>
+                        <?php elseif ($zid > 0) : ?>
+                            <p class="description"><strong><?php esc_html_e('Stránka Zásady cookies je zatím koncept.', 'marmal-breakdance-plus'); ?></strong>
+                                <?php esc_html_e('Zkontroluj text a publikuj ji – do té doby vede odkaz „Více o cookies“ na zásady ochrany osobních údajů.', 'marmal-breakdance-plus'); ?>
+                                <a href="<?php echo esc_url((string) get_edit_post_link($zid, 'url')); ?>"><?php esc_html_e('Otevřít stránku', 'marmal-breakdance-plus'); ?></a></p>
+                        <?php else : ?>
+                            <p class="description"><?php esc_html_e('Web nemá stránku Zásady cookies – odkaz „Více o cookies“ teď vede na zásady ochrany osobních údajů.', 'marmal-breakdance-plus'); ?></p>
+                            <?php if (current_user_can('publish_pages')) : ?>
+                                <p><a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=marmal_cookies_zasady'), 'marmal_cookies_zasady')); ?>"><?php esc_html_e('Vytvořit stránku Zásady cookies', 'marmal-breakdance-plus'); ?></a>
+                                <span class="description"><?php esc_html_e('Založí koncept se vzorovým textem, tabulkou cookies a tlačítkem pro změnu souhlasu. Text je vzor – před zveřejněním ho zkontroluj.', 'marmal-breakdance-plus'); ?></span></p>
+                            <?php endif; ?>
+                        <?php endif; ?></td></tr>
                     <tr><th scope="row"><label for="mmck-pIntro"><?php esc_html_e('Úvod okna nastavení', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('pIntro', $tx['pIntro'], true); ?></td></tr>
                 </table>
             </section>
@@ -296,9 +325,11 @@ function stranka(): void
                     <li><?php esc_html_e('Vypni cookies Breakdance: Breakdance → Settings → Privacy → „Disable Page & Session Cookies“. Breakdance jinak ukládá počet zobrazení stránek a návštěv (pro podmínky Page View Count a Session Count u popupů) – nejsou nezbytné a lišta je nezná. Pokud tyto podmínky na webu používáš, nech je zapnuté a dopiš je do Vlastních cookies (kategorie preferencni).', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Záložka Měření: vlož ID služeb (GA4, Google Ads, GTM, Sklik, Meta Pixel, LinkedIn, Clarity, Hotjar) a stejné kódy odstraň odjinud (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce).', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Patička: odkaz „Nastavení cookies“ v elementu Marmal – Patička otevře okno tohoto modulu automaticky.', 'marmal-breakdance-plus'); ?></li>
-                    <li><?php echo wp_kses(__('Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama.', 'marmal-breakdance-plus'), array('code' => array())); ?></li>
+                    <li><?php echo wp_kses(__('Stránka Zásady cookies: v záložce Texty klikni na „Vytvořit stránku Zásady cookies“ (koncept se vzorovým textem, tabulkou <code>[marmal_cookies_seznam]</code> a tlačítkem <code>[marmal_cookies_nastaveni]</code>), zkontroluj text a publikuj. Patička na ni sama přidá odkaz „Zásady cookies“.', 'marmal-breakdance-plus'), array('code' => array())); ?></li>
                     <li><?php esc_html_e('Projdi web: videa a mapy mají místo sebe náhled, dokud návštěvník nesouhlasí. Nové služby se objeví v záložce Kategorie a cookies jako „nalezeno“.', 'marmal-breakdance-plus'); ?></li>
                     <li><?php esc_html_e('Tlačítkem Náhled lišty na webu zkontroluj vzhled (náhled nic neukládá).', 'marmal-breakdance-plus'); ?></li>
+                    <li><?php esc_html_e('Do Zásad ochrany osobních údajů přidej odstavec s odkazem na Zásady cookies, např.:', 'marmal-breakdance-plus'); ?>
+                        <br><em><?php esc_html_e('„Cookies: Jaké soubory cookies web používá, k čemu slouží a jak můžete svůj souhlas změnit nebo odvolat, najdete v Zásadách cookies.“', 'marmal-breakdance-plus'); ?></em></li>
                 </ol>
                 <p class="description"><?php echo wp_kses(__('Vlastní odkaz na otevření nastavení: třída <code>marmal-cookies-nastaveni</code>, odkaz na <code>#nastaveni-cookies</code> nebo shortcode <code>[marmal_cookies_nastaveni]</code>. Ve skriptech: <code>MarmalCookies.souhlas(\'analyticke\')</code>, událost <code>marmal:cookies</code>. V Google Tag Manageru: událost <code>marmal_consent</code> a proměnné dataLayer <code>marmal_analyticke</code>, <code>marmal_marketingove</code>, <code>marmal_preferencni</code>.', 'marmal-breakdance-plus'), array('code' => array())); ?></p>
             </section>

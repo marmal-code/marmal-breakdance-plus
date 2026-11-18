@@ -7,7 +7,7 @@
  *  [marmal_copyright] © 2019–2026 Název          (drzitel="ne" = jen roky)
  *  [marmal_autor]     Web vytvořil Martin Malý – marmal.cz (odkaz)
  *  [marmal_firma]     Firma · Sídlo: … · IČO: … · DIČ: … · zápis   (pod_sebou="ano")
- *  [marmal_odkazy]    Ochrana osobních údajů · Nastavení cookies   (zasady="ne", cookies="ne")
+ *  [marmal_odkazy]    Ochrana osobních údajů · Zásady cookies · Nastavení cookies   (zasady="ne", zasady_cookies="ne", cookies="ne")
  *
  * Všechny texty se escapují tady (esc_html / esc_url / esc_attr). CSS a JS se načtou
  * jen na stránce, kde je shortcode použitý.
@@ -117,13 +117,20 @@ function html_firma(bool $podSebou = false): string
     return '<span class="marmal-paticka__firma' . $mod . '">' . implode('<span class="marmal-paticka__tecka" aria-hidden="true">&nbsp;· </span>', $casti) . '</span>';
 }
 
-function html_odkazy(bool $zasady = true, bool $cookies = true): string
+function html_odkazy(bool $zasady = true, bool $cookies = true, bool $cz = true): string
 {
     $casti = array();
     if ($zasady) {
         $url = zasady_url();
         if ($url !== '') {
             $casti[] = '<a class="marmal-paticka__odkaz marmal-paticka__zasady" href="' . esc_url($url) . '">' . esc_html(text('zasady_text')) . '</a>';
+        }
+    }
+    // Zásady cookies – jen když web takovou stránku má (jinak by vedly na totéž co Ochrana osobních údajů).
+    if ($cz) {
+        $url = cookies_zasady_url();
+        if ($url !== '') {
+            $casti[] = '<a class="marmal-paticka__odkaz marmal-paticka__zasady-cookies" href="' . esc_url($url) . '">' . esc_html(text('cz_text')) . '</a>';
         }
     }
     if ($cookies) {
@@ -159,6 +166,7 @@ function sc_paticka($atts = array()): string
         'pod_sebou'        => 'ne',
         'odkazy'           => 'ano',
         'zasady'           => 'ano',
+        'zasady_cookies'   => 'ano',
         'cookies'          => 'ano',
         'autor'            => 'ano',
         'rozlozeni'        => 'radek',
@@ -182,8 +190,8 @@ function sc_paticka($atts = array()): string
     if (ano($a['copyright'])) {
         $casti['copyright'] = html_copyright(ano($a['drzitel']));
     }
-    if (ano($a['odkazy']) && (ano($a['zasady']) || ano($a['cookies']))) {
-        $odkazy = html_odkazy(ano($a['zasady']), ano($a['cookies']));
+    if (ano($a['odkazy']) && (ano($a['zasady']) || ano($a['zasady_cookies']) || ano($a['cookies']))) {
+        $odkazy = html_odkazy(ano($a['zasady']), ano($a['cookies']), ano($a['zasady_cookies']));
         if (strpos($odkazy, 'marmal-paticka__hlaska') === false) {
             $casti['odkazy'] = $odkazy;
         }
@@ -277,6 +285,7 @@ function element_html(array $c): string
         'firma'            => $skryt('skryt_udaje'),
         'pod_sebou'        => empty($c['udaje_pod_sebou']) ? 'ne' : 'ano',
         'zasady'           => $skryt('skryt_zasady'),
+        'zasady_cookies'   => $skryt('skryt_zasady_cookies'),
         'cookies'          => $skryt('skryt_cookies'),
         'autor'            => $skryt('skryt_autora'),
         'rozlozeni'        => $rozlozeni !== '' ? $rozlozeni : 'radek',
@@ -317,7 +326,7 @@ function sc_firma($atts = array()): string
 /** [marmal_odkazy zasady="ne" cookies="ne"] */
 function sc_odkazy($atts = array()): string
 {
-    $a = shortcode_atts(array('zasady' => 'ano', 'cookies' => 'ano'), (array) $atts, 'marmal_odkazy');
+    $a = shortcode_atts(array('zasady' => 'ano', 'zasady_cookies' => 'ano', 'cookies' => 'ano'), (array) $atts, 'marmal_odkazy');
     assets();
-    return html_odkazy(ano($a['zasady']), ano($a['cookies']));
+    return html_odkazy(ano($a['zasady']), ano($a['cookies']), ano($a['zasady_cookies']));
 }

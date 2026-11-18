@@ -221,6 +221,33 @@ function stranka(): void
                         <td><?php pole('zasady_text', $vychozi['zasady_text']); ?></td>
                     </tr>
                     <tr>
+                        <th scope="row"><label for="mp-cz_stranka"><?php esc_html_e('Stránka Zásady cookies', 'marmal-breakdance-plus'); ?></label></th>
+                        <td>
+                            <?php
+                            wp_dropdown_pages(array(
+                                'name'              => OPTION . '[cz_stranka]',
+                                'id'                => 'mp-cz_stranka',
+                                'selected'          => (int) $s['cz_stranka'],
+                                'show_option_none'  => __('— automaticky (modul Cookies / stránka zasady-cookies) —', 'marmal-breakdance-plus'),
+                                'option_none_value' => '0',
+                                'post_status'       => array('publish'),
+                            ));
+                            ?>
+                            <p class="description">
+                                <?php
+                                $url = cookies_zasady_url();
+                                echo $url !== ''
+                                    ? esc_html(sprintf(/* translators: %s: adresa */ __('Teď vede na: %s', 'marmal-breakdance-plus'), $url))
+                                    : esc_html__('Web nemá samostatnou stránku Zásady cookies – odkaz se nezobrazí. Stránku založíš jedním tlačítkem v MarMal → Cookies → Texty.', 'marmal-breakdance-plus');
+                                ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="mp-cz_text"><?php esc_html_e('Text odkazu', 'marmal-breakdance-plus'); ?></label></th>
+                        <td><?php pole('cz_text', $vychozi['cz_text']); ?></td>
+                    </tr>
+                    <tr>
                         <th scope="row"><label for="mp-cookies"><?php esc_html_e('Nastavení cookies', 'marmal-breakdance-plus'); ?></label></th>
                         <td>
                             <select id="mp-cookies" name="<?php echo esc_attr(OPTION); ?>[cookies]">
@@ -264,7 +291,7 @@ function stranka(): void
                 <tr><td><code>[marmal_copyright]</code></td><td><?php esc_html_e('© 2019–2026 Název; drzitel="ne" = jen roky', 'marmal-breakdance-plus'); ?></td></tr>
                 <tr><td><code>[marmal_autor]</code></td><td><?php esc_html_e('podpis autora s odkazem', 'marmal-breakdance-plus'); ?></td></tr>
                 <tr><td><code>[marmal_firma]</code></td><td><?php esc_html_e('údaje o podnikateli; pod_sebou="ano" = každý údaj na řádek', 'marmal-breakdance-plus'); ?></td></tr>
-                <tr><td><code>[marmal_odkazy]</code></td><td><?php esc_html_e('ochrana osobních údajů a nastavení cookies; zasady="ne" / cookies="ne"', 'marmal-breakdance-plus'); ?></td></tr>
+                <tr><td><code>[marmal_odkazy]</code></td><td><?php esc_html_e('ochrana osobních údajů, zásady cookies a nastavení cookies; zasady="ne" / zasady_cookies="ne" / cookies="ne"', 'marmal-breakdance-plus'); ?></td></tr>
                 <tr><td><code>[marmal_paticka rozlozeni="stred"]</code></td><td><?php esc_html_e('celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright="ne", firma="ne", odkazy="ne", autor="ne"', 'marmal-breakdance-plus'); ?></td></tr>
                 <tr><td><code>[marmal_paticka rozlozeni="tri"]</code></td><td><?php esc_html_e('copyright vlevo, zásady a cookies uprostřed, podpis vpravo; přesun části pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje="vlevo|stred|vpravo|pod", zarovnání řádku pod zarovnani_pod="vlevo|stred|vpravo", pod sebe od skladat="mobil|tablet|maly|nikdy", mobil="stred"', 'marmal-breakdance-plus'); ?></td></tr>
             </table>

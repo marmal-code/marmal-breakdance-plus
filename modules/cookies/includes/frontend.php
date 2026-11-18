@@ -78,6 +78,30 @@ add_action('wp_head', function () {
 }, 1);
 
 /**
+ * Je na stránce odkaz pro otevření nastavení (Patička, shortcode, vlastní odkaz)? Zapíše čas, nejvýš jednou za den.
+ * Administrace podle toho upozorní, když je skrytá ikonka a odkaz na webu chybí (ÚOOÚ: odkaz v patičce = minimum).
+ */
+function zapsat_odkaz_nastaveni(string $html): void
+{
+    // Tlačítko ze shortcodu [marmal_cookies_nastaveni] (třída marmal-ck-odkaz) je jen na jedné stránce – nepočítá se.
+    $najdeno = (bool) preg_match('/href=["\'][^"\']*#nastaveni-cookies["\']/i', $html);
+    if (!$najdeno && preg_match_all('/class=["\']([^"\']*\bmarmal-cookies-nastaveni\b[^"\']*)["\']/i', $html, $m)) {
+        foreach ($m[1] as $tridy) {
+            if (strpos($tridy, 'marmal-ck-odkaz') === false) {
+                $najdeno = true;
+                break;
+            }
+        }
+    }
+    if (!$najdeno) {
+        return;
+    }
+    if (time() - (int) get_option(OPTION_ODKAZ, 0) > DAY_IN_SECONDS) {
+        update_option(OPTION_ODKAZ, time(), false);
+    }
+}
+
+/**
  * Načítá stránka fonty z Googlu (přenos IP adresy návštěvníka)? Zapíše čas, nejvýš jednou za den.
  * Modul Fonty běží dřív (vnořený buffer) – když je zapnutý a fonty stáhl, tady už nic nenajde.
  */
@@ -431,6 +455,7 @@ add_action('template_redirect', function () {
         list($html, $nalez) = blokovat_html($html);
         zapsat_nalezene($nalez);
         zapsat_google_fonty($html);
+        zapsat_odkaz_nastaveni($html);
         return $html;
     });
 }, 0);

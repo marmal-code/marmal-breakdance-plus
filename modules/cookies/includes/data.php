@@ -18,6 +18,7 @@ const OPTION       = 'marmal_bdp_cookies';
 const OPTION_NALEZ = 'marmal_bdp_cookies_nalezeno'; // služby, které blokování našlo na webu
 const COOKIE       = 'marmal_consent';
 const OPTION_GFONTY = 'marmal_bdp_cookies_gfonty'; // kdy naposledy stránka načítala fonty z Googlu
+const OPTION_ODKAZ  = 'marmal_bdp_cookies_odkaz';  // kdy naposledy byl na stránce odkaz „Nastavení cookies“
 
 /** Kategorie v pevném pořadí. id => [název, zamčená] */
 function kategorie_zaklad(): array
@@ -391,17 +392,48 @@ function kategorie(): array
 }
 
 /** Odkaz „Více o cookies“: vybraná stránka → stránka zásad z Patičky → Nastavení → Soukromí. */
-function odkaz_vice(): string
+/** Adresy, podle kterých se stránka Zásady cookies najde sama (když není vybraná v nastavení). */
+function slugy_zasad(): array
+{
+    return array('zasady-cookies', 'zasady-pouzivani-cookies', 'cookies');
+}
+
+/** ID stránky Zásady cookies (i koncept): vybraná v nastavení, jinak podle adresy. 0 = žádná. */
+function stranka_zasad(): int
 {
     $id = (int) nastaveni()['odkaz_stranka'];
-    if ($id > 0) {
-        if (function_exists('pll_get_post')) {
-            $id = (int) (pll_get_post($id) ?: $id);
+    if ($id > 0 && get_post_type($id) === 'page' && in_array(get_post_status($id), array('publish', 'draft', 'pending', 'private'), true)) {
+        return $id;
+    }
+    foreach (slugy_zasad() as $slug) {
+        $p = get_page_by_path($slug);
+        if ($p && in_array($p->post_status, array('publish', 'draft', 'pending'), true)) {
+            return (int) $p->ID;
         }
-        $id = (int) apply_filters('wpml_object_id', $id, 'page', true);
-        if ($id > 0 && get_post_status($id) === 'publish') {
-            return (string) get_permalink($id);
-        }
+    }
+    return 0;
+}
+
+/** Adresa stránky Zásady cookies v aktuálním jazyce, jen když je publikovaná. '' = žádná. */
+function zasady_url(): string
+{
+    $id = stranka_zasad();
+    if ($id <= 0) {
+        return '';
+    }
+    if (function_exists('pll_get_post')) {
+        $id = (int) (pll_get_post($id) ?: $id);
+    }
+    $id = (int) apply_filters('wpml_object_id', $id, 'page', true);
+    return ($id > 0 && get_post_status($id) === 'publish') ? (string) get_permalink($id) : '';
+}
+
+/** Odkaz „Více o cookies“: Zásady cookies, jinak zásady ochrany osobních údajů (Patička / Nastavení → Soukromí). */
+function odkaz_vice(): string
+{
+    $u = zasady_url();
+    if ($u !== '') {
+        return $u;
     }
     if (function_exists('MarmalElements\Paticka\zasady_url')) {
         return (string) \MarmalElements\Paticka\zasady_url();
