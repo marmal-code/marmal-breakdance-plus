@@ -56,33 +56,139 @@ add_action('wp_head', function () {
       ad_personalization: g('marketingove'), functionality_storage: g('preferencni'), personalization_storage: g('preferencni') };
   }
   w.marmalCookiesMapa = mapa;
+  // Událost pro Google Tag Manager (spouštěče „marmal_consent“, proměnné marmal_analyticke…).
+  function udalost(k) {
+    return { event: 'marmal_consent', marmal_kategorie: k.join(','), marmal_analyticke: k.indexOf('analyticke') > -1,
+      marmal_marketingove: k.indexOf('marketingove') > -1, marmal_preferencni: k.indexOf('preferencni') > -1 };
+  }
+  w.marmalCookiesUdalost = udalost;
   var vychozi = mapa([]); vychozi.security_storage = 'granted'; vychozi.wait_for_update = 500;
   w.gtag('consent', 'default', vychozi);
   w.gtag('set', 'ads_data_redaction', true);
   var m = d.cookie.match(new RegExp('(?:^|; )' + c.cookie + '=([^;]*)')), s = null;
   if (m) { try { s = JSON.parse(decodeURIComponent(m[1])); } catch (e) { s = null; } }
-  if (s && s.r === c.rev && Array.isArray(s.k)) { w.gtag('consent', 'update', mapa(s.k)); w.marmalCookiesUlozeny = s; }
+  if (s && s.r === c.rev && Array.isArray(s.k)) {
+    w.gtag('consent', 'update', mapa(s.k)); w.marmalCookiesUlozeny = s; w.marmalCookiesStav = s.k.slice();
+    w.dataLayer.push(udalost(s.k));
+  }
 })(window, document, <?php echo $cfg; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_json_encode s JSON_HEX_TAG ?>);
 </script>
     <?php
-    $ga = ga_id();
-    if ($ga === '') {
-        return;
-    }
-    $cfg_ga = array();
-    if (ga_expirace()) {
-        $cfg_ga['cookie_expires'] = ga_expirace();
-    }
-    $config = 'gtag("js", new Date()); gtag("config", ' . wp_json_encode($ga) . ($cfg_ga ? ', ' . wp_json_encode($cfg_ga) : '') . ');';
-    $src    = 'https://www.googletagmanager.com/gtag/js?id=' . rawurlencode($ga);
-    if (nastaveni()['gcm'] === 'advanced') {
-        // Rozšířený Consent Mode: tag se načte vždy, bez souhlasu posílá jen pingy bez cookies.
-        printf("<script async src=\"%s\" data-marmal-ignore></script>\n<script data-marmal-ignore>%s</script>\n", esc_url($src), $config); // phpcs:ignore WordPress.Security.EscapeOutput -- $config z wp_json_encode
-    } else {
-        // Základní: tag čeká na souhlas s analytickými cookies.
-        printf("<script type=\"text/plain\" data-marmal-kat=\"analyticke\" data-marmal-src=\"%s\" async></script>\n<script type=\"text/plain\" data-marmal-kat=\"analyticke\">%s</script>\n", esc_url($src), $config); // phpcs:ignore WordPress.Security.EscapeOutput
-    }
+    echo kody_mereni(); // phpcs:ignore WordPress.Security.EscapeOutput -- ID ověřená regexem, do JS přes wp_json_encode
 }, 1);
+
+// ============================================================= měřicí kódy
+
+/** <script> s kódem: bez kategorie se spustí hned, jinak čeká na souhlas (kategorie oddělené mezerou = stačí kterákoli). */
+function skript(string $js, string $kat = ''): string
+{
+    if ($kat === '') {
+        return '<script data-marmal-ignore>' . $js . "</script>\n";
+    }
+    return '<script type="text/plain" data-marmal-kat="' . esc_attr($kat) . '">' . $js . "</script>\n";
+}
+
+function skript_src(string $src, string $kat = ''): string
+{
+    if ($kat === '') {
+        return '<script async src="' . esc_url($src) . "\" data-marmal-ignore></script>\n";
+    }
+    return '<script type="text/plain" data-marmal-kat="' . esc_attr($kat) . '" data-marmal-src="' . esc_url($src) . "\" async></script>\n";
+}
+
+function js($v): string
+{
+    return (string) wp_json_encode($v, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES);
+}
+
+/**
+ * Kódy GA4, Google Ads, GTM, Sklik (SEM), Meta Pixel, Clarity, Hotjar a LinkedIn podle nastavení.
+ * Základní Consent Mode: Google tagy čekají na souhlas; rozšířený: Google tagy hned (bez souhlasu jen pingy bez cookies).
+ * Ostatní služby vždy až po souhlasu. Všechna ID prošla regexem z merici_vzory() / ga_id().
+ */
+function kody_mereni(): string
+{
+    $s     = nastaveni();
+    $basic = $s['gcm'] !== 'advanced';
+    $out   = '';
+
+    // Google tag (gtag.js) – sdílený pro GA4 a Google Ads.
+    $ga = ga_id();
+    $aw = merici_id('gads');
+    if ($ga !== '' || $aw !== '') {
+        $kat = $basic ? trim(($ga !== '' ? 'analyticke ' : '') . ($aw !== '' ? 'marketingove' : '')) : '';
+        $out .= skript_src('https://www.googletagmanager.com/gtag/js?id=' . rawurlencode($ga !== '' ? $ga : $aw), $kat);
+        $out .= skript('gtag("js", new Date());', $kat);
+        if ($ga !== '') {
+            $cfg  = ga_expirace() ? ', ' . js(array('cookie_expires' => ga_expirace())) : '';
+            $out .= skript('gtag("config", ' . js($ga) . $cfg . ');', $basic ? 'analyticke' : '');
+        }
+        if ($aw !== '') {
+            $out .= skript('gtag("config", ' . js($aw) . ');', $basic ? 'marketingove' : '');
+        }
+    }
+
+    // Google Tag Manager – výchozí až po souhlasu (analytické nebo marketingové), nebo vždy s Consent Mode.
+    $gtm = merici_id('gtm');
+    if ($gtm !== '') {
+        $out .= skript(
+            "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer'," . js($gtm) . ');',
+            $s['gtm_rezim'] === 'vzdy' ? '' : 'analyticke marketingove'
+        );
+    }
+
+    // Sklik – Seznam Event Measurement: souhlas se předá před PageView (sid vznikne jen s ad_storage).
+    $sem = merici_id('sem');
+    if ($sem !== '') {
+        $out .= skript(
+            "(function(w,d,id){var s=d.createElement('script');s.async=true;s.src='https://l.seznam.cz/sul.js?id='+encodeURIComponent(id);"
+            . "s.onload=function(){if(typeof w.SEM!=='function'){return;}var m=w.marmalCookiesMapa?w.marmalCookiesMapa(w.marmalCookiesStav||[]):{};"
+            . "w.SEM('updateConsent',{consent_mode:{ad_storage:m.ad_storage,ad_user_data:m.ad_user_data,ad_personalization:m.ad_personalization,functionality_storage:m.functionality_storage,analytics_storage:m.analytics_storage}});"
+            . "w.SEM('track','PageView');};d.head.appendChild(s);})(window,document," . js($sem) . ');',
+            'marketingove'
+        );
+    }
+
+    // Meta Pixel.
+    $meta = merici_id('meta');
+    if ($meta !== '') {
+        $out .= skript(
+            "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');"
+            . 'fbq("init", ' . js($meta) . ');fbq("track", "PageView");',
+            'marketingove'
+        );
+    }
+
+    // LinkedIn Insight Tag.
+    $li = merici_id('linkedin');
+    if ($li !== '') {
+        $out .= skript(
+            'window._linkedin_partner_id=' . js($li) . ';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push(window._linkedin_partner_id);'
+            . "(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[]}var s=document.getElementsByTagName('script')[0];var b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);",
+            'marketingove'
+        );
+    }
+
+    // Microsoft Clarity – po souhlasu s analytickými; consentv2 hned s aktuální volbou (reklamní část = marketingové).
+    $cl = merici_id('clarity');
+    if ($cl !== '') {
+        $out .= skript(
+            "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script'," . js($cl) . ');'
+            . "window.clarity('consentv2',{ad_Storage:(window.marmalCookiesStav||[]).indexOf('marketingove')>-1?'granted':'denied',analytics_Storage:'granted'});",
+            'analyticke'
+        );
+    }
+
+    // Hotjar (Contentsquare).
+    $hj = merici_id('hotjar');
+    if ($hj !== '') {
+        $out .= skript(
+            "(function(c,s,q,u,a,r,e){c.hj=c.hj||function(){(c.hj.q=c.hj.q||[]).push(arguments)};c._hjSettings={hjid:a};r=s.getElementsByTagName('head')[0];e=s.createElement('script');e.async=true;e.src=q+c._hjSettings.hjid+u;r.appendChild(e);})(window,document,'https://static.hj.contentsquare.net/c/csq-','.js'," . (int) $hj . ');',
+            'analyticke'
+        );
+    }
+    return $out;
+}
 
 // ============================================================= CSS + JS lišty
 

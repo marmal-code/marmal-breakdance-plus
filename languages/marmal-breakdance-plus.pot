@@ -34,7 +34,7 @@ msgstr ""
 msgid "Cookie lišta podle pravidel ÚOOÚ: souhlas předem, Odmítnout vše v první vrstvě, okno nastavení po kategoriích, Google Consent Mode v2, GA4, blokování skriptů a náhledy videí a map do souhlasu, seznam cookies a záznam souhlasů. Vzhled z Global Settings Breakdance."
 msgstr ""
 
-#: modules/cookies/manifest.php:31 modules/cookies/includes/data.php:167 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
+#: modules/cookies/manifest.php:31 modules/cookies/includes/data.php:222 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgid "Google Analytics 4 – ID měření"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:225
-msgid "Kód vloží modul sám, včetně Consent Mode v2. GA4 odjinud (Site Kit, kód v hlavičce, Breakdance → Custom Code) odstraň – jinak by se měřilo dvakrát. Pokud tam zůstane, modul ho aspoň zablokuje do souhlasu."
+msgid "Kód vloží modul sám, včetně Consent Mode v2. GA4 odjinud (Site Kit, GTM, kód v hlavičce, Breakdance → Custom Code) odstraň – jinak by se měřilo dvakrát."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:226
@@ -340,7 +340,7 @@ msgid "Rozšířený"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:227
-msgid "Základní: bez souhlasu se Google tag vůbec nenačte. Rozšířený: bez souhlasu posílá Google anonymní pingy bez cookies pro modelování dat – výklad úřadů není jednotný, jen na přání klienta."
+msgid "Základní: bez souhlasu se Google tagy (GA4, Google Ads) vůbec nenačtou. Rozšířený: GA4 a Google Ads se načtou hned a bez souhlasu posílají Googlu pingy bez cookies pro modelování dat – výklad úřadů není jednotný, jen na přání klienta. Ostatní služby čekají na souhlas vždy."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:228
@@ -352,114 +352,182 @@ msgid "Zkrátit na 13 měsíců (výchozí Google jsou 2 roky – ÚOOÚ vytýk�
 msgstr ""
 
 #: modules/cookies/includes/admin.php:229
-msgid "Google Search Console"
-msgstr ""
-
-#: modules/cookies/includes/admin.php:229
-msgid "Ověření webu metaznačkou nebo DNS. Na webu nenastavuje žádné cookies, souhlas není potřeba."
+msgid "Google Ads – ID konverzí"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:230
-msgid "Další služby"
+msgid "Remarketing a propojení konverzí (cookie _gcl_au). Až po souhlasu s marketingovými cookies; sdílí Google tag s GA4."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:230
-msgid "Meta Pixel, Hotjar, Microsoft Clarity, YouTube, Vimeo a Google Mapy modul už pozná a zablokuje do souhlasu. Vlastní pole pro jejich ID (a GTM, Google Ads, Sklik, LinkedIn) přibudou ve fázi 2."
+#: modules/cookies/includes/admin.php:231
+msgid "Google Tag Manager"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:232
+msgid "Načíst až po souhlasu (doporučeno)"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:232
+msgid "Načíst vždy – značky v GTM hlídají souhlas samy"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:233
+msgid "„Až po souhlasu“: kontejner se načte po souhlasu s analytickými nebo marketingovými cookies. Značky v GTM pak spouštěj podle Consent Mode nebo události marmal_consent (proměnné dataLayer marmal_analyticke, marmal_marketingove, marmal_preferencni). „Vždy“ jen když máš u každé značky v GTM nastavenou kontrolu souhlasu. GA4 vlož buď sem do pole GA4, nebo do GTM – ne obojí."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:234
+msgid "Sklik – SEM ID"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:234 modules/cookies/includes/data.php:272
+msgid "SEM ID ze Skliku"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:235
+msgid "Seznam Event Measurement (sul.js) – nový měřicí kód Skliku pro retargeting a konverze. SEM ID najdeš ve Skliku → Nastavení účtu → Zobrazit kód SEM. Až po souhlasu s marketingovými cookies, souhlas se Seznamu předá automaticky. Starý retargetingový kód (rc.js) na webu modul jen zablokuje do souhlasu."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:236
-msgid "Platnost souhlasu"
+msgid "Meta Pixel – ID"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:237
+msgid "Facebook / Instagram reklamy. Až po souhlasu s marketingovými cookies."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:238
-msgid "Po této době se návštěvníkovi lišta zobrazí znovu."
+msgid "LinkedIn Insight Tag – Partner ID"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:239
-msgid "Uchovávat záznamy"
+msgid "Až po souhlasu s marketingovými cookies."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:240
+msgid "Microsoft Clarity – Project ID"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:241
-msgid "Revize textů"
+msgid "Heatmapy a záznamy návštěv. Až po souhlasu s analytickými cookies; volbu modul předá Clarity přes její consent API. V Clarity zapni Settings → Setup → Cookie consent."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:242
-msgid "Zvýšit revizi"
+msgid "Hotjar – Site ID"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:243
-msgid "Po změně cookies nebo textů: všem návštěvníkům se lišta ukáže znovu a souhlas dají k nové verzi."
+msgid "Hotjar (Contentsquare). Až po souhlasu s analytickými cookies."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:246
-msgid "Posledních 30 dní"
+#: modules/cookies/includes/admin.php:244
+msgid "Google Search Console"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:248 modules/cookies/includes/data.php:165
-msgid "Přijmout vše"
+#: modules/cookies/includes/admin.php:244
+msgid "Ověření webu metaznačkou nebo DNS. Na webu nenastavuje žádné cookies, souhlas není potřeba."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:248 modules/cookies/includes/data.php:166
-msgid "Odmítnout vše"
+#: modules/cookies/includes/admin.php:245
+msgid "Kód vložený jinde"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:248
-msgid "Vlastní výběr"
+#: modules/cookies/includes/admin.php:245
+msgid "Měřicí kódy vlož jen sem – ne do Breakdance → Custom Code ani jiného pluginu. Když na webu nějaký zůstane, modul ho pozná a zablokuje do souhlasu (objeví se jako „nalezeno“), ale měřilo by se dvakrát."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:252
-msgid "Stáhnout záznamy (CSV)"
-msgstr ""
-
-#: modules/cookies/includes/admin.php:253
-msgid "Čas"
+#: modules/cookies/includes/admin.php:251
+msgid "Platnost souhlasu"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:253
-msgid "Volba"
+msgid "Po této době se návštěvníkovi lišta zobrazí znovu."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:253
-msgid "Kategorie"
-msgstr ""
-
-#: modules/cookies/includes/admin.php:253
-msgid "Revize"
+#: modules/cookies/includes/admin.php:254
+msgid "Uchovávat záznamy"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:256
-msgid "Zatím žádný záznam."
+msgid "Revize textů"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:266
-msgid "Vypni starý cookie plugin (CookieYes apod.) – dvě lišty najednou nesmí běžet."
+#: modules/cookies/includes/admin.php:257
+msgid "Zvýšit revizi"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:258
+msgid "Po změně cookies nebo textů: všem návštěvníkům se lišta ukáže znovu a souhlas dají k nové verzi."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:261
+msgid "Posledních 30 dní"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:263 modules/cookies/includes/data.php:220
+msgid "Přijmout vše"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:263 modules/cookies/includes/data.php:221
+msgid "Odmítnout vše"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:263
+msgid "Vlastní výběr"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:267
-msgid "Záložka Měření: vlož ID GA4 a odstraň GA4 vložené jinde (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce)."
+msgid "Stáhnout záznamy (CSV)"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:268
-msgid "Patička: odkaz „Nastavení cookies“ v elementu Marmal – Patička otevře okno tohoto modulu automaticky."
+msgid "Čas"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:269
-msgid "Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama."
+#: modules/cookies/includes/admin.php:268
+msgid "Volba"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:270
-msgid "Projdi web: videa a mapy mají místo sebe náhled, dokud návštěvník nesouhlasí. Nové služby se objeví v záložce Kategorie a cookies jako „nalezeno“."
+#: modules/cookies/includes/admin.php:268
+msgid "Kategorie"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:268
+msgid "Revize"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:271
+msgid "Zatím žádný záznam."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:281
+msgid "Vypni starý cookie plugin (CookieYes apod.) – dvě lišty najednou nesmí běžet."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:282
+msgid "Záložka Měření: vlož ID služeb (GA4, Google Ads, GTM, Sklik, Meta Pixel, LinkedIn, Clarity, Hotjar) a stejné kódy odstraň odjinud (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce)."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:283
+msgid "Patička: odkaz „Nastavení cookies“ v elementu Marmal – Patička otevře okno tohoto modulu automaticky."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:284
+msgid "Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:285
+msgid "Projdi web: videa a mapy mají místo sebe náhled, dokud návštěvník nesouhlasí. Nové služby se objeví v záložce Kategorie a cookies jako „nalezeno“."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:286
 msgid "Tlačítkem Náhled lišty na webu zkontroluj vzhled (náhled nic neukládá)."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:273
-msgid "Vlastní odkaz na otevření nastavení: třída <code>marmal-cookies-nastaveni</code>, odkaz na <code>#nastaveni-cookies</code> nebo shortcode <code>[marmal_cookies_nastaveni]</code>. Ve skriptech: <code>MarmalCookies.souhlas('analyticke')</code>, událost <code>marmal:cookies</code>."
+#: modules/cookies/includes/admin.php:288
+msgid "Vlastní odkaz na otevření nastavení: třída <code>marmal-cookies-nastaveni</code>, odkaz na <code>#nastaveni-cookies</code> nebo shortcode <code>[marmal_cookies_nastaveni]</code>. Ve skriptech: <code>MarmalCookies.souhlas('analyticke')</code>, událost <code>marmal:cookies</code>. V Google Tag Manageru: událost <code>marmal_consent</code> a proměnné dataLayer <code>marmal_analyticke</code>, <code>marmal_marketingove</code>, <code>marmal_preferencni</code>."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:276 modules/paticka/includes/admin.php:251
+#: modules/cookies/includes/admin.php:291 modules/paticka/includes/admin.php:251
 msgid "Uložit nastavení"
 msgstr ""
 
@@ -511,7 +579,7 @@ msgstr ""
 msgid "Přihlášení do administrace (jen správci webu)"
 msgstr ""
 
-#: modules/cookies/includes/data.php:60 modules/cookies/includes/data.php:66 modules/cookies/includes/data.php:122
+#: modules/cookies/includes/data.php:60 modules/cookies/includes/data.php:66 modules/cookies/includes/data.php:176
 msgid "relace"
 msgstr ""
 
@@ -531,168 +599,209 @@ msgstr ""
 msgid "Zapamatuje zvolený jazyk webu"
 msgstr ""
 
-#: modules/cookies/includes/data.php:75 modules/cookies/includes/data.php:95 modules/cookies/includes/data.php:104
+#: modules/cookies/includes/data.php:75 modules/cookies/includes/data.php:108 modules/cookies/includes/data.php:120 modules/cookies/includes/data.php:157
 msgid "1 rok"
 msgstr ""
 
-#: modules/cookies/includes/data.php:83
-msgid "Rozlišuje jednotlivé návštěvníky pro statistiky"
-msgstr ""
-
 #: modules/cookies/includes/data.php:84
-msgid "Uchovává stav návštěvy"
+msgid "Měření konverzí z reklam Google"
 msgstr ""
 
-#: modules/cookies/includes/data.php:95 modules/cookies/includes/data.php:104
-msgid "Rozlišuje návštěvníky pro analýzu chování"
-msgstr ""
-
-#: modules/cookies/includes/data.php:96
-msgid "Data aktuální návštěvy"
-msgstr ""
-
-#: modules/cookies/includes/data.php:96
-msgid "30 minut"
-msgstr ""
-
-#: modules/cookies/includes/data.php:105
-msgid "Spojuje zobrazení stránek jedné návštěvy"
-msgstr ""
-
-#: modules/cookies/includes/data.php:105
-msgid "1 den"
-msgstr ""
-
-#: modules/cookies/includes/data.php:113
-msgid "Měření a cílení reklamy na Facebooku a Instagramu"
-msgstr ""
-
-#: modules/cookies/includes/data.php:113 modules/cookies/includes/data.php:114
+#: modules/cookies/includes/data.php:84 modules/cookies/includes/data.php:132 modules/cookies/includes/data.php:133 modules/cookies/includes/data.php:158
 msgid "3 měsíce"
 msgstr ""
 
-#: modules/cookies/includes/data.php:114
+#: modules/cookies/includes/data.php:85 modules/cookies/includes/data.php:133
 msgid "Cílení a vyhodnocení reklamy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:120
-msgid "Video z YouTube"
-msgstr ""
-
-#: modules/cookies/includes/data.php:122 modules/cookies/includes/data.php:130
-msgid "Statistika přehrávání vloženého videa"
-msgstr ""
-
-#: modules/cookies/includes/data.php:123
-msgid "Odhad rychlosti připojení pro přehrávání"
-msgstr ""
-
-#: modules/cookies/includes/data.php:123 modules/cookies/includes/data.php:136
-msgid "6 měsíců"
-msgstr ""
-
-#: modules/cookies/includes/data.php:129
-msgid "Video z Vimea"
-msgstr ""
-
-#: modules/cookies/includes/data.php:130 modules/cookies/includes/data.php:228
-msgid "2 roky"
-msgstr ""
-
-#: modules/cookies/includes/data.php:135
-msgid "Mapa Google"
-msgstr ""
-
-#: modules/cookies/includes/data.php:136
-msgid "Nastavení a měření vložené mapy"
-msgstr ""
-
-#: modules/cookies/includes/data.php:163
-msgid "Používáme cookies"
-msgstr ""
-
-#: modules/cookies/includes/data.php:164
-msgid "Nezbytné cookies potřebujeme, aby web fungoval. Analytické a marketingové použijeme jen s vaším souhlasem – pomáhají nám web zlepšovat. Volbu můžete kdykoli změnit odkazem Nastavení cookies v patičce."
-msgstr ""
-
-#: modules/cookies/includes/data.php:168
-msgid "Více o cookies"
-msgstr ""
-
-#: modules/cookies/includes/data.php:169
-msgid "Vyberte, které cookies smíme používat. Nezbytné jsou vždy zapnuté, ostatní jen s vaším souhlasem. Volbu můžete kdykoli změnit."
-msgstr ""
-
-#: modules/cookies/includes/data.php:228
+#: modules/cookies/includes/data.php:85 modules/cookies/includes/data.php:320
 msgid "13 měsíců"
 msgstr ""
 
-#: modules/cookies/includes/data.php:413
+#: modules/cookies/includes/data.php:96
+msgid "Rozlišuje jednotlivé návštěvníky pro statistiky"
+msgstr ""
+
+#: modules/cookies/includes/data.php:97
+msgid "Uchovává stav návštěvy"
+msgstr ""
+
+#: modules/cookies/includes/data.php:108 modules/cookies/includes/data.php:120
+msgid "Rozlišuje návštěvníky pro analýzu chování"
+msgstr ""
+
+#: modules/cookies/includes/data.php:109
+msgid "Data aktuální návštěvy"
+msgstr ""
+
+#: modules/cookies/includes/data.php:109
+msgid "30 minut"
+msgstr ""
+
+#: modules/cookies/includes/data.php:121
+msgid "Spojuje zobrazení stránek jedné návštěvy"
+msgstr ""
+
+#: modules/cookies/includes/data.php:121
+msgid "1 den"
+msgstr ""
+
+#: modules/cookies/includes/data.php:132
+msgid "Měření a cílení reklamy na Facebooku a Instagramu"
+msgstr ""
+
+#: modules/cookies/includes/data.php:144
+msgid "Propojení návštěvy s reklamou Sklik a měření konverzí"
+msgstr ""
+
+#: modules/cookies/includes/data.php:144 modules/cookies/includes/data.php:156 modules/cookies/includes/data.php:159
+msgid "30 dní"
+msgstr ""
+
+#: modules/cookies/includes/data.php:145
+msgid "Identifikátor prohlížeče pro reklamu Sklik"
+msgstr ""
+
+#: modules/cookies/includes/data.php:145
+msgid "podle Seznam.cz"
+msgstr ""
+
+#: modules/cookies/includes/data.php:156
+msgid "Měření konverzí z reklam na LinkedInu"
+msgstr ""
+
+#: modules/cookies/includes/data.php:157
+msgid "Identifikátor prohlížeče"
+msgstr ""
+
+#: modules/cookies/includes/data.php:158
+msgid "Cílení reklamy"
+msgstr ""
+
+#: modules/cookies/includes/data.php:159
+msgid "Synchronizace reklamních identifikátorů"
+msgstr ""
+
+#: modules/cookies/includes/data.php:174
+msgid "Video z YouTube"
+msgstr ""
+
+#: modules/cookies/includes/data.php:176 modules/cookies/includes/data.php:184
+msgid "Statistika přehrávání vloženého videa"
+msgstr ""
+
+#: modules/cookies/includes/data.php:177
+msgid "Odhad rychlosti připojení pro přehrávání"
+msgstr ""
+
+#: modules/cookies/includes/data.php:177 modules/cookies/includes/data.php:190
+msgid "6 měsíců"
+msgstr ""
+
+#: modules/cookies/includes/data.php:183
+msgid "Video z Vimea"
+msgstr ""
+
+#: modules/cookies/includes/data.php:184 modules/cookies/includes/data.php:320
+msgid "2 roky"
+msgstr ""
+
+#: modules/cookies/includes/data.php:189
+msgid "Mapa Google"
+msgstr ""
+
+#: modules/cookies/includes/data.php:190
+msgid "Nastavení a měření vložené mapy"
+msgstr ""
+
+#: modules/cookies/includes/data.php:218
+msgid "Používáme cookies"
+msgstr ""
+
+#: modules/cookies/includes/data.php:219
+msgid "Nezbytné cookies potřebujeme, aby web fungoval. Analytické a marketingové použijeme jen s vaším souhlasem – pomáhají nám web zlepšovat. Volbu můžete kdykoli změnit odkazem Nastavení cookies v patičce."
+msgstr ""
+
+#: modules/cookies/includes/data.php:223
+msgid "Více o cookies"
+msgstr ""
+
+#: modules/cookies/includes/data.php:224
+msgid "Vyberte, které cookies smíme používat. Nezbytné jsou vždy zapnuté, ostatní jen s vaším souhlasem. Volbu můžete kdykoli změnit."
+msgstr ""
+
+#: modules/cookies/includes/data.php:505
 msgid "ID měření GA4 má tvar G-XXXXXXXXXX – neuloženo."
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:152 modules/cookies/includes/frontend.php:159 modules/cookies/includes/frontend.php:299 modules/cookies/includes/frontend.php:376 modules/paticka/includes/admin.php:224 modules/paticka/includes/data.php:64
+#: modules/cookies/includes/data.php:516
+#, php-format
+msgid "%1$s: neplatné ID (tvar %2$s) – neuloženo."
+msgstr ""
+
+#: modules/cookies/includes/frontend.php:258 modules/cookies/includes/frontend.php:265 modules/cookies/includes/frontend.php:405 modules/cookies/includes/frontend.php:482 modules/paticka/includes/admin.php:224 modules/paticka/includes/data.php:64
 msgid "Nastavení cookies"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:153 includes/gallery.php:396
+#: modules/cookies/includes/frontend.php:259 includes/gallery.php:396
 msgid "Zavřít"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:154
+#: modules/cookies/includes/frontend.php:260
 msgid "Zavřít bez souhlasu"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:155
+#: modules/cookies/includes/frontend.php:261
 msgid "Uložit výběr"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:156
+#: modules/cookies/includes/frontend.php:262
 msgid "Seznam cookies"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:157
+#: modules/cookies/includes/frontend.php:263
 msgid "vždy zapnuté"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:158 modules/cookies/includes/frontend.php:354
+#: modules/cookies/includes/frontend.php:264 modules/cookies/includes/frontend.php:460
 msgid "Název"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:158 modules/cookies/includes/frontend.php:354
+#: modules/cookies/includes/frontend.php:264 modules/cookies/includes/frontend.php:460
 msgid "Poskytovatel"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:158 modules/cookies/includes/frontend.php:354
+#: modules/cookies/includes/frontend.php:264 modules/cookies/includes/frontend.php:460
 msgid "Účel"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:158 modules/cookies/includes/frontend.php:354
+#: modules/cookies/includes/frontend.php:264 modules/cookies/includes/frontend.php:460
 msgid "Platnost"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:179
+#: modules/cookies/includes/frontend.php:285
 msgid "preferenčními"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:180
+#: modules/cookies/includes/frontend.php:286
 msgid "analytickými"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:181
+#: modules/cookies/includes/frontend.php:287
 msgid "marketingovými"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:294
+#: modules/cookies/includes/frontend.php:400
 #, php-format
 msgid "%1$s se načte až po souhlasu s %2$s cookies."
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:298
+#: modules/cookies/includes/frontend.php:404
 msgid "Povolit a zobrazit"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:369
+#: modules/cookies/includes/frontend.php:475
 msgid "Změnit nastavení cookies"
 msgstr ""
 

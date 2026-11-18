@@ -56,11 +56,11 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 
 - Zapnout v **MarMal → Moduly → Cookies**, vypnout starý cookie plugin (CookieYes apod. – modul na něj upozorní).
 - **MarMal → Cookies**: Vzhled (box / lišta / okno, barvy z Global Settings nebo vlastní s kontrolou kontrastu), Texty (prázdné = výchozí, překlad přes Polylang / WPML), Kategorie a cookies (služby automaticky / nalezené / ručně, vlastní cookies řádkem `název | poskytovatel | účel | platnost | kategorie`), Měření (ID GA4, Consent Mode v2 základní / rozšířený, zkrácení GA cookies na 13 měsíců), Záznam souhlasů (platnost souhlasu, revize, export CSV), Jak zapojit.
-- GA4 vkládá modul sám včetně Consent Mode v2 (výchozí stav `denied`). Známé skripty (GA, Meta Pixel, Hotjar, Clarity) a iframy (YouTube, Vimeo, Google Mapy) v HTML stránky zablokuje do souhlasu; iframy nahradí náhledem s tlačítkem „Povolit a zobrazit“. Rozhoduje se v prohlížeči, takže to funguje i s page cache.
+- Měřicí kódy vkládá modul sám podle ID v záložce Měření: GA4, Google Ads, Google Tag Manager, Sklik (SEM), Meta Pixel, LinkedIn, Clarity, Hotjar – vše s Consent Mode v2 (výchozí stav `denied`) a až po souhlasu s příslušnou kategorií. Pro GTM událost `marmal_consent` v dataLayer. Známé skripty (GA, Meta Pixel, Hotjar, Clarity) a iframy (YouTube, Vimeo, Google Mapy) v HTML stránky zablokuje do souhlasu; iframy nahradí náhledem s tlačítkem „Povolit a zobrazit“. Rozhoduje se v prohlížeči, takže to funguje i s page cache.
 - Odkaz na otevření okna: tlačítko cookies v elementu **Marmal – Patička** (režim „MarMal – Cookies“ se zvolí sám), třída `marmal-cookies-nastaveni`, odkaz `#nastaveni-cookies`, shortcode `[marmal_cookies_nastaveni]`. Tabulka cookies na stránku zásad: `[marmal_cookies_seznam]`.
 - JS API: `MarmalCookies.otevrit()`, `MarmalCookies.souhlas('analyticke')`, událost `marmal:cookies` (detail = povolené kategorie). Vlastní skript do souhlasu: `<script type="text/plain" data-marmal-kat="analyticke">…</script>`.
 - Souhlas návštěvníka: cookie `marmal_consent` (revize, kategorie, náhodné ID, čas); záznamy bez IP v tabulce `{prefix}marmal_souhlasy`, úklid podle nastavení (cron `marmal_cookies_uklid`). Náhled lišty: `?marmal_cookies_nahled=1` (jen správce, nic neukládá).
-- Fáze 1 neřeší: iframy vložené až JavaScriptem (např. lazy video Breakdance), GTM, Google Ads, Sklik, reCAPTCHA – přijdou ve fázi 2.
+- Zatím neřeší: iframy vložené až JavaScriptem (např. lazy video Breakdance) a reCAPTCHA.
 
 ## Nový modul
 
