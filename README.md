@@ -12,6 +12,7 @@ Co web používá, se zapíná v **WP admin → MarMal → Moduly**. Autor: Mart
 | Efekty | podle webu | Knihovna CSS efektů (třídy `mm-…`, 89 efektů v 10 kategoriích), galerie s náhledy, barvy z Global Settings Breakdance. Nahrazuje plugin MarMal Effects. Na web se načítají jen zapnuté kategorie. |
 | Patička | zapnuto | Copyright s rokem spuštění webu (© 2019–2026), podpis autora „Web vytvořil Martin Malý – marmal.cz“ (UTM, nofollow mimo úvodní stránku), údaje o podnikateli podle § 435 OZ, odkazy na ochranu osobních údajů a nastavení cookies. Nastavení v **MarMal → Patička**, výstup shortcody a dynamickými daty (MarMal → Patička). |
 | Cookies | vypnuto | Vlastní cookie lišta podle pravidel ÚOOÚ místo CookieYes: souhlas předem, „Odmítnout vše“ v první vrstvě, okno nastavení po kategoriích, Google Consent Mode v2 + GA4, blokování skriptů a náhledy videí/map do souhlasu, autodetekce služeb, seznam cookies `[marmal_cookies_seznam]`, záznam souhlasů. Nastavení v **MarMal → Cookies**. |
+| Ochrana osobních údajů | vypnuto | Stránka Zásady ochrany osobních údajů podle čl. 13 GDPR: správce z Patičky, účely zaškrtávátky, zpracovatelé, práva, ÚOOÚ; chybějící údaje žlutě „[DOPLŇTE]“; koncept → zveřejnění na adrese dosavadní stránky zásad. Nastavení v **MarMal → Ochrana os. údajů**. |
 | Fonty | vypnuto | Google Fonts z vlastní domény: odkazy na fonts.googleapis.com ve stránce nahradí lokálně staženými woff2 (uploads/marmal-fonty), odstraní preconnect na Google, font-display swap, přednačtení. Fonty se dál vybírají v Breakdance. Nastavení v **MarMal → Fonty**. |
 
 Moduly s elementy z Element Studia jsou **zamčené** (vždy zapnuté) – vypnutím by elementy zmizely ze stránek.
@@ -53,6 +54,12 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 - Rok se po Novém roce opraví skriptem i na stránce ze staré page cache (jen u shortcodů).
 - Nastavení cookies: Complianz (`cmplz-show-banner`), CookieYes (`cky-banner-element`), Cookiebot (`Cookiebot.renew()`), jiný plugin přes vlastní CSS třídu.
 
+## Ochrana osobních údajů – použití
+
+- Zapnout v **MarMal → Moduly → Ochrana osobních údajů**, údaje o firmě vyplnit v **MarMal → Patička**.
+- **MarMal → Ochrana os. údajů**: e-mail pro ochranu údajů, účely, zpracovatelé → Uložit → „Vytvořit návrh stránky“ → Náhled → doplnit vše žluté → „Zveřejnit návrh“.
+- Shortcody: `[marmal_gdpr_spravce]`, `[marmal_gdpr_kontakt]`, `[marmal_gdpr_prijemci]`, `[marmal_gdpr_cookies]`, `[marmal_gdpr_ucinnost]`, pod formuláře `[marmal_gdpr_formular text="…"]`.
+
 ## Cookies – použití
 
 - Zapnout v **MarMal → Moduly → Cookies**, vypnout starý cookie plugin (CookieYes apod. – modul na něj upozorní).
@@ -82,7 +89,7 @@ Veřejné funkce (vždy nejdřív `function_exists`):
 ## Požadavky
 
 - WordPress 6.0+, PHP 7.4+
-- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty, Patička, Cookies a Fonty fungují i bez něj)
+- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty, Patička, Cookies, Fonty a Ochrana osobních údajů fungují i bez něj)
 
 ## Instalace
 

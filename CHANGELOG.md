@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.15.0 – 2026-11-18
+- **Nový modul Ochrana osobních údajů** (`gdpr`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb.:
+  - MarMal → Ochrana os. údajů: kontakt pro ochranu údajů (e-mail, telefon, korespondenční adresa, datová schránka, pověřenec), účely zpracování zaškrtávátky (dotazy a poptávky, objednávky a smlouvy, fakturace a účetnictví, přihlášky na akce, fotografie z akcí, newsletter, sociální sítě, uchazeči o zaměstnání), zpracovatelé (hosting, e-mail, účetní, newsletter, u WooCommerce dopravci a platební brána, další řádky), datum účinnosti, návod „Jak nasadit – krok za krokem“,
+  - každý účel na stránce ve stejné struktuře: jaké údaje · proč · právní základ · jak dlouho · zda je poskytnutí povinné; vždy provoz webu, cookies (odkaz na Zásady cookies), předávání mimo EU, automatizované rozhodování, zabezpečení, práva (čl. 15–18, 20, 21, odvolání souhlasu, lhůta 1 měsíc), stížnost u ÚOOÚ, účinnost,
+  - správce z Patičky (firma, sídlo, IČO, DIČ, rejstřík); co chybí, je na stránce **žlutě zvýrazněné „[DOPLŇTE: …]“**, v administraci je kontrolní seznam a žlutá pole, upozornění na stránkách MarMal a v editoru stránky,
+  - proměnlivé části jsou shortcody, které se aktualizují samy: `[marmal_gdpr_spravce]`, `[marmal_gdpr_kontakt]`, `[marmal_gdpr_prijemci]`, `[marmal_gdpr_cookies]`, `[marmal_gdpr_ucinnost]`; pod formuláře `[marmal_gdpr_formular]` (informace s odkazem na zásady),
+  - bezpečné nasazení: modul vytvoří **koncept**, zveřejněnou stránku nepřepisuje; „Zveřejnit návrh“ převezme adresu dosavadní stránky zásad (např. /gdpr/), nastaví ji jako stránku ochrany osobních údajů ve WordPressu i v Patičce a původní stránku ponechá jako koncept „(původní)“.
+
 ## 0.14.0 – 2026-11-18
 - **Cookies – stránka Zásady cookies**:
   - MarMal → Cookies → Texty: „Stránka Zásady cookies“ (výchozí automaticky podle adresy `zasady-cookies`, `zasady-pouzivani-cookies` nebo `cookies`) a tlačítko **„Vytvořit stránku Zásady cookies“** – založí koncept se vzorovým textem v 11 oddílech: V kostce · Kdo cookies zpracovává (správce z Patičky) · Co jsou cookies (relační / trvalé, vlastní / třetích stran) · Právní základ (§ 89 odst. 3 ZEK, čl. 6 odst. 1 písm. a) GDPR) · Seznam cookies · Služby třetích stran · Jak dlouho údaje uchováváme · Změna a odvolání souhlasu · Cookies v nastavení prohlížeče (odkazy na návody Chrome, Firefox, Safari, Edge) · Vaše práva (stížnost u ÚOOÚ) · Změny zásad,

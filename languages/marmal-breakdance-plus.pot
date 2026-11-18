@@ -34,7 +34,7 @@ msgstr ""
 msgid "Google Fonts z webu stáhne k sobě a návštěvníkům je posílá z vlastní domény – Google nedostane jejich IP adresu (GDPR) a stránka se načte rychleji. Fonty dál vybíráš v Breakdance jako dosud."
 msgstr ""
 
-#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:276 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
+#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/gdpr/manifest.php:28 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:276 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty."
 msgstr ""
 
-#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251 modules/cookies/includes/zasady.php:188
+#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/gdpr/includes/admin.php:148 modules/gdpr/includes/admin.php:158 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251 modules/cookies/includes/zasady.php:188
 msgid "Nemáte oprávnění."
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Fonty na webu"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:108
+#: modules/fonty/includes/admin.php:108 modules/gdpr/includes/admin.php:219
 msgid "Stav"
 msgstr ""
 
@@ -143,7 +143,7 @@ msgstr ""
 msgid "Přednačíst běžný řez (400) hlavních fontů – nejvýš 2 soubory na stránku"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:153 modules/cookies/includes/admin.php:337 modules/paticka/includes/admin.php:278
+#: modules/fonty/includes/admin.php:153 modules/gdpr/includes/admin.php:335 modules/cookies/includes/admin.php:337 modules/paticka/includes/admin.php:278
 msgid "Uložit nastavení"
 msgstr ""
 
@@ -212,8 +212,913 @@ msgstr ""
 msgid "Nejde zapsat CSS fontů."
 msgstr ""
 
-#: modules/cookies/manifest.php:25 modules/cookies/includes/admin.php:26 modules/cookies/includes/admin.php:26
+#: modules/gdpr/manifest.php:22 modules/gdpr/includes/admin.php:29 modules/paticka/includes/data.php:65
+msgid "Ochrana osobních údajů"
+msgstr ""
+
+#: modules/gdpr/manifest.php:23
+msgid "Připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb.: správce z Patičky, účely podle toho, co web dělá, práva a stížnost u ÚOOÚ. Místa k doplnění jsou barevně zvýrazněná. Propojí se s Patičkou a Zásadami cookies."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:29
+msgid "Ochrana os. údajů"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:60
+msgid "Doplnit"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:69
+msgid "Zásady ochrany osobních údajů"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:113
+#, php-format
+msgid "%s (původní)"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:206
+msgid "MarMal – Ochrana osobních údajů"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:207
+msgid "Připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb. Údaje o správci bere z Patičky, ostatní vyplníte níže. Co chybí, je na stránce zvýrazněné žlutě – nejde to přehlédnout."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:211
+msgid "Návrh stránky je připravený jako koncept. Prohlédněte si ho, doplňte žlutá místa a zveřejněte."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:213
+msgid "Zásady jsou zveřejněné a nastavené jako stránka ochrany osobních údajů – odkaz v Patičce vede na ně. Dosavadní stránka zůstala jako koncept „(původní)“."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:215
+msgid "Akce se nepodařila. Zkuste to znovu, případně zkontrolujte stránky v koši."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:220
+msgid "Stránka zásad na webu:"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:223
+msgid "text z tohoto modulu"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:223
+msgid "vlastní text – modul ho nemění"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:225
+msgid "žádná"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:227
+msgid "Návrh (koncept):"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:229 modules/paticka/includes/admin.php:110
+msgid "Náhled"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:230
+msgid "Upravit text"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:232
+msgid "není"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:236
+msgid "Zbývá vyplnit:"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:241
+msgid "vyplňte v MarMal → Patička (údaje o firmě)"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:243
+msgid "vyplňte níže"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:248
+msgid "Všechny potřebné údaje jsou vyplněné."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:251
+msgid "V textu stránky zůstalo ručně ponechané zvýraznění „DOPLŇTE“ – najdete ho v editoru stránky."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:254
+msgid "Od zveřejnění se změnily účely zpracování. Vytvořte nový návrh, zkontrolujte ho a zveřejněte – nahradí současnou stránku."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:259
+msgid "Text konceptu se vygeneruje znovu podle nastavení. Ruční úpravy konceptu se přepíšou (zůstanou v revizích). Pokračovat?"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:260
+msgid "Vygenerovat návrh znovu"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:260
+msgid "Vytvořit návrh stránky"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:263
+msgid "Návrh se zveřejní na adrese dosavadní stránky zásad a ta se přepne na koncept „(původní)“. Pokračovat?"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:263
+msgid "Návrh se zveřejní a nastaví jako stránka ochrany osobních údajů. Pokračovat?"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:264
+msgid "Zveřejnit návrh"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:272
+msgid "Správce a kontakt"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:273
+msgid "Jméno nebo firma, sídlo, IČO, DIČ a zápis v rejstříku se berou z"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:273
+msgid "MarMal → Patička"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:276
+msgid "E-mail pro ochranu údajů"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:276
+msgid "Na tento e-mail lidé posílají žádosti (přístup, výmaz…). Povinné."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:277
+msgid "Telefon"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:277
+msgid "Nepovinné."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:278
+msgid "Korespondenční adresa"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:278
+msgid "Jen když se liší od sídla."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:279
+msgid "Datová schránka"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:279
+msgid "ID datové schránky (7 znaků). Nepovinné."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:280
+msgid "Pověřenec (DPO)"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:280
+msgid "Jméno a kontakt. Malé firmy a OSVČ ho obvykle mít nemusí – pak nechte prázdné a na stránce bude uvedeno, že nebyl jmenován."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:286
+msgid "Co web a firma s údaji dělají"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:287
+msgid "Zaškrtněte jen to, co opravdu děláte. Každý účel přidá na stránku oddíl: jaké údaje, proč, právní základ, jak dlouho a zda je jejich poskytnutí povinné. Provoz webu a cookies jsou na stránce vždy."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:294
+msgid "Po změně účelů klikněte nahoře na „Vytvořit návrh“ / „Vygenerovat návrh znovu“ – text účelů je v konceptu pevný, aby ho šlo ručně upravit."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:298
+msgid "Komu údaje předáváte (zpracovatelé)"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:299
+msgid "Seznam na stránce se aktualizuje sám po uložení – není potřeba nic generovat znovu."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:302
+msgid "Webhosting"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:302
+msgid "Např. WEDOS Internet, a.s.; Forpsi (INTERNET CZ, a.s.); Websupport s.r.o."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:303
+msgid "E-mail"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:303
+msgid "Kdo provozuje e-mailové schránky: např. Seznam.cz, Google Workspace, Microsoft 365, nebo stejný hosting."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:305
+msgid "Účetní / daňový poradce"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:305
+msgid "Jméno nebo firma."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:306
+msgid "Účetnictví vedeme sami (řádek se na stránce nezobrazí)"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:312
+msgid "Newsletter"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:312
+msgid "Např. Ecomail, Mailchimp, SmartEmailing."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:317 modules/gdpr/includes/shortcody.php:143
+msgid "Dopravci"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:317
+msgid "Např. Zásilkovna s.r.o., PPL CZ s.r.o., Česká pošta, s.p."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:318 modules/gdpr/includes/shortcody.php:144
+msgid "Platební brána"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:318
+msgid "Např. ComGate, GoPay, Stripe."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:323
+msgid "Další příjemci"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:325
+msgid "Každý na nový řádek, např. „Rezervační systém: Reservio, s.r.o.“ nebo „Správce webu: Martin Malý – marmal.cz“."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:330
+msgid "Účinnost"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:332
+msgid "Zásady účinné od"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:332
+msgid "Prázdné = doplní se samo při zveřejnění. Při podstatné změně zásad datum posuňte."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:339
+msgid "Jak nasadit – krok za krokem"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:341
+msgid "V MarMal → Patička vyplňte údaje o firmě: jméno nebo firmu, sídlo, IČO (případně DIČ a zápis v rejstříku). Odtud je bere i tato stránka."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:342
+msgid "Výše vyplňte e-mail pro ochranu údajů, zaškrtněte účely, které opravdu děláte, a doplňte zpracovatele (hosting, e-mail, účetní…). Uložte."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:343
+msgid "Klikněte na „Vytvořit návrh stránky“. Vznikne koncept – zveřejněná stránka se zatím nemění."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:344
+msgid "Otevřete Náhled a přečtěte text. Všechno žluté „[DOPLŇTE: …]“ doplňte v nastavení výše – stránka se aktualizuje sama. Text účelů můžete upravit v editoru stránky (Upravit text)."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:345
+msgid "Pokud web sbírá i jiné údaje, než nabízí zaškrtávátka (např. rezervační systém, chat, věrnostní program), doplňte do konceptu vlastní oddíl ve stejné struktuře: jaké údaje, proč, právní základ, jak dlouho, zda je to povinné."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:346
+msgid "Když je vše v pořádku (nahoře „Všechny potřebné údaje jsou vyplněné“), klikněte na „Zveřejnit návrh“. Stránka převezme adresu dosavadní stránky zásad (např. /gdpr/), stane se stránkou ochrany osobních údajů ve WordPressu (Nastavení → Soukromí) a odkaz v Patičce povede na ni. Dosavadní stránka zůstane jako koncept „(původní)“ – po kontrole ji můžete smazat."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:347
+msgid "Zobrazení: stránka používá šablonu Breakdance pro stránky (s elementem Post Content) – stejně jako Zásady cookies. Pokud by se zobrazila bez hlavičky a patičky, vytvořte v Breakdance → Templates šablonu pro stránky s elementem Post Content."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:348
+msgid "Pod formuláře vložte krátkou informaci shortcodem v elementu Shortcode (nebo Text):"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:349
+msgid "– zobrazí „Údaje z formuláře použijeme jen k vyřízení vašeho dotazu. Jak chráníme osobní údaje“ s odkazem. U kontaktního formuláře nepřidávejte povinné zaškrtávátko „souhlasím se zpracováním“ – zpracování stojí na vyřízení dotazu, ne na souhlasu; souhlas (nezaškrtnutý) patří jen k newsletteru."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:350
+msgid "Vlastní text:"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:351
+msgid "Kontrola jednou ročně a při každé změně (nový formulář, nová služba, jiný hosting): upravte nastavení, případně vygenerujte nový návrh, a posuňte datum účinnosti."
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:353
+msgid "Shortcody na stránce"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:353
+msgid "(mění se samy podle nastavení):"
+msgstr ""
+
+#: modules/gdpr/includes/admin.php:355
+msgid "Text vychází z čl. 13 GDPR, zákona č. 110/2019 Sb. a doporučení ÚOOÚ (uoou.gov.cz). Je to vzor, ne právní služba – u neobvyklého zpracování (zdravotní údaje, kamerový systém, údaje dětí ve větším rozsahu) ho nechte zkontrolovat odborníkem."
+msgstr ""
+
+#: modules/gdpr/includes/data.php:20 modules/gdpr/includes/vzor.php:67
+msgid "Dotazy a poptávky"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:20
+msgid "kontaktní formulář, e-mail, telefon"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:21 modules/gdpr/includes/vzor.php:77
+msgid "Objednávky a smlouvy"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:21
+msgid "objednávky služeb nebo zboží, plnění smlouvy, reklamace"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:22 modules/gdpr/includes/vzor.php:140
+msgid "Fakturace a účetnictví"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:22
+msgid "faktury a účetní doklady – povinnost ze zákona"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:23 modules/gdpr/includes/vzor.php:87
+msgid "Přihlášky na akce, kurzy a workshopy"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:23
+msgid "rezervace termínu, seznam účastníků"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:24 modules/gdpr/includes/vzor.php:97
+msgid "Fotografie a videa z akcí"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:24
+msgid "zveřejnění na webu a sociálních sítích – jen se souhlasem"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:25 modules/gdpr/includes/vzor.php:107
+msgid "Newsletter a obchodní sdělení"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:25
+msgid "zasílání novinek e-mailem"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:26 modules/gdpr/includes/vzor.php:118
+msgid "Profily na sociálních sítích"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:26
+msgid "Facebook, Instagram – komunikace a statistiky stránky"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:27 modules/gdpr/includes/vzor.php:130
+msgid "Uchazeči o zaměstnání"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:27
+msgid "životopisy a výběrová řízení"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:75
+msgid "E-mail nemá platný tvar – neuložen."
+msgstr ""
+
+#: modules/gdpr/includes/data.php:114
+#, php-format
+msgid "[DOPLŇTE: %s]"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:155 modules/gdpr/includes/shortcody.php:26
+msgid "jméno nebo firma správce"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:156 modules/gdpr/includes/shortcody.php:28
+msgid "sídlo správce"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:157 modules/gdpr/includes/shortcody.php:30 modules/paticka/modul.php:43 modules/paticka/includes/admin.php:179
+msgid "IČO"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:158 modules/gdpr/includes/shortcody.php:18
+msgid "kontaktní e-mail pro ochranu údajů"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:159
+msgid "poskytovatel webhostingu"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:160
+msgid "poskytovatel e-mailu"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:162
+msgid "účetní nebo daňový poradce"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:165
+msgid "služba pro rozesílání newsletteru"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:168
+msgid "dopravci"
+msgstr ""
+
+#: modules/gdpr/includes/data.php:169
+msgid "platební brána"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:28
+#, php-format
+msgid "sídlo: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:30 modules/paticka/includes/data.php:259
+#, php-format
+msgid "IČO: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:33 modules/paticka/includes/data.php:263
+#, php-format
+msgid "DIČ: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:40
+#, php-format
+msgid "e-mail: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:43
+#, php-format
+msgid "telefon: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:47
+#, php-format
+msgid "korespondenční adresa: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:51
+#, php-format
+msgid "datová schránka: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:58
+#, php-format
+msgid "Pověřenec pro ochranu osobních údajů: %s"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:59
+msgid "Pověřence pro ochranu osobních údajů jsme nejmenovali – podle čl. 37 GDPR tuto povinnost nemáme. S jakýmkoli dotazem se obracejte na kontakty výše."
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:82
+#, php-format
+msgid "Jaké cookies web používá, k čemu slouží, kteří poskytovatelé (např. Google) při tom zpracovávají údaje a jak můžete souhlas změnit nebo odvolat, popisujeme samostatně v %s."
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:83
+msgid "Zásadách cookies"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:86
+msgid "Nezbytné cookies používáme bez souhlasu, ostatní (analytické, marketingové) jen s vaším souhlasem z cookie lišty. Svou volbu můžete kdykoli změnit odkazem „Nastavení cookies“ v patičce webu."
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:102
+msgid "datum účinnosti – doplní se samo při zveřejnění"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:114
+msgid "Údaje z formuláře použijeme jen k vyřízení vašeho dotazu."
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:117
+msgid "Jak chráníme osobní údaje"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:134
+msgid "Poskytovatel webhostingu"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:135
+msgid "Poskytovatel e-mailových služeb"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:137
+msgid "Účetní nebo daňový poradce"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:140
+msgid "Služba pro rozesílání newsletteru"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:147
+msgid "Sociální sítě"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:147
+msgid "Meta Platforms Ireland Limited (Facebook, Instagram)"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:150
+msgid "Analytické a marketingové služby"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:150
+msgid "jen s vaším souhlasem z cookie lišty – seznam je v Zásadách cookies"
+msgstr ""
+
+#: modules/gdpr/includes/shortcody.php:157
+msgid "Orgány veřejné moci (např. finanční úřad, soud), pokud nám to ukládá zákon."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:52
+msgid "Jaké údaje"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:53
+msgid "Proč"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:54
+msgid "Právní základ"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:55
+msgid "Jak dlouho"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:56
+msgid "Musíte údaje poskytnout?"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:68
+msgid "jméno a příjmení, e-mail, telefon, obsah zprávy, případně název organizace"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:69
+msgid "abychom vám odpověděli a případně připravili nabídku"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:70
+msgid "jednání o smlouvě na vaši žádost (čl. 6 odst. 1 písm. b) GDPR); u obecných dotazů náš oprávněný zájem na tom, abychom vám mohli odpovědět (čl. 6 odst. 1 písm. f) GDPR)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:71
+msgid "po dobu vyřizování dotazu a poté nejvýše 1 rok, pokud z něj nevznikne smlouva"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:72
+msgid "ne, je to dobrovolné – bez kontaktu vám ale nemůžeme odpovědět"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:78
+msgid "jméno a příjmení nebo název, adresa, IČO a DIČ (u podnikatelů a organizací), e-mail, telefon, údaje o objednávce a platbě"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:79
+msgid "uzavření a splnění smlouvy, komunikace k objednávce, vyřízení reklamace"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:80
+msgid "plnění smlouvy (čl. 6 odst. 1 písm. b) GDPR); uplatnění a obhajoba právních nároků – náš oprávněný zájem (čl. 6 odst. 1 písm. f) GDPR)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:81
+msgid "po dobu trvání smlouvy a poté do uplynutí promlčecích lhůt podle občanského zákoníku – zpravidla 3 roky, výjimečně až 10 let"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:82
+msgid "ano, je to smluvní požadavek – bez údajů smlouvu nemůžeme uzavřít ani splnit"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:88
+msgid "jméno a kontakt objednatele nebo kontaktní osoby (u školy či školky i název a adresa organizace), termín, počet účastníků a další údaje potřebné k organizaci"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:89
+msgid "rezervace termínu, organizace akce a komunikace s vámi"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:90
+msgid "plnění smlouvy (čl. 6 odst. 1 písm. b) GDPR)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:91
+msgid "do konání a vyúčtování akce; účetní doklady poté po dobu stanovenou zákonem"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:92
+msgid "ano, bez nich akci nemůžeme zorganizovat"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:98
+msgid "fotografie a videozáznamy z akcí, na kterých můžete být vy nebo vaše dítě"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:99
+msgid "prezentace naší činnosti na webu a na sociálních sítích"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:100
+msgid "váš souhlas (čl. 6 odst. 1 písm. a) GDPR) a svolení s užitím podobizny podle § 84 a násl. občanského zákoníku; za dítě souhlas dává zákonný zástupce. Fotografie, na kterých nikoho nelze rozpoznat, souhlas nevyžadují."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:101
+msgid "do odvolání souhlasu – poté fotografie odstraníme z webu i z našich profilů na sociálních sítích"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:102
+msgid "ne, je to dobrovolné a odmítnutí nemá vliv na účast na akci"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:108
+msgid "e-mail, případně jméno"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:109
+msgid "zasílání novinek a nabídek"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:110
+msgid "váš souhlas (čl. 6 odst. 1 písm. a) GDPR); stávajícím zákazníkům můžeme nabídky podobných služeb posílat i bez souhlasu na základě oprávněného zájmu (čl. 6 odst. 1 písm. f) GDPR a § 7 odst. 3 zákona č. 480/2004 Sb., o některých službách informační společnosti)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:111
+msgid "dokud se neodhlásíte"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:112 modules/gdpr/includes/vzor.php:123
+msgid "ne, je to dobrovolné"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:113
+msgid "Odhlášení"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:113
+msgid "odkazem v každém e-mailu nebo zprávou na"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:119
+msgid "jméno nebo přezdívka profilu, komentáře, zprávy a reakce; souhrnné statistiky návštěvnosti stránky"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:120
+msgid "komunikace s vámi a prezentace naší činnosti"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:121
+msgid "náš oprávněný zájem na komunikaci a prezentaci (čl. 6 odst. 1 písm. f) GDPR)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:122
+msgid "po dobu existence profilu, nebo dokud příspěvek či zprávu nesmažete"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:124
+msgid "Společný správce"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:124
+msgid "u statistik stránky na Facebooku a Instagramu jsme společnými správci se společností Meta Platforms Ireland Limited. Jak údaje zpracovává Meta, popisují její"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:125 modules/cookies/includes/frontend.php:534
+msgid "zásady ochrany soukromí"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:131
+msgid "údaje z životopisu a motivačního dopisu, kontakt, údaje z pohovoru"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:132
+msgid "výběrové řízení"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:133
+msgid "jednání o smlouvě (čl. 6 odst. 1 písm. b) GDPR); uchování pro budoucí nabídky jen s vaším souhlasem (čl. 6 odst. 1 písm. a) GDPR)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:134
+msgid "do skončení výběrového řízení; s vaším souhlasem nejvýše 1 rok"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:135
+msgid "ne, je to dobrovolné – bez údajů vás ale nemůžeme do řízení zařadit"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:141
+msgid "údaje uvedené na fakturách a dalších účetních dokladech (jméno nebo název, adresa, IČO, DIČ, předmět a cena plnění)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:142
+msgid "vedení účetnictví nebo daňové evidence"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:143
+msgid "plnění právní povinnosti (čl. 6 odst. 1 písm. c) GDPR) – zejména zákon č. 563/1991 Sb., o účetnictví, zákon č. 586/1992 Sb., o daních z příjmů, a zákon č. 235/2004 Sb., o dani z přidané hodnoty"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:144
+msgid "po dobu stanovenou těmito zákony – zpravidla 5 až 10 let od konce roku, kterého se doklad týká"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:145
+msgid "ano, je to zákonný požadavek"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:150
+msgid "Provoz a zabezpečení webu"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:151
+msgid "IP adresa, typ prohlížeče, čas a adresa navštívené stránky (záznamy serveru)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:152
+msgid "zajištění provozu a bezpečnosti webu, ochrana před útoky"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:153
+msgid "náš oprávněný zájem na bezpečném provozu webu (čl. 6 odst. 1 písm. f) GDPR)"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:154
+msgid "krátkodobě, po dobu nastavenou poskytovatelem hostingu – obvykle nejvýše několik týdnů"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:155
+msgid "údaje vznikají automaticky při návštěvě webu"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:158 modules/cookies/manifest.php:25 modules/cookies/includes/admin.php:26 modules/cookies/includes/admin.php:26
 msgid "Cookies"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:169
+#, php-format
+msgid "Na této stránce vysvětlujeme, jak na webu %s a při naší činnosti zpracováváme osobní údaje. Informace poskytujeme podle čl. 13 nařízení Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákona č. 110/2019 Sb., o zpracování osobních údajů."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:173 modules/cookies/includes/zasady.php:85
+msgid "V kostce"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:175
+msgid "Zpracováváme jen údaje, které potřebujeme pro účely popsané níže – nic navíc."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:176
+msgid "Vaše údaje neprodáváme."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:177
+msgid "Analytické a marketingové cookies používáme jen s vaším souhlasem."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:178
+msgid "Máte právo na přístup k údajům, jejich opravu, výmaz a další práva – stačí napsat na"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:181
+msgid "Kdo je správce a jak nás kontaktovat"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:184
+msgid "Jaké údaje zpracováváme, proč a jak dlouho"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:185
+msgid "U každého účelu uvádíme, jaké údaje zpracováváme, z jakého důvodu, na jakém právním základě a jak dlouho je uchováváme. Údaje získáváme přímo od vás."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:188
+msgid "Komu údaje předáváme"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:189
+msgid "Při provozu webu a naší činnosti využíváme služby těchto zpracovatelů a příjemců:"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:191
+msgid "Zpracovatelé zpracovávají údaje jen podle našich pokynů a na základě smlouvy o zpracování (čl. 28 GDPR). Vaše údaje neprodáváme ani nepředáváme k marketingovým účelům třetím osobám."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:193
+msgid "Předávání údajů mimo EU"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:194
+msgid "Údaje zpracováváme především v Evropské unii. Některé služby (například Google, Meta nebo Microsoft) mohou údaje zpracovávat i mimo EU, zejména v USA – vždy jen se zárukami podle kapitoly V GDPR, tedy na základě rozhodnutí Evropské komise o odpovídající ochraně nebo standardních smluvních doložek."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:196
+msgid "Automatizované rozhodování"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:197
+msgid "Nedochází k automatizovanému rozhodování ani profilování, které by pro vás mělo právní účinky nebo se vás obdobně významně dotýkalo (čl. 22 GDPR)."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:199
+msgid "Jak údaje chráníme"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:200
+msgid "Údaje chráníme přiměřenými technickými a organizačními opatřeními: web používá zabezpečené připojení (HTTPS), přístup k údajům mají jen pověřené osoby a naši zpracovatelé jsou vázáni smlouvou a mlčenlivostí."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:202 modules/cookies/includes/zasady.php:149
+msgid "Vaše práva"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:203
+msgid "V souvislosti se zpracováním osobních údajů máte tato práva:"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:205
+msgid "právo na přístup k údajům (čl. 15 GDPR) – potvrdíme, zda vaše údaje zpracováváme, a poskytneme vám jejich kopii,"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:206
+msgid "právo na opravu nepřesných údajů (čl. 16 GDPR),"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:207
+msgid "právo na výmaz (čl. 17 GDPR) – pokud údaje už nepotřebujeme, odvoláte souhlas nebo vznesete oprávněnou námitku a výmazu nebrání zákonná povinnost,"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:208
+msgid "právo na omezení zpracování (čl. 18 GDPR),"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:209
+msgid "právo na přenositelnost údajů (čl. 20 GDPR) – u údajů, které zpracováváme automatizovaně na základě souhlasu nebo smlouvy,"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:210
+msgid "právo vznést námitku (čl. 21 GDPR) proti zpracování na základě oprávněného zájmu a kdykoli proti zasílání obchodních sdělení,"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:211
+msgid "právo kdykoli odvolat souhlas (čl. 7 odst. 3 GDPR) – odvolání nemá vliv na zákonnost zpracování před ním."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:213
+msgid "Svá práva můžete uplatnit e-mailem na"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:213
+msgid "nebo dopisem na adresu správce. Odpovíme bez zbytečného odkladu, nejpozději do 1 měsíce; ve složitých případech lze lhůtu prodloužit o další 2 měsíce (čl. 12 odst. 3 GDPR). Vyřízení je zdarma. Abychom údaje nevydali nesprávné osobě, můžeme vás požádat o ověření totožnosti."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:215
+msgid "Stížnost u dozorového úřadu"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:218
+#, php-format
+msgid "Pokud se domníváte, že zpracováním vašich osobních údajů porušujeme právní předpisy, můžete podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7 (%s). Budeme rádi, když se na nás nejdříve obrátíte – většinu věcí vyřešíme hned."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:222 modules/cookies/includes/zasady.php:162
+msgid "Změny těchto zásad"
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:223
+msgid "Zásady aktualizujeme, když se změní způsob zpracování údajů nebo právní předpisy. Aktuální verze je vždy na této stránce."
+msgstr ""
+
+#: modules/gdpr/includes/vzor.php:224
+msgid "Tyto zásady jsou účinné od"
 msgstr ""
 
 #: modules/cookies/manifest.php:26
@@ -1055,10 +1960,6 @@ msgstr ""
 msgid "Web nepoužívá služby třetích stran, které by ukládaly cookies."
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:534
-msgid "zásady ochrany soukromí"
-msgstr ""
-
 #: modules/cookies/includes/frontend.php:538
 msgid "Tito poskytovatelé mohou údaje zpracovávat i mimo Evropskou unii, zejména v USA. Jak údaje chrání a jaké záruky pro předávání používají, popisují ve svých zásadách ochrany soukromí."
 msgstr ""
@@ -1085,10 +1986,6 @@ msgstr ""
 #: modules/cookies/includes/zasady.php:81
 #, php-format
 msgid "Tato stránka vysvětluje, jaké soubory cookies používá web %1$s (%2$s), k čemu slouží a jak můžete svůj souhlas kdykoli změnit nebo odvolat."
-msgstr ""
-
-#: modules/cookies/includes/zasady.php:85
-msgid "V kostce"
 msgstr ""
 
 #: modules/cookies/includes/zasady.php:87
@@ -1196,10 +2093,6 @@ msgstr ""
 msgid "Nastavení prohlížeče nenahrazuje volbu v liště cookies – souhlas s jednotlivými kategoriemi dáváte nebo odvoláváte přímo na webu. Když v prohlížeči zakážete i nezbytné cookies, některé části webu nemusí fungovat."
 msgstr ""
 
-#: modules/cookies/includes/zasady.php:149
-msgid "Vaše práva"
-msgstr ""
-
 #: modules/cookies/includes/zasady.php:152
 #, php-format
 msgid "Máte právo na přístup ke svým osobním údajům, jejich opravu nebo výmaz, omezení zpracování, právo vznést námitku a kdykoli odvolat souhlas. Podrobnosti najdete v %s."
@@ -1208,10 +2101,6 @@ msgstr ""
 #: modules/cookies/includes/zasady.php:157
 #, php-format
 msgid "Pokud se domníváte, že zpracování vašich údajů porušuje právní předpisy, můžete podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7 (%s)."
-msgstr ""
-
-#: modules/cookies/includes/zasady.php:162
-msgid "Změny těchto zásad"
 msgstr ""
 
 #: modules/cookies/includes/zasady.php:163
@@ -1292,10 +2181,6 @@ msgstr ""
 msgid "Sídlo"
 msgstr ""
 
-#: modules/paticka/modul.php:43 modules/paticka/includes/admin.php:179
-msgid "IČO"
-msgstr ""
-
 #: modules/paticka/modul.php:44 modules/paticka/includes/admin.php:183
 msgid "DIČ"
 msgstr ""
@@ -1326,10 +2211,6 @@ msgstr ""
 
 #: modules/paticka/includes/admin.php:105
 msgid "Copyright, podpis autora webu, údaje o podnikateli a odkazy do patičky. Prázdná pole použijí výchozí text (šedý v poli)."
-msgstr ""
-
-#: modules/paticka/includes/admin.php:110
-msgid "Náhled"
 msgstr ""
 
 #: modules/paticka/includes/admin.php:112
@@ -1535,23 +2416,9 @@ msgstr ""
 msgid "Web vytvořil Martin Malý –"
 msgstr ""
 
-#: modules/paticka/includes/data.php:65
-msgid "Ochrana osobních údajů"
-msgstr ""
-
 #: modules/paticka/includes/data.php:255
 #, php-format
 msgid "Sídlo: %s"
-msgstr ""
-
-#: modules/paticka/includes/data.php:259
-#, php-format
-msgid "IČO: %s"
-msgstr ""
-
-#: modules/paticka/includes/data.php:263
-#, php-format
-msgid "DIČ: %s"
 msgstr ""
 
 #: modules/paticka/includes/data.php:413
