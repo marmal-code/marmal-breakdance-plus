@@ -107,7 +107,20 @@ function nastaveni(): array
         $ulozene['rok'] = rok_navrh();
         add_option(OPTION, $ulozene, '', true);
     }
-    return array_merge(prazdne(), array_intersect_key($ulozene, prazdne()));
+    $s = array_merge(prazdne(), array_intersect_key($ulozene, prazdne()));
+    if (udaje_z_gdpr()) {
+        $s = array_merge($s, array_intersect_key((array) \MarmalElements\Gdpr\udaje_spravce(), array_flip(array('firma', 'sidlo', 'ico', 'dic', 'rejstrik'))));
+    }
+    return $s;
+}
+
+/**
+ * Údaje o podnikateli (firma, sídlo, IČO, DIČ, rejstřík) spravuje modul Ochrana osobních údajů,
+ * když je zapnutý – Patička je jen přebírá. Bez něj se vyplňují tady.
+ */
+function udaje_z_gdpr(): bool
+{
+    return function_exists('MarmalElements\Gdpr\udaje_spravce');
 }
 
 /**
@@ -402,7 +415,7 @@ function sanitizovat($vstup): array
 {
     $vstup = is_array($vstup) ? $vstup : array();
     $c     = prazdne();
-    $txt   = function (string $klic, int $max) use ($vstup): string {
+    $txt   = function (string $klic, int $max) use (&$vstup): string {
         return isset($vstup[$klic]) ? delka(sanitize_text_field((string) $vstup[$klic]), $max) : '';
     };
 
@@ -428,6 +441,13 @@ function sanitizovat($vstup): array
     }
     $c['autor_url'] = delka($url, 300);
 
+    if (udaje_z_gdpr()) {
+        // Údaje spravuje modul Ochrana osobních údajů – formulář Patičky je neposílá; uloží se kopie.
+        $u = (array) \MarmalElements\Gdpr\udaje_spravce();
+        foreach (array('firma', 'sidlo', 'ico', 'dic', 'rejstrik') as $k) {
+            $vstup[$k] = (string) ($u[$k] ?? '');
+        }
+    }
     $c['firma'] = $txt('firma', 160);
     $c['sidlo'] = $txt('sidlo', 200);
 
@@ -435,7 +455,7 @@ function sanitizovat($vstup): array
     $ico = isset($vstup['ico']) ? preg_replace('/\D/', '', (string) $vstup['ico']) : '';
     if ($ico !== '' && strlen($ico) <= 8) {
         $ico = str_pad($ico, 8, '0', STR_PAD_LEFT);
-        if (!ico_platne($ico)) {
+        if (!ico_platne($ico) && !udaje_z_gdpr()) {
             add_settings_error(OPTION, 'ico', __('IČO nemá platnou kontrolní číslici – zkontroluj ho prosím (uloženo i tak).', 'marmal-breakdance-plus'), 'warning');
         }
     } elseif ($ico !== '') {

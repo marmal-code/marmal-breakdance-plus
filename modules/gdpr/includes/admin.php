@@ -187,7 +187,6 @@ function stranka(): void
     $zasady  = stranka_zasad();
     $modul   = $zasady > 0 && get_post_meta($zasady, META_NAVRH, true);
     $pocet   = pocet_doplnit();
-    $paticka = admin_url('admin.php?page=marmal-paticka');
     $jina_ucely = $modul && !$navrh && (string) get_post_meta($zasady, META_UCELY, true) !== implode(',', (array) $s['ucely']);
     ?>
     <style>
@@ -204,7 +203,7 @@ function stranka(): void
     </style>
     <div class="wrap mmg">
         <h1><?php esc_html_e('MarMal – Ochrana osobních údajů', 'marmal-breakdance-plus'); ?></h1>
-        <p><?php esc_html_e('Připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb. Údaje o správci bere z Patičky, ostatní vyplníte níže. Co chybí, je na stránce zvýrazněné žlutě – nejde to přehlédnout.', 'marmal-breakdance-plus'); ?></p>
+        <p><?php esc_html_e('Připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb. Všechno se vyplňuje tady – údaje o správci si odsud bere i Patička. Co chybí, je na stránce zvýrazněné žlutě – nejde to přehlédnout.', 'marmal-breakdance-plus'); ?></p>
 
         <?php settings_errors(); ?>
         <?php if ($zprava === 'navrh') : ?>
@@ -236,12 +235,7 @@ function stranka(): void
                 <p><strong><?php esc_html_e('Zbývá vyplnit:', 'marmal-breakdance-plus'); ?></strong></p>
                 <ul class="mmg-seznam">
                     <?php foreach ($ch as $polozka) : ?>
-                        <li><mark><?php echo esc_html($polozka[0]); ?></mark> –
-                            <?php if ($polozka[1] === 'paticka') : ?>
-                                <a href="<?php echo esc_url($paticka); ?>"><?php esc_html_e('vyplňte v MarMal → Patička (údaje o firmě)', 'marmal-breakdance-plus'); ?></a>
-                            <?php else : ?>
-                                <?php esc_html_e('vyplňte níže', 'marmal-breakdance-plus'); ?>
-                            <?php endif; ?></li>
+                        <li><mark><?php echo esc_html($polozka[0]); ?></mark> – <?php esc_html_e('vyplňte níže', 'marmal-breakdance-plus'); ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php else : ?>
@@ -270,9 +264,14 @@ function stranka(): void
             <?php settings_fields('marmal_gdpr'); ?>
             <div class="mmg-box">
                 <h2><?php esc_html_e('Správce a kontakt', 'marmal-breakdance-plus'); ?></h2>
-                <p><?php esc_html_e('Jméno nebo firma, sídlo, IČO, DIČ a zápis v rejstříku se berou z', 'marmal-breakdance-plus'); ?> <a href="<?php echo esc_url($paticka); ?>"><?php esc_html_e('MarMal → Patička', 'marmal-breakdance-plus'); ?></a>.</p>
+                <p><?php esc_html_e('Údaje o správci jsou zároveň údaji o podnikateli podle § 435 občanského zákoníku – modul Patička je bere odsud (vyplňují se jen tady).', 'marmal-breakdance-plus'); ?></p>
                 <table class="form-table" role="presentation">
                     <?php
+                    pole('firma', __('Firma / jméno a příjmení', 'marmal-breakdance-plus'), __('Např. Noitami akustika s.r.o. nebo Jan Novák. Povinné.', 'marmal-breakdance-plus'), 'text', isset($ch['firma']));
+                    pole('sidlo', __('Sídlo', 'marmal-breakdance-plus'), __('Ulice 123, 252 28 Černošice. Povinné.', 'marmal-breakdance-plus'), 'text', isset($ch['sidlo']));
+                    pole('ico', __('IČO', 'marmal-breakdance-plus'), __('Kontroluje se kontrolní číslice. Povinné.', 'marmal-breakdance-plus'), 'text', isset($ch['ico']));
+                    pole('dic', __('DIČ', 'marmal-breakdance-plus'), __('Jen u plátců DPH (nepovinné).', 'marmal-breakdance-plus'));
+                    pole('rejstrik', __('Zápis v rejstříku', 'marmal-breakdance-plus'), __('Např. „Zapsáno v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 123456“ nebo u OSVČ „Zapsán v živnostenském rejstříku vedeném Městským úřadem Černošice“.', 'marmal-breakdance-plus'));
                     pole('email', __('E-mail pro ochranu údajů', 'marmal-breakdance-plus'), __('Na tento e-mail lidé posílají žádosti (přístup, výmaz…). Povinné.', 'marmal-breakdance-plus'), 'email', isset($ch['email']));
                     pole('telefon', __('Telefon', 'marmal-breakdance-plus'), __('Nepovinné.', 'marmal-breakdance-plus'));
                     pole('adresa', __('Korespondenční adresa', 'marmal-breakdance-plus'), __('Jen když se liší od sídla.', 'marmal-breakdance-plus'));
@@ -338,8 +337,8 @@ function stranka(): void
         <div class="mmg-box">
             <h2><?php esc_html_e('Jak nasadit – krok za krokem', 'marmal-breakdance-plus'); ?></h2>
             <ol>
-                <li><?php esc_html_e('V MarMal → Patička vyplňte údaje o firmě: jméno nebo firmu, sídlo, IČO (případně DIČ a zápis v rejstříku). Odtud je bere i tato stránka.', 'marmal-breakdance-plus'); ?></li>
-                <li><?php esc_html_e('Výše vyplňte e-mail pro ochranu údajů, zaškrtněte účely, které opravdu děláte, a doplňte zpracovatele (hosting, e-mail, účetní…). Uložte.', 'marmal-breakdance-plus'); ?></li>
+                <li><?php esc_html_e('Výše vyplňte údaje o správci (jméno nebo firmu, sídlo, IČO, případně DIČ a zápis v rejstříku) a e-mail pro ochranu údajů. Stejné údaje se zobrazí v patičce webu (modul Patička je přebírá odsud).', 'marmal-breakdance-plus'); ?></li>
+                <li><?php esc_html_e('Zaškrtněte účely, které opravdu děláte, a doplňte zpracovatele (hosting, e-mail, účetní…). Uložte.', 'marmal-breakdance-plus'); ?></li>
                 <li><?php esc_html_e('Klikněte na „Vytvořit návrh stránky“. Vznikne koncept – zveřejněná stránka se zatím nemění.', 'marmal-breakdance-plus'); ?></li>
                 <li><?php esc_html_e('Otevřete Náhled a přečtěte text. Všechno žluté „[DOPLŇTE: …]“ doplňte v nastavení výše – stránka se aktualizuje sama. Text účelů můžete upravit v editoru stránky (Upravit text).', 'marmal-breakdance-plus'); ?></li>
                 <li><?php esc_html_e('Pokud web sbírá i jiné údaje, než nabízí zaškrtávátka (např. rezervační systém, chat, věrnostní program), doplňte do konceptu vlastní oddíl ve stejné struktuře: jaké údaje, proč, právní základ, jak dlouho, zda je to povinné.', 'marmal-breakdance-plus'); ?></li>

@@ -12,7 +12,7 @@ Co web používá, se zapíná v **WP admin → MarMal → Moduly**. Autor: Mart
 | Efekty | podle webu | Knihovna CSS efektů (třídy `mm-…`, 89 efektů v 10 kategoriích), galerie s náhledy, barvy z Global Settings Breakdance. Nahrazuje plugin MarMal Effects. Na web se načítají jen zapnuté kategorie. |
 | Patička | zapnuto | Copyright s rokem spuštění webu (© 2019–2026), podpis autora „Web vytvořil Martin Malý – marmal.cz“ (UTM, nofollow mimo úvodní stránku), údaje o podnikateli podle § 435 OZ, odkazy na ochranu osobních údajů a nastavení cookies. Nastavení v **MarMal → Patička**, výstup shortcody a dynamickými daty (MarMal → Patička). |
 | Cookies | vypnuto | Vlastní cookie lišta podle pravidel ÚOOÚ místo CookieYes: souhlas předem, „Odmítnout vše“ v první vrstvě, okno nastavení po kategoriích, Google Consent Mode v2 + GA4, blokování skriptů a náhledy videí/map do souhlasu, autodetekce služeb, seznam cookies `[marmal_cookies_seznam]`, záznam souhlasů. Nastavení v **MarMal → Cookies**. |
-| Ochrana osobních údajů | vypnuto | Stránka Zásady ochrany osobních údajů podle čl. 13 GDPR: správce z Patičky, účely zaškrtávátky, zpracovatelé, práva, ÚOOÚ; chybějící údaje žlutě „[DOPLŇTE]“; koncept → zveřejnění na adrese dosavadní stránky zásad. Nastavení v **MarMal → Ochrana os. údajů**. |
+| Ochrana osobních údajů | vypnuto | Stránka Zásady ochrany osobních údajů podle čl. 13 GDPR: údaje o správci (Patička je přebírá odsud), účely zaškrtávátky, zpracovatelé, práva, ÚOOÚ; chybějící údaje žlutě „[DOPLŇTE]“; koncept → zveřejnění na adrese dosavadní stránky zásad. Nastavení v **MarMal → Ochrana os. údajů**. |
 | Fonty | vypnuto | Google Fonts z vlastní domény: odkazy na fonts.googleapis.com ve stránce nahradí lokálně staženými woff2 (uploads/marmal-fonty), odstraní preconnect na Google, font-display swap, přednačtení. Fonty se dál vybírají v Breakdance. Nastavení v **MarMal → Fonty**. |
 
 Moduly s elementy z Element Studia jsou **zamčené** (vždy zapnuté) – vypnutím by elementy zmizely ze stránek.
@@ -56,7 +56,7 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 
 ## Ochrana osobních údajů – použití
 
-- Zapnout v **MarMal → Moduly → Ochrana osobních údajů**, údaje o firmě vyplnit v **MarMal → Patička**.
+- Zapnout v **MarMal → Moduly → Ochrana osobních údajů**. Údaje o správci (firma, sídlo, IČO, DIČ, rejstřík) se vyplňují tady a Patička je přebírá; bez tohoto modulu se vyplňují v Patičce.
 - **MarMal → Ochrana os. údajů**: e-mail pro ochranu údajů, účely, zpracovatelé → Uložit → „Vytvořit návrh stránky“ → Náhled → doplnit vše žluté → „Zveřejnit návrh“.
 - Shortcody: `[marmal_gdpr_spravce]`, `[marmal_gdpr_kontakt]`, `[marmal_gdpr_prijemci]`, `[marmal_gdpr_cookies]`, `[marmal_gdpr_ucinnost]`, pod formuláře `[marmal_gdpr_formular text="…"]`.
 

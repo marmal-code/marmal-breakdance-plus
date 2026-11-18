@@ -38,6 +38,22 @@ function spravce_text(): string
             return esc_html(implode(', ', array_map('strval', $u)));
         }
     }
+    if (function_exists('MarmalElements\Gdpr\udaje_spravce')) {
+        // Patička vypnutá – údaje o správci přímo z modulu Ochrana osobních údajů.
+        $g = \MarmalElements\Gdpr\udaje_spravce();
+        if ($g['firma'] !== '') {
+            $r = array($g['firma']);
+            if ($g['sidlo'] !== '') {
+                /* translators: %s: adresa sídla */
+                $r[] = sprintf(__('Sídlo: %s', 'marmal-breakdance-plus'), $g['sidlo']);
+            }
+            if ($g['ico'] !== '') {
+                /* translators: %s: IČO */
+                $r[] = sprintf(__('IČO: %s', 'marmal-breakdance-plus'), $g['ico']);
+            }
+            return esc_html(implode(', ', $r));
+        }
+    }
     /* translators: %s: název webu */
     return esc_html(sprintf(__('%s [doplňte jméno nebo firmu, sídlo a IČO]', 'marmal-breakdance-plus'), wp_specialchars_decode((string) get_bloginfo('name'), ENT_QUOTES)));
 }

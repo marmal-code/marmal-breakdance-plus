@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
 const OPTION     = 'marmal_bdp_gdpr';
 const META_NAVRH = '_marmal_gdpr_navrh';   // stránka vytvořená modulem (koncept / zveřejněná)
 const TRIDA      = 'marmal-gdpr-doplnit';  // třída zvýrazněných míst
+const OPTION_PATICKA = 'marmal_bdp_paticka'; // option modulu Patička (ten nemusí být zapnutý)
+
+/** Údaje o správci = údaje o podnikateli (§ 435 OZ). Zdrojem je tento modul, Patička je přebírá. */
+const UDAJE = array('firma', 'sidlo', 'ico', 'dic', 'rejstrik');
 
 /** Účely zpracování, ze kterých se skládá stránka: klíč => [název, popis pro administraci, výchozí]. */
 function ucely(): array
@@ -37,6 +41,11 @@ function vychozi(): array
         }
     }
     return array(
+        'firma'      => '',
+        'sidlo'      => '',
+        'ico'        => '',
+        'dic'        => '',
+        'rejstrik'   => '',
         'email'      => '',
         'telefon'    => '',
         'adresa'     => '',   // korespondenční adresa, prázdné = sídlo z Patičky
@@ -59,7 +68,36 @@ function nastaveni(): array
 {
     $s = get_option(OPTION, array());
     $s = is_array($s) ? $s : array();
+    // Dokud se nastavení modulu neuložilo s údaji o správci, převezmou se z Patičky
+    // (weby, kde byly údaje vyplněné v Patičce před 0.15.0). Čte se přímo option – bez rekurze.
+    if (!array_key_exists('firma', $s)) {
+        $p = get_option(OPTION_PATICKA, array());
+        if (is_array($p)) {
+            foreach (UDAJE as $k) {
+                $s[$k] = isset($p[$k]) ? (string) $p[$k] : '';
+            }
+        }
+    }
     return array_merge(vychozi(), array_intersect_key($s, vychozi()));
+}
+
+/** Údaje o správci pro Patičku a modul Cookies: firma, sidlo, ico, dic, rejstrik (neescapované). */
+function udaje_spravce(): array
+{
+    return array_intersect_key(nastaveni(), array_flip(UDAJE));
+}
+
+/** IČO – kontrolní číslice (modulo 11). Vlastní kopie – modul Patička nemusí být zapnutý. */
+function ico_platne(string $ico): bool
+{
+    if (!preg_match('/^\d{8}$/', $ico)) {
+        return false;
+    }
+    $soucet = 0;
+    for ($i = 0; $i < 7; $i++) {
+        $soucet += (int) $ico[$i] * (8 - $i);
+    }
+    return (int) $ico[7] === (11 - ($soucet % 11)) % 10;
 }
 
 /** @param mixed $vstup */
@@ -78,8 +116,28 @@ function sanitizovat($vstup): array
     if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $datum, $m) || !checkdate((int) $m[2], (int) $m[3], (int) $m[1])) {
         $datum = '';
     }
+    $ico = isset($v['ico']) ? preg_replace('/\D/', '', (string) $v['ico']) : '';
+    if ($ico !== '' && strlen($ico) <= 8) {
+        $ico = str_pad($ico, 8, '0', STR_PAD_LEFT);
+        if (!ico_platne($ico)) {
+            add_settings_error(OPTION, 'ico', __('IČO nemá platnou kontrolní číslici – zkontroluj ho prosím (uloženo i tak).', 'marmal-breakdance-plus'), 'warning');
+        }
+    } elseif ($ico !== '') {
+        add_settings_error(OPTION, 'ico', __('IČO má 8 číslic – neuloženo.', 'marmal-breakdance-plus'), 'error');
+        $ico = '';
+    }
+    $dic = isset($v['dic']) ? strtoupper(preg_replace('/[\s.\-]/', '', (string) $v['dic'])) : '';
+    if ($dic !== '' && !preg_match('/^[A-Z]{2}[0-9A-Z]{2,12}$/', $dic)) {
+        add_settings_error(OPTION, 'dic', __('DIČ musí mít tvar např. CZ12345678 – neuloženo.', 'marmal-breakdance-plus'), 'error');
+        $dic = '';
+    }
     $dalsi = isset($v['dalsi']) ? sanitize_textarea_field((string) $v['dalsi']) : '';
     return array(
+        'firma'       => $t('firma', 160),
+        'sidlo'       => $t('sidlo', 200),
+        'ico'         => $ico,
+        'dic'         => $dic,
+        'rejstrik'    => $t('rejstrik', 300),
         'email'       => $email,
         'telefon'     => preg_replace('/[^0-9+ ()\/-]/', '', $t('telefon', 40)),
         'adresa'      => $t('adresa', 200),
@@ -120,23 +178,42 @@ function nebo_doplnit(string $hodnota, string $co): string
     return trim($hodnota) !== '' ? esc_html($hodnota) : doplnit($co);
 }
 
-/** Údaje o správci: Patička (firma, sídlo, IČO, DIČ, rejstřík) + kontakty z tohoto modulu. */
+/** Údaje o správci (z tohoto modulu) + kontakty. Zápis v rejstříku přeložený přes Patičku, je-li zapnutá. */
 function spravce(): array
 {
-    $p = function_exists('MarmalElements\Paticka\nastaveni') ? (array) \MarmalElements\Paticka\nastaveni() : array();
-    $s = nastaveni();
+    $s        = nastaveni();
+    $rejstrik = function_exists('MarmalElements\Paticka\text') ? (string) \MarmalElements\Paticka\text('rejstrik') : (string) $s['rejstrik'];
     return array(
-        'firma'    => (string) ($p['firma'] ?? ''),
-        'sidlo'    => (string) ($p['sidlo'] ?? ''),
-        'ico'      => (string) ($p['ico'] ?? ''),
-        'dic'      => (string) ($p['dic'] ?? ''),
-        'rejstrik' => function_exists('MarmalElements\Paticka\text') ? (string) \MarmalElements\Paticka\text('rejstrik') : '',
+        'firma'    => (string) $s['firma'],
+        'sidlo'    => (string) $s['sidlo'],
+        'ico'      => (string) $s['ico'],
+        'dic'      => (string) $s['dic'],
+        'rejstrik' => $rejstrik,
         'email'    => (string) $s['email'],
         'telefon'  => (string) $s['telefon'],
-        'adresa'   => (string) $s['adresa'] !== '' ? (string) $s['adresa'] : (string) ($p['sidlo'] ?? ''),
+        'adresa'   => (string) $s['adresa'] !== '' ? (string) $s['adresa'] : (string) $s['sidlo'],
         'ds'       => (string) $s['ds'],
     );
 }
+
+/**
+ * Po uložení nastavení se údaje o správci zkopírují i do nastavení Patičky – kdyby se tento modul
+ * později vypnul, Patička má poslední údaje. (Dokud modul běží, Patička je čte přímo odsud.)
+ */
+function zrcadlit_do_paticky(): void
+{
+    $p = get_option(OPTION_PATICKA, null);
+    if (!is_array($p)) {
+        return;
+    }
+    $u = udaje_spravce();
+    if (array_intersect_key($p, $u) == $u) {
+        return;
+    }
+    update_option(OPTION_PATICKA, array_merge($p, $u));
+}
+add_action('update_option_' . OPTION, __NAMESPACE__ . '\zrcadlit_do_paticky');
+add_action('add_option_' . OPTION, __NAMESPACE__ . '\zrcadlit_do_paticky');
 
 /**
  * Co je potřeba vyplnit: klíč => [popis, kde se to vyplňuje ('paticka' | 'gdpr')].
@@ -152,9 +229,9 @@ function chybejici(): array
             $ch[$k] = array($popis, $kde);
         }
     };
-    $pridat('firma', $sp['firma'], __('jméno nebo firma správce', 'marmal-breakdance-plus'), 'paticka');
-    $pridat('sidlo', $sp['sidlo'], __('sídlo správce', 'marmal-breakdance-plus'), 'paticka');
-    $pridat('ico', $sp['ico'], __('IČO', 'marmal-breakdance-plus'), 'paticka');
+    $pridat('firma', $sp['firma'], __('jméno nebo firma správce', 'marmal-breakdance-plus'), 'gdpr');
+    $pridat('sidlo', $sp['sidlo'], __('sídlo správce', 'marmal-breakdance-plus'), 'gdpr');
+    $pridat('ico', $sp['ico'], __('IČO', 'marmal-breakdance-plus'), 'gdpr');
     $pridat('email', $s['email'], __('kontaktní e-mail pro ochranu údajů', 'marmal-breakdance-plus'), 'gdpr');
     $pridat('hosting', $s['hosting'], __('poskytovatel webhostingu', 'marmal-breakdance-plus'), 'gdpr');
     $pridat('emailsluzba', $s['emailsluzba'], __('poskytovatel e-mailu', 'marmal-breakdance-plus'), 'gdpr');

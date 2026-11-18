@@ -166,6 +166,16 @@ function stranka(): void
             <div class="marmal-pat__box">
                 <h2><?php esc_html_e('Údaje o podnikateli (§ 435 občanského zákoníku)', 'marmal-breakdance-plus'); ?></h2>
                 <p class="description"><?php esc_html_e('Podnikatel má na webu uvést jméno nebo firmu, sídlo, IČO a údaj o zápisu v rejstříku (u OSVČ v živnostenském rejstříku). Vyplněné údaje se zobrazí v patičce, prázdné se vynechají.', 'marmal-breakdance-plus'); ?></p>
+                <?php if (udaje_z_gdpr()) :
+                    $u = udaje(); ?>
+                    <p><?php esc_html_e('Údaje se vyplňují na jednom místě – v modulu Ochrana osobních údajů (jsou zároveň údaji o správci). Patička je odtud přebírá.', 'marmal-breakdance-plus'); ?>
+                        <a class="button" href="<?php echo esc_url(admin_url('admin.php?page=marmal-gdpr')); ?>"><?php esc_html_e('Upravit v MarMal → Ochrana os. údajů', 'marmal-breakdance-plus'); ?></a></p>
+                    <?php if ($u) : ?>
+                        <p><?php echo implode('<br>', array_map('esc_html', $u)); // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno po položkách ?></p>
+                    <?php else : ?>
+                        <p><em><?php esc_html_e('Zatím nevyplněno.', 'marmal-breakdance-plus'); ?></em></p>
+                    <?php endif; ?>
+                <?php else : ?>
                 <table class="form-table" role="presentation">
                     <tr>
                         <th scope="row"><label for="mp-firma"><?php esc_html_e('Firma / jméno a příjmení', 'marmal-breakdance-plus'); ?></label></th>
@@ -188,6 +198,7 @@ function stranka(): void
                         <td><?php pole('rejstrik', '', __('s.r.o.: <code>Zapsáno v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 123456</code><br>OSVČ: <code>Zapsán v živnostenském rejstříku vedeném Městským úřadem Černošice</code>', 'marmal-breakdance-plus')); ?></td>
                     </tr>
                 </table>
+                <?php endif; ?>
             </div>
 
             <div class="marmal-pat__box">

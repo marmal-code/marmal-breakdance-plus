@@ -44,7 +44,7 @@ msgstr "Settings"
 msgid "Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty."
 msgstr "Some fonts could not be downloaded – they still load from Google. Details in MarMal → Fonts."
 
-#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/gdpr/includes/admin.php:148 modules/gdpr/includes/admin.php:158 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251 modules/cookies/includes/zasady.php:188
+#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/gdpr/includes/admin.php:148 modules/gdpr/includes/admin.php:158 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251 modules/cookies/includes/zasady.php:204
 msgid "Nemáte oprávnění."
 msgstr "You do not have permission."
 
@@ -77,7 +77,7 @@ msgstr "The website could not be checked from the administration (%s). No proble
 msgid "Fonty na webu"
 msgstr "Fonts on the website"
 
-#: modules/fonty/includes/admin.php:108 modules/gdpr/includes/admin.php:219
+#: modules/fonty/includes/admin.php:108 modules/gdpr/includes/admin.php:218
 msgid "Stav"
 msgstr "Status"
 
@@ -145,7 +145,7 @@ msgstr "Preloading"
 msgid "Přednačíst běžný řez (400) hlavních fontů – nejvýš 2 soubory na stránku"
 msgstr "Preload the regular weight (400) of the main fonts – at most 2 files per page"
 
-#: modules/fonty/includes/admin.php:153 modules/gdpr/includes/admin.php:335 modules/cookies/includes/admin.php:337 modules/paticka/includes/admin.php:278
+#: modules/fonty/includes/admin.php:153 modules/gdpr/includes/admin.php:334 modules/cookies/includes/admin.php:337 modules/paticka/includes/admin.php:289
 msgid "Uložit nastavení"
 msgstr "Save settings"
 
@@ -239,420 +239,460 @@ msgstr "Privacy policy"
 msgid "%s (původní)"
 msgstr "%s (original)"
 
-#: modules/gdpr/includes/admin.php:206
+#: modules/gdpr/includes/admin.php:205
 msgid "MarMal – Ochrana osobních údajů"
 msgstr "MarMal – Privacy policy"
 
-#: modules/gdpr/includes/admin.php:207
-msgid "Připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb. Údaje o správci bere z Patičky, ostatní vyplníte níže. Co chybí, je na stránce zvýrazněné žlutě – nejde to přehlédnout."
-msgstr "Prepares a Privacy policy page following Art. 13 GDPR and Czech Act No. 110/2019 Coll. Controller details are taken from the Footer, the rest you fill in below. Anything missing is highlighted in yellow on the page – impossible to overlook."
+#: modules/gdpr/includes/admin.php:206
+msgid "Připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb. Všechno se vyplňuje tady – údaje o správci si odsud bere i Patička. Co chybí, je na stránce zvýrazněné žlutě – nejde to přehlédnout."
+msgstr "Prepares a Privacy policy page following Art. 13 GDPR and Czech Act No. 110/2019 Coll. Everything is filled in here – the Footer takes the controller details from here too. Anything missing is highlighted in yellow on the page – impossible to overlook."
 
-#: modules/gdpr/includes/admin.php:211
+#: modules/gdpr/includes/admin.php:210
 msgid "Návrh stránky je připravený jako koncept. Prohlédněte si ho, doplňte žlutá místa a zveřejněte."
 msgstr "The page draft is ready. Review it, fill in the yellow places and publish it."
 
-#: modules/gdpr/includes/admin.php:213
+#: modules/gdpr/includes/admin.php:212
 msgid "Zásady jsou zveřejněné a nastavené jako stránka ochrany osobních údajů – odkaz v Patičce vede na ně. Dosavadní stránka zůstala jako koncept „(původní)“."
 msgstr "The policy is published and set as the privacy policy page – the Footer link points to it. The previous page was kept as a draft “(original)”."
 
-#: modules/gdpr/includes/admin.php:215
+#: modules/gdpr/includes/admin.php:214
 msgid "Akce se nepodařila. Zkuste to znovu, případně zkontrolujte stránky v koši."
 msgstr "The action failed. Try again or check the pages in the trash."
 
-#: modules/gdpr/includes/admin.php:220
+#: modules/gdpr/includes/admin.php:219
 msgid "Stránka zásad na webu:"
 msgstr "Privacy policy page on the website:"
 
-#: modules/gdpr/includes/admin.php:223
+#: modules/gdpr/includes/admin.php:222
 msgid "text z tohoto modulu"
 msgstr "text from this module"
 
-#: modules/gdpr/includes/admin.php:223
+#: modules/gdpr/includes/admin.php:222
 msgid "vlastní text – modul ho nemění"
 msgstr "custom text – the module does not change it"
 
-#: modules/gdpr/includes/admin.php:225
+#: modules/gdpr/includes/admin.php:224
 msgid "žádná"
 msgstr "none"
 
-#: modules/gdpr/includes/admin.php:227
+#: modules/gdpr/includes/admin.php:226
 msgid "Návrh (koncept):"
 msgstr "Draft:"
 
-#: modules/gdpr/includes/admin.php:229 modules/paticka/includes/admin.php:110
+#: modules/gdpr/includes/admin.php:228 modules/paticka/includes/admin.php:110
 msgid "Náhled"
 msgstr "Preview"
 
-#: modules/gdpr/includes/admin.php:230
+#: modules/gdpr/includes/admin.php:229
 msgid "Upravit text"
 msgstr "Edit text"
 
-#: modules/gdpr/includes/admin.php:232
+#: modules/gdpr/includes/admin.php:231
 msgid "není"
 msgstr "none"
 
-#: modules/gdpr/includes/admin.php:236
+#: modules/gdpr/includes/admin.php:235
 msgid "Zbývá vyplnit:"
 msgstr "Still to fill in:"
 
-#: modules/gdpr/includes/admin.php:241
-msgid "vyplňte v MarMal → Patička (údaje o firmě)"
-msgstr "fill in under MarMal → Footer (business details)"
-
-#: modules/gdpr/includes/admin.php:243
+#: modules/gdpr/includes/admin.php:238
 msgid "vyplňte níže"
 msgstr "fill in below"
 
-#: modules/gdpr/includes/admin.php:248
+#: modules/gdpr/includes/admin.php:242
 msgid "Všechny potřebné údaje jsou vyplněné."
 msgstr "All required details are filled in."
 
-#: modules/gdpr/includes/admin.php:251
+#: modules/gdpr/includes/admin.php:245
 msgid "V textu stránky zůstalo ručně ponechané zvýraznění „DOPLŇTE“ – najdete ho v editoru stránky."
 msgstr "A manually kept “FILL IN” highlight remains in the page text – you will find it in the page editor."
 
-#: modules/gdpr/includes/admin.php:254
+#: modules/gdpr/includes/admin.php:248
 msgid "Od zveřejnění se změnily účely zpracování. Vytvořte nový návrh, zkontrolujte ho a zveřejněte – nahradí současnou stránku."
 msgstr "The processing purposes have changed since publishing. Create a new draft, check it and publish it – it will replace the current page."
 
-#: modules/gdpr/includes/admin.php:259
+#: modules/gdpr/includes/admin.php:253
 msgid "Text konceptu se vygeneruje znovu podle nastavení. Ruční úpravy konceptu se přepíšou (zůstanou v revizích). Pokračovat?"
 msgstr "The draft text will be generated again from the settings. Manual edits of the draft will be overwritten (they stay in revisions). Continue?"
 
-#: modules/gdpr/includes/admin.php:260
+#: modules/gdpr/includes/admin.php:254
 msgid "Vygenerovat návrh znovu"
 msgstr "Generate the draft again"
 
-#: modules/gdpr/includes/admin.php:260
+#: modules/gdpr/includes/admin.php:254
 msgid "Vytvořit návrh stránky"
 msgstr "Create page draft"
 
-#: modules/gdpr/includes/admin.php:263
+#: modules/gdpr/includes/admin.php:257
 msgid "Návrh se zveřejní na adrese dosavadní stránky zásad a ta se přepne na koncept „(původní)“. Pokračovat?"
 msgstr "The draft will be published at the address of the current privacy page, which will be switched to a draft “(original)”. Continue?"
 
-#: modules/gdpr/includes/admin.php:263
+#: modules/gdpr/includes/admin.php:257
 msgid "Návrh se zveřejní a nastaví jako stránka ochrany osobních údajů. Pokračovat?"
 msgstr "The draft will be published and set as the privacy policy page. Continue?"
 
-#: modules/gdpr/includes/admin.php:264
+#: modules/gdpr/includes/admin.php:258
 msgid "Zveřejnit návrh"
 msgstr "Publish draft"
 
-#: modules/gdpr/includes/admin.php:272
+#: modules/gdpr/includes/admin.php:266
 msgid "Správce a kontakt"
 msgstr "Controller and contact"
 
-#: modules/gdpr/includes/admin.php:273
-msgid "Jméno nebo firma, sídlo, IČO, DIČ a zápis v rejstříku se berou z"
-msgstr "Name or company, registered office, company ID, VAT ID and register entry are taken from"
+#: modules/gdpr/includes/admin.php:267
+msgid "Údaje o správci jsou zároveň údaji o podnikateli podle § 435 občanského zákoníku – modul Patička je bere odsud (vyplňují se jen tady)."
+msgstr "The controller details are also the business details required by § 435 of the Czech Civil Code – the Footer module takes them from here (they are filled in only here)."
 
-#: modules/gdpr/includes/admin.php:273
-msgid "MarMal → Patička"
-msgstr "MarMal → Footer"
+#: modules/gdpr/includes/admin.php:270 modules/paticka/includes/admin.php:181
+msgid "Firma / jméno a příjmení"
+msgstr "Company / full name"
 
-#: modules/gdpr/includes/admin.php:276
+#: modules/gdpr/includes/admin.php:270
+msgid "Např. Noitami akustika s.r.o. nebo Jan Novák. Povinné."
+msgstr "E.g. Noitami akustika s.r.o. or Jan Novák. Required."
+
+#: modules/gdpr/includes/admin.php:271 modules/paticka/modul.php:42 modules/paticka/includes/admin.php:185
+msgid "Sídlo"
+msgstr "Registered office"
+
+#: modules/gdpr/includes/admin.php:271
+msgid "Ulice 123, 252 28 Černošice. Povinné."
+msgstr "Ulice 123, 252 28 Černošice. Required."
+
+#: modules/gdpr/includes/admin.php:272 modules/gdpr/includes/data.php:234 modules/gdpr/includes/shortcody.php:30 modules/paticka/modul.php:43 modules/paticka/includes/admin.php:189
+msgid "IČO"
+msgstr "Company ID"
+
+#: modules/gdpr/includes/admin.php:272
+msgid "Kontroluje se kontrolní číslice. Povinné."
+msgstr "The check digit is verified. Required."
+
+#: modules/gdpr/includes/admin.php:273 modules/paticka/modul.php:44 modules/paticka/includes/admin.php:193
+msgid "DIČ"
+msgstr "VAT ID"
+
+#: modules/gdpr/includes/admin.php:273 modules/paticka/includes/admin.php:194
+msgid "Jen u plátců DPH (nepovinné)."
+msgstr "VAT payers only (optional)."
+
+#: modules/gdpr/includes/admin.php:274 modules/paticka/modul.php:45 modules/paticka/includes/admin.php:197
+msgid "Zápis v rejstříku"
+msgstr "Register entry"
+
+#: modules/gdpr/includes/admin.php:274
+msgid "Např. „Zapsáno v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 123456“ nebo u OSVČ „Zapsán v živnostenském rejstříku vedeném Městským úřadem Černošice“."
+msgstr "E.g. “Registered in the Commercial Register kept by the Municipal Court in Prague, section C, file 123456” or for sole traders “Registered in the Trade Register kept by the Černošice Municipal Office”."
+
+#: modules/gdpr/includes/admin.php:275
 msgid "E-mail pro ochranu údajů"
 msgstr "Privacy contact e-mail"
 
-#: modules/gdpr/includes/admin.php:276
+#: modules/gdpr/includes/admin.php:275
 msgid "Na tento e-mail lidé posílají žádosti (přístup, výmaz…). Povinné."
 msgstr "People send their requests (access, erasure…) to this e-mail. Required."
 
-#: modules/gdpr/includes/admin.php:277
+#: modules/gdpr/includes/admin.php:276
 msgid "Telefon"
 msgstr "Phone"
 
-#: modules/gdpr/includes/admin.php:277
+#: modules/gdpr/includes/admin.php:276
 msgid "Nepovinné."
 msgstr "Optional."
 
-#: modules/gdpr/includes/admin.php:278
+#: modules/gdpr/includes/admin.php:277
 msgid "Korespondenční adresa"
 msgstr "Correspondence address"
 
-#: modules/gdpr/includes/admin.php:278
+#: modules/gdpr/includes/admin.php:277
 msgid "Jen když se liší od sídla."
 msgstr "Only if different from the registered office."
 
-#: modules/gdpr/includes/admin.php:279
+#: modules/gdpr/includes/admin.php:278
 msgid "Datová schránka"
 msgstr "Data box"
 
-#: modules/gdpr/includes/admin.php:279
+#: modules/gdpr/includes/admin.php:278
 msgid "ID datové schránky (7 znaků). Nepovinné."
 msgstr "Czech data box ID (7 characters). Optional."
 
-#: modules/gdpr/includes/admin.php:280
+#: modules/gdpr/includes/admin.php:279
 msgid "Pověřenec (DPO)"
 msgstr "Data protection officer (DPO)"
 
-#: modules/gdpr/includes/admin.php:280
+#: modules/gdpr/includes/admin.php:279
 msgid "Jméno a kontakt. Malé firmy a OSVČ ho obvykle mít nemusí – pak nechte prázdné a na stránce bude uvedeno, že nebyl jmenován."
 msgstr "Name and contact. Small companies and sole traders usually do not need one – then leave it empty and the page will state that none has been appointed."
 
-#: modules/gdpr/includes/admin.php:286
+#: modules/gdpr/includes/admin.php:285
 msgid "Co web a firma s údaji dělají"
 msgstr "What the website and company do with personal data"
 
-#: modules/gdpr/includes/admin.php:287
+#: modules/gdpr/includes/admin.php:286
 msgid "Zaškrtněte jen to, co opravdu děláte. Každý účel přidá na stránku oddíl: jaké údaje, proč, právní základ, jak dlouho a zda je jejich poskytnutí povinné. Provoz webu a cookies jsou na stránce vždy."
 msgstr "Tick only what you really do. Each purpose adds a section to the page: what data, why, legal basis, how long and whether providing it is mandatory. Website operation and cookies are always on the page."
 
-#: modules/gdpr/includes/admin.php:294
+#: modules/gdpr/includes/admin.php:293
 msgid "Po změně účelů klikněte nahoře na „Vytvořit návrh“ / „Vygenerovat návrh znovu“ – text účelů je v konceptu pevný, aby ho šlo ručně upravit."
 msgstr "After changing the purposes click “Create page draft” / “Generate the draft again” at the top – the purposes text is fixed in the draft so it can be edited manually."
 
-#: modules/gdpr/includes/admin.php:298
+#: modules/gdpr/includes/admin.php:297
 msgid "Komu údaje předáváte (zpracovatelé)"
 msgstr "Who you share data with (processors)"
 
-#: modules/gdpr/includes/admin.php:299
+#: modules/gdpr/includes/admin.php:298
 msgid "Seznam na stránce se aktualizuje sám po uložení – není potřeba nic generovat znovu."
 msgstr "The list on the page updates itself after saving – nothing needs to be generated again."
 
-#: modules/gdpr/includes/admin.php:302
+#: modules/gdpr/includes/admin.php:301
 msgid "Webhosting"
 msgstr "Web hosting"
 
-#: modules/gdpr/includes/admin.php:302
+#: modules/gdpr/includes/admin.php:301
 msgid "Např. WEDOS Internet, a.s.; Forpsi (INTERNET CZ, a.s.); Websupport s.r.o."
 msgstr "E.g. WEDOS Internet, a.s.; Forpsi (INTERNET CZ, a.s.); Websupport s.r.o."
 
-#: modules/gdpr/includes/admin.php:303
+#: modules/gdpr/includes/admin.php:302
 msgid "E-mail"
 msgstr "E-mail"
 
-#: modules/gdpr/includes/admin.php:303
+#: modules/gdpr/includes/admin.php:302
 msgid "Kdo provozuje e-mailové schránky: např. Seznam.cz, Google Workspace, Microsoft 365, nebo stejný hosting."
 msgstr "Who runs the mailboxes: e.g. Seznam.cz, Google Workspace, Microsoft 365, or the same hosting."
 
-#: modules/gdpr/includes/admin.php:305
+#: modules/gdpr/includes/admin.php:304
 msgid "Účetní / daňový poradce"
 msgstr "Accountant / tax advisor"
 
-#: modules/gdpr/includes/admin.php:305
+#: modules/gdpr/includes/admin.php:304
 msgid "Jméno nebo firma."
 msgstr "Name or company."
 
-#: modules/gdpr/includes/admin.php:306
+#: modules/gdpr/includes/admin.php:305
 msgid "Účetnictví vedeme sami (řádek se na stránce nezobrazí)"
 msgstr "We keep our own accounts (the line will not be shown on the page)"
 
-#: modules/gdpr/includes/admin.php:312
+#: modules/gdpr/includes/admin.php:311
 msgid "Newsletter"
 msgstr "Newsletter"
 
-#: modules/gdpr/includes/admin.php:312
+#: modules/gdpr/includes/admin.php:311
 msgid "Např. Ecomail, Mailchimp, SmartEmailing."
 msgstr "E.g. Ecomail, Mailchimp, SmartEmailing."
 
-#: modules/gdpr/includes/admin.php:317 modules/gdpr/includes/shortcody.php:143
+#: modules/gdpr/includes/admin.php:316 modules/gdpr/includes/shortcody.php:143
 msgid "Dopravci"
 msgstr "Carriers"
 
-#: modules/gdpr/includes/admin.php:317
+#: modules/gdpr/includes/admin.php:316
 msgid "Např. Zásilkovna s.r.o., PPL CZ s.r.o., Česká pošta, s.p."
 msgstr "E.g. Zásilkovna s.r.o., PPL CZ s.r.o., Česká pošta, s.p."
 
-#: modules/gdpr/includes/admin.php:318 modules/gdpr/includes/shortcody.php:144
+#: modules/gdpr/includes/admin.php:317 modules/gdpr/includes/shortcody.php:144
 msgid "Platební brána"
 msgstr "Payment gateway"
 
-#: modules/gdpr/includes/admin.php:318
+#: modules/gdpr/includes/admin.php:317
 msgid "Např. ComGate, GoPay, Stripe."
 msgstr "E.g. ComGate, GoPay, Stripe."
 
-#: modules/gdpr/includes/admin.php:323
+#: modules/gdpr/includes/admin.php:322
 msgid "Další příjemci"
 msgstr "Other recipients"
 
-#: modules/gdpr/includes/admin.php:325
+#: modules/gdpr/includes/admin.php:324
 msgid "Každý na nový řádek, např. „Rezervační systém: Reservio, s.r.o.“ nebo „Správce webu: Martin Malý – marmal.cz“."
 msgstr "One per line, e.g. “Booking system: Reservio, s.r.o.” or “Website administrator: Martin Malý – marmal.cz”."
 
-#: modules/gdpr/includes/admin.php:330
+#: modules/gdpr/includes/admin.php:329
 msgid "Účinnost"
 msgstr "Effective date"
 
-#: modules/gdpr/includes/admin.php:332
+#: modules/gdpr/includes/admin.php:331
 msgid "Zásady účinné od"
 msgstr "Policy effective from"
 
-#: modules/gdpr/includes/admin.php:332
+#: modules/gdpr/includes/admin.php:331
 msgid "Prázdné = doplní se samo při zveřejnění. Při podstatné změně zásad datum posuňte."
 msgstr "Empty = filled in automatically on publishing. Move the date forward after a substantial change of the policy."
 
-#: modules/gdpr/includes/admin.php:339
+#: modules/gdpr/includes/admin.php:338
 msgid "Jak nasadit – krok za krokem"
 msgstr "How to set up – step by step"
 
+#: modules/gdpr/includes/admin.php:340
+msgid "Výše vyplňte údaje o správci (jméno nebo firmu, sídlo, IČO, případně DIČ a zápis v rejstříku) a e-mail pro ochranu údajů. Stejné údaje se zobrazí v patičce webu (modul Patička je přebírá odsud)."
+msgstr "Above, fill in the controller details (name or company, registered office, company ID, optionally VAT ID and register entry) and the privacy contact e-mail. The same details are shown in the website footer (the Footer module takes them from here)."
+
 #: modules/gdpr/includes/admin.php:341
-msgid "V MarMal → Patička vyplňte údaje o firmě: jméno nebo firmu, sídlo, IČO (případně DIČ a zápis v rejstříku). Odtud je bere i tato stránka."
-msgstr "In MarMal → Footer fill in the business details: name or company, registered office, company ID (optionally VAT ID and register entry). This page takes them from there too."
+msgid "Zaškrtněte účely, které opravdu děláte, a doplňte zpracovatele (hosting, e-mail, účetní…). Uložte."
+msgstr "Tick the purposes you really carry out and add the processors (hosting, e-mail, accountant…). Save."
 
 #: modules/gdpr/includes/admin.php:342
-msgid "Výše vyplňte e-mail pro ochranu údajů, zaškrtněte účely, které opravdu děláte, a doplňte zpracovatele (hosting, e-mail, účetní…). Uložte."
-msgstr "Above, fill in the privacy contact e-mail, tick the purposes you really carry out and add the processors (hosting, e-mail, accountant…). Save."
-
-#: modules/gdpr/includes/admin.php:343
 msgid "Klikněte na „Vytvořit návrh stránky“. Vznikne koncept – zveřejněná stránka se zatím nemění."
 msgstr "Click “Create page draft”. A draft is created – the published page does not change yet."
 
-#: modules/gdpr/includes/admin.php:344
+#: modules/gdpr/includes/admin.php:343
 msgid "Otevřete Náhled a přečtěte text. Všechno žluté „[DOPLŇTE: …]“ doplňte v nastavení výše – stránka se aktualizuje sama. Text účelů můžete upravit v editoru stránky (Upravit text)."
 msgstr "Open the Preview and read the text. Fill in everything yellow “[FILL IN: …]” in the settings above – the page updates itself. You can edit the purposes text in the page editor (Edit text)."
 
-#: modules/gdpr/includes/admin.php:345
+#: modules/gdpr/includes/admin.php:344
 msgid "Pokud web sbírá i jiné údaje, než nabízí zaškrtávátka (např. rezervační systém, chat, věrnostní program), doplňte do konceptu vlastní oddíl ve stejné struktuře: jaké údaje, proč, právní základ, jak dlouho, zda je to povinné."
 msgstr "If the website collects other data than the checkboxes offer (e.g. a booking system, chat, loyalty program), add your own section to the draft in the same structure: what data, why, legal basis, how long, whether it is mandatory."
 
-#: modules/gdpr/includes/admin.php:346
+#: modules/gdpr/includes/admin.php:345
 msgid "Když je vše v pořádku (nahoře „Všechny potřebné údaje jsou vyplněné“), klikněte na „Zveřejnit návrh“. Stránka převezme adresu dosavadní stránky zásad (např. /gdpr/), stane se stránkou ochrany osobních údajů ve WordPressu (Nastavení → Soukromí) a odkaz v Patičce povede na ni. Dosavadní stránka zůstane jako koncept „(původní)“ – po kontrole ji můžete smazat."
 msgstr "When everything is fine (“All required details are filled in.” at the top), click “Publish draft”. The page takes over the address of the current privacy page (e.g. /gdpr/), becomes the WordPress privacy policy page (Settings → Privacy) and the Footer link will point to it. The previous page stays as a draft “(original)” – you can delete it after checking."
 
-#: modules/gdpr/includes/admin.php:347
+#: modules/gdpr/includes/admin.php:346
 msgid "Zobrazení: stránka používá šablonu Breakdance pro stránky (s elementem Post Content) – stejně jako Zásady cookies. Pokud by se zobrazila bez hlavičky a patičky, vytvořte v Breakdance → Templates šablonu pro stránky s elementem Post Content."
 msgstr "Display: the page uses the Breakdance template for pages (with the Post Content element) – just like the Cookie policy. If it shows without header and footer, create a template for pages with the Post Content element in Breakdance → Templates."
 
-#: modules/gdpr/includes/admin.php:348
+#: modules/gdpr/includes/admin.php:347
 msgid "Pod formuláře vložte krátkou informaci shortcodem v elementu Shortcode (nebo Text):"
 msgstr "Put a short notice under forms with a shortcode in a Shortcode (or Text) element:"
 
-#: modules/gdpr/includes/admin.php:349
+#: modules/gdpr/includes/admin.php:348
 msgid "– zobrazí „Údaje z formuláře použijeme jen k vyřízení vašeho dotazu. Jak chráníme osobní údaje“ s odkazem. U kontaktního formuláře nepřidávejte povinné zaškrtávátko „souhlasím se zpracováním“ – zpracování stojí na vyřízení dotazu, ne na souhlasu; souhlas (nezaškrtnutý) patří jen k newsletteru."
 msgstr "– shows “We will use the form data only to handle your inquiry. How we protect personal data” with a link. Do not add a required “I agree to processing” checkbox to a contact form – the processing is based on handling the inquiry, not on consent; an (unticked) consent belongs only to a newsletter."
 
-#: modules/gdpr/includes/admin.php:350
+#: modules/gdpr/includes/admin.php:349
 msgid "Vlastní text:"
 msgstr "Custom text:"
 
-#: modules/gdpr/includes/admin.php:351
+#: modules/gdpr/includes/admin.php:350
 msgid "Kontrola jednou ročně a při každé změně (nový formulář, nová služba, jiný hosting): upravte nastavení, případně vygenerujte nový návrh, a posuňte datum účinnosti."
 msgstr "Check once a year and after every change (new form, new service, different hosting): update the settings, generate a new draft if needed and move the effective date."
 
-#: modules/gdpr/includes/admin.php:353
+#: modules/gdpr/includes/admin.php:352
 msgid "Shortcody na stránce"
 msgstr "Shortcodes on the page"
 
-#: modules/gdpr/includes/admin.php:353
+#: modules/gdpr/includes/admin.php:352
 msgid "(mění se samy podle nastavení):"
 msgstr "(update themselves from the settings):"
 
-#: modules/gdpr/includes/admin.php:355
+#: modules/gdpr/includes/admin.php:354
 msgid "Text vychází z čl. 13 GDPR, zákona č. 110/2019 Sb. a doporučení ÚOOÚ (uoou.gov.cz). Je to vzor, ne právní služba – u neobvyklého zpracování (zdravotní údaje, kamerový systém, údaje dětí ve větším rozsahu) ho nechte zkontrolovat odborníkem."
 msgstr "The text is based on Art. 13 GDPR, Czech Act No. 110/2019 Coll. and the recommendations of the Czech DPA (uoou.gov.cz). It is a template, not legal advice – have it checked by an expert for unusual processing (health data, CCTV, children’s data on a larger scale)."
 
-#: modules/gdpr/includes/data.php:20 modules/gdpr/includes/vzor.php:67
+#: modules/gdpr/includes/data.php:24 modules/gdpr/includes/vzor.php:67
 msgid "Dotazy a poptávky"
 msgstr "Enquiries and requests"
 
-#: modules/gdpr/includes/data.php:20
+#: modules/gdpr/includes/data.php:24
 msgid "kontaktní formulář, e-mail, telefon"
 msgstr "contact form, e-mail, phone"
 
-#: modules/gdpr/includes/data.php:21 modules/gdpr/includes/vzor.php:77
+#: modules/gdpr/includes/data.php:25 modules/gdpr/includes/vzor.php:77
 msgid "Objednávky a smlouvy"
 msgstr "Orders and contracts"
 
-#: modules/gdpr/includes/data.php:21
+#: modules/gdpr/includes/data.php:25
 msgid "objednávky služeb nebo zboží, plnění smlouvy, reklamace"
 msgstr "orders of services or goods, performance of a contract, complaints"
 
-#: modules/gdpr/includes/data.php:22 modules/gdpr/includes/vzor.php:140
+#: modules/gdpr/includes/data.php:26 modules/gdpr/includes/vzor.php:140
 msgid "Fakturace a účetnictví"
 msgstr "Invoicing and accounting"
 
-#: modules/gdpr/includes/data.php:22
+#: modules/gdpr/includes/data.php:26
 msgid "faktury a účetní doklady – povinnost ze zákona"
 msgstr "invoices and accounting documents – a legal obligation"
 
-#: modules/gdpr/includes/data.php:23 modules/gdpr/includes/vzor.php:87
+#: modules/gdpr/includes/data.php:27 modules/gdpr/includes/vzor.php:87
 msgid "Přihlášky na akce, kurzy a workshopy"
 msgstr "Registrations for events, courses and workshops"
 
-#: modules/gdpr/includes/data.php:23
+#: modules/gdpr/includes/data.php:27
 msgid "rezervace termínu, seznam účastníků"
 msgstr "booking a date, list of participants"
 
-#: modules/gdpr/includes/data.php:24 modules/gdpr/includes/vzor.php:97
+#: modules/gdpr/includes/data.php:28 modules/gdpr/includes/vzor.php:97
 msgid "Fotografie a videa z akcí"
 msgstr "Photos and videos from events"
 
-#: modules/gdpr/includes/data.php:24
+#: modules/gdpr/includes/data.php:28
 msgid "zveřejnění na webu a sociálních sítích – jen se souhlasem"
 msgstr "publishing on the website and social networks – only with consent"
 
-#: modules/gdpr/includes/data.php:25 modules/gdpr/includes/vzor.php:107
+#: modules/gdpr/includes/data.php:29 modules/gdpr/includes/vzor.php:107
 msgid "Newsletter a obchodní sdělení"
 msgstr "Newsletter and commercial communications"
 
-#: modules/gdpr/includes/data.php:25
+#: modules/gdpr/includes/data.php:29
 msgid "zasílání novinek e-mailem"
 msgstr "sending news by e-mail"
 
-#: modules/gdpr/includes/data.php:26 modules/gdpr/includes/vzor.php:118
+#: modules/gdpr/includes/data.php:30 modules/gdpr/includes/vzor.php:118
 msgid "Profily na sociálních sítích"
 msgstr "Social network profiles"
 
-#: modules/gdpr/includes/data.php:26
+#: modules/gdpr/includes/data.php:30
 msgid "Facebook, Instagram – komunikace a statistiky stránky"
 msgstr "Facebook, Instagram – communication and page insights"
 
-#: modules/gdpr/includes/data.php:27 modules/gdpr/includes/vzor.php:130
+#: modules/gdpr/includes/data.php:31 modules/gdpr/includes/vzor.php:130
 msgid "Uchazeči o zaměstnání"
 msgstr "Job applicants"
 
-#: modules/gdpr/includes/data.php:27
+#: modules/gdpr/includes/data.php:31
 msgid "životopisy a výběrová řízení"
 msgstr "CVs and recruitment"
 
-#: modules/gdpr/includes/data.php:75
+#: modules/gdpr/includes/data.php:113
 msgid "E-mail nemá platný tvar – neuložen."
 msgstr "The e-mail is not valid – not saved."
 
-#: modules/gdpr/includes/data.php:114
+#: modules/gdpr/includes/data.php:123 modules/paticka/includes/data.php:459
+msgid "IČO nemá platnou kontrolní číslici – zkontroluj ho prosím (uloženo i tak)."
+msgstr "The company ID has an invalid check digit – please check it (saved anyway)."
+
+#: modules/gdpr/includes/data.php:126 modules/paticka/includes/data.php:462
+msgid "IČO má 8 číslic – neuloženo."
+msgstr "A company ID has 8 digits – not saved."
+
+#: modules/gdpr/includes/data.php:131 modules/paticka/includes/data.php:470
+msgid "DIČ musí mít tvar např. CZ12345678 – neuloženo."
+msgstr "The VAT ID must look like CZ12345678 – not saved."
+
+#: modules/gdpr/includes/data.php:172
 #, php-format
 msgid "[DOPLŇTE: %s]"
 msgstr "[FILL IN: %s]"
 
-#: modules/gdpr/includes/data.php:155 modules/gdpr/includes/shortcody.php:26
+#: modules/gdpr/includes/data.php:232 modules/gdpr/includes/shortcody.php:26
 msgid "jméno nebo firma správce"
 msgstr "name or company of the controller"
 
-#: modules/gdpr/includes/data.php:156 modules/gdpr/includes/shortcody.php:28
+#: modules/gdpr/includes/data.php:233 modules/gdpr/includes/shortcody.php:28
 msgid "sídlo správce"
 msgstr "registered office of the controller"
 
-#: modules/gdpr/includes/data.php:157 modules/gdpr/includes/shortcody.php:30 modules/paticka/modul.php:43 modules/paticka/includes/admin.php:179
-msgid "IČO"
-msgstr "Company ID"
-
-#: modules/gdpr/includes/data.php:158 modules/gdpr/includes/shortcody.php:18
+#: modules/gdpr/includes/data.php:235 modules/gdpr/includes/shortcody.php:18
 msgid "kontaktní e-mail pro ochranu údajů"
 msgstr "privacy contact e-mail"
 
-#: modules/gdpr/includes/data.php:159
+#: modules/gdpr/includes/data.php:236
 msgid "poskytovatel webhostingu"
 msgstr "web hosting provider"
 
-#: modules/gdpr/includes/data.php:160
+#: modules/gdpr/includes/data.php:237
 msgid "poskytovatel e-mailu"
 msgstr "e-mail provider"
 
-#: modules/gdpr/includes/data.php:162
+#: modules/gdpr/includes/data.php:239
 msgid "účetní nebo daňový poradce"
 msgstr "accountant or tax advisor"
 
-#: modules/gdpr/includes/data.php:165
+#: modules/gdpr/includes/data.php:242
 msgid "služba pro rozesílání newsletteru"
 msgstr "newsletter service"
 
-#: modules/gdpr/includes/data.php:168
+#: modules/gdpr/includes/data.php:245
 msgid "dopravci"
 msgstr "carriers"
 
-#: modules/gdpr/includes/data.php:169
+#: modules/gdpr/includes/data.php:246
 msgid "platební brána"
 msgstr "payment gateway"
 
@@ -661,12 +701,12 @@ msgstr "payment gateway"
 msgid "sídlo: %s"
 msgstr "registered office: %s"
 
-#: modules/gdpr/includes/shortcody.php:30 modules/paticka/includes/data.php:259
+#: modules/gdpr/includes/shortcody.php:30 modules/cookies/includes/zasady.php:52 modules/paticka/includes/data.php:272
 #, php-format
 msgid "IČO: %s"
 msgstr "Company ID: %s"
 
-#: modules/gdpr/includes/shortcody.php:33 modules/paticka/includes/data.php:263
+#: modules/gdpr/includes/shortcody.php:33 modules/paticka/includes/data.php:276
 #, php-format
 msgid "DIČ: %s"
 msgstr "VAT ID: %s"
@@ -990,7 +1030,7 @@ msgstr "Cookies"
 msgid "Na této stránce vysvětlujeme, jak na webu %s a při naší činnosti zpracováváme osobní údaje. Informace poskytujeme podle čl. 13 nařízení Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákona č. 110/2019 Sb., o zpracování osobních údajů."
 msgstr "On this page we explain how we process personal data on the website %s and in our activities. We provide this information under Art. 13 of Regulation (EU) 2016/679 of the European Parliament and of the Council (GDPR) and Czech Act No. 110/2019 Coll., on the Processing of Personal Data."
 
-#: modules/gdpr/includes/vzor.php:173 modules/cookies/includes/zasady.php:85
+#: modules/gdpr/includes/vzor.php:173 modules/cookies/includes/zasady.php:101
 msgid "V kostce"
 msgstr "In brief"
 
@@ -1058,7 +1098,7 @@ msgstr "How we protect data"
 msgid "Údaje chráníme přiměřenými technickými a organizačními opatřeními: web používá zabezpečené připojení (HTTPS), přístup k údajům mají jen pověřené osoby a naši zpracovatelé jsou vázáni smlouvou a mlčenlivostí."
 msgstr "We protect data with appropriate technical and organizational measures: the website uses a secure connection (HTTPS), only authorised persons have access to the data and our processors are bound by contract and confidentiality."
 
-#: modules/gdpr/includes/vzor.php:202 modules/cookies/includes/zasady.php:149
+#: modules/gdpr/includes/vzor.php:202 modules/cookies/includes/zasady.php:165
 msgid "Vaše práva"
 msgstr "Your rights"
 
@@ -1111,7 +1151,7 @@ msgstr "Complaint to the supervisory authority"
 msgid "Pokud se domníváte, že zpracováním vašich osobních údajů porušujeme právní předpisy, můžete podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7 (%s). Budeme rádi, když se na nás nejdříve obrátíte – většinu věcí vyřešíme hned."
 msgstr "If you believe that our processing of your personal data breaches the law, you can lodge a complaint with the Office for Personal Data Protection (Úřad pro ochranu osobních údajů), Pplk. Sochora 27, 170 00 Praha 7, Czech Republic (%s). We will be glad if you contact us first – we can resolve most things straight away."
 
-#: modules/gdpr/includes/vzor.php:222 modules/cookies/includes/zasady.php:162
+#: modules/gdpr/includes/vzor.php:222 modules/cookies/includes/zasady.php:178
 msgid "Změny těchto zásad"
 msgstr "Changes to this policy"
 
@@ -1386,7 +1426,7 @@ msgstr "Settings link"
 msgid "Odkaz Více o cookies"
 msgstr "More about cookies link"
 
-#: modules/cookies/includes/admin.php:203 modules/paticka/includes/admin.php:224
+#: modules/cookies/includes/admin.php:203 modules/paticka/includes/admin.php:235
 msgid "Stránka Zásady cookies"
 msgstr "Cookie policy page"
 
@@ -1448,7 +1488,7 @@ msgstr "automatic"
 msgid "nalezeno na webu %s"
 msgstr "found on the website %s"
 
-#: modules/cookies/includes/admin.php:256 modules/cookies/includes/zasady.php:106
+#: modules/cookies/includes/admin.php:256 modules/cookies/includes/zasady.php:122
 msgid "Vlastní cookies"
 msgstr "Custom cookies"
 
@@ -1893,7 +1933,7 @@ msgstr "A GA4 measurement ID looks like G-XXXXXXXXXX – not saved."
 msgid "%1$s: neplatné ID (tvar %2$s) – neuloženo."
 msgstr "%1$s: invalid ID (format %2$s) – not saved."
 
-#: modules/cookies/includes/frontend.php:297 modules/cookies/includes/frontend.php:304 modules/cookies/includes/frontend.php:444 modules/cookies/includes/frontend.php:564 modules/paticka/includes/admin.php:251 modules/paticka/includes/data.php:67
+#: modules/cookies/includes/frontend.php:297 modules/cookies/includes/frontend.php:304 modules/cookies/includes/frontend.php:444 modules/cookies/includes/frontend.php:564 modules/paticka/includes/admin.php:262 modules/paticka/includes/data.php:67
 msgid "Nastavení cookies"
 msgstr "Cookie settings"
 
@@ -1954,7 +1994,7 @@ msgstr "%1$s loads only after you consent to %2$s cookies."
 msgid "Povolit a zobrazit"
 msgstr "Allow and show"
 
-#: modules/cookies/includes/frontend.php:519 modules/cookies/includes/zasady.php:134
+#: modules/cookies/includes/frontend.php:519 modules/cookies/includes/zasady.php:150
 msgid "Změnit nastavení cookies"
 msgstr "Change cookie settings"
 
@@ -1976,145 +2016,150 @@ msgstr "%d years"
 msgid "Vaši volbu cookies si pamatujeme %1$s, potom se vás zeptáme znovu. Záznam o udělení nebo odmítnutí souhlasu (náhodný identifikátor, zvolené kategorie, datum a čas a verze textů – bez IP adresy) uchováváme %2$s, abychom mohli doložit, že jste souhlas udělili (čl. 7 odst. 1 GDPR)."
 msgstr "We remember your cookie choice for %1$s, then we ask you again. We keep the record of giving or refusing consent (a random identifier, chosen categories, date and time and text version – without IP address) for %2$s so that we can demonstrate that you gave consent (Article 7(1) GDPR)."
 
-#: modules/cookies/includes/zasady.php:42
+#: modules/cookies/includes/zasady.php:48 modules/paticka/includes/data.php:268
+#, php-format
+msgid "Sídlo: %s"
+msgstr "Registered office: %s"
+
+#: modules/cookies/includes/zasady.php:58
 #, php-format
 msgid "%s [doplňte jméno nebo firmu, sídlo a IČO]"
 msgstr "%s [add the name or company, registered office and company ID]"
 
-#: modules/cookies/includes/zasady.php:74 modules/cookies/includes/zasady.php:75
+#: modules/cookies/includes/zasady.php:90 modules/cookies/includes/zasady.php:91
 msgid "Zásadách ochrany osobních údajů"
 msgstr "Privacy policy"
 
-#: modules/cookies/includes/zasady.php:81
+#: modules/cookies/includes/zasady.php:97
 #, php-format
 msgid "Tato stránka vysvětluje, jaké soubory cookies používá web %1$s (%2$s), k čemu slouží a jak můžete svůj souhlas kdykoli změnit nebo odvolat."
 msgstr "This page explains which cookies the website %1$s (%2$s) uses, what they are for and how you can change or withdraw your consent at any time."
 
-#: modules/cookies/includes/zasady.php:87
+#: modules/cookies/includes/zasady.php:103
 msgid "Nezbytné cookies potřebujeme, aby web fungoval – ty používáme bez souhlasu."
 msgstr "We need necessary cookies for the website to work – we use them without consent."
 
-#: modules/cookies/includes/zasady.php:88
+#: modules/cookies/includes/zasady.php:104
 msgid "Ostatní cookies (preferenční, analytické, marketingové) použijeme jen tehdy, když s nimi souhlasíte. Bez souhlasu se nenačtou."
 msgstr "Other cookies (preference, analytics, marketing) are used only if you agree to them. Without consent they are not loaded."
 
-#: modules/cookies/includes/zasady.php:89
+#: modules/cookies/includes/zasady.php:105
 msgid "Svou volbu můžete kdykoli změnit odkazem „Nastavení cookies“ v patičce webu."
 msgstr "You can change your choice at any time with the “Cookie settings” link in the website footer."
 
-#: modules/cookies/includes/zasady.php:93
+#: modules/cookies/includes/zasady.php:109
 msgid "Kdo cookies zpracovává"
 msgstr "Who processes cookies"
 
-#: modules/cookies/includes/zasady.php:96
+#: modules/cookies/includes/zasady.php:112
 #, php-format
 msgid "Správcem je %1$s. Kontakty a podrobnosti o zpracování osobních údajů najdete v %2$s."
 msgstr "The controller is %1$s. Contact details and information about the processing of personal data can be found in the %2$s."
 
-#: modules/cookies/includes/zasady.php:102
+#: modules/cookies/includes/zasady.php:118
 msgid "Co jsou cookies"
 msgstr "What cookies are"
 
-#: modules/cookies/includes/zasady.php:103
+#: modules/cookies/includes/zasady.php:119
 msgid "Cookies jsou malé textové soubory, které web ukládá do vašeho prohlížeče. Podobně fungují i jiné technologie pro ukládání a čtení údajů ve vašem zařízení; níže je souhrnně označujeme jako cookies."
 msgstr "Cookies are small text files that a website stores in your browser. Other technologies for storing and reading data on your device work similarly; below we refer to them collectively as cookies."
 
-#: modules/cookies/includes/zasady.php:105
+#: modules/cookies/includes/zasady.php:121
 msgid "Relační cookies"
 msgstr "Session cookies"
 
-#: modules/cookies/includes/zasady.php:105
+#: modules/cookies/includes/zasady.php:121
 msgid "se smažou po zavření prohlížeče, trvalé cookies zůstávají po dobu uvedenou v tabulce (sloupec Platnost)."
 msgstr "are deleted when you close the browser, persistent cookies remain for the period stated in the table (Duration column)."
 
-#: modules/cookies/includes/zasady.php:106
+#: modules/cookies/includes/zasady.php:122
 msgid "ukládá přímo tento web, cookies třetích stran ukládají poskytovatelé služeb, které web používá (sloupec Poskytovatel)."
 msgstr "are stored directly by this website, third-party cookies are stored by providers of services the website uses (Provider column)."
 
-#: modules/cookies/includes/zasady.php:110
+#: modules/cookies/includes/zasady.php:126
 msgid "Na jakém základě cookies používáme"
 msgstr "On what basis we use cookies"
 
-#: modules/cookies/includes/zasady.php:111
+#: modules/cookies/includes/zasady.php:127
 msgid "Nezbytné cookies potřebujeme, aby web fungoval – například aby si zapamatoval vaši volbu cookies. Používáme je bez souhlasu podle § 89 odst. 3 zákona č. 127/2005 Sb., o elektronických komunikacích."
 msgstr "We need necessary cookies for the website to work – for example to remember your cookie choice. We use them without consent under Section 89(3) of Act No. 127/2005 Coll., on Electronic Communications."
 
-#: modules/cookies/includes/zasady.php:112
+#: modules/cookies/includes/zasady.php:128
 msgid "Preferenční, analytické a marketingové cookies používáme jen s vaším předchozím souhlasem (§ 89 odst. 3 zákona o elektronických komunikacích a čl. 6 odst. 1 písm. a) obecného nařízení o ochraně osobních údajů – GDPR). Bez souhlasu se nenačtou."
 msgstr "We use preference, analytics and marketing cookies only with your prior consent (Section 89(3) of the Electronic Communications Act and Article 6(1)(a) of the General Data Protection Regulation – GDPR). Without consent they are not loaded."
 
-#: modules/cookies/includes/zasady.php:115
+#: modules/cookies/includes/zasady.php:131
 msgid "Jaké cookies používáme"
 msgstr "Which cookies we use"
 
-#: modules/cookies/includes/zasady.php:117
+#: modules/cookies/includes/zasady.php:133
 msgid "Tabulka se aktualizuje automaticky podle služeb, které web právě používá."
 msgstr "The table updates automatically according to the services the website currently uses."
 
-#: modules/cookies/includes/zasady.php:120
+#: modules/cookies/includes/zasady.php:136
 msgid "Služby třetích stran"
 msgstr "Third-party services"
 
-#: modules/cookies/includes/zasady.php:121
+#: modules/cookies/includes/zasady.php:137
 msgid "Některé cookies ukládají poskytovatelé služeb, které web používá. Každý z nich zpracovává údaje podle svých zásad:"
 msgstr "Some cookies are stored by providers of services the website uses. Each of them processes data according to its own policy:"
 
-#: modules/cookies/includes/zasady.php:125
+#: modules/cookies/includes/zasady.php:141
 msgid "Jak dlouho údaje uchováváme"
 msgstr "How long we keep data"
 
-#: modules/cookies/includes/zasady.php:126
+#: modules/cookies/includes/zasady.php:142
 msgid "Platnost jednotlivých cookies je uvedena v tabulce výše."
 msgstr "The duration of individual cookies is stated in the table above."
 
-#: modules/cookies/includes/zasady.php:130
+#: modules/cookies/includes/zasady.php:146
 msgid "Jak změnit nebo odvolat souhlas"
 msgstr "How to change or withdraw consent"
 
-#: modules/cookies/includes/zasady.php:132
+#: modules/cookies/includes/zasady.php:148
 msgid "Svou volbu můžete kdykoli změnit tlačítkem níže, odkazem „Nastavení cookies“ v patičce webu nebo ikonkou v rohu obrazovky. Odvolání souhlasu nemá vliv na zákonnost zpracování před jeho odvoláním."
 msgstr "You can change your choice at any time with the button below, the “Cookie settings” link in the website footer or the icon in the corner of the screen. Withdrawing consent does not affect the lawfulness of processing before the withdrawal."
 
-#: modules/cookies/includes/zasady.php:133
+#: modules/cookies/includes/zasady.php:149
 msgid "Svou volbu můžete kdykoli změnit tlačítkem níže nebo odkazem „Nastavení cookies“ v patičce webu. Odvolání souhlasu nemá vliv na zákonnost zpracování před jeho odvoláním."
 msgstr "You can change your choice at any time with the button below or with the “Cookie settings” link in the website footer. Withdrawing consent does not affect the lawfulness of processing before the withdrawal."
 
-#: modules/cookies/includes/zasady.php:135
+#: modules/cookies/includes/zasady.php:151
 msgid "Když souhlas odvoláte, web smaže cookies dané kategorie, které uložil pod svou doménou. Cookies, které třetí strany uložily na svých doménách, smažete v nastavení prohlížeče."
 msgstr "When you withdraw consent, the website deletes the cookies of that category stored under its own domain. Cookies stored by third parties on their domains can be deleted in your browser settings."
 
-#: modules/cookies/includes/zasady.php:138
+#: modules/cookies/includes/zasady.php:154
 msgid "Cookies v nastavení prohlížeče"
 msgstr "Cookies in browser settings"
 
-#: modules/cookies/includes/zasady.php:139
+#: modules/cookies/includes/zasady.php:155
 msgid "Uložené cookies můžete kdykoli smazat a jejich ukládání omezit přímo v prohlížeči. Návody výrobců:"
 msgstr "You can delete stored cookies and restrict their storage at any time directly in your browser. Manufacturers’ guides:"
 
-#: modules/cookies/includes/zasady.php:146
+#: modules/cookies/includes/zasady.php:162
 msgid "Nastavení prohlížeče nenahrazuje volbu v liště cookies – souhlas s jednotlivými kategoriemi dáváte nebo odvoláváte přímo na webu. Když v prohlížeči zakážete i nezbytné cookies, některé části webu nemusí fungovat."
 msgstr "Browser settings do not replace the choice in the cookie banner – you give or withdraw consent for individual categories directly on the website. If you also block necessary cookies in the browser, some parts of the website may not work."
 
-#: modules/cookies/includes/zasady.php:152
+#: modules/cookies/includes/zasady.php:168
 #, php-format
 msgid "Máte právo na přístup ke svým osobním údajům, jejich opravu nebo výmaz, omezení zpracování, právo vznést námitku a kdykoli odvolat souhlas. Podrobnosti najdete v %s."
 msgstr "You have the right to access your personal data, to have it rectified or erased, to restrict processing, to object and to withdraw consent at any time. Details can be found in the %s."
 
-#: modules/cookies/includes/zasady.php:157
+#: modules/cookies/includes/zasady.php:173
 #, php-format
 msgid "Pokud se domníváte, že zpracování vašich údajů porušuje právní předpisy, můžete podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7 (%s)."
 msgstr "If you believe that the processing of your data violates the law, you can lodge a complaint with the Office for Personal Data Protection, Pplk. Sochora 27, 170 00 Prague 7 (%s)."
 
-#: modules/cookies/includes/zasady.php:163
+#: modules/cookies/includes/zasady.php:179
 msgid "Zásady upravujeme, když web začne používat jiné služby. Tabulka cookies a seznam poskytovatelů jsou vždy aktuální."
 msgstr "We update the policy when the website starts using other services. The cookie table and the list of providers are always up to date."
 
-#: modules/cookies/includes/zasady.php:165
+#: modules/cookies/includes/zasady.php:181
 #, php-format
 msgid "Tyto zásady platí od %s."
 msgstr "This policy is effective from %s."
 
-#: modules/cookies/includes/zasady.php:175 modules/paticka/includes/data.php:66
+#: modules/cookies/includes/zasady.php:191 modules/paticka/includes/data.php:66
 msgid "Zásady cookies"
 msgstr "Cookie policy"
 
@@ -2179,18 +2224,6 @@ msgstr "Business details – full line"
 msgid "Firma / jméno"
 msgstr "Company / name"
 
-#: modules/paticka/modul.php:42 modules/paticka/includes/admin.php:175
-msgid "Sídlo"
-msgstr "Registered office"
-
-#: modules/paticka/modul.php:44 modules/paticka/includes/admin.php:183
-msgid "DIČ"
-msgstr "VAT ID"
-
-#: modules/paticka/modul.php:45 modules/paticka/includes/admin.php:187
-msgid "Zápis v rejstříku"
-msgstr "Register entry"
-
 #: modules/paticka/modul.php:46
 msgid "Ochrana osobních údajů – text"
 msgstr "Privacy policy – text"
@@ -2247,7 +2280,7 @@ msgstr "Show the author credit in the footer"
 msgid "Text před odkazem"
 msgstr "Text before the link"
 
-#: modules/paticka/includes/admin.php:144 modules/paticka/includes/admin.php:220 modules/paticka/includes/admin.php:247 modules/paticka/includes/admin.php:272
+#: modules/paticka/includes/admin.php:144 modules/paticka/includes/admin.php:231 modules/paticka/includes/admin.php:258 modules/paticka/includes/admin.php:283
 msgid "Text odkazu"
 msgstr "Link text"
 
@@ -2277,124 +2310,128 @@ msgid "Podnikatel má na webu uvést jméno nebo firmu, sídlo, IČO a údaj o z
 msgstr "A business must state its name, registered office, company ID and register entry on its website (sole traders: trade register). Filled-in details are shown in the footer, empty ones are skipped."
 
 #: modules/paticka/includes/admin.php:171
-msgid "Firma / jméno a příjmení"
-msgstr "Company / full name"
+msgid "Údaje se vyplňují na jednom místě – v modulu Ochrana osobních údajů (jsou zároveň údaji o správci). Patička je odtud přebírá."
+msgstr "The details are filled in in one place – in the Privacy module (they are also the controller details). The Footer takes them from there."
 
 #: modules/paticka/includes/admin.php:172
+msgid "Upravit v MarMal → Ochrana os. údajů"
+msgstr "Edit in MarMal → Privacy"
+
+#: modules/paticka/includes/admin.php:176
+msgid "Zatím nevyplněno."
+msgstr "Not filled in yet."
+
+#: modules/paticka/includes/admin.php:182
 msgid "např. Noitami akustika s.r.o. nebo Jan Novák"
 msgstr "e.g. Noitami akustika s.r.o. or Jan Novák"
 
-#: modules/paticka/includes/admin.php:176
+#: modules/paticka/includes/admin.php:186
 msgid "Ulice 123, 252 28 Černošice"
 msgstr "Street 123, 252 28 Černošice"
 
-#: modules/paticka/includes/admin.php:180
+#: modules/paticka/includes/admin.php:190
 msgid "Kontroluje se kontrolní číslice."
 msgstr "The check digit is validated."
 
-#: modules/paticka/includes/admin.php:184
-msgid "Jen u plátců DPH (nepovinné)."
-msgstr "VAT payers only (optional)."
-
-#: modules/paticka/includes/admin.php:188
+#: modules/paticka/includes/admin.php:198
 msgid "s.r.o.: <code>Zapsáno v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 123456</code><br>OSVČ: <code>Zapsán v živnostenském rejstříku vedeném Městským úřadem Černošice</code>"
 msgstr "Company: <code>Registered in the Commercial Register kept by the Municipal Court in Prague, section C, file 123456</code><br>Sole trader: <code>Registered in the Trade Register kept by the Municipal Office Černošice</code>"
 
-#: modules/paticka/includes/admin.php:194
+#: modules/paticka/includes/admin.php:205
 msgid "Odkazy"
 msgstr "Links"
 
-#: modules/paticka/includes/admin.php:197
+#: modules/paticka/includes/admin.php:208
 msgid "Stránka ochrany osobních údajů"
 msgstr "Privacy policy page"
 
-#: modules/paticka/includes/admin.php:204
+#: modules/paticka/includes/admin.php:215
 msgid "— podle Nastavení → Soukromí —"
 msgstr "— from Settings → Privacy —"
 
-#: modules/paticka/includes/admin.php:213 modules/paticka/includes/admin.php:240
+#: modules/paticka/includes/admin.php:224 modules/paticka/includes/admin.php:251
 #, php-format
 msgid "Teď vede na: %s"
 msgstr "Currently links to: %s"
 
-#: modules/paticka/includes/admin.php:214
+#: modules/paticka/includes/admin.php:225
 msgid "Stránka není nastavená – odkaz se nezobrazí."
 msgstr "No page set – the link will not be shown."
 
-#: modules/paticka/includes/admin.php:231
+#: modules/paticka/includes/admin.php:242
 msgid "— automaticky (modul Cookies / stránka zasady-cookies) —"
 msgstr "— automatic (Cookies module / page zasady-cookies) —"
 
-#: modules/paticka/includes/admin.php:241
+#: modules/paticka/includes/admin.php:252
 msgid "Web nemá samostatnou stránku Zásady cookies – odkaz se nezobrazí. Stránku založíš jedním tlačítkem v MarMal → Cookies → Texty."
 msgstr "The website has no separate Cookie policy page – the link is not shown. Create the page with one click in MarMal → Cookies → Texts."
 
-#: modules/paticka/includes/admin.php:261
+#: modules/paticka/includes/admin.php:272
 msgid "Teď se odkaz nezobrazí (cookie plugin nenalezen nebo vypnuto)."
 msgstr "The link is currently hidden (no cookie plugin found or turned off)."
 
-#: modules/paticka/includes/admin.php:262
+#: modules/paticka/includes/admin.php:273
 #, php-format
 msgid "Teď: %s – kliknutí znovu otevře cookie lištu."
 msgstr "Currently: %s – clicking reopens the cookie banner."
 
-#: modules/paticka/includes/admin.php:268
+#: modules/paticka/includes/admin.php:279
 msgid "Vlastní CSS třída"
 msgstr "Custom CSS class"
 
-#: modules/paticka/includes/admin.php:269
+#: modules/paticka/includes/admin.php:280
 msgid "Jen pro „Jiný plugin“ – třída, na kterou cookie plugin otevře lištu (najdeš v jeho dokumentaci)."
 msgstr "Only for “Other plugin” – the class that makes the cookie plugin open its banner (see its documentation)."
 
-#: modules/paticka/includes/admin.php:282
+#: modules/paticka/includes/admin.php:293
 msgid "Jak to dát do patičky"
 msgstr "How to add it to the footer"
 
-#: modules/paticka/includes/admin.php:284
+#: modules/paticka/includes/admin.php:295
 msgid "Breakdance → Footers → otevři patičku webu."
 msgstr "Breakdance → Footers → open the website footer."
 
-#: modules/paticka/includes/admin.php:285
+#: modules/paticka/includes/admin.php:296
 msgid "Do spodní lišty přidej element „Marmal – Patička“ (Add → do hledání napiš „Patička“)."
 msgstr "Add the “Marmal – Patička” element to the bottom bar (Add → search for “Patička”)."
 
-#: modules/paticka/includes/admin.php:286
+#: modules/paticka/includes/admin.php:297
 msgid "Content → Patička: rozložení a co zobrazit. Design: barvy, písmo a podtržení odkazů (i zvlášť pro odkaz autora), copyright, údaje o podnikateli, mezery."
 msgstr "Content → Patička: layout and what to show. Design: colors, font and underline of links (separately for the author link too), copyright, business details, spacing."
 
-#: modules/paticka/includes/admin.php:288
+#: modules/paticka/includes/admin.php:299
 msgid "Bez elementu to jde i shortcodem <code>[marmal_paticka]</code> v elementu Shortcode – vzhled se pak jen převezme z patičky."
 msgstr "Without the element you can use the <code>[marmal_paticka]</code> shortcode in a Shortcode element – the styling is then taken from the footer."
 
-#: modules/paticka/includes/admin.php:289
+#: modules/paticka/includes/admin.php:300
 msgid "Jednotlivé části (každou do vlastního elementu Shortcode):"
 msgstr "Individual parts (each in its own Shortcode element):"
 
-#: modules/paticka/includes/admin.php:291
+#: modules/paticka/includes/admin.php:302
 msgid "© 2019–2026 Název; drzitel=\"ne\" = jen roky"
 msgstr "© 2019–2026 Name; drzitel=\"ne\" = years only"
 
-#: modules/paticka/includes/admin.php:292
+#: modules/paticka/includes/admin.php:303
 msgid "podpis autora s odkazem"
 msgstr "author credit with link"
 
-#: modules/paticka/includes/admin.php:293
+#: modules/paticka/includes/admin.php:304
 msgid "údaje o podnikateli; pod_sebou=\"ano\" = každý údaj na řádek"
 msgstr "business details; pod_sebou=\"ano\" = one detail per line"
 
-#: modules/paticka/includes/admin.php:294
+#: modules/paticka/includes/admin.php:305
 msgid "ochrana osobních údajů, zásady cookies a nastavení cookies; zasady=\"ne\" / zasady_cookies=\"ne\" / cookies=\"ne\""
 msgstr "privacy policy, cookie policy and cookie settings; zasady=\"ne\" / zasady_cookies=\"ne\" / cookies=\"ne\""
 
-#: modules/paticka/includes/admin.php:295
+#: modules/paticka/includes/admin.php:306
 msgid "celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
 msgstr "whole bar centered (radek = left and right, sloupec = stacked); turn parts off with copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
 
-#: modules/paticka/includes/admin.php:296
+#: modules/paticka/includes/admin.php:307
 msgid "copyright vlevo, zásady a cookies uprostřed, podpis vpravo; přesun části pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje=\"vlevo|stred|vpravo|pod\", zarovnání řádku pod zarovnani_pod=\"vlevo|stred|vpravo\", pod sebe od skladat=\"mobil|tablet|maly|nikdy\", mobil=\"stred\""
 msgstr "copyright on the left, privacy and cookies in the center, credit on the right; move a part with pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje=\"vlevo|stred|vpravo|pod\", align the row below with zarovnani_pod=\"vlevo|stred|vpravo\", stack from skladat=\"mobil|tablet|maly|nikdy\", mobil=\"stred\""
 
-#: modules/paticka/includes/admin.php:298
+#: modules/paticka/includes/admin.php:309
 msgid "Dynamická data: u textu klikni na ikonu dynamických dat → MarMal → Patička (copyright, roky, údaje o podnikateli, odkazy)."
 msgstr "Dynamic data: click the dynamic data icon on a text → MarMal → Footer (copyright, years, business details, links)."
 
@@ -2418,30 +2455,13 @@ msgstr "Do not show"
 msgid "Web vytvořil Martin Malý –"
 msgstr "Website by Martin Malý –"
 
-#: modules/paticka/includes/data.php:255
-#, php-format
-msgid "Sídlo: %s"
-msgstr "Registered office: %s"
-
-#: modules/paticka/includes/data.php:413
+#: modules/paticka/includes/data.php:426
 msgid "Rok spuštění musí být mezi 1990 a letoškem – použil se návrh podle nejstarší stránky webu."
 msgstr "The launch year must be between 1990 and this year – the suggestion from the oldest page was used."
 
-#: modules/paticka/includes/data.php:427
+#: modules/paticka/includes/data.php:440
 msgid "Adresa odkazu autora musí začínat https:// – použije se výchozí."
 msgstr "The author link must start with https:// – the default is used."
-
-#: modules/paticka/includes/data.php:439
-msgid "IČO nemá platnou kontrolní číslici – zkontroluj ho prosím (uloženo i tak)."
-msgstr "The company ID has an invalid check digit – please check it (saved anyway)."
-
-#: modules/paticka/includes/data.php:442
-msgid "IČO má 8 číslic – neuloženo."
-msgstr "A company ID has 8 digits – not saved."
-
-#: modules/paticka/includes/data.php:450
-msgid "DIČ musí mít tvar např. CZ12345678 – neuloženo."
-msgstr "The VAT ID must look like CZ12345678 – not saved."
 
 #: modules/paticka/includes/render.php:108
 msgid "Údaje o podnikateli nejsou vyplněné (MarMal → Patička)."
