@@ -36,7 +36,7 @@ msgstr "Fonts"
 msgid "Google Fonts z webu stáhne k sobě a návštěvníkům je posílá z vlastní domény – Google nedostane jejich IP adresu (GDPR) a stránka se načte rychleji. Fonty dál vybíráš v Breakdance jako dosud."
 msgstr "Downloads the website’s Google Fonts and serves them to visitors from your own domain – Google does not get their IP address (GDPR) and pages load faster. You keep choosing fonts in Breakdance as before."
 
-#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:224 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
+#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:276 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr "Settings"
 
@@ -44,7 +44,7 @@ msgstr "Settings"
 msgid "Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty."
 msgstr "Some fonts could not be downloaded – they still load from Google. Details in MarMal → Fonts."
 
-#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251 modules/cookies/includes/zasady.php:116
+#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251 modules/cookies/includes/zasady.php:188
 msgid "Nemáte oprávnění."
 msgstr "You do not have permission."
 
@@ -543,7 +543,7 @@ msgstr "automatic"
 msgid "nalezeno na webu %s"
 msgstr "found on the website %s"
 
-#: modules/cookies/includes/admin.php:256
+#: modules/cookies/includes/admin.php:256 modules/cookies/includes/zasady.php:106
 msgid "Vlastní cookies"
 msgstr "Custom cookies"
 
@@ -619,7 +619,7 @@ msgstr "“After consent”: the container loads after consent to analytics or m
 msgid "Sklik – SEM ID"
 msgstr "Sklik – SEM ID"
 
-#: modules/cookies/includes/admin.php:277 modules/cookies/includes/data.php:274
+#: modules/cookies/includes/admin.php:277 modules/cookies/includes/data.php:326
 msgid "SEM ID ze Skliku"
 msgstr "SEM ID from Sklik"
 
@@ -703,11 +703,11 @@ msgstr "After changing cookies or texts: the banner is shown to all visitors aga
 msgid "Posledních 30 dní"
 msgstr "Last 30 days"
 
-#: modules/cookies/includes/admin.php:306 modules/cookies/includes/data.php:222
+#: modules/cookies/includes/admin.php:306 modules/cookies/includes/data.php:274
 msgid "Přijmout vše"
 msgstr "Accept all"
 
-#: modules/cookies/includes/admin.php:306 modules/cookies/includes/data.php:223
+#: modules/cookies/includes/admin.php:306 modules/cookies/includes/data.php:275
 msgid "Odmítnout vše"
 msgstr "Reject all"
 
@@ -827,7 +827,7 @@ msgstr "Stores your cookie choice and the date of consent"
 msgid "Přihlášení do administrace (jen správci webu)"
 msgstr "Login to the administration (website administrators only)"
 
-#: modules/cookies/includes/data.php:62 modules/cookies/includes/data.php:68 modules/cookies/includes/data.php:178
+#: modules/cookies/includes/data.php:62 modules/cookies/includes/data.php:68 modules/cookies/includes/data.php:190
 msgid "relace"
 msgstr "session"
 
@@ -847,148 +847,148 @@ msgstr "2 days"
 msgid "Zapamatuje zvolený jazyk webu"
 msgstr "Remembers the selected website language"
 
-#: modules/cookies/includes/data.php:77 modules/cookies/includes/data.php:110 modules/cookies/includes/data.php:122 modules/cookies/includes/data.php:159
+#: modules/cookies/includes/data.php:77 modules/cookies/includes/data.php:113 modules/cookies/includes/data.php:126 modules/cookies/includes/data.php:166
 msgid "1 rok"
 msgstr "1 year"
 
-#: modules/cookies/includes/data.php:86
+#: modules/cookies/includes/data.php:87
 msgid "Měření konverzí z reklam Google"
 msgstr "Measuring conversions from Google ads"
 
-#: modules/cookies/includes/data.php:86 modules/cookies/includes/data.php:134 modules/cookies/includes/data.php:135 modules/cookies/includes/data.php:160
+#: modules/cookies/includes/data.php:87 modules/cookies/includes/data.php:139 modules/cookies/includes/data.php:140 modules/cookies/includes/data.php:167
 msgid "3 měsíce"
 msgstr "3 months"
 
-#: modules/cookies/includes/data.php:87 modules/cookies/includes/data.php:135
+#: modules/cookies/includes/data.php:88 modules/cookies/includes/data.php:140
 msgid "Cílení a vyhodnocení reklamy"
 msgstr "Ad targeting and evaluation"
 
-#: modules/cookies/includes/data.php:87 modules/cookies/includes/data.php:322
+#: modules/cookies/includes/data.php:88 modules/cookies/includes/data.php:374
 msgid "13 měsíců"
 msgstr "13 months"
 
-#: modules/cookies/includes/data.php:98
+#: modules/cookies/includes/data.php:100
 msgid "Rozlišuje jednotlivé návštěvníky pro statistiky"
 msgstr "Distinguishes individual visitors for statistics"
 
-#: modules/cookies/includes/data.php:99
+#: modules/cookies/includes/data.php:101
 msgid "Uchovává stav návštěvy"
 msgstr "Stores the session state"
 
-#: modules/cookies/includes/data.php:110 modules/cookies/includes/data.php:122
+#: modules/cookies/includes/data.php:113 modules/cookies/includes/data.php:126
 msgid "Rozlišuje návštěvníky pro analýzu chování"
 msgstr "Distinguishes visitors for behaviour analysis"
 
-#: modules/cookies/includes/data.php:111
+#: modules/cookies/includes/data.php:114
 msgid "Data aktuální návštěvy"
 msgstr "Data of the current visit"
 
-#: modules/cookies/includes/data.php:111
+#: modules/cookies/includes/data.php:114
 msgid "30 minut"
 msgstr "30 minutes"
 
-#: modules/cookies/includes/data.php:123
+#: modules/cookies/includes/data.php:127
 msgid "Spojuje zobrazení stránek jedné návštěvy"
 msgstr "Links page views of one visit"
 
-#: modules/cookies/includes/data.php:123
+#: modules/cookies/includes/data.php:127
 msgid "1 den"
 msgstr "1 day"
 
-#: modules/cookies/includes/data.php:134
+#: modules/cookies/includes/data.php:139
 msgid "Měření a cílení reklamy na Facebooku a Instagramu"
 msgstr "Measuring and targeting ads on Facebook and Instagram"
 
-#: modules/cookies/includes/data.php:146
+#: modules/cookies/includes/data.php:152
 msgid "Propojení návštěvy s reklamou Sklik a měření konverzí"
 msgstr "Linking the visit with Sklik ads and measuring conversions"
 
-#: modules/cookies/includes/data.php:146 modules/cookies/includes/data.php:158 modules/cookies/includes/data.php:161
+#: modules/cookies/includes/data.php:152 modules/cookies/includes/data.php:165 modules/cookies/includes/data.php:168
 msgid "30 dní"
 msgstr "30 days"
 
-#: modules/cookies/includes/data.php:147
+#: modules/cookies/includes/data.php:153
 msgid "Identifikátor prohlížeče pro reklamu Sklik"
 msgstr "Browser identifier for Sklik ads"
 
-#: modules/cookies/includes/data.php:147
+#: modules/cookies/includes/data.php:153
 msgid "podle Seznam.cz"
 msgstr "as set by Seznam.cz"
 
-#: modules/cookies/includes/data.php:158
+#: modules/cookies/includes/data.php:165
 msgid "Měření konverzí z reklam na LinkedInu"
 msgstr "Measuring conversions from LinkedIn ads"
 
-#: modules/cookies/includes/data.php:159
+#: modules/cookies/includes/data.php:166
 msgid "Identifikátor prohlížeče"
 msgstr "Browser identifier"
 
-#: modules/cookies/includes/data.php:160
+#: modules/cookies/includes/data.php:167
 msgid "Cílení reklamy"
 msgstr "Ad targeting"
 
-#: modules/cookies/includes/data.php:161
+#: modules/cookies/includes/data.php:168
 msgid "Synchronizace reklamních identifikátorů"
 msgstr "Synchronising advertising identifiers"
 
-#: modules/cookies/includes/data.php:176
+#: modules/cookies/includes/data.php:188
 msgid "Video z YouTube"
 msgstr "YouTube video"
 
-#: modules/cookies/includes/data.php:178 modules/cookies/includes/data.php:186
+#: modules/cookies/includes/data.php:190 modules/cookies/includes/data.php:199
 msgid "Statistika přehrávání vloženého videa"
 msgstr "Statistics of embedded video playback"
 
-#: modules/cookies/includes/data.php:179
+#: modules/cookies/includes/data.php:191
 msgid "Odhad rychlosti připojení pro přehrávání"
 msgstr "Estimates connection speed for playback"
 
-#: modules/cookies/includes/data.php:179 modules/cookies/includes/data.php:192
+#: modules/cookies/includes/data.php:191 modules/cookies/includes/data.php:206
 msgid "6 měsíců"
 msgstr "6 months"
 
-#: modules/cookies/includes/data.php:185
+#: modules/cookies/includes/data.php:198
 msgid "Video z Vimea"
 msgstr "Vimeo video"
 
-#: modules/cookies/includes/data.php:186 modules/cookies/includes/data.php:322
+#: modules/cookies/includes/data.php:199 modules/cookies/includes/data.php:374
 msgid "2 roky"
 msgstr "2 years"
 
-#: modules/cookies/includes/data.php:191
+#: modules/cookies/includes/data.php:205
 msgid "Mapa Google"
 msgstr "Google map"
 
-#: modules/cookies/includes/data.php:192
+#: modules/cookies/includes/data.php:206
 msgid "Nastavení a měření vložené mapy"
 msgstr "Settings and measurement of the embedded map"
 
-#: modules/cookies/includes/data.php:220
+#: modules/cookies/includes/data.php:272
 msgid "Používáme cookies"
 msgstr "We use cookies"
 
-#: modules/cookies/includes/data.php:221
+#: modules/cookies/includes/data.php:273
 msgid "Nezbytné cookies potřebujeme, aby web fungoval. Analytické a marketingové použijeme jen s vaším souhlasem – pomáhají nám web zlepšovat. Volbu můžete kdykoli změnit odkazem Nastavení cookies v patičce."
 msgstr "We need necessary cookies for the website to work. We use analytics and marketing cookies only with your consent – they help us improve the website. You can change your choice at any time using the Cookie settings link in the footer."
 
-#: modules/cookies/includes/data.php:225
+#: modules/cookies/includes/data.php:277
 msgid "Více o cookies"
 msgstr "More about cookies"
 
-#: modules/cookies/includes/data.php:226
+#: modules/cookies/includes/data.php:278
 msgid "Vyberte, které cookies smíme používat. Nezbytné jsou vždy zapnuté, ostatní jen s vaším souhlasem. Volbu můžete kdykoli změnit."
 msgstr "Choose which cookies we may use. Necessary cookies are always on, the others only with your consent. You can change your choice at any time."
 
-#: modules/cookies/includes/data.php:538
+#: modules/cookies/includes/data.php:590
 msgid "ID měření GA4 má tvar G-XXXXXXXXXX – neuloženo."
 msgstr "A GA4 measurement ID looks like G-XXXXXXXXXX – not saved."
 
-#: modules/cookies/includes/data.php:549
+#: modules/cookies/includes/data.php:601
 #, php-format
 msgid "%1$s: neplatné ID (tvar %2$s) – neuloženo."
 msgstr "%1$s: invalid ID (format %2$s) – not saved."
 
-#: modules/cookies/includes/frontend.php:297 modules/cookies/includes/frontend.php:304 modules/cookies/includes/frontend.php:444 modules/cookies/includes/frontend.php:523 modules/paticka/includes/admin.php:251 modules/paticka/includes/data.php:67
+#: modules/cookies/includes/frontend.php:297 modules/cookies/includes/frontend.php:304 modules/cookies/includes/frontend.php:444 modules/cookies/includes/frontend.php:564 modules/paticka/includes/admin.php:251 modules/paticka/includes/data.php:67
 msgid "Nastavení cookies"
 msgstr "Cookie settings"
 
@@ -1012,19 +1012,19 @@ msgstr "Cookie list"
 msgid "vždy zapnuté"
 msgstr "always on"
 
-#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:501
+#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:503
 msgid "Název"
 msgstr "Name"
 
-#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:501
+#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:503
 msgid "Poskytovatel"
 msgstr "Provider"
 
-#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:501
+#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:503
 msgid "Účel"
 msgstr "Purpose"
 
-#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:501
+#: modules/cookies/includes/frontend.php:303 modules/cookies/includes/frontend.php:503
 msgid "Platnost"
 msgstr "Duration"
 
@@ -1049,95 +1049,183 @@ msgstr "%1$s loads only after you consent to %2$s cookies."
 msgid "Povolit a zobrazit"
 msgstr "Allow and show"
 
-#: modules/cookies/includes/frontend.php:516
+#: modules/cookies/includes/frontend.php:519 modules/cookies/includes/zasady.php:134
 msgid "Změnit nastavení cookies"
 msgstr "Change cookie settings"
+
+#: modules/cookies/includes/frontend.php:529
+msgid "Web nepoužívá služby třetích stran, které by ukládaly cookies."
+msgstr "The website does not use third-party services that store cookies."
+
+#: modules/cookies/includes/frontend.php:534
+msgid "zásady ochrany soukromí"
+msgstr "privacy policy"
+
+#: modules/cookies/includes/frontend.php:538
+msgid "Tito poskytovatelé mohou údaje zpracovávat i mimo Evropskou unii, zejména v USA. Jak údaje chrání a jaké záruky pro předávání používají, popisují ve svých zásadách ochrany soukromí."
+msgstr "These providers may also process data outside the European Union, especially in the USA. How they protect data and which safeguards they use for transfers is described in their privacy policies."
+
+#: modules/cookies/includes/frontend.php:551
+#, php-format
+msgid "%d let"
+msgstr "%d years"
+
+#: modules/cookies/includes/frontend.php:555
+#, php-format
+msgid "Vaši volbu cookies si pamatujeme %1$s, potom se vás zeptáme znovu. Záznam o udělení nebo odmítnutí souhlasu (náhodný identifikátor, zvolené kategorie, datum a čas a verze textů – bez IP adresy) uchováváme %2$s, abychom mohli doložit, že jste souhlas udělili (čl. 7 odst. 1 GDPR)."
+msgstr "We remember your cookie choice for %1$s, then we ask you again. We keep the record of giving or refusing consent (a random identifier, chosen categories, date and time and text version – without IP address) for %2$s so that we can demonstrate that you gave consent (Article 7(1) GDPR)."
 
 #: modules/cookies/includes/zasady.php:42
 #, php-format
 msgid "%s [doplňte jméno nebo firmu, sídlo a IČO]"
 msgstr "%s [add the name or company, registered office and company ID]"
 
-#: modules/cookies/includes/zasady.php:52 modules/cookies/includes/zasady.php:53
+#: modules/cookies/includes/zasady.php:74 modules/cookies/includes/zasady.php:75
 msgid "Zásadách ochrany osobních údajů"
 msgstr "Privacy policy"
 
-#: modules/cookies/includes/zasady.php:57
+#: modules/cookies/includes/zasady.php:81
 #, php-format
 msgid "Tato stránka vysvětluje, jaké soubory cookies používá web %1$s (%2$s), k čemu slouží a jak můžete svůj souhlas kdykoli změnit nebo odvolat."
 msgstr "This page explains which cookies the website %1$s (%2$s) uses, what they are for and how you can change or withdraw your consent at any time."
 
-#: modules/cookies/includes/zasady.php:62
+#: modules/cookies/includes/zasady.php:85
+msgid "V kostce"
+msgstr "In brief"
+
+#: modules/cookies/includes/zasady.php:87
+msgid "Nezbytné cookies potřebujeme, aby web fungoval – ty používáme bez souhlasu."
+msgstr "We need necessary cookies for the website to work – we use them without consent."
+
+#: modules/cookies/includes/zasady.php:88
+msgid "Ostatní cookies (preferenční, analytické, marketingové) použijeme jen tehdy, když s nimi souhlasíte. Bez souhlasu se nenačtou."
+msgstr "Other cookies (preference, analytics, marketing) are used only if you agree to them. Without consent they are not loaded."
+
+#: modules/cookies/includes/zasady.php:89
+msgid "Svou volbu můžete kdykoli změnit odkazem „Nastavení cookies“ v patičce webu."
+msgstr "You can change your choice at any time with the “Cookie settings” link in the website footer."
+
+#: modules/cookies/includes/zasady.php:93
 msgid "Kdo cookies zpracovává"
 msgstr "Who processes cookies"
 
-#: modules/cookies/includes/zasady.php:65
+#: modules/cookies/includes/zasady.php:96
 #, php-format
 msgid "Správcem je %1$s. Kontakty a podrobnosti o zpracování osobních údajů najdete v %2$s."
 msgstr "The controller is %1$s. Contact details and information about the processing of personal data can be found in the %2$s."
 
-#: modules/cookies/includes/zasady.php:70
+#: modules/cookies/includes/zasady.php:102
 msgid "Co jsou cookies"
 msgstr "What cookies are"
 
-#: modules/cookies/includes/zasady.php:71
+#: modules/cookies/includes/zasady.php:103
 msgid "Cookies jsou malé textové soubory, které web ukládá do vašeho prohlížeče. Podobně fungují i jiné technologie pro ukládání a čtení údajů ve vašem zařízení; níže je souhrnně označujeme jako cookies."
 msgstr "Cookies are small text files that a website stores in your browser. Other technologies for storing and reading data on your device work similarly; below we refer to them collectively as cookies."
 
-#: modules/cookies/includes/zasady.php:73
+#: modules/cookies/includes/zasady.php:105
+msgid "Relační cookies"
+msgstr "Session cookies"
+
+#: modules/cookies/includes/zasady.php:105
+msgid "se smažou po zavření prohlížeče, trvalé cookies zůstávají po dobu uvedenou v tabulce (sloupec Platnost)."
+msgstr "are deleted when you close the browser, persistent cookies remain for the period stated in the table (Duration column)."
+
+#: modules/cookies/includes/zasady.php:106
+msgid "ukládá přímo tento web, cookies třetích stran ukládají poskytovatelé služeb, které web používá (sloupec Poskytovatel)."
+msgstr "are stored directly by this website, third-party cookies are stored by providers of services the website uses (Provider column)."
+
+#: modules/cookies/includes/zasady.php:110
 msgid "Na jakém základě cookies používáme"
 msgstr "On what basis we use cookies"
 
-#: modules/cookies/includes/zasady.php:74
+#: modules/cookies/includes/zasady.php:111
 msgid "Nezbytné cookies potřebujeme, aby web fungoval – například aby si zapamatoval vaši volbu cookies. Používáme je bez souhlasu podle § 89 odst. 3 zákona č. 127/2005 Sb., o elektronických komunikacích."
 msgstr "We need necessary cookies for the website to work – for example to remember your cookie choice. We use them without consent under Section 89(3) of Act No. 127/2005 Coll., on Electronic Communications."
 
-#: modules/cookies/includes/zasady.php:75
+#: modules/cookies/includes/zasady.php:112
 msgid "Preferenční, analytické a marketingové cookies používáme jen s vaším předchozím souhlasem (§ 89 odst. 3 zákona o elektronických komunikacích a čl. 6 odst. 1 písm. a) obecného nařízení o ochraně osobních údajů – GDPR). Bez souhlasu se nenačtou."
 msgstr "We use preference, analytics and marketing cookies only with your prior consent (Section 89(3) of the Electronic Communications Act and Article 6(1)(a) of the General Data Protection Regulation – GDPR). Without consent they are not loaded."
 
-#: modules/cookies/includes/zasady.php:77
+#: modules/cookies/includes/zasady.php:115
 msgid "Jaké cookies používáme"
 msgstr "Which cookies we use"
 
-#: modules/cookies/includes/zasady.php:79
+#: modules/cookies/includes/zasady.php:117
 msgid "Tabulka se aktualizuje automaticky podle služeb, které web právě používá."
 msgstr "The table updates automatically according to the services the website currently uses."
 
-#: modules/cookies/includes/zasady.php:81
+#: modules/cookies/includes/zasady.php:120
+msgid "Služby třetích stran"
+msgstr "Third-party services"
+
+#: modules/cookies/includes/zasady.php:121
+msgid "Některé cookies ukládají poskytovatelé služeb, které web používá. Každý z nich zpracovává údaje podle svých zásad:"
+msgstr "Some cookies are stored by providers of services the website uses. Each of them processes data according to its own policy:"
+
+#: modules/cookies/includes/zasady.php:125
+msgid "Jak dlouho údaje uchováváme"
+msgstr "How long we keep data"
+
+#: modules/cookies/includes/zasady.php:126
+msgid "Platnost jednotlivých cookies je uvedena v tabulce výše."
+msgstr "The duration of individual cookies is stated in the table above."
+
+#: modules/cookies/includes/zasady.php:130
 msgid "Jak změnit nebo odvolat souhlas"
 msgstr "How to change or withdraw consent"
 
-#: modules/cookies/includes/zasady.php:82
+#: modules/cookies/includes/zasady.php:132
+msgid "Svou volbu můžete kdykoli změnit tlačítkem níže, odkazem „Nastavení cookies“ v patičce webu nebo ikonkou v rohu obrazovky. Odvolání souhlasu nemá vliv na zákonnost zpracování před jeho odvoláním."
+msgstr "You can change your choice at any time with the button below, the “Cookie settings” link in the website footer or the icon in the corner of the screen. Withdrawing consent does not affect the lawfulness of processing before the withdrawal."
+
+#: modules/cookies/includes/zasady.php:133
 msgid "Svou volbu můžete kdykoli změnit tlačítkem níže nebo odkazem „Nastavení cookies“ v patičce webu. Odvolání souhlasu nemá vliv na zákonnost zpracování před jeho odvoláním."
 msgstr "You can change your choice at any time with the button below or with the “Cookie settings” link in the website footer. Withdrawing consent does not affect the lawfulness of processing before the withdrawal."
 
-#: modules/cookies/includes/zasady.php:85
-msgid "Cookies třetích stran"
-msgstr "Third-party cookies"
+#: modules/cookies/includes/zasady.php:135
+msgid "Když souhlas odvoláte, web smaže cookies dané kategorie, které uložil pod svou doménou. Cookies, které třetí strany uložily na svých doménách, smažete v nastavení prohlížeče."
+msgstr "When you withdraw consent, the website deletes the cookies of that category stored under its own domain. Cookies stored by third parties on their domains can be deleted in your browser settings."
 
-#: modules/cookies/includes/zasady.php:86
-msgid "Některé cookies ukládají poskytovatelé služeb uvedení v tabulce (například Google). Ti mohou údaje zpracovávat i mimo Evropskou unii; podrobnosti najdete v jejich zásadách ochrany soukromí."
-msgstr "Some cookies are stored by the service providers listed in the table (for example Google). They may also process data outside the European Union; details can be found in their privacy policies."
+#: modules/cookies/includes/zasady.php:138
+msgid "Cookies v nastavení prohlížeče"
+msgstr "Cookies in browser settings"
 
-#: modules/cookies/includes/zasady.php:88
-msgid "Jak cookies smazat v prohlížeči"
-msgstr "How to delete cookies in your browser"
+#: modules/cookies/includes/zasady.php:139
+msgid "Uložené cookies můžete kdykoli smazat a jejich ukládání omezit přímo v prohlížeči. Návody výrobců:"
+msgstr "You can delete stored cookies and restrict their storage at any time directly in your browser. Manufacturers’ guides:"
 
-#: modules/cookies/includes/zasady.php:89
-msgid "Uložené cookies můžete kdykoli smazat a jejich ukládání omezit v nastavení prohlížeče (obvykle Nastavení → Soukromí a zabezpečení → Cookies). Když zakážete i nezbytné cookies, některé části webu nemusí fungovat."
-msgstr "You can delete stored cookies and restrict their storage at any time in your browser settings (usually Settings → Privacy and security → Cookies). If you also block necessary cookies, some parts of the website may not work."
+#: modules/cookies/includes/zasady.php:146
+msgid "Nastavení prohlížeče nenahrazuje volbu v liště cookies – souhlas s jednotlivými kategoriemi dáváte nebo odvoláváte přímo na webu. Když v prohlížeči zakážete i nezbytné cookies, některé části webu nemusí fungovat."
+msgstr "Browser settings do not replace the choice in the cookie banner – you give or withdraw consent for individual categories directly on the website. If you also block necessary cookies in the browser, some parts of the website may not work."
 
-#: modules/cookies/includes/zasady.php:91
-msgid "Platnost těchto zásad"
-msgstr "Validity of this policy"
+#: modules/cookies/includes/zasady.php:149
+msgid "Vaše práva"
+msgstr "Your rights"
 
-#: modules/cookies/includes/zasady.php:93
+#: modules/cookies/includes/zasady.php:152
+#, php-format
+msgid "Máte právo na přístup ke svým osobním údajům, jejich opravu nebo výmaz, omezení zpracování, právo vznést námitku a kdykoli odvolat souhlas. Podrobnosti najdete v %s."
+msgstr "You have the right to access your personal data, to have it rectified or erased, to restrict processing, to object and to withdraw consent at any time. Details can be found in the %s."
+
+#: modules/cookies/includes/zasady.php:157
+#, php-format
+msgid "Pokud se domníváte, že zpracování vašich údajů porušuje právní předpisy, můžete podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7 (%s)."
+msgstr "If you believe that the processing of your data violates the law, you can lodge a complaint with the Office for Personal Data Protection, Pplk. Sochora 27, 170 00 Prague 7 (%s)."
+
+#: modules/cookies/includes/zasady.php:162
+msgid "Změny těchto zásad"
+msgstr "Changes to this policy"
+
+#: modules/cookies/includes/zasady.php:163
+msgid "Zásady upravujeme, když web začne používat jiné služby. Tabulka cookies a seznam poskytovatelů jsou vždy aktuální."
+msgstr "We update the policy when the website starts using other services. The cookie table and the list of providers are always up to date."
+
+#: modules/cookies/includes/zasady.php:165
 #, php-format
 msgid "Tyto zásady platí od %s."
 msgstr "This policy is effective from %s."
 
-#: modules/cookies/includes/zasady.php:103 modules/paticka/includes/data.php:66
+#: modules/cookies/includes/zasady.php:175 modules/paticka/includes/data.php:66
 msgid "Zásady cookies"
 msgstr "Cookie policy"
 

@@ -81,6 +81,7 @@ function sluzby(): array
         ),
         // Google Ads před GA4: v blokování vyhrává první shoda (gtag.js s ID AW- = marketingové).
         'gads'        => array(
+            'posk' => 'google',
             'nazev' => 'Google Ads', 'kat' => 'marketingove',
             'cookies' => array(
                 array('_gcl_au', 'Google Ads (' . $google . ')', __('Měření konverzí z reklam Google', 'marmal-breakdance-plus'), __('3 měsíce', 'marmal-breakdance-plus')),
@@ -93,6 +94,7 @@ function sluzby(): array
             },
         ),
         'ga4'         => array(
+            'posk' => 'google',
             'nazev' => 'Google Analytics 4', 'kat' => 'analyticke',
             'cookies' => array(
                 array('_ga', 'Google Analytics (' . $google . ')', __('Rozlišuje jednotlivé návštěvníky pro statistiky', 'marmal-breakdance-plus'), 'platnost_ga'),
@@ -105,6 +107,7 @@ function sluzby(): array
             },
         ),
         'hotjar'      => array(
+            'posk' => 'hotjar',
             'nazev' => 'Hotjar', 'kat' => 'analyticke',
             'cookies' => array(
                 array('_hjSessionUser_*', 'Hotjar Ltd.', __('Rozlišuje návštěvníky pro analýzu chování', 'marmal-breakdance-plus'), __('1 rok', 'marmal-breakdance-plus')),
@@ -117,6 +120,7 @@ function sluzby(): array
             },
         ),
         'clarity'     => array(
+            'posk' => 'microsoft',
             'nazev' => 'Microsoft Clarity', 'kat' => 'analyticke',
             'cookies' => array(
                 array('_clck', 'Microsoft Corporation', __('Rozlišuje návštěvníky pro analýzu chování', 'marmal-breakdance-plus'), __('1 rok', 'marmal-breakdance-plus')),
@@ -129,6 +133,7 @@ function sluzby(): array
             },
         ),
         'meta'        => array(
+            'posk' => 'meta',
             'nazev' => 'Meta Pixel', 'kat' => 'marketingove',
             'cookies' => array(
                 array('_fbp', 'Meta Platforms Ireland Ltd.', __('Měření a cílení reklamy na Facebooku a Instagramu', 'marmal-breakdance-plus'), __('3 měsíce', 'marmal-breakdance-plus')),
@@ -141,6 +146,7 @@ function sluzby(): array
             },
         ),
         'sklik'       => array(
+            'posk' => 'seznam',
             'nazev' => 'Sklik (Seznam.cz)', 'kat' => 'marketingove',
             'cookies' => array(
                 array('sid', 'Seznam.cz, a.s.', __('Propojení návštěvy s reklamou Sklik a měření konverzí', 'marmal-breakdance-plus'), __('30 dní', 'marmal-breakdance-plus')),
@@ -153,6 +159,7 @@ function sluzby(): array
             },
         ),
         'linkedin'    => array(
+            'posk' => 'linkedin',
             'nazev' => 'LinkedIn Insight Tag', 'kat' => 'marketingove',
             'cookies' => array(
                 array('li_fat_id', 'LinkedIn Ireland Unlimited Company', __('Měření konverzí z reklam na LinkedInu', 'marmal-breakdance-plus'), __('30 dní', 'marmal-breakdance-plus')),
@@ -167,12 +174,17 @@ function sluzby(): array
             },
         ),
         'gtm'         => array(
+            'posk' => 'google',
             'nazev' => 'Google Tag Manager', 'kat' => 'analyticke',
             'cookies' => array(),
             'skript' => array('googletagmanager.com/gtm.js'),
             'inline' => array('/gtm\.start/'),
+            'auto'   => function () {
+                return merici_id('gtm') !== '';
+            },
         ),
         'youtube'     => array(
+            'posk' => 'google',
             'nazev' => 'YouTube', 'kat' => 'marketingove', 'vlozeny' => __('Video z YouTube', 'marmal-breakdance-plus'),
             'cookies' => array(
                 array('YSC', 'YouTube (' . $google . ')', __('Statistika přehrávání vloženého videa', 'marmal-breakdance-plus'), __('relace', 'marmal-breakdance-plus')),
@@ -182,18 +194,58 @@ function sluzby(): array
             'iframe' => array('youtube.com/embed', 'youtube-nocookie.com/embed'),
         ),
         'vimeo'       => array(
+            'posk' => 'vimeo',
             'nazev' => 'Vimeo', 'kat' => 'marketingove', 'vlozeny' => __('Video z Vimea', 'marmal-breakdance-plus'),
             'cookies' => array(array('vuid', 'Vimeo.com, Inc.', __('Statistika přehrávání vloženého videa', 'marmal-breakdance-plus'), __('2 roky', 'marmal-breakdance-plus'))),
             'skript' => array('player.vimeo.com/api'),
             'iframe' => array('player.vimeo.com'),
         ),
         'gmaps'       => array(
+            'posk' => 'google',
             'nazev' => 'Google Mapy', 'kat' => 'marketingove', 'vlozeny' => __('Mapa Google', 'marmal-breakdance-plus'),
             'cookies' => array(array('NID', 'Google (' . $google . ', google.com)', __('Nastavení a měření vložené mapy', 'marmal-breakdance-plus'), __('6 měsíců', 'marmal-breakdance-plus'))),
             'skript' => array('maps.googleapis.com/maps/api/js'),
             'iframe' => array('google.com/maps', 'maps.google.'),
         ),
     );
+}
+
+/**
+ * Poskytovatelé služeb třetích stran pro stránku Zásady cookies: id => [název, odkaz na zásady, zpracování i mimo EU].
+ * Odkazy vedou na obecné zásady ochrany soukromí poskytovatele (nemění se s každou verzí).
+ */
+function poskytovatele(): array
+{
+    return array(
+        'google'    => array('Google Ireland Limited (Google LLC)', 'https://policies.google.com/privacy?hl=cs', true),
+        'meta'      => array('Meta Platforms Ireland Limited', 'https://www.facebook.com/privacy/policy/', true),
+        'microsoft' => array('Microsoft Ireland Operations Limited', 'https://privacy.microsoft.com/cs-cz/privacystatement', true),
+        'linkedin'  => array('LinkedIn Ireland Unlimited Company', 'https://www.linkedin.com/legal/privacy-policy', true),
+        'hotjar'    => array('Hotjar Ltd. (Contentsquare)', 'https://www.hotjar.com/legal/policies/privacy/', true),
+        'vimeo'     => array('Vimeo.com, Inc.', 'https://vimeo.com/privacy', true),
+        'seznam'    => array('Seznam.cz, a.s.', 'https://www.seznam.cz/ochranaudaju', false),
+    );
+}
+
+/**
+ * Poskytovatelé, jejichž služby web právě používá: id => [název, odkaz, mimo EU, [názvy služeb]].
+ */
+function aktivni_poskytovatele(): array
+{
+    $vse  = sluzby();
+    $info = poskytovatele();
+    $out  = array();
+    foreach (aktivni_sluzby() as $sid) {
+        $p = $vse[$sid]['posk'] ?? '';
+        if ($p === '' || !isset($info[$p])) {
+            continue;
+        }
+        if (!isset($out[$p])) {
+            $out[$p] = array($info[$p][0], $info[$p][1], $info[$p][2], array());
+        }
+        $out[$p][3][] = $vse[$sid]['nazev'];
+    }
+    return $out;
 }
 
 /** Výchozí nastavení (schválený prototyp). Prázdné texty = výchozí texty z texty_vychozi(). */
