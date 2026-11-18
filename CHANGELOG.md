@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.13.0 – 2026-11-18
+- **Nový modul Fonty** (`fonty`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – Google Fonts z vlastní domény (GDPR: Google nedostane IP adresy návštěvníků; rychlejší načtení):
+  - ve výsledné stránce najde každý odkaz na `fonts.googleapis.com/css` i `/css2` (`<link>`, `@import`, přednačtení) – nezáleží, jestli ho přidal Breakdance, jiný plugin, nebo Custom Code,
+  - při prvním výskytu sadu jednou stáhne do `uploads/marmal-fonty/` (woff2, jen latinka a latinka s diakritikou; cyrilice, řečtina a vietnamština volitelně) a odkaz nahradí lokálním CSS; další stránky už jen používají stažené soubory,
+  - odstraní `preconnect` / `dns-prefetch` na servery Google Fonts, doplní `font-display: swap` a přednačte běžný řez (400) hlavních fontů,
+  - stahuje jen z `fonts.googleapis.com` a `fonts.gstatic.com` přes HTTPS, každý soubor zkontroluje (podpis woff2/woff, velikost), nejvýš 3 nové sady na jeden požadavek, zámek proti souběžnému stahování; když stažení selže, odkaz na Google zůstane (web nepřijde o písmo) a další pokus nejdřív za hodinu,
+  - MarMal → Fonty: přehled fontů (stav, počet a velikost souborů, kdy staženo, kdy naposledy na webu), „Projít web a stáhnout“ (načte úvodní stránku a vyčistí page cache WP Rocket / LiteSpeed / W3TC / WP Super Cache), „Smazat a stáhnout znovu“, znakové sady, swap, přednačtení, návod na kontrolu,
+  - v builderu Breakdance se nic nemění – fonty se tam dál vybírají a načítají z Google Fonts.
+- **Cookies**: upozornění v administraci (MarMal a Pluginy), když web načítá Google Fonts z Googlu – s odkazem na modul Fonty.
+
 ## 0.12.0 – 2026-11-18
 - **Cookies – měřicí kódy** (MarMal → Cookies → Měření): kromě GA4 nově **Google Ads** (AW-…), **Google Tag Manager** (GTM-…), **Sklik – Seznam Event Measurement** (sul.js, SEM ID), **Meta Pixel**, **LinkedIn Insight Tag**, **Microsoft Clarity** a **Hotjar** (Contentsquare). Stačí vložit ID, kód vloží modul sám:
   - GA4 a Google Ads sdílí jeden Google tag; v základním Consent Mode se načte po souhlasu s analytickými nebo marketingovými, GA4 se nastaví jen s analytickými a Ads jen s marketingovými,
