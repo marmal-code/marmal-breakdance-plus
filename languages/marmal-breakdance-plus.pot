@@ -52,7 +52,7 @@ msgid "Patička"
 msgstr ""
 
 #: modules/paticka/manifest.php:27
-msgid "Copyright s rokem spuštění webu (© 2019–2026), podpis autora webu s odkazem, údaje o podnikateli podle § 435 občanského zákoníku a odkazy na ochranu osobních údajů a nastavení cookies. Vkládá se shortcodem nebo dynamickými daty."
+msgid "Copyright s rokem spuštění webu (© 2019–2026), podpis autora webu s odkazem, údaje o podnikateli podle § 435 občanského zákoníku a odkazy na ochranu osobních údajů a nastavení cookies. Vkládá se elementem Marmal – Patička (vzhled odkazů, písma a barev v Design tabu), shortcodem nebo dynamickými daty."
 msgstr ""
 
 #: modules/paticka/modul.php:33
@@ -267,38 +267,42 @@ msgid "Breakdance → Footers → otevři patičku webu."
 msgstr ""
 
 #: modules/paticka/includes/admin.php:258
-msgid "Do spodní lišty přidej element Shortcode (Add → do hledání napiš „Shortcode“)."
+msgid "Do spodní lišty přidej element „Marmal – Patička“ (Add → do hledání napiš „Patička“)."
 msgstr ""
 
 #: modules/paticka/includes/admin.php:259
-msgid "Vlož <code>[marmal_paticka]</code> a ulož. Písmo a barvu nastavíš u elementu (Design → Typography)."
+msgid "Content → Patička: rozložení a co zobrazit. Design: barvy, písmo a podtržení odkazů (i zvlášť pro odkaz autora), copyright, údaje o podnikateli, mezery."
 msgstr ""
 
 #: modules/paticka/includes/admin.php:261
+msgid "Bez elementu to jde i shortcodem <code>[marmal_paticka]</code> v elementu Shortcode – vzhled se pak jen převezme z patičky."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:262
 msgid "Jednotlivé části (každou do vlastního elementu Shortcode):"
 msgstr ""
 
-#: modules/paticka/includes/admin.php:263
+#: modules/paticka/includes/admin.php:264
 msgid "© 2019–2026 Název; drzitel=\"ne\" = jen roky"
 msgstr ""
 
-#: modules/paticka/includes/admin.php:264
+#: modules/paticka/includes/admin.php:265
 msgid "podpis autora s odkazem"
 msgstr ""
 
-#: modules/paticka/includes/admin.php:265
+#: modules/paticka/includes/admin.php:266
 msgid "údaje o podnikateli; pod_sebou=\"ano\" = každý údaj na řádek"
 msgstr ""
 
-#: modules/paticka/includes/admin.php:266
+#: modules/paticka/includes/admin.php:267
 msgid "ochrana osobních údajů a nastavení cookies; zasady=\"ne\" / cookies=\"ne\""
 msgstr ""
 
-#: modules/paticka/includes/admin.php:267
+#: modules/paticka/includes/admin.php:268
 msgid "celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
 msgstr ""
 
-#: modules/paticka/includes/admin.php:269
+#: modules/paticka/includes/admin.php:270
 msgid "Dynamická data: u textu klikni na ikonu dynamických dat → MarMal → Patička (copyright, roky, údaje o podnikateli, odkazy)."
 msgstr ""
 
@@ -357,12 +361,16 @@ msgstr ""
 msgid "DIČ musí mít tvar např. CZ12345678 – neuloženo."
 msgstr ""
 
-#: modules/paticka/includes/render.php:98
+#: modules/paticka/includes/render.php:99
 msgid "Údaje o podnikateli nejsou vyplněné (MarMal → Patička)."
 msgstr ""
 
-#: modules/paticka/includes/render.php:127
+#: modules/paticka/includes/render.php:128
 msgid "Žádný odkaz: chybí stránka se zásadami a cookie plugin (MarMal → Patička)."
+msgstr ""
+
+#: elements/Paticka_Webu/ssr.php:12
+msgid "Modul Patička je vypnutý – zapni ho v MarMal → Moduly."
 msgstr ""
 
 #: includes/gallery.php:222

@@ -2,7 +2,8 @@
 /**
  * Modul Patička – HTML výstup a shortcody.
  *
- *  [marmal_paticka]   celá spodní lišta: copyright · údaje o podnikateli · odkazy · autor
+ *  [marmal_paticka]   celá spodní lišta: copyright · odkazy · autor + údaje o podnikateli
+ *  element „Marmal – Patička“ (elements/Paticka_Webu) volá element_html()
  *  [marmal_copyright] © 2019–2026 Název          (drzitel="ne" = jen roky)
  *  [marmal_autor]     Web vytvořil Martin Malý – marmal.cz (odkaz)
  *  [marmal_firma]     Firma · Sídlo: … · IČO: … · DIČ: … · zápis   (pod_sebou="ano")
@@ -132,27 +133,38 @@ function html_odkazy(bool $zasady = true, bool $cookies = true): string
 // ============================================================= shortcody
 
 /**
- * [marmal_paticka copyright="ano" firma="ano" odkazy="ano" autor="ano" rozlozeni="radek|sloupec|stred"]
+ * [marmal_paticka copyright="ano" drzitel="ano" firma="ano" pod_sebou="ne" odkazy="ano" zasady="ano"
+ *                 cookies="ano" autor="ano" rozlozeni="radek|sloupec|stred"]
  * Řádek 1: copyright vlevo, odkazy a autor vpravo. Řádek 2: údaje o podnikateli.
+ * Atribut css="ne" = nenačítat paticka.css (element Marmal – Patička má CSS v default.css).
  */
 function sc_paticka($atts = array()): string
 {
     $a = shortcode_atts(array(
         'copyright' => 'ano',
+        'drzitel'   => 'ano',
         'firma'     => 'ano',
+        'pod_sebou' => 'ne',
         'odkazy'    => 'ano',
+        'zasady'    => 'ano',
+        'cookies'   => 'ano',
         'autor'     => 'ano',
         'rozlozeni' => 'radek',
+        'css'       => 'ano',
     ), (array) $atts, 'marmal_paticka');
-    assets();
+    if (ano($a['css'])) {
+        assets();
+    } else {
+        wp_enqueue_script('marmal-paticka');
+    }
 
     $levo = array();
     if (ano($a['copyright'])) {
-        $levo[] = html_copyright();
+        $levo[] = html_copyright(ano($a['drzitel']));
     }
     $pravo = array();
-    if (ano($a['odkazy'])) {
-        $odkazy = html_odkazy();
+    if (ano($a['odkazy']) && (ano($a['zasady']) || ano($a['cookies']))) {
+        $odkazy = html_odkazy(ano($a['zasady']), ano($a['cookies']));
         if (strpos($odkazy, 'marmal-paticka__hlaska') === false) {
             $pravo[] = $odkazy;
         }
@@ -172,9 +184,32 @@ function sc_paticka($atts = array()): string
     }
     // Údaje o podnikateli bývají dlouhé – vlastní řádek pod copyrightem a odkazy.
     if (ano($a['firma']) && udaje()) {
-        $html .= '<div class="marmal-paticka__cast marmal-paticka__cast--udaje">' . html_firma() . '</div>';
+        $html .= '<div class="marmal-paticka__cast marmal-paticka__cast--udaje">' . html_firma(ano($a['pod_sebou'])) . '</div>';
     }
     return $html . '</div>';
+}
+
+/**
+ * Výstup Breakdance elementu „Marmal – Patička“ (elements/Paticka_Webu/ssr.php).
+ * $c = hodnoty z Content → Patička; přepínače „Skrýt …“ se převedou na atributy shortcodu.
+ */
+function element_html(array $c): string
+{
+    $skryt = function (string $klic) use ($c): string {
+        return empty($c[$klic]) ? 'ano' : 'ne';
+    };
+    $rozlozeni = isset($c['rozlozeni']) ? sanitize_key((string) $c['rozlozeni']) : 'radek';
+    return sc_paticka(array(
+        'copyright' => $skryt('skryt_copyright'),
+        'drzitel'   => $skryt('skryt_drzitele'),
+        'firma'     => $skryt('skryt_udaje'),
+        'pod_sebou' => empty($c['udaje_pod_sebou']) ? 'ne' : 'ano',
+        'zasady'    => $skryt('skryt_zasady'),
+        'cookies'   => $skryt('skryt_cookies'),
+        'autor'     => $skryt('skryt_autora'),
+        'rozlozeni' => $rozlozeni !== '' ? $rozlozeni : 'radek',
+        'css'       => 'ne',
+    ));
 }
 
 /** [marmal_copyright drzitel="ne"] */

@@ -6,7 +6,9 @@
   - podpis autora „Web vytvořil Martin Malý – marmal.cz“ (výchozí texty z pluginu, na webu jdou přepsat nebo vypnout), UTM parametry (`utm_source` = doména webu), na úvodní stránce běžný odkaz, jinde `nofollow`,
   - údaje o podnikateli podle § 435 občanského zákoníku: firma / jméno, sídlo, IČO (kontrola kontrolní číslice), DIČ, zápis v rejstříku,
   - odkazy: ochrana osobních údajů (vybraná stránka nebo stránka z Nastavení → Soukromí, překlad přes Polylang / WPML) a „Nastavení cookies“ (Complianz, CookieYes, Cookiebot automaticky, jiný plugin přes CSS třídu),
-  - shortcody `[marmal_paticka]`, `[marmal_copyright]`, `[marmal_autor]`, `[marmal_firma]`, `[marmal_odkazy]`; CSS a JS jen na stránkách s nimi,
+  - **element „Marmal – Patička“** (Add → Patička): rozložení a výběr částí v Content, v Design písmo a barva copyrightu, **odkazy** (písmo, barva, barva po najetí, podtržení vždy / po najetí / zmizí po najetí / nikdy, barva podtržení a po najetí, tloušťka, odsazení), zvlášť **odkaz autora**, údaje o podnikateli, oddělovací tečky (barva / bez teček), mezery s breakpointy; element generuje `tools/paticka_element.py`,
+  - výchozí barva odkazů = barva textu patičky i tam, kde web má globální barvu odkazů (dřív ji globální barva přebíjela a tlačítko cookies mělo jinou barvu než ostatní odkazy),
+  - shortcody `[marmal_paticka]` (nově i `drzitel`, `pod_sebou`, `zasady`, `cookies`), `[marmal_copyright]`, `[marmal_autor]`, `[marmal_firma]`, `[marmal_odkazy]`; CSS a JS jen na stránkách s nimi,
   - dynamická data Breakdance (MarMal → Patička, 15 polí `marmal_paticka_*`),
   - vlastní texty jdou na vícejazyčném webu přeložit (Polylang – Překlady řetězců, WPML – String Translation).
 

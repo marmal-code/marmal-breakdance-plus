@@ -1,0 +1,67 @@
+{# VYGENEROVÁNO skriptem tools/paticka_element.py – neupravovat ručně. #}
+%%SELECTOR%% {
+  width: {{ design.container.width.style }};
+  {{ macros.backgroundColor(design.container.background) }}
+  {{ macros.borders(design.container.borders) }}
+  {{ macros.spacing_padding_all(design.container.padding) }}
+  {{ macros.typography(design.typography, globalSettings)  }}
+  {{ macros.spacing_margin_y(design.spacing) }}
+}
+
+{# Mezery – CSS proměnné modulu (výchozí hodnoty v default.css; prázdný prvek nic nemění) #}
+%%SELECTOR%% .marmal-paticka {
+  {% if design.mezery.sloupce.style %}--marmal-paticka-gap-col: {{ design.mezery.sloupce.style }};{% endif %}
+  {% if design.mezery.radky.style %}--marmal-paticka-gap-row: {{ design.mezery.radky.style }};{% endif %}
+  {% if design.mezery.odkazy.style %}--marmal-paticka-gap-cast: 4px {{ design.mezery.odkazy.style }};{% endif %}
+}
+
+%%SELECTOR%% .marmal-paticka .marmal-paticka__copyright {
+  {{ macros.typography(design.copyright.pismo, globalSettings) }}
+  {% if design.copyright.barva %}color: {{ design.copyright.barva }};{% endif %}
+}
+
+{# Odkazy – přes CSS proměnné (pravidla v default.css), takže nezáleží na pořadí stylů.
+   Proměnné nastavené v .marmal-paticka__autor platí jen pro odkaz autora; prázdné = sekce Odkazy. #}
+%%SELECTOR%% .marmal-paticka {
+  {% if design.odkazy.barva %}--marmal-paticka-odkaz: {{ design.odkazy.barva }};{% endif %}
+  {% if design.odkazy.barva_hover %}--marmal-paticka-odkaz-hover: {{ design.odkazy.barva_hover }};{% endif %}
+  {% if design.odkazy.podtrzeni == 'hover' %}--marmal-paticka-podtrzeni: none;--marmal-paticka-podtrzeni-hover: underline;{% endif %}
+  {% if design.odkazy.podtrzeni == 'bez_hover' %}--marmal-paticka-podtrzeni: underline;--marmal-paticka-podtrzeni-hover: none;{% endif %}
+  {% if design.odkazy.podtrzeni == 'nikdy' %}--marmal-paticka-podtrzeni: none;--marmal-paticka-podtrzeni-hover: none;{% endif %}
+  {% if design.odkazy.podtrzeni_barva %}--marmal-paticka-podtrzeni-barva: {{ design.odkazy.podtrzeni_barva }};{% endif %}
+  {% if design.odkazy.podtrzeni_hover %}--marmal-paticka-podtrzeni-barva-hover: {{ design.odkazy.podtrzeni_hover }};{% endif %}
+  {% if design.odkazy.podtrzeni_tloustka.style %}--marmal-paticka-podtrzeni-tloustka: {{ design.odkazy.podtrzeni_tloustka.style }};--marmal-paticka-podtrzeni-tloustka-hover: {{ design.odkazy.podtrzeni_tloustka.style }};{% endif %}
+  {% if design.odkazy.podtrzeni_odsazeni.style %}--marmal-paticka-podtrzeni-odsazeni: {{ design.odkazy.podtrzeni_odsazeni.style }};{% endif %}
+}
+%%SELECTOR%% .marmal-paticka a.marmal-paticka__odkaz,
+%%SELECTOR%% .marmal-paticka button.marmal-paticka__odkaz {
+  {{ macros.typography(design.odkazy.pismo, globalSettings) }}
+}
+
+%%SELECTOR%% .marmal-paticka .marmal-paticka__autor {
+  {{ macros.typography(design.autor.pismo, globalSettings) }}
+  {% if design.autor.barva %}color: {{ design.autor.barva }};{% endif %}
+  {% if design.autor.odkaz %}--marmal-paticka-odkaz: {{ design.autor.odkaz }};{% endif %}
+  {% if design.autor.odkaz_hover %}--marmal-paticka-odkaz-hover: {{ design.autor.odkaz_hover }};{% endif %}
+}
+%%SELECTOR%% .marmal-paticka .marmal-paticka__autor a.marmal-paticka__odkaz {
+  {{ macros.typography(design.autor.odkaz_pismo, globalSettings) }}
+}
+
+%%SELECTOR%% .marmal-paticka .marmal-paticka__cast--udaje {
+  {{ macros.typography(design.udaje.pismo, globalSettings) }}
+  {% if design.udaje.barva %}color: {{ design.udaje.barva }};--marmal-paticka-udaje-opacity: 1;{% endif %}
+}
+
+%%SELECTOR%% .marmal-paticka .marmal-paticka__tecka {
+  {% if design.oddelovac.barva %}color: {{ design.oddelovac.barva }};--marmal-paticka-tecka: 1;{% endif %}
+  {% if design.oddelovac.skryt %}display: none;{% endif %}
+}
+{% if design.oddelovac.skryt %}
+%%SELECTOR%% .marmal-paticka .marmal-paticka__firma:not(.marmal-paticka__firma--pod),
+%%SELECTOR%% .marmal-paticka .marmal-paticka__odkazy {
+  display: inline-flex;
+  flex-wrap: wrap;
+  column-gap: 1em;
+}
+{% endif %}

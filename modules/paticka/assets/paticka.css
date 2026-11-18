@@ -2,6 +2,7 @@
  * Modul Patička – Marmal Breakdance Plus.
  * Písmo a barva se dědí z elementu, do kterého je shortcode vložený (Text / Rich Text / Shortcode).
  * Úpravy přes proměnné na rodičovském elementu, např. --marmal-paticka-gap: 8px 32px;
+ * Element „Marmal – Patička“ má tento soubor zkopírovaný v default.css (tools/paticka_element.py).
  */
 
 .marmal-paticka {
@@ -9,7 +10,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--marmal-paticka-gap, 8px 32px);
+  gap: var(--marmal-paticka-gap, var(--marmal-paticka-gap-row, 8px) var(--marmal-paticka-gap-col, 32px));
   width: 100%;
   font-size: var(--marmal-paticka-size, inherit);
   line-height: 1.6;
@@ -67,21 +68,32 @@
   opacity: var(--marmal-paticka-tecka, .6);
 }
 
-/* Odkazy v barvě textu patičky; barvu jde změnit proměnnou --marmal-paticka-odkaz. */
-.marmal-paticka__odkaz,
-.marmal-paticka__odkaz:visited {
+/* Odkazy – vzhled přes CSS proměnné (nastavuje je element „Marmal – Patička“, jdou i ručně):
+ *   --marmal-paticka-odkaz / -odkaz-hover                   barva odkazu / po najetí
+ *   --marmal-paticka-podtrzeni / -podtrzeni-hover           underline | none
+ *   --marmal-paticka-podtrzeni-barva / -podtrzeni-barva-hover
+ *   --marmal-paticka-podtrzeni-tloustka / -tloustka-hover, --marmal-paticka-podtrzeni-odsazeni
+ * Bez nastavení: barva textu patičky, podtržené, po najetí silnější podtržení.
+ * Zdvojená třída = silnější než globální barva odkazů Breakdance (.breakdance a). */
+a.marmal-paticka__odkaz.marmal-paticka__odkaz,
+a.marmal-paticka__odkaz.marmal-paticka__odkaz:visited,
+button.marmal-paticka__odkaz.marmal-paticka__odkaz {
   color: var(--marmal-paticka-odkaz, inherit);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: .2em;
+  text-decoration-line: var(--marmal-paticka-podtrzeni, underline);
+  text-decoration-color: var(--marmal-paticka-podtrzeni-barva, currentColor);
+  text-decoration-thickness: var(--marmal-paticka-podtrzeni-tloustka, 1px);
+  text-underline-offset: var(--marmal-paticka-podtrzeni-odsazeni, .2em);
   transition: color .2s, text-decoration-color .2s;
 }
 
-.marmal-paticka__odkaz:hover,
-.marmal-paticka__odkaz:focus-visible {
-  /* Barva zůstává (na tmavé i světlé patičce čitelná), zesílí se podtržení. */
+a.marmal-paticka__odkaz.marmal-paticka__odkaz:hover,
+a.marmal-paticka__odkaz.marmal-paticka__odkaz:focus-visible,
+button.marmal-paticka__odkaz.marmal-paticka__odkaz:hover,
+button.marmal-paticka__odkaz.marmal-paticka__odkaz:focus-visible {
   color: var(--marmal-paticka-odkaz-hover, var(--marmal-paticka-odkaz, inherit));
-  text-decoration-thickness: 2px;
+  text-decoration-line: var(--marmal-paticka-podtrzeni-hover, var(--marmal-paticka-podtrzeni, underline));
+  text-decoration-color: var(--marmal-paticka-podtrzeni-barva-hover, var(--marmal-paticka-podtrzeni-barva, currentColor));
+  text-decoration-thickness: var(--marmal-paticka-podtrzeni-tloustka-hover, 2px);
 }
 
 /* Tlačítko „Nastavení cookies“ vypadá jako odkaz. */

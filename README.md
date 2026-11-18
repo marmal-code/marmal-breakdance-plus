@@ -42,10 +42,11 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 ## Patička – použití
 
 - **MarMal → Patička**: rok spuštění (předvyplní se podle nejstarší stránky), držitel práv, podpis autora, údaje o podnikateli, stránka zásad, odkaz na nastavení cookies. Prázdné textové pole = výchozí text z pluginu (změna výchozího textu v kódu se po aktualizaci projeví na všech webech, které ho nepřepsaly).
-- Do patičky v Breakdance: element **Shortcode** s `[marmal_paticka]` (řádek 1: copyright vlevo, odkazy a autor vpravo; řádek 2: údaje o podnikateli). Rozložení `rozlozeni="radek|sloupec|stred"`, části vypnout `copyright|firma|odkazy|autor="ne"`.
+- Do patičky v Breakdance: element **Marmal – Patička** (Content: rozložení a co zobrazit; Design: písmo a barva copyrightu, odkazy – písmo, barva, barva po najetí, podtržení (vždy / po najetí / zmizí po najetí / nikdy), jeho barva, tloušťka a odsazení –, zvlášť odkaz autora, údaje o podnikateli, tečky, mezery s breakpointy). Element generuje `tools/paticka_element.py` (neupravovat v Element Studiu), jeho `default.css` je kopie `modules/paticka/assets/paticka.css` – po změně CSS modulu skript spustit znovu.
+- Nebo element **Shortcode** s `[marmal_paticka]` (řádek 1: copyright vlevo, odkazy a autor vpravo; řádek 2: údaje o podnikateli). Rozložení `rozlozeni="radek|sloupec|stred"`, části vypnout `copyright|firma|odkazy|autor="ne"`.
 - Jednotlivě: `[marmal_copyright drzitel="ne"]`, `[marmal_autor]`, `[marmal_firma pod_sebou="ano"]`, `[marmal_odkazy zasady="ne" cookies="ne"]`.
 - Dynamická data Breakdance: kategorie MarMal → Patička, slugy `marmal_paticka_*` (copyright, roky, rok spuštění, aktuální rok, držitel, podpis autora – text a odkaz s UTM, údaje o podnikateli po jednom i celý řádek, zásady – text a odkaz).
-- Vzhled: písmo a barva se dědí z elementu; proměnné `--marmal-paticka-gap`, `--marmal-paticka-odkaz`, `--marmal-paticka-odkaz-hover`, `--marmal-paticka-udaje-size`, `--marmal-paticka-udaje-opacity`.
+- Vzhled: písmo a barva se dědí z elementu; proměnné `--marmal-paticka-gap` (nebo `-gap-row` / `-gap-col`), `--marmal-paticka-gap-cast`, `--marmal-paticka-odkaz`, `-odkaz-hover`, `-podtrzeni` / `-podtrzeni-hover` (`underline` / `none`), `-podtrzeni-barva` / `-podtrzeni-barva-hover`, `-podtrzeni-tloustka` / `-podtrzeni-tloustka-hover`, `-podtrzeni-odsazeni`, `--marmal-paticka-udaje-size`, `--marmal-paticka-udaje-opacity`. Odkazy mají silnější selektor než globální barva odkazů Breakdance.
 - Rok se po Novém roce opraví skriptem i na stránce ze staré page cache (jen u shortcodů).
 - Nastavení cookies: Complianz (`cmplz-show-banner`), CookieYes (`cky-banner-element`), Cookiebot (`Cookiebot.renew()`), jiný plugin přes vlastní CSS třídu.
 

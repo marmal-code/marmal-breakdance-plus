@@ -2,8 +2,8 @@
 /**
  * Manifest modulu Patička. Čte ho MarmalElements\Moduly.
  *
- * Modul NENÍ zamčený – nemá element z Element Studia, jen shortcody a dynamická data,
- * takže ho jde na webu vypnout. Funguje i bez Breakdance (shortcody); dynamická data
+ * Modul NENÍ zamčený: element „Marmal – Patička“ (elements/Paticka_Webu) zůstane v builderu
+ * i při vypnutém modulu, jen nic nevykreslí (správce vidí upozornění) – vypnutí = patička zmizí. Funguje i bez Breakdance (shortcody); dynamická data
  * se zaregistrují jen tehdy, když Breakdance běží.
  */
 
@@ -24,7 +24,7 @@ return array(
     'texty'      => function () {
         return array(
             'nazev' => __('Patička', 'marmal-breakdance-plus'),
-            'popis' => __('Copyright s rokem spuštění webu (© 2019–2026), podpis autora webu s odkazem, údaje o podnikateli podle § 435 občanského zákoníku a odkazy na ochranu osobních údajů a nastavení cookies. Vkládá se shortcodem nebo dynamickými daty.', 'marmal-breakdance-plus'),
+            'popis' => __('Copyright s rokem spuštění webu (© 2019–2026), podpis autora webu s odkazem, údaje o podnikateli podle § 435 občanského zákoníku a odkazy na ochranu osobních údajů a nastavení cookies. Vkládá se elementem Marmal – Patička (vzhled odkazů, písma a barev v Design tabu), shortcodem nebo dynamickými daty.', 'marmal-breakdance-plus'),
         );
     },
     'odkazy'     => function () {

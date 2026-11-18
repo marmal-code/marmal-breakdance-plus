@@ -255,9 +255,10 @@ function stranka(): void
             <h2><?php esc_html_e('Jak to dát do patičky', 'marmal-breakdance-plus'); ?></h2>
             <ol class="marmal-pat__kroky">
                 <li><?php esc_html_e('Breakdance → Footers → otevři patičku webu.', 'marmal-breakdance-plus'); ?></li>
-                <li><?php esc_html_e('Do spodní lišty přidej element Shortcode (Add → do hledání napiš „Shortcode“).', 'marmal-breakdance-plus'); ?></li>
-                <li><?php echo wp_kses(__('Vlož <code>[marmal_paticka]</code> a ulož. Písmo a barvu nastavíš u elementu (Design → Typography).', 'marmal-breakdance-plus'), array('code' => array())); ?></li>
+                <li><?php esc_html_e('Do spodní lišty přidej element „Marmal – Patička“ (Add → do hledání napiš „Patička“).', 'marmal-breakdance-plus'); ?></li>
+                <li><?php esc_html_e('Content → Patička: rozložení a co zobrazit. Design: barvy, písmo a podtržení odkazů (i zvlášť pro odkaz autora), copyright, údaje o podnikateli, mezery.', 'marmal-breakdance-plus'); ?></li>
             </ol>
+            <p><?php echo wp_kses(__('Bez elementu to jde i shortcodem <code>[marmal_paticka]</code> v elementu Shortcode – vzhled se pak jen převezme z patičky.', 'marmal-breakdance-plus'), array('code' => array())); ?></p>
             <p><strong><?php esc_html_e('Jednotlivé části (každou do vlastního elementu Shortcode):', 'marmal-breakdance-plus'); ?></strong></p>
             <table class="marmal-pat__tab">
                 <tr><td><code>[marmal_copyright]</code></td><td><?php esc_html_e('© 2019–2026 Název; drzitel="ne" = jen roky', 'marmal-breakdance-plus'); ?></td></tr>
