@@ -959,7 +959,11 @@ msgstr ""
 msgid "celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
 msgstr ""
 
-#: modules/paticka/includes/admin.php:270
+#: modules/paticka/includes/admin.php:269
+msgid "copyright vlevo, zásady a cookies uprostřed, podpis vpravo; přesun části pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje=\"vlevo|stred|vpravo|pod\", zarovnání řádku pod zarovnani_pod=\"vlevo|stred|vpravo\", pod sebe od skladat=\"mobil|tablet|maly|nikdy\", mobil=\"stred\""
+msgstr ""
+
+#: modules/paticka/includes/admin.php:271
 msgid "Dynamická data: u textu klikni na ikonu dynamických dat → MarMal → Patička (copyright, roky, údaje o podnikateli, odkazy)."
 msgstr ""
 
@@ -1022,11 +1026,11 @@ msgstr ""
 msgid "DIČ musí mít tvar např. CZ12345678 – neuloženo."
 msgstr ""
 
-#: modules/paticka/includes/render.php:99
+#: modules/paticka/includes/render.php:108
 msgid "Údaje o podnikateli nejsou vyplněné (MarMal → Patička)."
 msgstr ""
 
-#: modules/paticka/includes/render.php:128
+#: modules/paticka/includes/render.php:137
 msgid "Žádný odkaz: chybí stránka se zásadami a cookie plugin (MarMal → Patička)."
 msgstr ""
 

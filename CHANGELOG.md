@@ -13,6 +13,12 @@
   - shortcody `[marmal_cookies_seznam]` (tabulka cookies pro stránku zásad) a `[marmal_cookies_nastaveni]`, JS API `MarmalCookies` a událost `marmal:cookies`,
   - náhled lišty pro správce `?marmal_cookies_nahled=1`, upozornění, když na webu běží jiný cookie plugin.
 - **Patička**: nový režim tlačítka cookies „MarMal – Cookies“; při zapnutém modulu Cookies ho automatický režim zvolí sám.
+- **Patička – rozvržení**:
+  - nové rozložení **„Copyright vlevo, odkazy uprostřed, podpis vpravo“** (`rozlozeni="tri"`) – střed je přesně uprostřed i při různě dlouhých krajích,
+  - element „Marmal – Patička“ → Content → **Rozvržení – podrobně**: umístění každé části (copyright, odkazy, podpis autora, údaje o podnikateli) vlevo / uprostřed / vpravo / na řádku pod, zarovnání řádku pod, od kdy skládat pod sebe (mobil / tablet / malý mobil / nikdy) a zarovnání pod sebou (vlevo / na střed); v shortcodu atributy `pozice_*`, `zarovnani_pod`, `skladat`, `mobil`,
+  - údaje o podnikateli přesunuté do sloupce jsou na vlastním řádku; jejich písmo a barva z Design tabu platí všude,
+  - podpis autora: „– marmal.cz“ se nezalomí, odkaz nezůstane sám na dalším řádku,
+  - výchozí rozložení (copyright vlevo, odkazy a podpis vpravo, údaje pod) se nemění.
 
 ## 0.10.0 – 2026-11-18
 - **Nový modul Patička** (`paticka`, zapínatelný v MarMal → Moduly, výchozí zapnuto) s nastavením v **MarMal → Patička**:

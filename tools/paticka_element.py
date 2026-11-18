@@ -65,6 +65,7 @@ CONTENT = [
     c('paticka', 'Patička', [
         dropdown('rozlozeni', 'Rozložení', [
             ('radek', 'Copyright vlevo, odkazy a podpis vpravo'),
+            ('tri', 'Copyright vlevo, odkazy uprostřed, podpis vpravo'),
             ('sloupec', 'Vše pod sebou, zarovnané vlevo'),
             ('stred', 'Vše pod sebou, na střed'),
         ]),
@@ -75,6 +76,15 @@ CONTENT = [
         toggle('skryt_autora', 'Skrýt podpis autora'),
         toggle('skryt_udaje', 'Skrýt údaje o podnikateli'),
         toggle('udaje_pod_sebou', 'Údaje o podnikateli pod sebou'),
+    ], "['type' => 'section', 'layout' => 'vertical']"),
+    c('rozvrzeni', 'Rozvržení – podrobně', [
+        dropdown('pozice_copyright', 'Copyright', [('auto', 'Podle rozložení'), ('vlevo', 'Vlevo'), ('stred', 'Uprostřed'), ('vpravo', 'Vpravo'), ('pod', 'Na řádku pod')]),
+        dropdown('pozice_odkazy', 'Odkazy (zásady, cookies)', [('auto', 'Podle rozložení'), ('vlevo', 'Vlevo'), ('stred', 'Uprostřed'), ('vpravo', 'Vpravo'), ('pod', 'Na řádku pod')]),
+        dropdown('pozice_autor', 'Podpis autora', [('auto', 'Podle rozložení'), ('vlevo', 'Vlevo'), ('stred', 'Uprostřed'), ('vpravo', 'Vpravo'), ('pod', 'Na řádku pod')]),
+        dropdown('pozice_udaje', 'Údaje o podnikateli', [('auto', 'Podle rozložení'), ('vlevo', 'Vlevo'), ('stred', 'Uprostřed'), ('vpravo', 'Vpravo'), ('pod', 'Na řádku pod')]),
+        dropdown('zarovnani_pod', 'Zarovnání řádku pod', [('auto', 'Podle rozložení'), ('vlevo', 'Vlevo'), ('stred', 'Na střed'), ('vpravo', 'Vpravo')]),
+        dropdown('skladat', 'Pod sebe od', [('mobil', 'Mobil (do 767 px)'), ('tablet', 'Tablet (do 1119 px)'), ('maly', 'Malý mobil (do 479 px)'), ('nikdy', 'Nikdy')]),
+        dropdown('mobil_zarovnani', 'Zarovnání pod sebou', [('vlevo', 'Vlevo'), ('stred', 'Na střed')]),
     ], "['type' => 'section', 'layout' => 'vertical']"),
 ]
 
@@ -181,7 +191,7 @@ CSS_TWIG = f'''{{# VYGENEROVÁNO skriptem tools/paticka_element.py – neupravov
   {{{{ macros.typography(design.autor.odkaz_pismo, globalSettings) }}}}
 }}
 
-{S} .marmal-paticka__cast--udaje {{
+{S} .marmal-paticka .marmal-paticka__firma {{
   {{{{ macros.typography(design.udaje.pismo, globalSettings) }}}}
   {{% if design.udaje.barva %}}color: {{{{ design.udaje.barva }}}};--marmal-paticka-udaje-opacity: 1;{{% endif %}}
 }}
@@ -217,6 +227,9 @@ if (!function_exists('\MarmalElements\Paticka\element_html')) {
 }
 
 $marmal_pat_c = $propertiesData['content']['paticka'] ?? [];
+$marmal_pat_r = $propertiesData['content']['rozvrzeni'] ?? [];
+// Content → Patička + Content → Rozvržení – podrobně (od 0.11.0); hodnoty čistí element_html().
+$marmal_pat_c = array_merge(is_array($marmal_pat_r) ? $marmal_pat_r : [], is_array($marmal_pat_c) ? $marmal_pat_c : []);
 // element_html() vrací hotové HTML, každá hodnota je escapovaná (esc_html/esc_attr/esc_url).
 echo \MarmalElements\Paticka\element_html(is_array($marmal_pat_c) ? $marmal_pat_c : []); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 '''
@@ -398,7 +411,7 @@ class PatickaWebu extends \\Breakdance\\Elements\\Element
 
     static function propertyPathsToSsrElementWhenValueChanges()
     {
-        return ['content.paticka'];
+        return ['content.paticka', 'content.rozvrzeni'];
     }
 }
 '''

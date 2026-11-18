@@ -355,7 +355,7 @@ class PatickaWebu extends \Breakdance\Elements\Element
         "rozlozeni",
         "Rozložení",
         [],
-        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'radek', 'text' => 'Copyright vlevo, odkazy a podpis vpravo'], ['value' => 'sloupec', 'text' => 'Vše pod sebou, zarovnané vlevo'], ['value' => 'stred', 'text' => 'Vše pod sebou, na střed']]],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'radek', 'text' => 'Copyright vlevo, odkazy a podpis vpravo'], ['value' => 'tri', 'text' => 'Copyright vlevo, odkazy uprostřed, podpis vpravo'], ['value' => 'sloupec', 'text' => 'Vše pod sebou, zarovnané vlevo'], ['value' => 'stred', 'text' => 'Vše pod sebou, na střed']]],
         false,
         false,
         [],
@@ -412,6 +412,70 @@ class PatickaWebu extends \Breakdance\Elements\Element
         "Údaje o podnikateli pod sebou",
         [],
         ['type' => 'toggle', 'layout' => 'vertical'],
+        false,
+        false,
+        [],
+      )],
+        ['type' => 'section', 'layout' => 'vertical'],
+        false,
+        false,
+        [],
+      ), c(
+        "rozvrzeni",
+        "Rozvržení – podrobně",
+        [c(
+        "pozice_copyright",
+        "Copyright",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'auto', 'text' => 'Podle rozložení'], ['value' => 'vlevo', 'text' => 'Vlevo'], ['value' => 'stred', 'text' => 'Uprostřed'], ['value' => 'vpravo', 'text' => 'Vpravo'], ['value' => 'pod', 'text' => 'Na řádku pod']]],
+        false,
+        false,
+        [],
+      ), c(
+        "pozice_odkazy",
+        "Odkazy (zásady, cookies)",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'auto', 'text' => 'Podle rozložení'], ['value' => 'vlevo', 'text' => 'Vlevo'], ['value' => 'stred', 'text' => 'Uprostřed'], ['value' => 'vpravo', 'text' => 'Vpravo'], ['value' => 'pod', 'text' => 'Na řádku pod']]],
+        false,
+        false,
+        [],
+      ), c(
+        "pozice_autor",
+        "Podpis autora",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'auto', 'text' => 'Podle rozložení'], ['value' => 'vlevo', 'text' => 'Vlevo'], ['value' => 'stred', 'text' => 'Uprostřed'], ['value' => 'vpravo', 'text' => 'Vpravo'], ['value' => 'pod', 'text' => 'Na řádku pod']]],
+        false,
+        false,
+        [],
+      ), c(
+        "pozice_udaje",
+        "Údaje o podnikateli",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'auto', 'text' => 'Podle rozložení'], ['value' => 'vlevo', 'text' => 'Vlevo'], ['value' => 'stred', 'text' => 'Uprostřed'], ['value' => 'vpravo', 'text' => 'Vpravo'], ['value' => 'pod', 'text' => 'Na řádku pod']]],
+        false,
+        false,
+        [],
+      ), c(
+        "zarovnani_pod",
+        "Zarovnání řádku pod",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'auto', 'text' => 'Podle rozložení'], ['value' => 'vlevo', 'text' => 'Vlevo'], ['value' => 'stred', 'text' => 'Na střed'], ['value' => 'vpravo', 'text' => 'Vpravo']]],
+        false,
+        false,
+        [],
+      ), c(
+        "skladat",
+        "Pod sebe od",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'mobil', 'text' => 'Mobil (do 767 px)'], ['value' => 'tablet', 'text' => 'Tablet (do 1119 px)'], ['value' => 'maly', 'text' => 'Malý mobil (do 479 px)'], ['value' => 'nikdy', 'text' => 'Nikdy']]],
+        false,
+        false,
+        [],
+      ), c(
+        "mobil_zarovnani",
+        "Zarovnání pod sebou",
+        [],
+        ['type' => 'dropdown', 'layout' => 'vertical', 'items' => [['value' => 'vlevo', 'text' => 'Vlevo'], ['value' => 'stred', 'text' => 'Na střed']]],
         false,
         false,
         [],
@@ -500,6 +564,6 @@ class PatickaWebu extends \Breakdance\Elements\Element
 
     static function propertyPathsToSsrElementWhenValueChanges()
     {
-        return ['content.paticka'];
+        return ['content.paticka', 'content.rozvrzeni'];
     }
 }

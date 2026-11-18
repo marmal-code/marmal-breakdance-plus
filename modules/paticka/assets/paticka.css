@@ -38,14 +38,51 @@
   justify-content: center;
 }
 
-/* Údaje o podnikateli – celý řádek pod copyrightem a odkazy, o něco menší a tlumené. */
-.marmal-paticka__cast--udaje {
+/* Tři sloupce (rozložení „tri“ nebo část uprostřed): střed zůstane uprostřed i při různě dlouhých krajích. */
+.marmal-paticka--zony {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.marmal-paticka--zony .marmal-paticka__cast--stred {
+  justify-content: center;
+  text-align: center;
+}
+
+.marmal-paticka--zony .marmal-paticka__cast--pravo {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Řádek pod (výchozí pro údaje o podnikateli) – přes celou šířku. */
+.marmal-paticka__cast--pod {
   flex-basis: 100%;
+  grid-column: 1 / -1;
+}
+
+.marmal-paticka--pod-stred .marmal-paticka__cast--pod {
+  justify-content: center;
+  text-align: center;
+}
+
+.marmal-paticka--pod-vpravo .marmal-paticka__cast--pod {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Údaje přesunuté do sloupce (vlevo / uprostřed / vpravo) jsou vždy na vlastním řádku pod ostatním. */
+.marmal-paticka__cast:not(.marmal-paticka__cast--pod) > .marmal-paticka__firma {
+  flex-basis: 100%;
+}
+
+/* Údaje o podnikateli – o něco menší a tlumené (v kterékoli části patičky). */
+.marmal-paticka__firma {
   font-size: var(--marmal-paticka-udaje-size, .9em);
   opacity: var(--marmal-paticka-udaje-opacity, .85);
 }
 
-.marmal-paticka__udaj--nowrap {
+.marmal-paticka__udaj--nowrap,
+.marmal-paticka__nowrap {
   white-space: nowrap;
 }
 
@@ -125,8 +162,80 @@ a.marmal-paticka__odkaz:focus-visible {
   opacity: .8;
 }
 
+/* Na menších obrazovkách pod sebe – od kdy, volí atribut skladat (breakpointy Breakdance:
+ * tablet 1119 px, mobil 767 px, malý mobil 479 px). Pořadí: vlevo, uprostřed, vpravo, řádek pod. */
+@media (max-width: 1119px) {
+  .marmal-paticka--skladat-tablet:not(.marmal-paticka--stred) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .marmal-paticka--skladat-tablet:not(.marmal-paticka--stred) .marmal-paticka__cast {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .marmal-paticka--skladat-tablet.marmal-paticka--mobil-stred:not(.marmal-paticka--stred) {
+    align-items: center;
+    text-align: center;
+  }
+  .marmal-paticka--skladat-tablet.marmal-paticka--mobil-stred:not(.marmal-paticka--stred) .marmal-paticka__cast {
+    justify-content: center;
+    text-align: center;
+  }
+  .marmal-paticka--skladat-tablet .marmal-paticka__cast:empty {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
-  .marmal-paticka:not(.marmal-paticka--stred) {
+  .marmal-paticka--skladat-mobil:not(.marmal-paticka--stred) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .marmal-paticka--skladat-mobil:not(.marmal-paticka--stred) .marmal-paticka__cast {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .marmal-paticka--skladat-mobil.marmal-paticka--mobil-stred:not(.marmal-paticka--stred) {
+    align-items: center;
+    text-align: center;
+  }
+  .marmal-paticka--skladat-mobil.marmal-paticka--mobil-stred:not(.marmal-paticka--stred) .marmal-paticka__cast {
+    justify-content: center;
+    text-align: center;
+  }
+  .marmal-paticka--skladat-mobil .marmal-paticka__cast:empty {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .marmal-paticka--skladat-maly:not(.marmal-paticka--stred) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .marmal-paticka--skladat-maly:not(.marmal-paticka--stred) .marmal-paticka__cast {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .marmal-paticka--skladat-maly.marmal-paticka--mobil-stred:not(.marmal-paticka--stred) {
+    align-items: center;
+    text-align: center;
+  }
+  .marmal-paticka--skladat-maly.marmal-paticka--mobil-stred:not(.marmal-paticka--stred) .marmal-paticka__cast {
+    justify-content: center;
+    text-align: center;
+  }
+  .marmal-paticka--skladat-maly .marmal-paticka__cast:empty {
+    display: none;
+  }
+}
+
+/* Starší výstup bez třídy skladat (stránka z cache před aktualizací) se skládá na mobilu jako dřív. */
+@media (max-width: 767px) {
+  .marmal-paticka:not(.marmal-paticka--stred):not([class*="marmal-paticka--skladat-"]) {
     flex-direction: column;
     align-items: flex-start;
   }

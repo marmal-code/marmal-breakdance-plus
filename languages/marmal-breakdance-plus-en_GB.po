@@ -961,7 +961,11 @@ msgstr "privacy policy and cookie settings; zasady=\"ne\" / cookies=\"ne\""
 msgid "celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
 msgstr "whole bar centred (radek = left and right, sloupec = stacked); turn parts off with copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
 
-#: modules/paticka/includes/admin.php:270
+#: modules/paticka/includes/admin.php:269
+msgid "copyright vlevo, zásady a cookies uprostřed, podpis vpravo; přesun části pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje=\"vlevo|stred|vpravo|pod\", zarovnání řádku pod zarovnani_pod=\"vlevo|stred|vpravo\", pod sebe od skladat=\"mobil|tablet|maly|nikdy\", mobil=\"stred\""
+msgstr "copyright on the left, privacy and cookies in the centre, credit on the right; move a part with pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje=\"vlevo|stred|vpravo|pod\", align the row below with zarovnani_pod=\"vlevo|stred|vpravo\", stack from skladat=\"mobil|tablet|maly|nikdy\", mobil=\"stred\""
+
+#: modules/paticka/includes/admin.php:271
 msgid "Dynamická data: u textu klikni na ikonu dynamických dat → MarMal → Patička (copyright, roky, údaje o podnikateli, odkazy)."
 msgstr "Dynamic data: click the dynamic data icon on a text → MarMal → Footer (copyright, years, business details, links)."
 
@@ -1024,11 +1028,11 @@ msgstr "A company ID has 8 digits – not saved."
 msgid "DIČ musí mít tvar např. CZ12345678 – neuloženo."
 msgstr "The VAT ID must look like CZ12345678 – not saved."
 
-#: modules/paticka/includes/render.php:99
+#: modules/paticka/includes/render.php:108
 msgid "Údaje o podnikateli nejsou vyplněné (MarMal → Patička)."
 msgstr "Business details are not filled in (MarMal → Footer)."
 
-#: modules/paticka/includes/render.php:128
+#: modules/paticka/includes/render.php:137
 msgid "Žádný odkaz: chybí stránka se zásadami a cookie plugin (MarMal → Patička)."
 msgstr "No link: privacy page and cookie plugin are missing (MarMal → Footer)."
 
