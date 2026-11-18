@@ -1,0 +1,121 @@
+/*
+ * Modul Patička – Marmal Breakdance Plus.
+ * Písmo a barva se dědí z elementu, do kterého je shortcode vložený (Text / Rich Text / Shortcode).
+ * Úpravy přes proměnné na rodičovském elementu, např. --marmal-paticka-gap: 8px 32px;
+ */
+
+.marmal-paticka {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--marmal-paticka-gap, 8px 32px);
+  width: 100%;
+  font-size: var(--marmal-paticka-size, inherit);
+  line-height: 1.6;
+}
+
+.marmal-paticka--sloupec {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.marmal-paticka--stred {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.marmal-paticka__cast {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--marmal-paticka-gap-cast, 4px 24px);
+}
+
+.marmal-paticka--stred .marmal-paticka__cast {
+  justify-content: center;
+}
+
+/* Údaje o podnikateli – celý řádek pod copyrightem a odkazy, o něco menší a tlumené. */
+.marmal-paticka__cast--udaje {
+  flex-basis: 100%;
+  font-size: var(--marmal-paticka-udaje-size, .9em);
+  opacity: var(--marmal-paticka-udaje-opacity, .85);
+}
+
+.marmal-paticka__udaj--nowrap {
+  white-space: nowrap;
+}
+
+/* Údaje a odkazy oddělené tečkou; tečka se při zalomení neskládá na začátek řádku. */
+.marmal-paticka__firma,
+.marmal-paticka__odkazy {
+  display: inline;
+}
+
+.marmal-paticka__firma--pod {
+  display: flex;
+  flex-direction: column;
+}
+
+.marmal-paticka__firma--pod .marmal-paticka__tecka {
+  display: none;
+}
+
+.marmal-paticka__tecka {
+  opacity: var(--marmal-paticka-tecka, .6);
+}
+
+/* Odkazy v barvě textu patičky; barvu jde změnit proměnnou --marmal-paticka-odkaz. */
+.marmal-paticka__odkaz,
+.marmal-paticka__odkaz:visited {
+  color: var(--marmal-paticka-odkaz, inherit);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  transition: color .2s, text-decoration-color .2s;
+}
+
+.marmal-paticka__odkaz:hover,
+.marmal-paticka__odkaz:focus-visible {
+  /* Barva zůstává (na tmavé i světlé patičce čitelná), zesílí se podtržení. */
+  color: var(--marmal-paticka-odkaz-hover, var(--marmal-paticka-odkaz, inherit));
+  text-decoration-thickness: 2px;
+}
+
+/* Tlačítko „Nastavení cookies“ vypadá jako odkaz. */
+button.marmal-paticka__cookies {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+button.marmal-paticka__cookies:focus-visible,
+a.marmal-paticka__odkaz:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Upozornění vidí jen správce webu. */
+.marmal-paticka__hlaska {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px dashed currentColor;
+  border-radius: 4px;
+  font-size: .85em;
+  opacity: .8;
+}
+
+@media (max-width: 767px) {
+  .marmal-paticka:not(.marmal-paticka--stred) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

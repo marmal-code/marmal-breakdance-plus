@@ -38,13 +38,331 @@ msgstr ""
 msgid "Galerie efektů"
 msgstr ""
 
-#: modules/efekty/manifest.php:46
+#: modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr ""
 
 #: modules/efekty/manifest.php:56
 #, php-format
 msgid "Načítá se %1$d z %2$d kategorií efektů."
+msgstr ""
+
+#: modules/paticka/manifest.php:26 modules/paticka/includes/admin.php:28 modules/paticka/includes/admin.php:29 modules/paticka/includes/dynamic-data-pole.php:50
+msgid "Patička"
+msgstr ""
+
+#: modules/paticka/manifest.php:27
+msgid "Copyright s rokem spuštění webu (© 2019–2026), podpis autora webu s odkazem, údaje o podnikateli podle § 435 občanského zákoníku a odkazy na ochranu osobních údajů a nastavení cookies. Vkládá se shortcodem nebo dynamickými daty."
+msgstr ""
+
+#: modules/paticka/modul.php:33
+msgid "Copyright (© 2019–2026 Název)"
+msgstr ""
+
+#: modules/paticka/modul.php:34
+msgid "Copyright – jen roky (2019–2026)"
+msgstr ""
+
+#: modules/paticka/modul.php:35 modules/paticka/includes/admin.php:122
+msgid "Rok spuštění webu"
+msgstr ""
+
+#: modules/paticka/modul.php:36
+msgid "Aktuální rok"
+msgstr ""
+
+#: modules/paticka/modul.php:37 modules/paticka/includes/admin.php:126
+msgid "Držitel práv"
+msgstr ""
+
+#: modules/paticka/modul.php:38
+msgid "Podpis autora – text"
+msgstr ""
+
+#: modules/paticka/modul.php:39
+msgid "Podpis autora – odkaz (s UTM)"
+msgstr ""
+
+#: modules/paticka/modul.php:40
+msgid "Údaje o podnikateli – celý řádek"
+msgstr ""
+
+#: modules/paticka/modul.php:41
+msgid "Firma / jméno"
+msgstr ""
+
+#: modules/paticka/modul.php:42 modules/paticka/includes/admin.php:175
+msgid "Sídlo"
+msgstr ""
+
+#: modules/paticka/modul.php:43 modules/paticka/includes/admin.php:179
+msgid "IČO"
+msgstr ""
+
+#: modules/paticka/modul.php:44 modules/paticka/includes/admin.php:183
+msgid "DIČ"
+msgstr ""
+
+#: modules/paticka/modul.php:45 modules/paticka/includes/admin.php:187
+msgid "Zápis v rejstříku"
+msgstr ""
+
+#: modules/paticka/modul.php:46
+msgid "Ochrana osobních údajů – text"
+msgstr ""
+
+#: modules/paticka/modul.php:47
+msgid "Ochrana osobních údajů – odkaz"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:104
+msgid "MarMal – Patička"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:105
+msgid "Copyright, podpis autora webu, údaje o podnikateli a odkazy do patičky. Prázdná pole použijí výchozí text (šedý v poli)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:110
+msgid "Náhled"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:112
+msgid "Písmo a barvy se na webu převezmou z patičky. Na úvodní stránce je odkaz autora běžný, na ostatních stránkách s nofollow."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:119
+msgid "Copyright"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:123
+msgid "Předvyplněno podle nejstarší stránky webu. U převzatého nebo předělaného webu sem dej rok původního webu – v patičce bude vidět historie (© 2019–2026). Prázdné = znovu navrhnout."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:127
+msgid "Prázdné = název webu (Nastavení → Obecné)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:133
+msgid "Podpis autora webu"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:136
+msgid "Zobrazit"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:137
+msgid "Zobrazit podpis autora v patičce"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:140
+msgid "Text před odkazem"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:144 modules/paticka/includes/admin.php:220 modules/paticka/includes/admin.php:245
+msgid "Text odkazu"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:148
+msgid "Adresa odkazu"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:152
+msgid "Měření návštěv"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:154
+msgid "Přidat k odkazu UTM parametry"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:158
+#, php-format
+msgid "V Google Analytics na marmal.cz pak uvidíš návštěvy z tohoto webu jako zdroj „%s“ (médium referral, kampaň podpis-webu)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:167
+msgid "Údaje o podnikateli (§ 435 občanského zákoníku)"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:168
+msgid "Podnikatel má na webu uvést jméno nebo firmu, sídlo, IČO a údaj o zápisu v rejstříku (u OSVČ v živnostenském rejstříku). Vyplněné údaje se zobrazí v patičce, prázdné se vynechají."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:171
+msgid "Firma / jméno a příjmení"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:172
+msgid "např. Noitami akustika s.r.o. nebo Jan Novák"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:176
+msgid "Ulice 123, 252 28 Černošice"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:180
+msgid "Kontroluje se kontrolní číslice."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:184
+msgid "Jen u plátců DPH (nepovinné)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:188
+msgid "s.r.o.: <code>Zapsáno v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 123456</code><br>OSVČ: <code>Zapsán v živnostenském rejstříku vedeném Městským úřadem Černošice</code>"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:194
+msgid "Odkazy"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:197
+msgid "Stránka ochrany osobních údajů"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:204
+msgid "— podle Nastavení → Soukromí —"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:213
+#, php-format
+msgid "Teď vede na: %s"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:214
+msgid "Stránka není nastavená – odkaz se nezobrazí."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:224 modules/paticka/includes/data.php:63
+msgid "Nastavení cookies"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:234
+msgid "Teď se odkaz nezobrazí (cookie plugin nenalezen nebo vypnuto)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:235
+#, php-format
+msgid "Teď: %s – kliknutí znovu otevře cookie lištu."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:241
+msgid "Vlastní CSS třída"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:242
+msgid "Jen pro „Jiný plugin“ – třída, na kterou cookie plugin otevře lištu (najdeš v jeho dokumentaci)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:251
+msgid "Uložit nastavení"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:255
+msgid "Jak to dát do patičky"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:257
+msgid "Breakdance → Footers → otevři patičku webu."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:258
+msgid "Do spodní lišty přidej element Shortcode (Add → do hledání napiš „Shortcode“)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:259
+msgid "Vlož <code>[marmal_paticka]</code> a ulož. Písmo a barvu nastavíš u elementu (Design → Typography)."
+msgstr ""
+
+#: modules/paticka/includes/admin.php:261
+msgid "Jednotlivé části (každou do vlastního elementu Shortcode):"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:263
+msgid "© 2019–2026 Název; drzitel=\"ne\" = jen roky"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:264
+msgid "podpis autora s odkazem"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:265
+msgid "údaje o podnikateli; pod_sebou=\"ano\" = každý údaj na řádek"
+msgstr ""
+
+#: modules/paticka/includes/admin.php:266
+msgid "ochrana osobních údajů a nastavení cookies; zasady=\"ne\" / cookies=\"ne\""
+msgstr ""
+
+#: modules/paticka/includes/admin.php:267
+msgid "celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright=\"ne\", firma=\"ne\", odkazy=\"ne\", autor=\"ne\""
+msgstr ""
+
+#: modules/paticka/includes/admin.php:269
+msgid "Dynamická data: u textu klikni na ikonu dynamických dat → MarMal → Patička (copyright, roky, údaje o podnikateli, odkazy)."
+msgstr ""
+
+#: modules/paticka/includes/data.php:22
+msgid "Automaticky podle cookie pluginu na webu"
+msgstr ""
+
+#: modules/paticka/includes/data.php:26
+msgid "Jiný plugin – vlastní CSS třída"
+msgstr ""
+
+#: modules/paticka/includes/data.php:27
+msgid "Nezobrazovat"
+msgstr ""
+
+#: modules/paticka/includes/data.php:59
+msgid "Web vytvořil Martin Malý –"
+msgstr ""
+
+#: modules/paticka/includes/data.php:62
+msgid "Ochrana osobních údajů"
+msgstr ""
+
+#: modules/paticka/includes/data.php:251
+#, php-format
+msgid "Sídlo: %s"
+msgstr ""
+
+#: modules/paticka/includes/data.php:255
+#, php-format
+msgid "IČO: %s"
+msgstr ""
+
+#: modules/paticka/includes/data.php:259
+#, php-format
+msgid "DIČ: %s"
+msgstr ""
+
+#: modules/paticka/includes/data.php:366
+msgid "Rok spuštění musí být mezi 1990 a letoškem – použil se návrh podle nejstarší stránky webu."
+msgstr ""
+
+#: modules/paticka/includes/data.php:380
+msgid "Adresa odkazu autora musí začínat https:// – použije se výchozí."
+msgstr ""
+
+#: modules/paticka/includes/data.php:392
+msgid "IČO nemá platnou kontrolní číslici – zkontroluj ho prosím (uloženo i tak)."
+msgstr ""
+
+#: modules/paticka/includes/data.php:395
+msgid "IČO má 8 číslic – neuloženo."
+msgstr ""
+
+#: modules/paticka/includes/data.php:403
+msgid "DIČ musí mít tvar např. CZ12345678 – neuloženo."
+msgstr ""
+
+#: modules/paticka/includes/render.php:98
+msgid "Údaje o podnikateli nejsou vyplněné (MarMal → Patička)."
+msgstr ""
+
+#: modules/paticka/includes/render.php:127
+msgid "Žádný odkaz: chybí stránka se zásadami a cookie plugin (MarMal → Patička)."
 msgstr ""
 
 #: includes/gallery.php:222
@@ -85,11 +403,11 @@ msgstr ""
 msgid "Zavřít"
 msgstr ""
 
-#: includes/gallery.php:397 includes/hero.php:946
+#: includes/gallery.php:397 includes/hero.php:976
 msgid "Předchozí"
 msgstr ""
 
-#: includes/gallery.php:398 includes/hero.php:947
+#: includes/gallery.php:398 includes/hero.php:977
 msgid "Další"
 msgstr ""
 
@@ -97,101 +415,101 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: includes/hero.php:725
+#: includes/hero.php:733
 msgid "Po–Pá"
 msgstr ""
 
-#: includes/hero.php:725
+#: includes/hero.php:733
 msgid "Po–So"
 msgstr ""
 
-#: includes/hero.php:725
+#: includes/hero.php:733
 msgid "Denně"
 msgstr ""
 
-#: includes/hero.php:807
+#: includes/hero.php:815
 #, php-format
 msgid "Hodnocení %s z 5"
 msgstr ""
 
-#: includes/hero.php:893
+#: includes/hero.php:923
 msgid "superHERO: vyberte video v Content → Médium."
 msgstr ""
 
-#: includes/hero.php:908
+#: includes/hero.php:938
 msgid "superHERO: vyberte obrázek v Content → Médium."
 msgstr ""
 
-#: includes/hero.php:926
+#: includes/hero.php:956
 msgid "Přehrát video"
 msgstr ""
 
-#: includes/hero.php:932
+#: includes/hero.php:962
 msgid "superHERO: vložte shortcode formuláře (např. Global Block s formulářem Breakdance) v Content → Médium."
 msgstr ""
 
-#: includes/hero.php:943
+#: includes/hero.php:973
 #, php-format
 msgid "Slide %d"
 msgstr ""
 
-#: includes/hero.php:963
+#: includes/hero.php:993
 msgid "Posunout"
 msgstr ""
 
-#: includes/hero.php:967 includes/hero.php:967 includes/hero.php:967
+#: includes/hero.php:997 includes/hero.php:997 includes/hero.php:997
 msgid "Pozastavit pohyb"
 msgstr ""
 
-#: includes/hero.php:967
+#: includes/hero.php:997
 msgid "Spustit pohyb"
 msgstr ""
 
-#: includes/hero.php:1010
+#: includes/hero.php:1040
 #, php-format
 msgid "Teď máme otevřeno · do %s"
 msgstr ""
 
-#: includes/hero.php:1012
+#: includes/hero.php:1042
 #, php-format
 msgid "Zavřeno · otevíráme dnes v %s"
 msgstr ""
 
-#: includes/hero.php:1014
+#: includes/hero.php:1044
 #, php-format
 msgid "Zavřeno · otevíráme zítra v %s"
 msgstr ""
 
-#: includes/hero.php:1016
+#: includes/hero.php:1046
 #, php-format
 msgid "Zavřeno · otevíráme %1$s v %2$s"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "v neděli"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "v pondělí"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "v úterý"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "ve středu"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "ve čtvrtek"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "v pátek"
 msgstr ""
 
-#: includes/hero.php:1017
+#: includes/hero.php:1047
 msgid "v sobotu"
 msgstr ""
 

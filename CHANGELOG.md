@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.10.0 – 2026-11-18
+- **Nový modul Patička** (`paticka`, zapínatelný v MarMal → Moduly, výchozí zapnuto) s nastavením v **MarMal → Patička**:
+  - copyright s rokem spuštění webu a letošním rokem (`© 2019–2026 Název`, jen `© 2026` u webu spuštěného letos); rok spuštění se předvyplní podle nejstarší publikované stránky a jde přepsat; po Novém roce rok opraví skript i na stránce z page cache,
+  - podpis autora „Web vytvořil Martin Malý – marmal.cz“ (výchozí texty z pluginu, na webu jdou přepsat nebo vypnout), UTM parametry (`utm_source` = doména webu), na úvodní stránce běžný odkaz, jinde `nofollow`,
+  - údaje o podnikateli podle § 435 občanského zákoníku: firma / jméno, sídlo, IČO (kontrola kontrolní číslice), DIČ, zápis v rejstříku,
+  - odkazy: ochrana osobních údajů (vybraná stránka nebo stránka z Nastavení → Soukromí, překlad přes Polylang / WPML) a „Nastavení cookies“ (Complianz, CookieYes, Cookiebot automaticky, jiný plugin přes CSS třídu),
+  - shortcody `[marmal_paticka]`, `[marmal_copyright]`, `[marmal_autor]`, `[marmal_firma]`, `[marmal_odkazy]`; CSS a JS jen na stránkách s nimi,
+  - dynamická data Breakdance (MarMal → Patička, 15 polí `marmal_paticka_*`),
+  - vlastní texty jdou na vícejazyčném webu přeložit (Polylang – Překlady řetězců, WPML – String Translation).
+
 ## 0.9.0 – 2026-10-13
 - **superHERO – nastavení vzhledu každé části** (Design, nové sekce):
   - **Mezery mezi prvky**: výchozí mezera a přesná mezera pod odznakem, eyebrow, nadpisem, textem, tlačítky a důvěrou; mezera mezi tlačítky, mezi výhodami a nad předělem / pruhem log (vše po breakpointech),

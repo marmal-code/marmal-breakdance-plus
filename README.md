@@ -10,6 +10,7 @@ Co web používá, se zapíná v **WP admin → MarMal → Moduly**. Autor: Mart
 | Galerie Plus | vždy zapnuto | Breakdance element: mozaika (20 vzorů), slider s miniaturami, efekty po najetí, video, ACF galerie, vlastní lightbox. CSS/JS jen na stránkách s galerií. |
 | superHERO | vždy zapnuto | Breakdance element pro úvodní sekci: 5 rozložení, pozadí (barva, přechod, živý přechod, fotka, video, slider), tlačítka s efekty, důvěra (hodnocení, zákazníci, loga), otevírací doba, výhody / čísla, masky obrázků, dividery, typografie každého prvku, dynamická data. JS jen na stránkách s elementem. |
 | Efekty | podle webu | Knihovna CSS efektů (třídy `mm-…`, 89 efektů v 10 kategoriích), galerie s náhledy, barvy z Global Settings Breakdance. Nahrazuje plugin MarMal Effects. Na web se načítají jen zapnuté kategorie. |
+| Patička | zapnuto | Copyright s rokem spuštění webu (© 2019–2026), podpis autora „Web vytvořil Martin Malý – marmal.cz“ (UTM, nofollow mimo úvodní stránku), údaje o podnikateli podle § 435 OZ, odkazy na ochranu osobních údajů a nastavení cookies. Nastavení v **MarMal → Patička**, výstup shortcody a dynamickými daty (MarMal → Patička). |
 
 Moduly s elementy z Element Studia jsou **zamčené** (vždy zapnuté) – vypnutím by elementy zmizely ze stránek.
 
@@ -38,6 +39,16 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 - Barvy bez nastavení berou Global Settings (`--bde-brand-primary-color`, `--bde-links-color`, `--bde-headings-color`), mezery proměnné webu (`--content-width`, `--section-space`, `--gap-l`, `--radius-m`, `--btn-radius`). Pro celý web jde přepsat `--marmal-accent`, `--marmal-dark`, `--marmal-light`, `--marmal-header-h`.
 - Otevírací doba a termíny slidů se počítají v prohlížeči (funguje s page cache).
 
+## Patička – použití
+
+- **MarMal → Patička**: rok spuštění (předvyplní se podle nejstarší stránky), držitel práv, podpis autora, údaje o podnikateli, stránka zásad, odkaz na nastavení cookies. Prázdné textové pole = výchozí text z pluginu (změna výchozího textu v kódu se po aktualizaci projeví na všech webech, které ho nepřepsaly).
+- Do patičky v Breakdance: element **Shortcode** s `[marmal_paticka]` (řádek 1: copyright vlevo, odkazy a autor vpravo; řádek 2: údaje o podnikateli). Rozložení `rozlozeni="radek|sloupec|stred"`, části vypnout `copyright|firma|odkazy|autor="ne"`.
+- Jednotlivě: `[marmal_copyright drzitel="ne"]`, `[marmal_autor]`, `[marmal_firma pod_sebou="ano"]`, `[marmal_odkazy zasady="ne" cookies="ne"]`.
+- Dynamická data Breakdance: kategorie MarMal → Patička, slugy `marmal_paticka_*` (copyright, roky, rok spuštění, aktuální rok, držitel, podpis autora – text a odkaz s UTM, údaje o podnikateli po jednom i celý řádek, zásady – text a odkaz).
+- Vzhled: písmo a barva se dědí z elementu; proměnné `--marmal-paticka-gap`, `--marmal-paticka-odkaz`, `--marmal-paticka-odkaz-hover`, `--marmal-paticka-udaje-size`, `--marmal-paticka-udaje-opacity`.
+- Rok se po Novém roce opraví skriptem i na stránce ze staré page cache (jen u shortcodů).
+- Nastavení cookies: Complianz (`cmplz-show-banner`), CookieYes (`cky-banner-element`), Cookiebot (`Cookiebot.renew()`), jiný plugin přes vlastní CSS třídu.
+
 ## Nový modul
 
 1. `modules/<id>/manifest.php` – vzor `modules/efekty/manifest.php` (id, soubor, výchozí stav, závislost na Breakdance, texty, odkazy).
@@ -56,7 +67,7 @@ Veřejné funkce (vždy nejdřív `function_exists`):
 ## Požadavky
 
 - WordPress 6.0+, PHP 7.4+
-- Breakdance 2.8+ (pro elementy; modul Efekty funguje i bez něj)
+- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty a Patička fungují i bez něj)
 
 ## Instalace
 
