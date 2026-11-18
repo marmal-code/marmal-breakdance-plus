@@ -11,6 +11,7 @@ Co web používá, se zapíná v **WP admin → MarMal → Moduly**. Autor: Mart
 | superHERO | vždy zapnuto | Breakdance element pro úvodní sekci: 5 rozložení, pozadí (barva, přechod, živý přechod, fotka, video, slider), tlačítka s efekty, důvěra (hodnocení, zákazníci, loga), otevírací doba, výhody / čísla, masky obrázků, dividery, typografie každého prvku, dynamická data. JS jen na stránkách s elementem. |
 | Efekty | podle webu | Knihovna CSS efektů (třídy `mm-…`, 89 efektů v 10 kategoriích), galerie s náhledy, barvy z Global Settings Breakdance. Nahrazuje plugin MarMal Effects. Na web se načítají jen zapnuté kategorie. |
 | Patička | zapnuto | Copyright s rokem spuštění webu (© 2019–2026), podpis autora „Web vytvořil Martin Malý – marmal.cz“ (UTM, nofollow mimo úvodní stránku), údaje o podnikateli podle § 435 OZ, odkazy na ochranu osobních údajů a nastavení cookies. Nastavení v **MarMal → Patička**, výstup shortcody a dynamickými daty (MarMal → Patička). |
+| Cookies | vypnuto | Vlastní cookie lišta podle pravidel ÚOOÚ místo CookieYes: souhlas předem, „Odmítnout vše“ v první vrstvě, okno nastavení po kategoriích, Google Consent Mode v2 + GA4, blokování skriptů a náhledy videí/map do souhlasu, autodetekce služeb, seznam cookies `[marmal_cookies_seznam]`, záznam souhlasů. Nastavení v **MarMal → Cookies**. |
 
 Moduly s elementy z Element Studia jsou **zamčené** (vždy zapnuté) – vypnutím by elementy zmizely ze stránek.
 
@@ -43,12 +44,23 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 
 - **MarMal → Patička**: rok spuštění (předvyplní se podle nejstarší stránky), držitel práv, podpis autora, údaje o podnikateli, stránka zásad, odkaz na nastavení cookies. Prázdné textové pole = výchozí text z pluginu (změna výchozího textu v kódu se po aktualizaci projeví na všech webech, které ho nepřepsaly).
 - Do patičky v Breakdance: element **Marmal – Patička** (Content: rozložení a co zobrazit; Design: písmo a barva copyrightu, odkazy – písmo, barva, barva po najetí, podtržení (vždy / po najetí / zmizí po najetí / nikdy), jeho barva, tloušťka a odsazení –, zvlášť odkaz autora, údaje o podnikateli, tečky, mezery s breakpointy). Element generuje `tools/paticka_element.py` (neupravovat v Element Studiu), jeho `default.css` je kopie `modules/paticka/assets/paticka.css` – po změně CSS modulu skript spustit znovu.
+- Rozvržení: Content → Patička → Rozložení (vlevo + vpravo / **vlevo + uprostřed + vpravo** / pod sebou / na střed) a Content → **Rozvržení – podrobně** (umístění každé části, zarovnání řádku pod, od kdy pod sebe, zarovnání na mobilu). V shortcodu `rozlozeni="tri"`, `pozice_copyright|odkazy|autor|udaje="vlevo|stred|vpravo|pod"`, `zarovnani_pod`, `skladat="mobil|tablet|maly|nikdy"`, `mobil="stred"`.
 - Nebo element **Shortcode** s `[marmal_paticka]` (řádek 1: copyright vlevo, odkazy a autor vpravo; řádek 2: údaje o podnikateli). Rozložení `rozlozeni="radek|sloupec|stred"`, části vypnout `copyright|firma|odkazy|autor="ne"`.
 - Jednotlivě: `[marmal_copyright drzitel="ne"]`, `[marmal_autor]`, `[marmal_firma pod_sebou="ano"]`, `[marmal_odkazy zasady="ne" cookies="ne"]`.
 - Dynamická data Breakdance: kategorie MarMal → Patička, slugy `marmal_paticka_*` (copyright, roky, rok spuštění, aktuální rok, držitel, podpis autora – text a odkaz s UTM, údaje o podnikateli po jednom i celý řádek, zásady – text a odkaz).
 - Vzhled: písmo a barva se dědí z elementu; proměnné `--marmal-paticka-gap` (nebo `-gap-row` / `-gap-col`), `--marmal-paticka-gap-cast`, `--marmal-paticka-odkaz`, `-odkaz-hover`, `-podtrzeni` / `-podtrzeni-hover` (`underline` / `none`), `-podtrzeni-barva` / `-podtrzeni-barva-hover`, `-podtrzeni-tloustka` / `-podtrzeni-tloustka-hover`, `-podtrzeni-odsazeni`, `--marmal-paticka-udaje-size`, `--marmal-paticka-udaje-opacity`. Odkazy mají silnější selektor než globální barva odkazů Breakdance.
 - Rok se po Novém roce opraví skriptem i na stránce ze staré page cache (jen u shortcodů).
 - Nastavení cookies: Complianz (`cmplz-show-banner`), CookieYes (`cky-banner-element`), Cookiebot (`Cookiebot.renew()`), jiný plugin přes vlastní CSS třídu.
+
+## Cookies – použití
+
+- Zapnout v **MarMal → Moduly → Cookies**, vypnout starý cookie plugin (CookieYes apod. – modul na něj upozorní).
+- **MarMal → Cookies**: Vzhled (box / lišta / okno, barvy z Global Settings nebo vlastní s kontrolou kontrastu), Texty (prázdné = výchozí, překlad přes Polylang / WPML), Kategorie a cookies (služby automaticky / nalezené / ručně, vlastní cookies řádkem `název | poskytovatel | účel | platnost | kategorie`), Měření (ID GA4, Consent Mode v2 základní / rozšířený, zkrácení GA cookies na 13 měsíců), Záznam souhlasů (platnost souhlasu, revize, export CSV), Jak zapojit.
+- GA4 vkládá modul sám včetně Consent Mode v2 (výchozí stav `denied`). Známé skripty (GA, Meta Pixel, Hotjar, Clarity) a iframy (YouTube, Vimeo, Google Mapy) v HTML stránky zablokuje do souhlasu; iframy nahradí náhledem s tlačítkem „Povolit a zobrazit“. Rozhoduje se v prohlížeči, takže to funguje i s page cache.
+- Odkaz na otevření okna: tlačítko cookies v elementu **Marmal – Patička** (režim „MarMal – Cookies“ se zvolí sám), třída `marmal-cookies-nastaveni`, odkaz `#nastaveni-cookies`, shortcode `[marmal_cookies_nastaveni]`. Tabulka cookies na stránku zásad: `[marmal_cookies_seznam]`.
+- JS API: `MarmalCookies.otevrit()`, `MarmalCookies.souhlas('analyticke')`, událost `marmal:cookies` (detail = povolené kategorie). Vlastní skript do souhlasu: `<script type="text/plain" data-marmal-kat="analyticke">…</script>`.
+- Souhlas návštěvníka: cookie `marmal_consent` (revize, kategorie, náhodné ID, čas); záznamy bez IP v tabulce `{prefix}marmal_souhlasy`, úklid podle nastavení (cron `marmal_cookies_uklid`). Náhled lišty: `?marmal_cookies_nahled=1` (jen správce, nic neukládá).
+- Fáze 1 neřeší: iframy vložené až JavaScriptem (např. lazy video Breakdance), GTM, Google Ads, Sklik, reCAPTCHA – přijdou ve fázi 2.
 
 ## Nový modul
 
@@ -68,7 +80,7 @@ Veřejné funkce (vždy nejdřív `function_exists`):
 ## Požadavky
 
 - WordPress 6.0+, PHP 7.4+
-- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty a Patička fungují i bez něj)
+- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty, Patička a Cookies fungují i bez něj)
 
 ## Instalace
 

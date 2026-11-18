@@ -20,6 +20,7 @@ function cookies_rezimy(): array
 {
     return array(
         'auto'      => __('Automaticky podle cookie pluginu na webu', 'marmal-breakdance-plus'),
+        'marmal'    => __('MarMal – Cookies (modul tohoto pluginu)', 'marmal-breakdance-plus'),
         'complianz' => 'Complianz',
         'cookieyes' => 'CookieYes',
         'cookiebot' => 'Cookiebot',
@@ -311,6 +312,10 @@ function cookies_rezim(): string
     if ($r !== 'auto') {
         return array_key_exists($r, cookies_rezimy()) ? $r : 'ne';
     }
+    // Vlastní modul Cookies má přednost (běží-li, ostatní cookie pluginy mají být vypnuté).
+    if (function_exists('MarmalElements\Cookies\je_aktivni')) {
+        return 'marmal';
+    }
     if (plugin_aktivni(array('complianz-gdpr', 'complianz-gdpr-premium'))) {
         return 'complianz';
     }
@@ -327,6 +332,8 @@ function cookies_rezim(): string
 function cookies_trida(string $rezim): string
 {
     switch ($rezim) {
+        case 'marmal':
+            return 'marmal-cookies-nastaveni';
         case 'complianz':
             return 'cmplz-show-banner';
         case 'cookieyes':

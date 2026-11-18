@@ -266,6 +266,7 @@ function stranka(): void
                 <tr><td><code>[marmal_firma]</code></td><td><?php esc_html_e('údaje o podnikateli; pod_sebou="ano" = každý údaj na řádek', 'marmal-breakdance-plus'); ?></td></tr>
                 <tr><td><code>[marmal_odkazy]</code></td><td><?php esc_html_e('ochrana osobních údajů a nastavení cookies; zasady="ne" / cookies="ne"', 'marmal-breakdance-plus'); ?></td></tr>
                 <tr><td><code>[marmal_paticka rozlozeni="stred"]</code></td><td><?php esc_html_e('celá lišta na střed (radek = vlevo a vpravo, sloupec = pod sebou); části vypneš copyright="ne", firma="ne", odkazy="ne", autor="ne"', 'marmal-breakdance-plus'); ?></td></tr>
+                <tr><td><code>[marmal_paticka rozlozeni="tri"]</code></td><td><?php esc_html_e('copyright vlevo, zásady a cookies uprostřed, podpis vpravo; přesun části pozice_copyright / pozice_odkazy / pozice_autor / pozice_udaje="vlevo|stred|vpravo|pod", zarovnání řádku pod zarovnani_pod="vlevo|stred|vpravo", pod sebe od skladat="mobil|tablet|maly|nikdy", mobil="stred"', 'marmal-breakdance-plus'); ?></td></tr>
             </table>
             <p><?php esc_html_e('Dynamická data: u textu klikni na ikonu dynamických dat → MarMal → Patička (copyright, roky, údaje o podnikateli, odkazy).', 'marmal-breakdance-plus'); ?></p>
         </div>

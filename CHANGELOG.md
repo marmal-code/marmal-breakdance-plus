@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.11.0 – 2026-11-18
+- **Nový modul Cookies** (`cookies`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – vlastní cookie lišta podle pravidel ÚOOÚ místo CookieYes, nastavení v **MarMal → Cookies**:
+  - lišta jako box v rohu (výchozí vpravo dole), lišta dole / nahoře nebo okno uprostřed; okno „Nastavení cookies“ uprostřed nebo jako panel z boku; na mobilu spodní panel,
+  - „Přijmout vše“ a „Odmítnout vše“ vždy stejně výrazné v první vrstvě, nic předem zaškrtnuté, křížek = zavřít bez souhlasu, ikonka pro změnu volby, ovládání klávesnicí,
+  - barvy z Global Settings Breakdance nebo vlastní (předvolby světlá / tmavá / neutrální, kontrola kontrastu WCAG), zaoblení, šířka, stín, styl tlačítek,
+  - texty a popisy kategorií jdou přepsat, prázdné pole = výchozí český text, překlad přes Polylang / WPML,
+  - **Google Consent Mode v2** (výchozí `denied`, mapování kategorií na `analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization`) a vložení **GA4** (základní režim: tag až po souhlasu; rozšířený na přání), zkrácení GA cookies na 13 měsíců,
+  - **blokování do souhlasu** přímo v HTML stránky: GA, Meta Pixel, Hotjar, Microsoft Clarity; iframy YouTube, Vimeo a Google Map nahrazuje náhledem „Povolit a zobrazit“; funguje i s page cache,
+  - **autodetekce služeb**: WordPress, WooCommerce, Polylang a GA4 podle nastavení, ostatní podle nalezených skriptů a iframů na stránkách (štítek „nalezeno na webu“), vlastní cookies řádkem,
+  - **záznam souhlasů** bez IP adres (náhodné ID, volba, kategorie, revize) přes REST s kontrolou původu a limitem, statistika 30 dní, export CSV, automatický úklid, revize textů (lišta se všem zobrazí znovu), platnost souhlasu 3 / 6 / 12 měsíců,
+  - shortcody `[marmal_cookies_seznam]` (tabulka cookies pro stránku zásad) a `[marmal_cookies_nastaveni]`, JS API `MarmalCookies` a událost `marmal:cookies`,
+  - náhled lišty pro správce `?marmal_cookies_nahled=1`, upozornění, když na webu běží jiný cookie plugin.
+- **Patička**: nový režim tlačítka cookies „MarMal – Cookies“; při zapnutém modulu Cookies ho automatický režim zvolí sám.
+- **Patička – rozvržení**:
+  - nové rozložení **„Copyright vlevo, odkazy uprostřed, podpis vpravo“** (`rozlozeni="tri"`) – střed je přesně uprostřed i při různě dlouhých krajích,
+  - element „Marmal – Patička“ → Content → **Rozvržení – podrobně**: umístění každé části (copyright, odkazy, podpis autora, údaje o podnikateli) vlevo / uprostřed / vpravo / na řádku pod, zarovnání řádku pod, od kdy skládat pod sebe (mobil / tablet / malý mobil / nikdy) a zarovnání pod sebou (vlevo / na střed); v shortcodu atributy `pozice_*`, `zarovnani_pod`, `skladat`, `mobil`,
+  - údaje o podnikateli přesunuté do sloupce jsou na vlastním řádku; jejich písmo a barva z Design tabu platí všude,
+  - podpis autora: „– marmal.cz“ se nezalomí, odkaz nezůstane sám na dalším řádku,
+  - výchozí rozložení (copyright vlevo, odkazy a podpis vpravo, údaje pod) se nemění.
+
 ## 0.10.0 – 2026-11-18
 - **Nový modul Patička** (`paticka`, zapínatelný v MarMal → Moduly, výchozí zapnuto) s nastavením v **MarMal → Patička**:
   - copyright s rokem spuštění webu a letošním rokem (`© 2019–2026 Název`, jen `© 2026` u webu spuštěného letos); rok spuštění se předvyplní podle nejstarší publikované stránky a jde přepsat; po Novém roce rok opraví skript i na stránce z page cache,
