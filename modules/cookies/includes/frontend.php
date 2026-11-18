@@ -77,6 +77,21 @@ add_action('wp_head', function () {
     echo kody_mereni(); // phpcs:ignore WordPress.Security.EscapeOutput -- ID ověřená regexem, do JS přes wp_json_encode
 }, 1);
 
+/**
+ * Načítá stránka fonty z Googlu (přenos IP adresy návštěvníka)? Zapíše čas, nejvýš jednou za den.
+ * Modul Fonty běží dřív (vnořený buffer) – když je zapnutý a fonty stáhl, tady už nic nenajde.
+ */
+function zapsat_google_fonty(string $html): void
+{
+    if (stripos($html, 'fonts.googleapis.com') === false && stripos($html, 'fonts.gstatic.com/s/') === false) {
+        return;
+    }
+    $posledne = (int) get_option(OPTION_GFONTY, 0);
+    if (time() - $posledne > DAY_IN_SECONDS) {
+        update_option(OPTION_GFONTY, time(), false);
+    }
+}
+
 // ============================================================= měřicí kódy
 
 /** <script> s kódem: bez kategorie se spustí hned, jinak čeká na souhlas (kategorie oddělené mezerou = stačí kterákoli). */
@@ -415,6 +430,7 @@ add_action('template_redirect', function () {
         }
         list($html, $nalez) = blokovat_html($html);
         zapsat_nalezene($nalez);
+        zapsat_google_fonty($html);
         return $html;
     });
 }, 0);

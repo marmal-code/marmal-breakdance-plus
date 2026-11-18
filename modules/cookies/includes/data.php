@@ -17,6 +17,7 @@ if (!defined('ABSPATH')) {
 const OPTION       = 'marmal_bdp_cookies';
 const OPTION_NALEZ = 'marmal_bdp_cookies_nalezeno'; // služby, které blokování našlo na webu
 const COOKIE       = 'marmal_consent';
+const OPTION_GFONTY = 'marmal_bdp_cookies_gfonty'; // kdy naposledy stránka načítala fonty z Googlu
 
 /** Kategorie v pevném pořadí. id => [název, zamčená] */
 function kategorie_zaklad(): array

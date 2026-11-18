@@ -31,6 +31,17 @@ add_action('admin_notices', function () {
     if (!current_user_can('manage_options')) {
         return;
     }
+    // Google Fonts z Googlu za posledních 7 dní – jen na stránkách MarMal a Pluginy, ať to neruší všude.
+    $obrazovka = function_exists('get_current_screen') ? get_current_screen() : null;
+    $kde       = $obrazovka && (strpos((string) $obrazovka->id, 'marmal') !== false || $obrazovka->id === 'plugins');
+    if ($kde && time() - (int) get_option(OPTION_GFONTY, 0) < 7 * DAY_IN_SECONDS) {
+        $fonty = function_exists('MarmalElements\Fonty\sady');
+        echo '<div class="notice notice-warning"><p><strong>MarMal – Cookies:</strong> ';
+        echo esc_html($fonty
+            ? __('Web pořád načítá některé fonty z Googlu, i když je modul Fonty zapnutý – podívej se do MarMal → Fonty a vyčisti cache.', 'marmal-breakdance-plus')
+            : __('Web načítá Google Fonts ze serverů Googlu – Google tak dostává IP adresy návštěvníků (GDPR). Zapni modul Fonty v MarMal → Moduly, fonty se pak načítají z tvého webu.', 'marmal-breakdance-plus'));
+        echo '</p></div>';
+    }
     $jine = konkurence();
     if (!$jine) {
         return;
