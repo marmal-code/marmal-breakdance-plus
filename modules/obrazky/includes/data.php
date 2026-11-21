@@ -37,6 +37,7 @@ function vychozi(): array
         'min_kb'     => 0,       // nepřevádět soubory menší než (kB) při nahrání
         'prah_png'   => 50,      // hromadný převod: PNG nad (kB)
         'prah_jpg'   => 200,     // hromadný převod: JPG nad (kB)
+        'sizes_auto' => true,    // doplňovat sizes="auto" u lazy obrázků (od 0.17.0)
     );
 }
 
@@ -62,6 +63,7 @@ function sanitizovat($vstup): array
         'min_kb'   => max(0, min(100000, (int) ($v['min_kb'] ?? 0))),
         'prah_png' => max(0, min(100000, (int) ($v['prah_png'] ?? $d['prah_png']))),
         'prah_jpg' => max(0, min(100000, (int) ($v['prah_jpg'] ?? $d['prah_jpg']))),
+        'sizes_auto' => !empty($v['sizes_auto']),
     );
 }
 

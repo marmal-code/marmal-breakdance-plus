@@ -220,6 +220,9 @@ function stranka(): void
                     <label>PNG <?php esc_html_e('nad', 'marmal-breakdance-plus'); ?> <input type="number" min="0" name="<?php echo $opt; // phpcs:ignore WordPress.Security.EscapeOutput ?>[prah_png]" value="<?php echo (int) $s['prah_png']; ?>" class="small-text"> kB</label>
                     &nbsp; <label>JPG <?php esc_html_e('nad', 'marmal-breakdance-plus'); ?> <input type="number" min="0" name="<?php echo $opt; // phpcs:ignore WordPress.Security.EscapeOutput ?>[prah_jpg]" value="<?php echo (int) $s['prah_jpg']; ?>" class="small-text"> kB</label>
                     <p class="description"><?php esc_html_e('Menší soubory se hromadně nepřevádějí – úspora by byla malá. Logo a ikona webu se nepřevádějí nikdy.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                <tr><th scope="row"><?php esc_html_e('Velikost podle místa na stránce', 'marmal-breakdance-plus'); ?></th><td>
+                    <label><input type="hidden" name="<?php echo $opt; // phpcs:ignore WordPress.Security.EscapeOutput ?>[sizes_auto]" value="0"><input type="checkbox" name="<?php echo $opt; // phpcs:ignore WordPress.Security.EscapeOutput ?>[sizes_auto]" value="1" <?php checked($s['sizes_auto']); ?>> <?php esc_html_e('Doplňovat sizes="auto" u lazy obrázků', 'marmal-breakdance-plus'); ?></label>
+                    <p class="description"><?php esc_html_e('Prohlížeč stáhne velikost obrázku podle skutečné šířky na stránce (karta 230 px → soubor 300 px), ne podle šířky originálu. Týká se jen obrázků s lazy loadingem – logo a úvodní obrázek zůstanou beze změny. Chybějící width a height se doplní z knihovny médií. Po změně vyčisti page cache.', 'marmal-breakdance-plus'); ?></p></td></tr>
             </table>
             <?php submit_button(__('Uložit nastavení', 'marmal-breakdance-plus')); ?>
         </form>
@@ -407,6 +410,9 @@ function stranka(): void
             </table>
             <p class="description"><?php esc_html_e('Staré soubory zůstávají na svém místě, aby fungovaly odkazy z revizí a z míst, která modul nezná. „Smazat staré soubory“ jde nejdřív 14 dní po převodu, záloha se maže zvlášť. Dávky se vracejí od nejnovější.', 'marmal-breakdance-plus'); ?></p>
         <?php endif; ?>
+
+        <!-- ============================================================ 4. Obrázky na pozadí -->
+        <?php render_pozadi(); ?>
 
         <?php $log = array_slice(log_zaznamy(), 0, 20); ?>
         <?php if ($log) : ?>
