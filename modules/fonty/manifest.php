@@ -36,6 +36,13 @@ return array(
         $chyby = array_filter(\MarmalElements\Fonty\sady(), function ($s) {
             return ($s['stav'] ?? '') !== 'ok';
         });
-        return $chyby ? __('Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty.', 'marmal-breakdance-plus') : '';
+        $zpravy = array();
+        if ($chyby) {
+            $zpravy[] = __('Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty.', 'marmal-breakdance-plus');
+        }
+        if (function_exists('MarmalElements\Fonty\upozorneni_preload') && \MarmalElements\Fonty\upozorneni_preload()) {
+            $zpravy[] = __('Písmo z Global Settings není mezi staženými – nic se nepřednačítá. Podrobnosti v MarMal → Fonty.', 'marmal-breakdance-plus');
+        }
+        return implode(' ', $zpravy);
     },
 );

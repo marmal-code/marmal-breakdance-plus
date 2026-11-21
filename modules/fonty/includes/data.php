@@ -24,12 +24,15 @@ function znakove_sady(): array
     );
 }
 
+const MAX_RUCNE = 3; // ruční přednačtení: nejvýš 3 soubory
+
 function vychozi(): array
 {
     return array(
-        'sady'    => array(),   // navíc k latin + latin-ext
-        'swap'    => true,      // font-display: swap – text je vidět hned, font se doplní
-        'preload' => true,      // přednačíst běžný řez (400) hlavních fontů
+        'sady'            => array(),   // navíc k latin + latin-ext
+        'swap'            => true,      // font-display: swap – text je vidět hned, font se doplní
+        'preload_rezim'   => 'auto',    // auto (podle Global Settings) | rucne | vypnuto (od 0.17.0)
+        'preload_soubory' => array(),   // ruční výběr: identity „rodina|styl|váha|sada“ (ne názvy souborů)
     );
 }
 
@@ -37,17 +40,42 @@ function nastaveni(): array
 {
     $s = get_option(OPTION, array());
     $s = is_array($s) ? $s : array();
+    // Do 0.16.0 byl jen checkbox „preload“ – vypnutý checkbox = režim Vypnuto.
+    if (!isset($s['preload_rezim']) && array_key_exists('preload', $s) && empty($s['preload'])) {
+        $s['preload_rezim'] = 'vypnuto';
+    }
     return array_merge(vychozi(), array_intersect_key($s, vychozi()));
+}
+
+/** Identita souboru pro ruční výběr – přežije „Smazat a stáhnout znovu“ (nové názvy souborů). */
+function identita(string $rodina, string $styl, string $vaha, string $sada): string
+{
+    return strtolower(trim($rodina)) . '|' . $styl . '|' . $vaha . '|' . $sada;
 }
 
 /** @param mixed $vstup */
 function sanitizovat($vstup): array
 {
-    $v = is_array($vstup) ? $vstup : array();
+    $v     = is_array($vstup) ? $vstup : array();
+    $rezim = (string) ($v['preload_rezim'] ?? 'auto');
+    $ids   = array();
+    foreach ((array) ($v['preload_soubory'] ?? array()) as $id) {
+        // rodina (písmena, číslice, mezery, spojovník) | normal/italic | váha nebo „var“ | znaková sada
+        $id = strtolower(sanitize_text_field((string) $id));
+        if (preg_match('/^[a-z0-9 \-]{1,60}\|(normal|italic|oblique)\|(var|[0-9]{3})\|[a-z0-9\-]{2,20}$/', $id)) {
+            $ids[] = $id;
+        }
+    }
+    $ids = array_slice(array_values(array_unique($ids)), 0, MAX_RUCNE);
+    if ($rezim === 'rucne' && count((array) ($v['preload_soubory'] ?? array())) > MAX_RUCNE) {
+        /* translators: %d: počet */
+        add_settings_error(OPTION, 'max', sprintf(__('Ručně jde přednačíst nejvýš %d soubory – uloženy jsou první tři.', 'marmal-breakdance-plus'), MAX_RUCNE), 'warning');
+    }
     return array(
-        'sady'    => array_values(array_intersect(array_keys(znakove_sady()), array_map('strval', (array) ($v['sady'] ?? array())))),
-        'swap'    => !empty($v['swap']),
-        'preload' => !empty($v['preload']),
+        'sady'            => array_values(array_intersect(array_keys(znakove_sady()), array_map('strval', (array) ($v['sady'] ?? array())))),
+        'swap'            => !empty($v['swap']),
+        'preload_rezim'   => in_array($rezim, array('auto', 'rucne', 'vypnuto'), true) ? $rezim : 'auto',
+        'preload_soubory' => $ids,
     );
 }
 

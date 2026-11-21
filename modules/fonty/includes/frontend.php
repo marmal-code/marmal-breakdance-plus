@@ -64,6 +64,19 @@ function lokalni(string $google_url, int &$stazeno): ?array
 }
 
 /**
+ * Soubory k přednačtení na této stránce: výběr podle režimu, jen ze sad načtených stránkou.
+ * @param array<string,bool> $na_strance klíče sad
+ * @return string[]
+ */
+function prednacist(array $na_strance): array
+{
+    $katalog = katalog();
+    return array_values(array_filter(soubory_k_prednacteni(), function ($f) use ($katalog, $na_strance) {
+        return isset($katalog[$f]) && array_intersect((array) $katalog[$f]['klic_sady'], array_keys($na_strance));
+    }));
+}
+
+/**
  * Přepíše HTML stránky. Vrací [html, počet nahrazených odkazů, počet ponechaných na Google].
  */
 function prepsat_html(string $html): array
@@ -74,13 +87,13 @@ function prepsat_html(string $html): array
     $stazeno   = 0;
     $nahrazeno = 0;
     $ponechano = 0;
-    $preload   = array();
+    $na_strance = array(); // klíče sad, které stránka opravdu načítá
     list(, $url_dir) = adresar();
 
     // 1) Odkazy na CSS z Google Fonts (link href, @import, přednačtení) – v jakékoli podobě zápisu.
     $html = (string) preg_replace_callback(
         '#(?:https?:)?//fonts\.googleapis\.com/css2?\?[^"\'\s<>)]+#i',
-        function ($m) use (&$stazeno, &$nahrazeno, &$ponechano, &$preload, $url_dir) {
+        function ($m) use (&$stazeno, &$nahrazeno, &$ponechano, &$na_strance) {
             $g = google_url($m[0]);
             if ($g === '') {
                 return $m[0];
@@ -91,9 +104,7 @@ function prepsat_html(string $html): array
                 return $m[0];
             }
             $nahrazeno++;
-            foreach ((array) ($l[1]['preload'] ?? array()) as $soubor) {
-                $preload[$soubor] = $url_dir . 'soubory/' . $soubor;
-            }
+            $na_strance[klic($g)] = true;
             return esc_url($l[0]);
         },
         $html
@@ -105,13 +116,15 @@ function prepsat_html(string $html): array
         $html = (string) preg_replace('#<link\b[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*\brel=["\']?(?:preconnect|dns-prefetch)["\']?[^>]*>\s*#i', '', $html);
     }
 
-    // 3) Preload běžného řezu hned za <head> (nejvýš 2 soubory na stránku).
-    if ($preload && !empty(nastaveni()['preload'])) {
+    // 3) Preload podle režimu (preload.php) hned za <head> – jen soubory ze sad, které stránka načítá.
+    //    crossorigin je povinný i pro vlastní doménu, jinak prohlížeč font stáhne dvakrát.
+    $preload = $na_strance ? prednacist($na_strance) : array();
+    if ($preload) {
         $tagy = '';
-        foreach (array_slice($preload, 0, 2) as $u) {
-            $tagy .= '<link rel="preload" href="' . esc_url($u) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+        foreach ($preload as $soubor) {
+            $tagy .= '<link rel="preload" href="' . esc_url($url_dir . 'soubory/' . rawurlencode($soubor)) . '" as="font" type="font/woff2" crossorigin>' . "\n";
         }
-        $html = (string) preg_replace('#<head\b[^>]*>#i', '$0' . "\n" . str_replace('$', '\$', $tagy), $html, 1);
+        $html = (string) preg_replace('#<head\b[^>]*>#i', '$0' . "\n" . str_replace(array('\\', '$'), array('\\\\', '\$'), $tagy), $html, 1);
     }
     return array($html, $nahrazeno, $ponechano);
 }

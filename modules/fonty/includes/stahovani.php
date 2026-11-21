@@ -97,6 +97,80 @@ function stahnout_url(string $url, int $max)
 }
 
 /**
+ * Údaje o souborech sady pro přednačtení: název souboru => [rodina, styl, sada, vahy[], var, velikost].
+ * Variabilní písmo = rozsah vah v jednom bloku („100 900“), nebo stejný soubor pro víc vah
+ * (Google tak posílá variabilní písmo, když se v odkazu vyjmenují jednotlivé váhy).
+ *
+ * @param array $bloky   výsledek rozebrat_css() – adresy z Googlu nebo lokální „soubory/…“
+ * @param array $velikosti název souboru => bajty (prázdné = zjistit ze souboru)
+ */
+function info_souboru(array $bloky, array $velikosti = array()): array
+{
+    list($dir) = adresar();
+    $info = array();
+    foreach ($bloky as $b) {
+        foreach ((array) $b['urls'] as $u) {
+            $nazev = strpos($u, 'soubory/') === 0 ? basename($u) : nazev_souboru($u);
+            $nazev = (string) preg_replace('/[^a-z0-9._\-]/', '', strtolower($nazev));
+            if ($nazev === '' || pathinfo($nazev, PATHINFO_EXTENSION) !== 'woff2') {
+                continue;
+            }
+            $vaha = preg_replace('/\s+/', ' ', strtolower(trim((string) $b['vaha'])));
+            $vaha = $vaha === 'normal' ? '400' : ($vaha === 'bold' ? '700' : $vaha);
+            if (!isset($info[$nazev])) {
+                $velikost = $velikosti[$nazev] ?? (is_file($dir . 'soubory/' . $nazev) ? (int) filesize($dir . 'soubory/' . $nazev) : 0);
+                $info[$nazev] = array(
+                    'rodina'   => sanitize_text_field((string) $b['rodina']),
+                    'styl'     => in_array($b['styl'], array('normal', 'italic', 'oblique'), true) ? $b['styl'] : 'normal',
+                    'sada'     => (string) preg_replace('/[^a-z0-9\-]/', '', (string) $b['sada']),
+                    'vahy'     => array(),
+                    'var'      => false,
+                    'velikost' => (int) $velikost,
+                );
+            }
+            if (strpos($vaha, ' ') !== false) {
+                $info[$nazev]['var'] = true; // rozsah vah
+            }
+            $info[$nazev]['vahy'][] = $vaha;
+        }
+    }
+    foreach ($info as $n => $i) {
+        $info[$n]['vahy'] = array_values(array_unique($i['vahy']));
+        if (count($info[$n]['vahy']) > 1) {
+            $info[$n]['var'] = true;
+        }
+    }
+    return $info;
+}
+
+/**
+ * Údaje o souborech sady; u sad stažených před 0.17.0 se jednou zjistí z lokálního CSS a uloží.
+ */
+function info_sady(string $klic, array $sada): array
+{
+    if (isset($sada['info']) && is_array($sada['info']) && $sada['info']) {
+        return $sada['info'];
+    }
+    if (($sada['stav'] ?? '') !== 'ok' || empty($sada['css'])) {
+        return array();
+    }
+    list($dir) = adresar();
+    $soubor = $dir . basename((string) $sada['css']);
+    if (!is_file($soubor)) {
+        return array();
+    }
+    $info = info_souboru(rozebrat_css((string) file_get_contents($soubor))); // phpcs:ignore WordPress.WP.AlternativeFunctions -- lokální soubor v uploads
+    if ($info) {
+        $sady = sady();
+        if (isset($sady[$klic])) {
+            $sady[$klic]['info'] = $info;
+            ulozit_sady($sady);
+        }
+    }
+    return $info;
+}
+
+/**
  * Stáhne sadu (CSS + fonty) a zapíše ji do evidence. Vrací údaje sady (stav ok / chyba).
  * Volá se z frontend.php při prvním výskytu odkazu, nebo z administrace.
  */
@@ -114,7 +188,8 @@ function stahnout_sadu(string $google_url): array
         'stav'    => 'chyba',
         'chyba'   => '',
         'pouzito' => time(),
-        'preload' => array(),
+        'preload' => array(), // do 0.16.0 seznam souborů k přednačtení; od 0.17.0 rozhoduje 'info' + preload.php
+        'info'    => array(),
     );
 
     $vysledek = (function () use ($google_url, $klic, &$zaznam) {
@@ -135,7 +210,7 @@ function stahnout_sadu(string $google_url): array
 
         $vystup  = '/* Marmal – Breakdance Plus, modul Fonty: ' . esc_html(implode(', ', $zaznam['rodiny'])) . ' – staženo z Google Fonts ' . gmdate('Y-m-d') . " */\n";
         $soubory = array();
-        $preload = array();
+        $info    = array();
         foreach ($bloky as $b) {
             $telo = $b['css'];
             foreach ($b['urls'] as $fu) {
@@ -163,11 +238,6 @@ function stahnout_sadu(string $google_url): array
                     $soubory[$nazev] = (int) filesize($cil);
                 }
                 $telo = str_replace($fu, 'soubory/' . $nazev, $telo);
-                // Preload: běžný řez (400, normal) latinky každé rodiny – nejvýš 2 soubory na sadu.
-                if ($b['sada'] === 'latin' && in_array($b['vaha'], array('400', 'normal'), true) && $b['styl'] === 'normal'
-                    && count($preload) < 2 && pathinfo($nazev, PATHINFO_EXTENSION) === 'woff2') {
-                    $preload[] = $nazev;
-                }
             }
             if (!empty(nastaveni()['swap']) && stripos($telo, 'font-display') === false) {
                 $telo = preg_replace('/\}\s*$/', "  font-display: swap;\n}", $telo);
@@ -182,7 +252,7 @@ function stahnout_sadu(string $google_url): array
         $zaznam['css']      = $css_soubor;
         $zaznam['soubory']  = count($soubory);
         $zaznam['velikost'] = array_sum($soubory);
-        $zaznam['preload']  = array_values(array_unique($preload));
+        $zaznam['info']     = info_souboru($bloky, $soubory);
         $zaznam['stav']     = 'ok';
         return '';
     })();

@@ -4,6 +4,7 @@
  *
  *  includes/data.php        nastavení, adresář, evidence stažených sad, ověření adres
  *  includes/stahovani.php   stažení CSS z Googlu, rozbor @font-face, stažení woff2, přepis CSS
+ *  includes/preload.php     přednačtení podle Global Settings / ručně, přehled „odkud se písmo bere“
  *  includes/frontend.php    výstup stránky: odkazy na fonts.googleapis.com → lokální CSS, preload
  *  includes/admin.php       MarMal → Fonty
  *
@@ -20,6 +21,7 @@ if (!defined('ABSPATH')) {
 
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/stahovani.php';
+require_once __DIR__ . '/includes/preload.php';
 require_once __DIR__ . '/includes/frontend.php';
 
 if (is_admin()) {
