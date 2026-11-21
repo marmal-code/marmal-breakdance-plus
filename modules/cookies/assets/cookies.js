@@ -172,37 +172,10 @@
     });
   }
 
-  /* ---------- lišta ---------- */
-  function lista() {
-    if (d.querySelector('.marmal-ck')) { return; }
-    var v = C.vzhled;
-    var b = el('div', 'marmal-ck marmal-ck--' + (v.layout === 'box' ? 'box marmal-ck--' + v.corner : v.layout));
-    b.setAttribute('role', 'dialog');
-    b.setAttribute('aria-labelledby', 'marmal-ck-nadpis');
-    b.setAttribute('aria-describedby', 'marmal-ck-text');
-    if (v.close) {
-      var x = tlacitko('marmal-ck__x', '×', 'odlozit');
-      x.setAttribute('aria-label', T.zavritX);
-      b.appendChild(x);
-    }
-    var h = el('div', 'marmal-ck__title', T.title);
-    h.id = 'marmal-ck-nadpis';
-    var p = el('p', 'marmal-ck__text', T.text + ' ');
-    p.id = 'marmal-ck-text';
-    if (C.odkaz) {
-      var a = el('a', 'marmal-ck__more', T.lMore);
-      a.href = C.odkaz;
-      p.appendChild(a);
-    }
-    var bt = el('div', 'marmal-ck__btns');
-    bt.appendChild(tlacitko('marmal-ck__btn', T.lAccept, 'vse'));
-    bt.appendChild(tlacitko('marmal-ck__btn', T.lReject, 'nic'));
-    bt.appendChild(tlacitko('marmal-ck__link', T.lPrefs, 'nastaveni'));
-    b.appendChild(h);
-    b.appendChild(p);
-    b.appendChild(bt);
-    d.body.appendChild(b);
-  }
+  /* ---------- lišta ----------
+   * Lištu vypisuje PHP přímo do HTML (lista_html) – kvůli LCP a CLS se nevkládá JavaScriptem.
+   * Tady se jen odstraní, když návštěvník už rozhodl.
+   */
   function zavritListu() {
     var b = d.querySelector('.marmal-ck');
     if (b) { b.remove(); }
@@ -363,7 +336,13 @@
   function start() {
     autoInk();
     upravitNahledy();
-    if (stav === null) { lista(); } else { aktivovat(); ikona(); }
+    if (stav === null) {
+      d.documentElement.classList.remove('marmal-ck-ma'); // náhled pro správce / nová revize: lišta musí být vidět
+    } else {
+      zavritListu();
+      aktivovat();
+      ikona();
+    }
   }
   if (d.readyState === 'loading') { d.addEventListener('DOMContentLoaded', start); } else { start(); }
 })();

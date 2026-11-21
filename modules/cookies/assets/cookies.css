@@ -2,6 +2,7 @@
  * Modul Cookies – Marmal Breakdance Plus. Vzhled podle schváleného prototypu (2026-11-18).
  * Proměnné nastavuje PHP (MarMal → Cookies → Vzhled): --mck-brand, --mck-bg, --mck-ink, --mck-r,
  * --mck-w, --mck-sh, --mck-btnbg, --mck-btnfg; --mck-btnfg-auto dopočítá JS podle kontrastu.
+ * Rozložení na mobilu (kompaktní lišta / okno) generuje PHP podle bodu zlomu – css_mobil() ve frontend.php.
  * Písmo se dědí z webu.
  */
 
@@ -37,6 +38,27 @@
 
 @keyframes marmal-ck-in {
   from { transform: translateY(14px); opacity: 0; }
+}
+
+/* Kompaktní lišta na mobilu vjíždí jen transformací (bez průhlednosti) – 200 ms, viz css_mobil() v PHP. */
+@keyframes marmal-ck-up {
+  from { transform: translateY(100%); }
+}
+
+/* Lišta je v HTML stránky; návštěvníkovi s platnou volbou ji skryje třída z hlavičky (ještě před vykreslením). */
+.marmal-ck-ma .marmal-ck { display: none !important; }
+
+/* Krátký text kompaktní lišty – zobrazí ho jen media query z nastavení (css_mobil). */
+.marmal-ck__mtext { display: none; }
+
+.marmal-ck__mtext a { padding: 12px 2px; } /* větší dotyková plocha, řádek se neroztáhne */
+
+.marmal-ck__link.marmal-ck__link--in {
+  min-height: 0;
+  margin: -12px 0;
+  padding: 12px 2px;
+  vertical-align: baseline;
+  line-height: inherit;
 }
 
 .marmal-ck__title {

@@ -174,6 +174,10 @@ function stranka(): void
                     <tr><th scope="row"><?php esc_html_e('Stín', 'marmal-breakdance-plus'); ?></th><td><?php radio('shadow', array('none' => __('Žádný', 'marmal-breakdance-plus'), 'soft' => __('Jemný', 'marmal-breakdance-plus'), 'strong' => __('Výrazný', 'marmal-breakdance-plus'))); ?></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Ikonka po volbě', 'marmal-breakdance-plus'); ?></th><td><?php radio('icon', array('l' => __('Vlevo dole', 'marmal-breakdance-plus'), 'r' => __('Vpravo dole', 'marmal-breakdance-plus'), 'off' => __('Skrýt – stačí odkaz v patičce', 'marmal-breakdance-plus'))); ?></td></tr>
                     <tr><th scope="row"><?php esc_html_e('Křížek', 'marmal-breakdance-plus'); ?></th><td><label><input type="hidden" name="<?php echo esc_attr(OPTION); ?>[close]" value="0"><input type="checkbox" name="<?php echo esc_attr(OPTION); ?>[close]" value="1" <?php checked($s['close']); ?>> <?php esc_html_e('Zobrazit křížek – zavře lištu bez souhlasu, na další stránce se ukáže znovu', 'marmal-breakdance-plus'); ?></label></td></tr>
+                    <tr><th scope="row"><?php esc_html_e('Rozložení na mobilu', 'marmal-breakdance-plus'); ?></th><td><?php radio('mobil', array('lista' => __('Kompaktní lišta dole', 'marmal-breakdance-plus'), 'okno' => __('Okno uprostřed', 'marmal-breakdance-plus'), 'stejne' => __('Stejné jako na počítači', 'marmal-breakdance-plus'))); ?>
+                        <p class="description"><?php esc_html_e('Kompaktní lišta zabere na telefonu asi pětinu výšky obrazovky: krátký text (záložka Texty), Přijmout vše a Odmítnout vše vedle sebe, Nastavení jako odkaz. Okno nastavení se na telefonu otevře přes celou obrazovku. „Stejné jako na počítači“ = chování do verze 0.16.', 'marmal-breakdance-plus'); ?></p></td></tr>
+                    <tr><th scope="row"><label for="mmck-mBod"><?php esc_html_e('Bod zlomu pro mobil (px)', 'marmal-breakdance-plus'); ?></label></th><td><input type="number" id="mmck-mBod" class="small-text" min="320" max="1200" name="<?php echo esc_attr(OPTION); ?>[mBod]" value="<?php echo esc_attr((string) $s['mBod']); ?>">
+                        <p class="description"><?php esc_html_e('Do této šířky okna platí rozložení na mobilu. 767 = telefony (stejně jako Breakdance).', 'marmal-breakdance-plus'); ?></p></td></tr>
                 </table>
             </section>
 
@@ -182,6 +186,10 @@ function stranka(): void
                 <table class="form-table" role="presentation">
                     <tr><th scope="row"><label for="mmck-title"><?php esc_html_e('Nadpis lišty', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('title', $tx['title']); ?></td></tr>
                     <tr><th scope="row"><label for="mmck-text"><?php esc_html_e('Text lišty', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('text', $tx['text'], true); ?></td></tr>
+                    <tr><th scope="row"><label for="mmck-mText"><?php esc_html_e('Krátký text pro mobil', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('mText', $tx['mText']); ?>
+                        <p class="description"><?php
+                            /* translators: %d: počet znaků */
+                            echo esc_html(sprintf(__('Kompaktní lišta na telefonu (nadpis se skryje). Nejvýš %d znaků, za text se doplní odkazy „Více o cookies“ a „Nastavení“.', 'marmal-breakdance-plus'), MAX_MTEXT)); ?></p></td></tr>
                     <tr><th scope="row"><label for="mmck-lAccept"><?php esc_html_e('Tlačítko Přijmout', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('lAccept', $tx['lAccept']); ?></td></tr>
                     <tr><th scope="row"><label for="mmck-lReject"><?php esc_html_e('Tlačítko Odmítnout', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('lReject', $tx['lReject']); ?></td></tr>
                     <tr><th scope="row"><label for="mmck-lPrefs"><?php esc_html_e('Odkaz Nastavení', 'marmal-breakdance-plus'); ?></label></th><td><?php pole_text('lPrefs', $tx['lPrefs']); ?></td></tr>

@@ -42,7 +42,7 @@ add_action('wp_head', function () {
     if (!bezi()) {
         return;
     }
-    $cfg = wp_json_encode(array('cookie' => COOKIE, 'rev' => (int) nastaveni()['rev']), JSON_HEX_TAG | JSON_HEX_AMP);
+    $cfg = wp_json_encode(array('cookie' => COOKIE, 'rev' => (int) nastaveni()['rev'], 'n' => nahled()), JSON_HEX_TAG | JSON_HEX_AMP);
     // Výchozí stav Consent Mode = vše zamítnuto (kromě bezpečnosti); uložená volba se použije hned,
     // ještě před načtením jakéhokoli Google tagu. data-marmal-ignore = blokování tento skript nechá být.
     ?>
@@ -70,6 +70,8 @@ add_action('wp_head', function () {
   if (s && s.r === c.rev && Array.isArray(s.k)) {
     w.gtag('consent', 'update', mapa(s.k)); w.marmalCookiesUlozeny = s; w.marmalCookiesStav = s.k.slice();
     w.dataLayer.push(udalost(s.k));
+    // Lišta je v HTML (kvůli LCP) – návštěvník s platnou volbou ji neuvidí ani na okamžik.
+    if (!c.n) { d.documentElement.classList.add('marmal-ck-ma'); }
   }
 })(window, document, <?php echo $cfg; // phpcs:ignore WordPress.Security.EscapeOutput -- wp_json_encode s JSON_HEX_TAG ?>);
 </script>
@@ -218,7 +220,7 @@ add_action('wp_enqueue_scripts', function () {
         return MARMAL_BDP_VERSION . ($t ? '.' . $t : '');
     };
     wp_enqueue_style('marmal-cookies', $url . 'cookies.css', array(), $ver('cookies.css'));
-    wp_add_inline_style('marmal-cookies', css_promenne());
+    wp_add_inline_style('marmal-cookies', css_promenne() . css_mobil());
     wp_enqueue_script('marmal-cookies', $url . 'cookies.js', array(), $ver('cookies.js'), array('in_footer' => true, 'strategy' => 'defer'));
     wp_add_inline_script('marmal-cookies', 'window.marmalCookies = ' . wp_json_encode(konfigurace(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE) . ';', 'before');
 });
@@ -262,6 +264,87 @@ function css_promenne(): string
     return $css . '}';
 }
 
+/**
+ * CSS rozložení na mobilu (do bodu zlomu z nastavení, výchozí 767 px). Media query neumí CSS proměnné,
+ * proto se generuje tady; hodnoty jsou jen celé číslo a pevné řetězce.
+ *
+ * Kompaktní lišta: plná šířka, přilepená dole, text 14 px (nejvýš 3 řádky; křížek ubírá místo jen prvnímu řádku),
+ * Přijmout / Odmítnout vedle sebe (2 × 50 %, výška 44 px, nezalomí se ani na 320 px), Nastavení jako odkaz v textu, okno nastavení přes celou
+ * obrazovku. position: fixed bez posunu obsahu (žádný CLS), vjezd jen transformací 200 ms.
+ */
+function css_mobil(): string
+{
+    $s = nastaveni();
+    if ($s['mobil'] === 'stejne') {
+        return '';
+    }
+    $bod = max(320, min(1200, (int) $s['mBod']));
+    $css = '@media (max-width:' . $bod . 'px){';
+    if ($s['mobil'] === 'lista') {
+        $css .= '.marmal-ck.marmal-ck--m-lista{left:0;right:0;bottom:0;top:auto;width:auto;max-height:none;overflow:visible;transform:none;'
+            . 'grid-template-columns:minmax(0,1fr);gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));'
+            . 'border-radius:var(--mck-r,14px) var(--mck-r,14px) 0 0;font-size:14px;line-height:1.45;animation:marmal-ck-up .2s ease-out}'
+            . '.marmal-ck--m-lista .marmal-ck__title,.marmal-ck--m-lista .marmal-ck__text,.marmal-ck--m-lista .marmal-ck__btns .marmal-ck__link{display:none}'
+            . '.marmal-ck--m-lista .marmal-ck__mtext{display:block;margin:0}'
+            . '.marmal-ck--m-lista.marmal-ck--x .marmal-ck__mtext::before{content:"";float:right;width:30px;height:1em}'
+            . '.marmal-ck--m-lista .marmal-ck__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;grid-column:1;grid-row:auto}'
+            . '.marmal-ck--m-lista .marmal-ck__btns .marmal-ck__btn{min-width:0;min-height:44px;padding:0 4px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+            . '.marmal-ck--m-lista .marmal-ck__x{top:0;right:0;width:44px;height:44px}';
+    } else {
+        $css .= '.marmal-ck.marmal-ck--m-okno{left:50%;right:auto;top:50%;bottom:auto;transform:translate(-50%,-50%);width:calc(100vw - 32px);'
+            . 'max-height:calc(100vh - 32px);overflow:auto;grid-template-columns:minmax(0,1fr);border-radius:var(--mck-r,14px);animation:none}'
+            . '.marmal-ck--m-okno .marmal-ck__btns{grid-column:1;grid-row:auto}'
+            . '.marmal-ck--m-okno .marmal-ck__btns .marmal-ck__btn{flex:1 1 100%;min-height:44px}'
+            . '.marmal-ck--m-okno .marmal-ck__x{top:2px;right:2px;width:44px;height:44px}';
+    }
+    // Okno „Nastavení cookies“ na telefonu přes celou obrazovku.
+    $css .= '.marmal-ck-pf{padding:0}.marmal-ck-pf .marmal-ck-pf__box{width:100%;height:100%;max-height:none;border-radius:0}';
+    $css .= '}';
+    return $css . '@media (prefers-reduced-motion:reduce){.marmal-ck.marmal-ck--m-lista{animation:none}}';
+}
+
+/**
+ * HTML lišty – vypisuje se přímo do stránky (wp_footer), ne až JavaScriptem: pozdě vložený blok textu
+ * by na mobilu mohl být největším prvkem obrazovky a zhoršit LCP. Pro všechny návštěvníky stejné
+ * (page cache) – kdo už volbu má, tomu ji skryje třída marmal-ck-ma z hlavičky; cookies.js obsluhuje tlačítka.
+ * Všechny texty přes esc_html, adresa přes esc_url.
+ */
+function lista_html(): string
+{
+    $s     = nastaveni();
+    $tridy = 'marmal-ck marmal-ck--' . ($s['layout'] === 'box' ? 'box marmal-ck--' . $s['corner'] : $s['layout']) . ' marmal-ck--m-' . $s['mobil'];
+    if ($s['close']) {
+        $tridy .= ' marmal-ck--x';
+    }
+    $odkaz = odkaz_vice();
+    $vice  = $odkaz !== '' ? '<a class="marmal-ck__more" href="' . esc_url($odkaz) . '">' . esc_html(text('lMore')) . '</a>' : '';
+
+    $h  = '<div class="' . esc_attr($tridy) . '" role="region" aria-label="' . esc_attr__('Souhlas s cookies', 'marmal-breakdance-plus') . '">';
+    if ($s['close']) {
+        $h .= '<button type="button" class="marmal-ck__x" data-ck="odlozit" aria-label="' . esc_attr__('Zavřít bez souhlasu', 'marmal-breakdance-plus') . '">&times;</button>';
+    }
+    $h .= '<div class="marmal-ck__title">' . esc_html(text('title')) . '</div>';
+    $h .= '<p class="marmal-ck__text">' . esc_html(text('text')) . ($vice !== '' ? ' ' . $vice : '') . '</p>';
+    if ($s['mobil'] === 'lista') {
+        // Krátký text kompaktní lišty (viditelný jen do bodu zlomu) s odkazy Více o cookies · Nastavení.
+        $h .= '<p class="marmal-ck__mtext">' . esc_html(text('mText')) . ' ' . $vice . ($vice !== '' ? ' <span aria-hidden="true">·</span> ' : '')
+            . '<button type="button" class="marmal-ck__link marmal-ck__link--in" data-ck="nastaveni">' . esc_html(text('lPrefs')) . '</button></p>';
+    }
+    $h .= '<div class="marmal-ck__btns">'
+        . '<button type="button" class="marmal-ck__btn" data-ck="vse">' . esc_html(text('lAccept')) . '</button>'
+        . '<button type="button" class="marmal-ck__btn" data-ck="nic">' . esc_html(text('lReject')) . '</button>'
+        . '<button type="button" class="marmal-ck__link" data-ck="nastaveni">' . esc_html(text('lPrefs')) . '</button>'
+        . '</div></div>';
+    return $h;
+}
+
+add_action('wp_footer', function () {
+    if (!bezi()) {
+        return;
+    }
+    echo lista_html() . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno v lista_html()
+}, 5);
+
 /** Konfigurace pro cookies.js (texty jsou čistý text – JS je vkládá přes textContent). */
 function konfigurace(): array
 {
@@ -285,7 +368,7 @@ function konfigurace(): array
         'nahled'    => nahled(),
         'rest'      => esc_url_raw(rest_url('marmal/v1/souhlas')),
         'odkaz'     => esc_url_raw(odkaz_vice()),
-        'vzhled'    => array('layout' => $s['layout'], 'corner' => $s['corner'], 'prefs' => $s['prefs'], 'icon' => $s['icon'], 'close' => (bool) $s['close'], 'autoInk' => $s['barvy'] !== 'vlastni' && $s['btn'] === 'fill'),
+        'vzhled'    => array('layout' => $s['layout'], 'corner' => $s['corner'], 'prefs' => $s['prefs'], 'icon' => $s['icon'], 'close' => (bool) $s['close'], 'autoInk' => $s['barvy'] !== 'vlastni' && $s['btn'] === 'fill', 'mobil' => $s['mobil']),
         'texty'     => $t,
         'kategorie' => kategorie(),
     );

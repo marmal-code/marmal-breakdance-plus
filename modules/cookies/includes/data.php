@@ -18,6 +18,7 @@ const OPTION       = 'marmal_bdp_cookies';
 const OPTION_NALEZ = 'marmal_bdp_cookies_nalezeno'; // služby, které blokování našlo na webu
 const COOKIE       = 'marmal_consent';
 const OPTION_GFONTY = 'marmal_bdp_cookies_gfonty'; // kdy naposledy stránka načítala fonty z Googlu
+const MAX_MTEXT    = 160;                         // krátký text kompaktní lišty na mobilu (znaků)
 
 /** Kategorie v pevném pořadí. id => [název, zamčená] */
 function kategorie_zaklad(): array
@@ -202,6 +203,8 @@ function vychozi(): array
         'layout' => 'box', 'corner' => 'br', 'prefs' => 'mid',
         'barvy' => 'web', 'brand' => '#1f3a5f', 'bg' => '#ffffff', 'ink' => '#1c2430',
         'btn' => 'fill', 'radius' => 14, 'width' => 400, 'shadow' => 'soft', 'icon' => 'l', 'close' => true,
+        'mobil' => 'lista', 'mBod' => 767, // od 0.17.0: rozložení na mobilu (lista | okno | stejne) a bod zlomu v px
+        'mText' => '',                     // krátký text kompaktní lišty (prázdné = výchozí)
         'title' => '', 'text' => '', 'lAccept' => '', 'lReject' => '', 'lPrefs' => '', 'lMore' => '', 'pIntro' => '',
         'popis_nezbytne' => '', 'popis_preferencni' => '', 'popis_analyticke' => '', 'popis_marketingove' => '',
         'odkaz_stranka' => 0,
@@ -222,6 +225,7 @@ function texty_vychozi(): array
         'lReject' => __('Odmítnout vše', 'marmal-breakdance-plus'),
         'lPrefs'  => __('Nastavení', 'marmal-breakdance-plus'),
         'lMore'   => __('Více o cookies', 'marmal-breakdance-plus'),
+        'mText'   => __('Používáme cookies. Analytické a marketingové jen s vaším souhlasem.', 'marmal-breakdance-plus'),
         'pIntro'  => __('Vyberte, které cookies smíme používat. Nezbytné jsou vždy zapnuté, ostatní jen s vaším souhlasem. Volbu můžete kdykoli změnit.', 'marmal-breakdance-plus'),
     );
 }
@@ -236,7 +240,7 @@ function nastaveni(): array
 /** Texty, které jde na vícejazyčném webu přeložit (Polylang / WPML). */
 function prekladane_klice(): array
 {
-    return array('title', 'text', 'lAccept', 'lReject', 'lPrefs', 'lMore', 'pIntro', 'popis_nezbytne', 'popis_preferencni', 'popis_analyticke', 'popis_marketingove');
+    return array('title', 'text', 'mText', 'lAccept', 'lReject', 'lPrefs', 'lMore', 'pIntro', 'popis_nezbytne', 'popis_preferencni', 'popis_analyticke', 'popis_marketingove');
 }
 
 function text(string $klic): string
@@ -477,6 +481,9 @@ function sanitizovat($vstup): array
     $c['shadow'] = z_vyctu($v['shadow'] ?? '', array('none', 'soft', 'strong'), $d['shadow']);
     $c['icon']   = z_vyctu($v['icon'] ?? '', array('l', 'r', 'off'), $d['icon']);
     $c['close']  = !empty($v['close']);
+    $c['mobil']  = z_vyctu($v['mobil'] ?? '', array('lista', 'okno', 'stejne'), $d['mobil']);
+    $c['mBod']   = max(320, min(1200, (int) ($v['mBod'] ?? $d['mBod'])));
+    $c['mText']  = delka(sanitize_text_field((string) ($v['mText'] ?? '')), MAX_MTEXT);
 
     foreach (array('title' => 120, 'lAccept' => 40, 'lReject' => 40, 'lPrefs' => 40, 'lMore' => 60) as $k => $max) {
         $c[$k] = delka(sanitize_text_field((string) ($v[$k] ?? '')), $max);
