@@ -1,0 +1,26 @@
+/* MarMal → Obrázky (administrace) – navazuje na assets/admin/moduly.css */
+.marmal-ob h2 { margin-top: 32px; padding-top: 16px; border-top: 1px solid #dcdcde; }
+.marmal-ob h2:first-of-type { border-top: 0; padding-top: 0; }
+.marmal-ob .widefat { max-width: 1000px; }
+.marmal-ob__server { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 8px 0 12px; padding: 10px 14px; max-width: 972px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; }
+.marmal-ob__ok { color: #00a32a; font-weight: 600; }
+.marmal-ob__ne { color: #b32d2e; font-weight: 600; }
+.marmal-ob__sloupce { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; max-width: 1000px; }
+.marmal-ob__formaty { max-width: 360px !important; }
+.marmal-ob__souhrn { flex: 1 1 320px; padding: 14px 18px; background: #fff; border: 1px solid #dcdcde; border-left: 4px solid #2271b1; border-radius: 6px; }
+.marmal-ob__souhrn p { margin: 4px 0; }
+.marmal-ob__cislo strong { font-size: 24px; }
+.marmal-ob__nahled { width: 48px; }
+.marmal-ob__nahled img { display: block; width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
+.marmal-ob__prubeh { max-width: 972px; padding: 14px 18px; margin: 8px 0; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; }
+.marmal-ob__faze { font-weight: 600; margin: 0 0 8px; }
+.marmal-ob__lista { height: 10px; background: #f0f0f1; border-radius: 999px; overflow: hidden; }
+.marmal-ob__lista span { display: block; height: 100%; width: 0; background: #2271b1; transition: width .3s; }
+.marmal-ob__zprava { color: #50575e; }
+.marmal-ob__chyby { margin: 6px 0 0 18px; list-style: disc; color: #b32d2e; }
+.marmal-ob__akce { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.marmal-ob__smazat { color: #b32d2e !important; }
+.marmal-ob__detail > td { padding-top: 0; }
+.marmal-ob__detail details { margin: 0 0 6px; }
+.marmal-ob__detail summary { cursor: pointer; color: #2271b1; }
+.marmal-ob__log td:first-child { width: 90px; white-space: nowrap; color: #646970; }

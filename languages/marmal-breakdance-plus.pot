@@ -34,7 +34,7 @@ msgstr ""
 msgid "Google Fonts z webu stáhne k sobě a návštěvníkům je posílá z vlastní domény – Google nedostane jejich IP adresu (GDPR) a stránka se načte rychleji. Fonty dál vybíráš v Breakdance jako dosud."
 msgstr ""
 
-#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:223 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
+#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/obrazky/manifest.php:31 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:223 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty."
 msgstr ""
 
-#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251
+#: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/obrazky/includes/admin.php:58 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251
 msgid "Nemáte oprávnění."
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Fonty na webu"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:108
+#: modules/fonty/includes/admin.php:108 modules/obrazky/includes/admin.php:341
 msgid "Stav"
 msgstr ""
 
@@ -143,7 +143,7 @@ msgstr ""
 msgid "Přednačíst běžný řez (400) hlavních fontů – nejvýš 2 soubory na stránku"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:153 modules/cookies/includes/admin.php:306 modules/paticka/includes/admin.php:251
+#: modules/fonty/includes/admin.php:153 modules/obrazky/includes/admin.php:224 modules/cookies/includes/admin.php:306 modules/paticka/includes/admin.php:251
 msgid "Uložit nastavení"
 msgstr ""
 
@@ -210,6 +210,451 @@ msgstr ""
 
 #: modules/fonty/includes/stahovani.php:180
 msgid "Nejde zapsat CSS fontů."
+msgstr ""
+
+#: modules/obrazky/manifest.php:25 modules/obrazky/includes/admin.php:25 modules/obrazky/includes/admin.php:25
+msgid "Obrázky"
+msgstr ""
+
+#: modules/obrazky/manifest.php:26
+msgid "JPG a PNG se při nahrání uloží jako WebP (nebo AVIF) v rozumné velikosti a bez metadat. Hromadný převod zmenší už nahrané obrázky, které web používá, a přepíše na ně odkazy v Breakdance – se zálohou a možností vrácení."
+msgstr ""
+
+#: modules/obrazky/manifest.php:40
+msgid "Server neumí ukládat WebP (chybí Imagick i GD s WebP) – modul nic nepřevádí."
+msgstr ""
+
+#: modules/obrazky/manifest.php:45
+#, php-format
+msgid "Pozor: běží i %s – dva převaděče obrázků najednou se perou, jeden vypni."
+msgstr ""
+
+#: modules/obrazky/manifest.php:48
+msgid "Hromadný převod není dokončený – pokračuj v MarMal → Obrázky."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:42
+msgid "Vrátit převod? Obnoví se původní soubory, metadata i data stránek a soubory WebP se smažou."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:43
+msgid "Smazat staré JPG a PNG převedených obrázků? Zůstanou jen v záloze modulu (dokud ji nesmažeš). Odkazy z revizí a z míst, která modul nezná, přestanou fungovat."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:44
+msgid "Smazat zálohu dávky? Když už jsou smazané i staré soubory, převod pak nepůjde vrátit."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:45
+msgid "Chyba:"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:46
+msgid "Požadavek se nepovedl (časový limit nebo spojení). Klikni na „Pokračovat“ – fronta pokračuje tam, kde skončila."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:47
+msgid "Pozastaveno. Fronta zůstává uložená – pokračovat jde kdykoli, i po zavření prohlížeče."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:48
+msgid "Hotovo – načítám výsledek…"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:49
+msgid "Pracuji…"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:110
+msgid "Převod"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:129
+#, php-format
+msgid "%1$s %2$s → WebP %3$s"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:171
+msgid "MarMal – Obrázky"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:172
+msgid "Na web nepůjdou zbytečně těžké obrázky: nové JPG a PNG se při nahrání uloží jako WebP v rozumné velikosti, už nahrané se dají převést hromadně – i s přepisem odkazů v Breakdance, zálohou a možností vrácení."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:177
+msgid "1. Nastavení"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:181
+msgid "Knihovna:"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:182
+msgid "rozšíření exif"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:185
+msgid "Server neumí ukládat WebP (chybí Imagick i GD s podporou WebP). Modul nic nepřevádí – požádej hosting o zapnutí Imagick."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:187
+msgid "Převádí GD (Imagick na serveru chybí): funguje, jen se neponechá barevný profil ICC. Imagick je lepší – hosting ho obvykle zapne v nastavení PHP."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:192
+#, php-format
+msgid "Na webu běží i %s. Dva převaděče obrázků najednou se perou (dvojí převod, jiné odkazy) – jeden z nich vypni. U Smush to platí, jen když má zapnuté WebP."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:199
+msgid "Formát při nahrání"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:201
+msgid "doporučeno"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:202
+msgid "server neumí"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:203
+msgid "Nepřevádět při nahrání"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:205
+msgid "AVIF je menší, ale převod je pomalejší a starší Safari ho neumí. Hromadný převod knihovny vždy ukládá WebP."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:206
+msgid "Kvalita"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:208
+msgid "80 je dobrý kompromis – rozdíl proti originálu na webu není vidět."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:209
+msgid "Maximální delší strana"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:211
+msgid "Větší obrázky se zmenší (bez ořezu). 0 = nezmenšovat."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:212
+msgid "PNG"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:213
+msgid "Převádět i PNG (průhlednost zůstane)"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:214
+msgid "Původní soubor"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:215
+msgid "Při nahrání ponechat i původní JPG / PNG v uploads (zabírá místo, v knihovně médií není vidět)"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:216
+msgid "Nepřevádět soubory menší než"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:218
+msgid "0 = převádět vše. Když by WebP vyšel větší než originál (malé PNG s málo barvami), zůstane originál vždy."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:219
+msgid "Hromadný převod – prahy"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:220 modules/obrazky/includes/admin.php:221
+msgid "nad"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:222
+msgid "Menší soubory se hromadně nepřevádějí – úspora by byla malá. Logo a ikona webu se nepřevádějí nikdy."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:228
+msgid "2. Přehled knihovny"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:230
+msgid "Projít knihovnu"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:234
+#, php-format
+msgid "Naposledy: %s. Jen čte – nic nemění."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:237
+msgid "Projde knihovnu médií a najde obrázky, které web skutečně používá (Breakdance, obsah, náhledové obrázky, Rank Math). Jen čte – nic nemění."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:244
+msgid "Formát"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:244
+msgid "Počet"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:244 modules/obrazky/includes/admin.php:340
+msgid "Objem"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:252
+msgid "obrázků k převodu"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:255
+#, php-format
+msgid "%1$s → odhadem %2$s (hlavní soubory)"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:260
+#, php-format
+msgid "Web používá %1$d obrázků. Nepřevádí se: %2$d pod prahem, %3$d logo / ikona webu, %4$d JPG / PNG, které nic nepoužívá."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:265
+msgid "20 největších používaných obrázků"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:267
+msgid "Soubor"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:267
+msgid "Velikost"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:267
+msgid "Kde je"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:284
+msgid "3. Hromadný převod"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:294
+msgid "Pokračovat"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:295
+msgid "Pozastavit"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:297
+msgid "Spustit převod"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:298
+msgid "Nejdřív znovu projde knihovnu, pak převádí po dávkách (asi 20 s na požadavek). Okno nech otevřené; po zavření jde pokračovat."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:306
+msgid "Kontrola posledního převodu:"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:309
+#, php-format
+msgid "obrázky: %1$d, %2$s → %3$s, přepsané stránky a šablony: %4$d."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:314
+#, php-format
+msgid "Chybí nebo jsou prázdné nové soubory: %d."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:318
+msgid "Na těchto stránkách zůstaly odkazy na původní soubory (fungují dál, soubory zůstávají):"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:325
+msgid "Na stránkách nezůstal žádný odkaz na převedené JPG / PNG."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:328
+msgid "CSS Breakdance se nepodařilo regenerovat automaticky – udělej to ručně: Breakdance → Settings → Tools → Regenerate Cache."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:330
+msgid "Pro jistotu projdi pár stránek v anonymním okně a vyčisti cache hostingu / CDN, pokud nějakou máš."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:335
+msgid "Dávky"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:338
+msgid "Datum"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:339
+msgid "Obrázků"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:342
+msgid "Akce"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:354
+msgid "rozpracováno"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:355
+msgid "hotovo"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:356
+msgid "vráceno"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:364
+msgid "staré soubory smazány"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:365
+msgid "bez zálohy"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:369
+msgid "Vrátit převod"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:373 modules/obrazky/includes/admin.php:375
+msgid "Smazat staré soubory"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:375
+#, php-format
+msgid "Půjde od %s"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:376
+#, php-format
+msgid "od %s"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:380
+msgid "Smazat zálohu"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:387
+msgid "Převedené obrázky (vrátit jednotlivě)"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:398
+msgid "Vrátit"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:408
+msgid "Staré soubory zůstávají na svém místě, aby fungovaly odkazy z revizí a z míst, která modul nezná. „Smazat staré soubory“ jde nejdřív 14 dní po převodu, záloha se maže zvlášť. Dávky se vracejí od nejnovější."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:413
+msgid "Log"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:912
+msgid "Už běží nedokončená operace – pokračuj v ní."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:915
+msgid "Server neumí ukládat WebP."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:919
+msgid "Není co převádět – žádný používaný JPG ani PNG nad nastavenými prahy."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:927
+#, php-format
+msgid "Na disku je málo místa: záloha a nové soubory potřebují asi %1$s, volných je %2$s."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:934
+msgid "Nepodařilo se vytvořit složku zálohy v uploads."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:982
+msgid "Už běží nedokončená operace – nejdřív ji dokonči."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:988
+msgid "Tato příloha není převedená modulem."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:991
+msgid "Původní soubory už nejsou ani na místě, ani v záloze – převod nejde vrátit."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:998
+msgid "Vracet jde jen poslední dávku (dávky se vracejí od nejnovější)."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1013
+msgid "V dávce není nic k vrácení."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1129
+msgid "Převádím obrázky…"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1130
+msgid "Vracím původní soubory…"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1131
+msgid "Přepisuji odkazy na stránkách…"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1132
+msgid "Regeneruji CSS Breakdance…"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1133
+msgid "Mažu soubory WebP vrácených obrázků…"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1134
+msgid "Kontroluji výsledek…"
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1135
+msgid "Hotovo."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1169
+msgid "Fronta se právě zpracovává v jiném okně."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1207
+#, php-format
+msgid "Příloha %d: převod opakovaně spadl (nejspíš paměť) – přeskočena."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1529
+msgid "Staré soubory této dávky ještě nejde smazat (nejdřív 14 dní po převodu)."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1532 modules/obrazky/includes/knihovna.php:1570
+msgid "Nejdřív dokonči běžící operaci."
+msgstr ""
+
+#: modules/obrazky/includes/knihovna.php:1567
+msgid "Záloha neexistuje."
+msgstr ""
+
+#: modules/obrazky/includes/prevod.php:64
+#, php-format
+msgid "Nahrání %1$s: převod se nepovedl, zůstal původní soubor (%2$s)."
 msgstr ""
 
 #: modules/cookies/manifest.php:25 modules/cookies/includes/admin.php:26 modules/cookies/includes/admin.php:26
