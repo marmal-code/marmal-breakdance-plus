@@ -281,44 +281,52 @@ function pouziti_pisem(): array
 
     // 2) Data Breakdance – jen příspěvky, jejichž data písmo obsahují.
     global $wpdb;
-    $radky = (array) $wpdb->get_results($wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-        "SELECT p.ID, p.post_title, p.post_type, m.meta_value FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_breakdance_data'
-         WHERE p.post_type <> 'revision' AND p.post_status NOT IN ('trash','auto-draft','inherit') AND m.meta_value LIKE %s LIMIT 500",
+    // Nejdřív jen ID (data stránek můžou mít stovky kB), pak data po dávkách 20 – šetří paměť.
+    $ids = array_map('intval', (array) $wpdb->get_col($wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+        "SELECT p.ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_breakdance_data'
+         WHERE p.post_type <> 'revision' AND p.post_status NOT IN ('trash','auto-draft','inherit') AND m.meta_value LIKE %s LIMIT 1000",
         '%' . $wpdb->esc_like('gfont-') . '%'
-    ));
-    foreach ($radky as $r) {
-        $vnejsi = json_decode((string) $r->meta_value, true);
-        $strom  = is_array($vnejsi) && isset($vnejsi['tree_json_string']) && is_string($vnejsi['tree_json_string']) ? json_decode($vnejsi['tree_json_string'], true) : null;
-        $typ    = get_post_type_object((string) $r->post_type);
-        $nazev  = ($r->post_title !== '' ? $r->post_title : '#' . $r->ID) . ' (' . ($typ ? $typ->labels->singular_name : $r->post_type) . ')';
-        $odkaz  = add_query_arg(array('breakdance' => 'builder', 'id' => (int) $r->ID), home_url('/')); // otevře builder
-        if (!is_array($strom) || !isset($strom['root'])) {
-            if (preg_match_all('/gfont-[a-z0-9\-]+/i', (string) $r->meta_value, $m)) {
-                foreach (array_unique($m[0]) as $f) {
-                    $pridat($f, $nazev, $odkaz);
+    )));
+    foreach (array_chunk($ids, 20) as $davka) {
+        // ID jsou celá čísla (intval výše)
+        $radky = (array) $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            "SELECT p.ID, p.post_title, p.post_type, m.meta_value FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_breakdance_data'
+             WHERE p.ID IN (" . implode(',', array_map('intval', $davka)) . ')'
+        );
+        foreach ($radky as $r) {
+            $vnejsi = json_decode((string) $r->meta_value, true);
+            $strom  = is_array($vnejsi) && isset($vnejsi['tree_json_string']) && is_string($vnejsi['tree_json_string']) ? json_decode($vnejsi['tree_json_string'], true) : null;
+            $typ    = get_post_type_object((string) $r->post_type);
+            $nazev  = ($r->post_title !== '' ? $r->post_title : '#' . $r->ID) . ' (' . ($typ ? $typ->labels->singular_name : $r->post_type) . ')';
+            $odkaz  = add_query_arg(array('breakdance' => 'builder', 'id' => (int) $r->ID), home_url('/')); // otevře builder
+            if (!is_array($strom) || !isset($strom['root'])) {
+                if (preg_match_all('/gfont-[a-z0-9\-]+/i', (string) $r->meta_value, $m)) {
+                    foreach (array_unique($m[0]) as $f) {
+                        $pridat($f, $nazev, $odkaz);
+                    }
                 }
+                continue;
             }
-            continue;
+            $projit = function ($uzel) use (&$projit, $pridat, $nazev, $odkaz) {
+                if (!is_array($uzel)) {
+                    return;
+                }
+                $vlastnosti = $uzel['data']['properties'] ?? null;
+                if ($vlastnosti && preg_match_all('/gfont-[a-z0-9\-]+/i', (string) wp_json_encode($vlastnosti), $m)) {
+                    $typ = (string) ($uzel['data']['type'] ?? '');
+                    $pos = strrpos($typ, '\\');
+                    $typ = $pos !== false ? substr($typ, $pos + 1) : $typ; // EssentialElements\\Heading → Heading
+                    foreach (array_unique($m[0]) as $f) {
+                        /* translators: 1: stránka, 2: typ elementu, 3: ID elementu */
+                        $pridat($f, sprintf(__('%1$s → %2$s, ID elementu %3$s', 'marmal-breakdance-plus'), $nazev, $typ, (string) ($uzel['id'] ?? '?')), $odkaz);
+                    }
+                }
+                foreach ((array) ($uzel['children'] ?? array()) as $c) {
+                    $projit($c);
+                }
+            };
+            $projit($strom['root']);
         }
-        $projit = function ($uzel) use (&$projit, $pridat, $nazev, $odkaz) {
-            if (!is_array($uzel)) {
-                return;
-            }
-            $vlastnosti = $uzel['data']['properties'] ?? null;
-            if ($vlastnosti && preg_match_all('/gfont-[a-z0-9\-]+/i', (string) wp_json_encode($vlastnosti), $m)) {
-                $typ = (string) ($uzel['data']['type'] ?? '');
-                $pos = strrpos($typ, '\\');
-                $typ = $pos !== false ? substr($typ, $pos + 1) : $typ; // EssentialElements\\Heading → Heading
-                foreach (array_unique($m[0]) as $f) {
-                    /* translators: 1: stránka, 2: typ elementu, 3: ID elementu */
-                    $pridat($f, sprintf(__('%1$s → %2$s, ID elementu %3$s', 'marmal-breakdance-plus'), $nazev, $typ, (string) ($uzel['id'] ?? '?')), $odkaz);
-                }
-            }
-            foreach ((array) ($uzel['children'] ?? array()) as $c) {
-                $projit($c);
-            }
-        };
-        $projit($strom['root']);
     }
     ksort($out);
     return $out;

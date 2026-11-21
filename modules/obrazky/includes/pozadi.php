@@ -22,66 +22,73 @@ if (!defined('ABSPATH')) {
 function pozadi_full(): array
 {
     global $wpdb;
-    $radky = (array) $wpdb->get_results($wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-        "SELECT p.ID, p.post_title, p.post_type, m.meta_value FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_breakdance_data'
+    // Nejdřív jen ID, pak data stránek po dávkách 20 (data můžou mít stovky kB) – šetří paměť.
+    $ids = array_map('intval', (array) $wpdb->get_col($wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+        "SELECT p.ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_breakdance_data'
          WHERE " . sql_platne_prispevky() . ' AND m.meta_value LIKE %s LIMIT 1000', // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- sql_platne_prispevky() je pevný řetězec
         '%' . $wpdb->esc_like('background') . '%'
-    ));
+    )));
     $out = array();
-    foreach ($radky as $r) {
-        $vnejsi = json_decode((string) $r->meta_value, true);
-        $strom  = is_array($vnejsi) && isset($vnejsi['tree_json_string']) && is_string($vnejsi['tree_json_string']) ? json_decode($vnejsi['tree_json_string'], true) : null;
-        if (!is_array($strom) || !isset($strom['root'])) {
-            continue;
+    foreach (array_chunk($ids, 20) as $davka) {
+        $radky = (array) $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- jen celá čísla
+            "SELECT p.ID, p.post_title, p.post_type, m.meta_value FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_breakdance_data'
+             WHERE p.ID IN (" . implode(',', array_map('intval', $davka)) . ')'
+        );
+        foreach ($radky as $r) {
+            $vnejsi = json_decode((string) $r->meta_value, true);
+            $strom  = is_array($vnejsi) && isset($vnejsi['tree_json_string']) && is_string($vnejsi['tree_json_string']) ? json_decode($vnejsi['tree_json_string'], true) : null;
+            if (!is_array($strom) || !isset($strom['root'])) {
+                continue;
+            }
+            $typ   = get_post_type_object((string) $r->post_type);
+            $nazev = ($r->post_title !== '' ? $r->post_title : '#' . $r->ID) . ' (' . ($typ ? $typ->labels->singular_name : $r->post_type) . ')';
+            $projit = function ($uzel) use (&$projit, &$out, $r, $nazev) {
+                if (!is_array($uzel)) {
+                    return;
+                }
+                $bg = $uzel['data']['properties']['design']['background'] ?? null;
+                if (is_array($bg) && is_array($bg['image'] ?? null) && ($bg['type'] ?? 'image') === 'image') {
+                    $velikosti = is_array($bg['image_size'] ?? null) ? $bg['image_size'] : array();
+                    $full      = array();
+                    $priloha   = 0;
+                    foreach ($bg['image'] as $bp => $obr) {
+                        if (!is_array($obr) || empty($obr['id'])) {
+                            continue;
+                        }
+                        $priloha = $priloha ?: (int) $obr['id'];
+                        // Velikost platí i pro menší breakpointy, dokud ji něco nepřepíše – stačí základní a nastavené.
+                        $v = $velikosti[$bp] ?? ($velikosti['breakpoint_base'] ?? 'full');
+                        if ($v === 'full' || $v === '' || $v === null) {
+                            $full[] = (string) $bp;
+                        }
+                    }
+                    foreach ($velikosti as $bp => $v) {
+                        if ($v === 'full' && !in_array((string) $bp, $full, true)) {
+                            $full[] = (string) $bp;
+                        }
+                    }
+                    if ($priloha > 0 && $full) {
+                        $soubor = (string) get_attached_file($priloha);
+                        $out[]  = array(
+                            'post'        => (int) $r->ID,
+                            'nazev'       => $nazev,
+                            'element'     => (string) preg_replace('/^.*\\\\/', '', (string) ($uzel['data']['type'] ?? '')),
+                            'id'          => (string) ($uzel['id'] ?? ''),
+                            'priloha'     => $priloha,
+                            'soubor'      => wp_basename($soubor),
+                            'velikost'    => $soubor !== '' && is_file($soubor) ? (int) filesize($soubor) : 0,
+                            'breakpointy' => array_map(function ($bp) {
+                                return str_replace(array('breakpoint_', '_'), array('', ' '), $bp);
+                            }, $full),
+                        );
+                    }
+                }
+                foreach ((array) ($uzel['children'] ?? array()) as $c) {
+                    $projit($c);
+                }
+            };
+            $projit($strom['root']);
         }
-        $typ   = get_post_type_object((string) $r->post_type);
-        $nazev = ($r->post_title !== '' ? $r->post_title : '#' . $r->ID) . ' (' . ($typ ? $typ->labels->singular_name : $r->post_type) . ')';
-        $projit = function ($uzel) use (&$projit, &$out, $r, $nazev) {
-            if (!is_array($uzel)) {
-                return;
-            }
-            $bg = $uzel['data']['properties']['design']['background'] ?? null;
-            if (is_array($bg) && is_array($bg['image'] ?? null) && ($bg['type'] ?? 'image') === 'image') {
-                $velikosti = is_array($bg['image_size'] ?? null) ? $bg['image_size'] : array();
-                $full      = array();
-                $priloha   = 0;
-                foreach ($bg['image'] as $bp => $obr) {
-                    if (!is_array($obr) || empty($obr['id'])) {
-                        continue;
-                    }
-                    $priloha = $priloha ?: (int) $obr['id'];
-                    // Velikost platí i pro menší breakpointy, dokud ji něco nepřepíše – stačí základní a nastavené.
-                    $v = $velikosti[$bp] ?? ($velikosti['breakpoint_base'] ?? 'full');
-                    if ($v === 'full' || $v === '' || $v === null) {
-                        $full[] = (string) $bp;
-                    }
-                }
-                foreach ($velikosti as $bp => $v) {
-                    if ($v === 'full' && !in_array((string) $bp, $full, true)) {
-                        $full[] = (string) $bp;
-                    }
-                }
-                if ($priloha > 0 && $full) {
-                    $soubor = (string) get_attached_file($priloha);
-                    $out[]  = array(
-                        'post'        => (int) $r->ID,
-                        'nazev'       => $nazev,
-                        'element'     => (string) preg_replace('/^.*\\\\/', '', (string) ($uzel['data']['type'] ?? '')),
-                        'id'          => (string) ($uzel['id'] ?? ''),
-                        'priloha'     => $priloha,
-                        'soubor'      => wp_basename($soubor),
-                        'velikost'    => $soubor !== '' && is_file($soubor) ? (int) filesize($soubor) : 0,
-                        'breakpointy' => array_map(function ($bp) {
-                            return str_replace(array('breakpoint_', '_'), array('', ' '), $bp);
-                        }, $full),
-                    );
-                }
-            }
-            foreach ((array) ($uzel['children'] ?? array()) as $c) {
-                $projit($c);
-            }
-        };
-        $projit($strom['root']);
     }
     usort($out, function ($a, $b) {
         return $b['velikost'] <=> $a['velikost'];

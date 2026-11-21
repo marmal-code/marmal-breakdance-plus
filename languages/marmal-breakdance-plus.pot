@@ -34,12 +34,16 @@ msgstr ""
 msgid "Google Fonts z webu stáhne k sobě a návštěvníkům je posílá z vlastní domény – Google nedostane jejich IP adresu (GDPR) a stránka se načte rychleji. Fonty dál vybíráš v Breakdance jako dosud."
 msgstr ""
 
-#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:138 modules/obrazky/manifest.php:31 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:223 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
+#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:144 modules/obrazky/manifest.php:31 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:226 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr ""
 
-#: modules/fonty/manifest.php:39
+#: modules/fonty/manifest.php:41
 msgid "Některé fonty se nepodařilo stáhnout – načítají se dál z Googlu. Podrobnosti v MarMal → Fonty."
+msgstr ""
+
+#: modules/fonty/manifest.php:44
+msgid "Písmo z Global Settings není mezi staženými – nic se nepřednačítá. Podrobnosti v MarMal → Fonty."
 msgstr ""
 
 #: modules/fonty/includes/admin.php:45 modules/fonty/includes/admin.php:58 modules/obrazky/includes/admin.php:58 modules/cookies/includes/souhlasy.php:213 modules/cookies/includes/souhlasy.php:236 modules/cookies/includes/souhlasy.php:251
@@ -75,7 +79,7 @@ msgstr ""
 msgid "Fonty na webu"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:108 modules/obrazky/includes/admin.php:341
+#: modules/fonty/includes/admin.php:108 modules/obrazky/includes/admin.php:344
 msgid "Stav"
 msgstr ""
 
@@ -115,52 +119,153 @@ msgstr ""
 msgid "„Projít web“ načte úvodní stránku a vyčistí page cache (WP Rocket, LiteSpeed Cache, W3 Total Cache, WP Super Cache). U jiné cache nebo cache hostingu ji vyčisti ručně, aby se na web dostaly nové odkazy. „Smazat a stáhnout znovu“ použij po aktualizaci fontu u Googlu nebo po změně znakových sad."
 msgstr ""
 
-#: modules/fonty/includes/admin.php:142
-msgid "Znakové sady"
-msgstr ""
-
-#: modules/fonty/includes/admin.php:143
-msgid "Latinka včetně češtiny (vždy)"
-msgstr ""
-
-#: modules/fonty/includes/admin.php:147
-msgid "Po změně klikni na „Smazat a stáhnout znovu“."
-msgstr ""
-
-#: modules/fonty/includes/admin.php:148
-msgid "Zobrazení textu"
-msgstr ""
-
-#: modules/fonty/includes/admin.php:149
-msgid "font-display: swap – text je vidět hned systémovým písmem, font se doplní (doporučeno, pomáhá Core Web Vitals)"
-msgstr ""
-
-#: modules/fonty/includes/admin.php:150
+#: modules/fonty/includes/admin.php:138 modules/fonty/includes/admin.php:156
 msgid "Přednačtení"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:151
-msgid "Přednačíst běžný řez (400) hlavních fontů – nejvýš 2 soubory na stránku"
+#: modules/fonty/includes/admin.php:141
+msgid "Odkud Breakdance písma bere"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:153 modules/obrazky/includes/admin.php:224 modules/cookies/includes/admin.php:306 modules/paticka/includes/admin.php:251
-msgid "Uložit nastavení"
+#: modules/fonty/includes/admin.php:148
+msgid "Znakové sady"
 msgstr ""
 
-#: modules/fonty/includes/admin.php:156
-msgid "Kontrola"
+#: modules/fonty/includes/admin.php:149
+msgid "Latinka včetně češtiny (vždy)"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:153
+msgid "Po změně klikni na „Smazat a stáhnout znovu“."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:154
+msgid "Zobrazení textu"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:155
+msgid "font-display: swap – text je vidět hned systémovým písmem, font se doplní (doporučeno, pomáhá Core Web Vitals)"
 msgstr ""
 
 #: modules/fonty/includes/admin.php:158
-msgid "Otevři web v anonymním okně → F12 → Network → do filtru napiš „fonts.g“."
+msgid "Automaticky podle webu – písmo textu a nadpisů z Global Settings Breakdance (doporučeno)"
 msgstr ""
 
 #: modules/fonty/includes/admin.php:159
+msgid "Ručně – soubory zaškrtnuté v tabulce níže (nejvýš 3)"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:160 includes/moduly.php:272
+msgid "Vypnuto"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:164
+msgid "Přednačte se jen soubor, který stránka opravdu používá (latinka; čeština z latin-ext se stáhne hned po něm). Variabilní písmo = jeden soubor pro všechny váhy."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:168 modules/obrazky/includes/admin.php:227 modules/cookies/includes/admin.php:314 modules/paticka/includes/admin.php:251
+msgid "Uložit nastavení"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:171
+msgid "Kontrola"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:173
+msgid "Otevři web v anonymním okně → F12 → Network → do filtru napiš „fonts.g“."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:174
 msgid "Nesmí se objevit nic z fonts.googleapis.com ani fonts.gstatic.com. Fonty se načítají z /wp-content/uploads/marmal-fonty/."
 msgstr ""
 
-#: modules/fonty/includes/admin.php:160
+#: modules/fonty/includes/admin.php:175
 msgid "Když se Google ještě objeví: vyčisti cache webu a hostingu. Font vložený přímo v CSS (@font-face s adresou fonts.gstatic.com) modul nepřepisuje – takový font nahraj v Breakdance → Preferences → Custom Fonts."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:189
+msgid "Přednačtení je vypnuté."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:195
+msgid "V Global Settings Breakdance není nastavené písmo textu ani nadpisů (nebo Breakdance neběží) – nepřednačítá se nic."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:201
+#, php-format
+msgid "váha %s"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:202
+msgid "nenalezeno"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:208
+msgid "Přednačítá se:"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:208
+msgid "nic"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:214 modules/fonty/includes/admin.php:255
+msgid "variabilní"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:225
+msgid "Stažené soubory (ruční výběr)"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:227
+msgid "Zatím žádné stažené soubory – nejdřív klikni na „Projít web a stáhnout“."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:232 modules/fonty/includes/admin.php:293
+msgid "Písmo"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:233
+msgid "Styl"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:234
+msgid "Váha / rozsah vah"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:235
+msgid "Znaky"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:236 modules/obrazky/includes/admin.php:270
+msgid "Velikost"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:262
+msgid "Nejvýš 3 soubory. Výběr si pamatuje písmo, styl, váhu a znakovou sadu, takže přežije „Smazat a stáhnout znovu“."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:284
+msgid "Najde každé písmo z Google Fonts, které Breakdance používá, a ukáže kde: Global Settings, typografický preset, nebo konkrétní stránka / šablona s ID elementu. Pomůže najít zapomenutá písma (např. ve skryté sekci menu v hlavičce)."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:285
+msgid "Zjistit, kde se písma používají"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:293
+msgid "Kde se používá"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:295
+msgid "Breakdance nepoužívá žádné písmo z Google Fonts."
+msgstr ""
+
+#: modules/fonty/includes/admin.php:298
+msgid "nestaženo"
+msgstr ""
+
+#: modules/fonty/includes/admin.php:305
+msgid "Písmo, které je jen v jedné stránce nebo elementu a web ho jinak nepoužívá, je nejspíš zbytek staré typografie – odstraň ho v builderu (u elementu nastav písmo „výchozí“) a pak klikni na „Smazat a stáhnout znovu“."
 msgstr ""
 
 #: modules/fonty/includes/data.php:21
@@ -175,6 +280,43 @@ msgstr ""
 msgid "Vietnamština"
 msgstr ""
 
+#: modules/fonty/includes/data.php:72
+#, php-format
+msgid "Ručně jde přednačíst nejvýš %d soubory – uloženy jsou první tři."
+msgstr ""
+
+#: modules/fonty/includes/preload.php:101
+msgid "Písmo textu"
+msgstr ""
+
+#: modules/fonty/includes/preload.php:109
+msgid "Písmo nadpisů"
+msgstr ""
+
+#: modules/fonty/includes/preload.php:230
+#, php-format
+msgid "%1$s (%2$s) není mezi staženými soubory – nepřednačítá se nic. Klikni na „Projít web a stáhnout“; když to nepomůže, web písmo z Googlu nenačítá."
+msgstr ""
+
+#: modules/fonty/includes/preload.php:260
+#, php-format
+msgid "Global Settings → %s"
+msgstr ""
+
+#: modules/fonty/includes/preload.php:269
+#, php-format
+msgid "Typografický preset „%s“"
+msgstr ""
+
+#: modules/fonty/includes/preload.php:278
+msgid "Global Settings – jiné nastavení (např. H1–H6, tlačítka, formuláře)"
+msgstr ""
+
+#: modules/fonty/includes/preload.php:314
+#, php-format
+msgid "%1$s → %2$s, ID elementu %3$s"
+msgstr ""
+
 #: modules/fonty/includes/stahovani.php:90
 #, php-format
 msgid "Google odpověděl kódem %d."
@@ -184,31 +326,31 @@ msgstr ""
 msgid "Soubor je příliš velký."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:123
+#: modules/fonty/includes/stahovani.php:198
 msgid "Nejde vytvořit složku uploads/marmal-fonty."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:133
+#: modules/fonty/includes/stahovani.php:208
 msgid "V odpovědi Googlu nejsou žádné fonty."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:143
+#: modules/fonty/includes/stahovani.php:218
 msgid "Neočekávaná adresa fontu v odpovědi Googlu."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:148
+#: modules/fonty/includes/stahovani.php:223
 msgid "Sada má příliš mnoho souborů."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:157
+#: modules/fonty/includes/stahovani.php:232
 msgid "Stažený soubor není font."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:160
+#: modules/fonty/includes/stahovani.php:235
 msgid "Nejde zapsat soubor fontu."
 msgstr ""
 
-#: modules/fonty/includes/stahovani.php:180
+#: modules/fonty/includes/stahovani.php:250
 msgid "Nejde zapsat CSS fontů."
 msgstr ""
 
@@ -379,186 +521,194 @@ msgstr ""
 msgid "Menší soubory se hromadně nepřevádějí – úspora by byla malá. Logo a ikona webu se nepřevádějí nikdy."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:228
+#: modules/obrazky/includes/admin.php:223
+msgid "Velikost podle místa na stránce"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:224
+msgid "Doplňovat sizes=\"auto\" u lazy obrázků"
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:225
+msgid "Prohlížeč stáhne velikost obrázku podle skutečné šířky na stránce (karta 230 px → soubor 300 px), ne podle šířky originálu. Týká se jen obrázků s lazy loadingem – logo a úvodní obrázek zůstanou beze změny. Chybějící width a height se doplní z knihovny médií. Po změně vyčisti page cache."
+msgstr ""
+
+#: modules/obrazky/includes/admin.php:231
 msgid "2. Přehled knihovny"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:230
+#: modules/obrazky/includes/admin.php:233
 msgid "Projít knihovnu"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:234
+#: modules/obrazky/includes/admin.php:237
 #, php-format
 msgid "Naposledy: %s. Jen čte – nic nemění."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:237
+#: modules/obrazky/includes/admin.php:240
 msgid "Projde knihovnu médií a najde obrázky, které web skutečně používá (Breakdance, obsah, náhledové obrázky, Rank Math). Jen čte – nic nemění."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:244
+#: modules/obrazky/includes/admin.php:247
 msgid "Formát"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:244
+#: modules/obrazky/includes/admin.php:247
 msgid "Počet"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:244 modules/obrazky/includes/admin.php:340
+#: modules/obrazky/includes/admin.php:247 modules/obrazky/includes/admin.php:343
 msgid "Objem"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:252
+#: modules/obrazky/includes/admin.php:255
 msgid "obrázků k převodu"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:255
+#: modules/obrazky/includes/admin.php:258
 #, php-format
 msgid "%1$s → odhadem %2$s (hlavní soubory)"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:260
+#: modules/obrazky/includes/admin.php:263
 #, php-format
 msgid "Web používá %1$d obrázků. Nepřevádí se: %2$d pod prahem, %3$d logo / ikona webu, %4$d JPG / PNG, které nic nepoužívá."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:265
+#: modules/obrazky/includes/admin.php:268
 msgid "20 největších používaných obrázků"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:267
+#: modules/obrazky/includes/admin.php:270
 msgid "Soubor"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:267
-msgid "Velikost"
-msgstr ""
-
-#: modules/obrazky/includes/admin.php:267
+#: modules/obrazky/includes/admin.php:270
 msgid "Kde je"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:284
+#: modules/obrazky/includes/admin.php:287
 msgid "3. Hromadný převod"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:294
+#: modules/obrazky/includes/admin.php:297
 msgid "Pokračovat"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:295
+#: modules/obrazky/includes/admin.php:298
 msgid "Pozastavit"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:297
+#: modules/obrazky/includes/admin.php:300
 msgid "Spustit převod"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:298
+#: modules/obrazky/includes/admin.php:301
 msgid "Nejdřív znovu projde knihovnu, pak převádí po dávkách (asi 20 s na požadavek). Okno nech otevřené; po zavření jde pokračovat."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:306
+#: modules/obrazky/includes/admin.php:309
 msgid "Kontrola posledního převodu:"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:309
+#: modules/obrazky/includes/admin.php:312
 #, php-format
 msgid "obrázky: %1$d, %2$s → %3$s, přepsané stránky a šablony: %4$d."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:314
+#: modules/obrazky/includes/admin.php:317
 #, php-format
 msgid "Chybí nebo jsou prázdné nové soubory: %d."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:318
+#: modules/obrazky/includes/admin.php:321
 msgid "Na těchto stránkách zůstaly odkazy na původní soubory (fungují dál, soubory zůstávají):"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:325
+#: modules/obrazky/includes/admin.php:328
 msgid "Na stránkách nezůstal žádný odkaz na převedené JPG / PNG."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:328
+#: modules/obrazky/includes/admin.php:331
 msgid "CSS Breakdance se nepodařilo regenerovat automaticky – udělej to ručně: Breakdance → Settings → Tools → Regenerate Cache."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:330
+#: modules/obrazky/includes/admin.php:333
 msgid "Pro jistotu projdi pár stránek v anonymním okně a vyčisti cache hostingu / CDN, pokud nějakou máš."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:335
+#: modules/obrazky/includes/admin.php:338
 msgid "Dávky"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:338
+#: modules/obrazky/includes/admin.php:341
 msgid "Datum"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:339
+#: modules/obrazky/includes/admin.php:342
 msgid "Obrázků"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:342
+#: modules/obrazky/includes/admin.php:345
 msgid "Akce"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:354
+#: modules/obrazky/includes/admin.php:357
 msgid "rozpracováno"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:355
+#: modules/obrazky/includes/admin.php:358
 msgid "hotovo"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:356
+#: modules/obrazky/includes/admin.php:359
 msgid "vráceno"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:364
+#: modules/obrazky/includes/admin.php:367
 msgid "staré soubory smazány"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:365
+#: modules/obrazky/includes/admin.php:368
 msgid "bez zálohy"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:369
+#: modules/obrazky/includes/admin.php:372
 msgid "Vrátit převod"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:373 modules/obrazky/includes/admin.php:375
+#: modules/obrazky/includes/admin.php:376 modules/obrazky/includes/admin.php:378
 msgid "Smazat staré soubory"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:375
+#: modules/obrazky/includes/admin.php:378
 #, php-format
 msgid "Půjde od %s"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:376
+#: modules/obrazky/includes/admin.php:379
 #, php-format
 msgid "od %s"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:380
+#: modules/obrazky/includes/admin.php:383
 msgid "Smazat zálohu"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:387
+#: modules/obrazky/includes/admin.php:390
 msgid "Převedené obrázky (vrátit jednotlivě)"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:398
+#: modules/obrazky/includes/admin.php:401
 msgid "Vrátit"
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:408
+#: modules/obrazky/includes/admin.php:411
 msgid "Staré soubory zůstávají na svém místě, aby fungovaly odkazy z revizí a z míst, která modul nezná. „Smazat staré soubory“ jde nejdřív 14 dní po převodu, záloha se maže zvlášť. Dávky se vracejí od nejnovější."
 msgstr ""
 
-#: modules/obrazky/includes/admin.php:413
+#: modules/obrazky/includes/admin.php:419
 msgid "Log"
 msgstr ""
 
@@ -650,6 +800,38 @@ msgstr ""
 
 #: modules/obrazky/includes/knihovna.php:1567
 msgid "Záloha neexistuje."
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:96
+msgid "4. Obrázky na pozadí v plné velikosti"
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:97
+msgid "Obrázek na pozadí sekce, sloupce nebo divu se nezmenšuje podle obrazovky – prohlížeč stáhne přesně zvolenou velikost. U velikosti „Full“ je to originál (často 1920 px a stovky kB i na mobilu). V Breakdance u elementu nastav Design → Background → Image Size (např. 1536x1536 na desktopu, Large na tabletu, Medium Large na mobilu)."
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:100
+msgid "Najít obrázky na pozadí v plné velikosti"
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:105
+msgid "Žádný obrázek na pozadí nepoužívá plnou velikost."
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:108
+msgid "Stránka / šablona"
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:108
+msgid "Element"
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:108
+msgid "Obrázek"
+msgstr ""
+
+#: modules/obrazky/includes/pozadi.php:108
+msgid "Plná velikost na"
 msgstr ""
 
 #: modules/obrazky/includes/prevod.php:64
@@ -747,7 +929,7 @@ msgstr ""
 msgid "Lišta nahoře"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:146
+#: modules/cookies/includes/admin.php:146 modules/cookies/includes/admin.php:177
 msgid "Okno uprostřed"
 msgstr ""
 
@@ -795,7 +977,7 @@ msgstr ""
 msgid "Pozadí lišty"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:154 modules/cookies/includes/admin.php:184
+#: modules/cookies/includes/admin.php:154 modules/cookies/includes/admin.php:188
 msgid "Text lišty"
 msgstr ""
 
@@ -876,575 +1058,616 @@ msgstr ""
 msgid "Zobrazit křížek – zavře lištu bez souhlasu, na další stránce se ukáže znovu"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:181
-msgid "Prázdné pole = výchozí text (šedý). Na CZ+EN webu se vlastní texty překládají v Polylangu (Překlady řetězců) nebo WPML."
+#: modules/cookies/includes/admin.php:177
+msgid "Rozložení na mobilu"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:183
-msgid "Nadpis lišty"
+#: modules/cookies/includes/admin.php:177
+msgid "Kompaktní lišta dole"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:177
+msgid "Stejné jako na počítači"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:178
+msgid "Kompaktní lišta zabere na telefonu asi pětinu výšky obrazovky: krátký text (záložka Texty), Přijmout vše a Odmítnout vše vedle sebe, Nastavení jako odkaz. Okno nastavení se na telefonu otevře přes celou obrazovku. „Stejné jako na počítači“ = chování do verze 0.16."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:179
+msgid "Bod zlomu pro mobil (px)"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:180
+msgid "Do této šířky okna platí rozložení na mobilu. 767 = telefony (stejně jako Breakdance)."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:185
-msgid "Tlačítko Přijmout"
-msgstr ""
-
-#: modules/cookies/includes/admin.php:186
-msgid "Tlačítko Odmítnout"
+msgid "Prázdné pole = výchozí text (šedý). Na CZ+EN webu se vlastní texty překládají v Polylangu (Překlady řetězců) nebo WPML."
 msgstr ""
 
 #: modules/cookies/includes/admin.php:187
-msgid "Odkaz Nastavení"
-msgstr ""
-
-#: modules/cookies/includes/admin.php:188
-msgid "Odkaz Více o cookies"
+msgid "Nadpis lišty"
 msgstr ""
 
 #: modules/cookies/includes/admin.php:189
+msgid "Krátký text pro mobil"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:192
+#, php-format
+msgid "Kompaktní lišta na telefonu (nadpis se skryje). Nejvýš %d znaků, za text se doplní odkazy „Více o cookies“ a „Nastavení“."
+msgstr ""
+
+#: modules/cookies/includes/admin.php:193
+msgid "Tlačítko Přijmout"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:194
+msgid "Tlačítko Odmítnout"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:195
+msgid "Odkaz Nastavení"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:196
+msgid "Odkaz Více o cookies"
+msgstr ""
+
+#: modules/cookies/includes/admin.php:197
 msgid "Stránka „Více o cookies“"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:190
+#: modules/cookies/includes/admin.php:198
 msgid "— stránka zásad z Patičky / Nastavení → Soukromí —"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:191 modules/paticka/includes/admin.php:213
+#: modules/cookies/includes/admin.php:199 modules/paticka/includes/admin.php:213
 #, php-format
 msgid "Teď vede na: %s"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:191
+#: modules/cookies/includes/admin.php:199
 msgid "Žádná stránka – odkaz se v liště nezobrazí."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:192
+#: modules/cookies/includes/admin.php:200
 msgid "Úvod okna nastavení"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:197
+#: modules/cookies/includes/admin.php:205
 msgid "Kategorie se v liště zobrazí jen tehdy, když v ní je aspoň jedna cookie. Služby označené „automaticky“ plugin pozná sám, „nalezeno“ našlo blokování přímo na stránkách webu."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:199
+#: modules/cookies/includes/admin.php:207
 msgid "Breakdance:"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:199
+#: modules/cookies/includes/admin.php:207
 msgid "vlastní cookies pro počítání zobrazení a návštěv vypneš v Breakdance → Settings → Privacy → „Disable Page & Session Cookies“ (doporučeno, pokud nepoužíváš podmínky Page View Count / Session Count)."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:204
+#: modules/cookies/includes/admin.php:212
 msgid "Popis kategorie"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:214
+#: modules/cookies/includes/admin.php:222
 msgid "automaticky"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:217
+#: modules/cookies/includes/admin.php:225
 #, php-format
 msgid "nalezeno na webu %s"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:227
+#: modules/cookies/includes/admin.php:235
 msgid "Vlastní cookies"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:229
+#: modules/cookies/includes/admin.php:237
 msgid "Řádek = jedna cookie: název | poskytovatel | účel | platnost | kategorie (nezbytne, preferencni, analyticke, marketingove)."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:231
+#: modules/cookies/includes/admin.php:239
 msgid "Zapomenout nalezené služby"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:232
+#: modules/cookies/includes/admin.php:240
 msgid "Např. po odstranění videa z webu."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:238
+#: modules/cookies/includes/admin.php:246
 msgid "Google Analytics 4 – ID měření"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:239
+#: modules/cookies/includes/admin.php:247
 msgid "Kód vloží modul sám, včetně Consent Mode v2. GA4 odjinud (Site Kit, GTM, kód v hlavičce, Breakdance → Custom Code) odstraň – jinak by se měřilo dvakrát."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:240
+#: modules/cookies/includes/admin.php:248
 msgid "Consent Mode v2"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:240
+#: modules/cookies/includes/admin.php:248
 msgid "Základní (doporučeno)"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:240
+#: modules/cookies/includes/admin.php:248
 msgid "Rozšířený"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:241
+#: modules/cookies/includes/admin.php:249
 msgid "Základní: bez souhlasu se Google tagy (GA4, Google Ads) vůbec nenačtou. Rozšířený: GA4 a Google Ads se načtou hned a bez souhlasu posílají Googlu pingy bez cookies pro modelování dat – výklad úřadů není jednotný, jen na přání klienta. Ostatní služby čekají na souhlas vždy."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:242
+#: modules/cookies/includes/admin.php:250
 msgid "Platnost GA cookies"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:242
+#: modules/cookies/includes/admin.php:250
 msgid "Zkrátit na 13 měsíců (výchozí Google jsou 2 roky – ÚOOÚ vytýká neúměrně dlouhou platnost)"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:243
+#: modules/cookies/includes/admin.php:251
 msgid "Google Ads – ID konverzí"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:244
+#: modules/cookies/includes/admin.php:252
 msgid "Remarketing a propojení konverzí (cookie _gcl_au). Až po souhlasu s marketingovými cookies; sdílí Google tag s GA4."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:245
+#: modules/cookies/includes/admin.php:253
 msgid "Google Tag Manager"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:246
+#: modules/cookies/includes/admin.php:254
 msgid "Načíst až po souhlasu (doporučeno)"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:246
+#: modules/cookies/includes/admin.php:254
 msgid "Načíst vždy – značky v GTM hlídají souhlas samy"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:247
+#: modules/cookies/includes/admin.php:255
 msgid "„Až po souhlasu“: kontejner se načte po souhlasu s analytickými nebo marketingovými cookies. Značky v GTM pak spouštěj podle Consent Mode nebo události marmal_consent (proměnné dataLayer marmal_analyticke, marmal_marketingove, marmal_preferencni). „Vždy“ jen když máš u každé značky v GTM nastavenou kontrolu souhlasu. GA4 vlož buď sem do pole GA4, nebo do GTM – ne obojí."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:248
+#: modules/cookies/includes/admin.php:256
 msgid "Sklik – SEM ID"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:248 modules/cookies/includes/data.php:273
+#: modules/cookies/includes/admin.php:256 modules/cookies/includes/data.php:277
 msgid "SEM ID ze Skliku"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:249
+#: modules/cookies/includes/admin.php:257
 msgid "Seznam Event Measurement (sul.js) – nový měřicí kód Skliku pro retargeting a konverze. SEM ID najdeš ve Skliku → Nastavení účtu → Zobrazit kód SEM. Až po souhlasu s marketingovými cookies, souhlas se Seznamu předá automaticky. Starý retargetingový kód (rc.js) na webu modul jen zablokuje do souhlasu."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:250
+#: modules/cookies/includes/admin.php:258
 msgid "Meta Pixel – ID"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:251
+#: modules/cookies/includes/admin.php:259
 msgid "Facebook / Instagram reklamy. Až po souhlasu s marketingovými cookies."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:252
+#: modules/cookies/includes/admin.php:260
 msgid "LinkedIn Insight Tag – Partner ID"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:253
+#: modules/cookies/includes/admin.php:261
 msgid "Až po souhlasu s marketingovými cookies."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:254
+#: modules/cookies/includes/admin.php:262
 msgid "Microsoft Clarity – Project ID"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:255
+#: modules/cookies/includes/admin.php:263
 msgid "Heatmapy a záznamy návštěv. Až po souhlasu s analytickými cookies; volbu modul předá Clarity přes její consent API. V Clarity zapni Settings → Setup → Cookie consent."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:256
+#: modules/cookies/includes/admin.php:264
 msgid "Hotjar – Site ID"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:257
+#: modules/cookies/includes/admin.php:265
 msgid "Hotjar (Contentsquare). Až po souhlasu s analytickými cookies."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:258
+#: modules/cookies/includes/admin.php:266
 msgid "Google Search Console"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:258
+#: modules/cookies/includes/admin.php:266
 msgid "Ověření webu metaznačkou nebo DNS. Na webu nenastavuje žádné cookies, souhlas není potřeba."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:259
+#: modules/cookies/includes/admin.php:267
 msgid "Kód vložený jinde"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:259
+#: modules/cookies/includes/admin.php:267
 msgid "Měřicí kódy vlož jen sem – ne do Breakdance → Custom Code ani jiného pluginu. Když na webu nějaký zůstane, modul ho pozná a zablokuje do souhlasu (objeví se jako „nalezeno“), ale měřilo by se dvakrát."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:265
+#: modules/cookies/includes/admin.php:273
 msgid "Platnost souhlasu"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:267
+#: modules/cookies/includes/admin.php:275
 msgid "Po této době se návštěvníkovi lišta zobrazí znovu."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:268
+#: modules/cookies/includes/admin.php:276
 msgid "Uchovávat záznamy"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:270
+#: modules/cookies/includes/admin.php:278
 msgid "Revize textů"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:271
+#: modules/cookies/includes/admin.php:279
 msgid "Zvýšit revizi"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:272
+#: modules/cookies/includes/admin.php:280
 msgid "Po změně cookies nebo textů: všem návštěvníkům se lišta ukáže znovu a souhlas dají k nové verzi."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:275
+#: modules/cookies/includes/admin.php:283
 msgid "Posledních 30 dní"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:277 modules/cookies/includes/data.php:221
+#: modules/cookies/includes/admin.php:285 modules/cookies/includes/data.php:224
 msgid "Přijmout vše"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:277 modules/cookies/includes/data.php:222
+#: modules/cookies/includes/admin.php:285 modules/cookies/includes/data.php:225
 msgid "Odmítnout vše"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:277
+#: modules/cookies/includes/admin.php:285
 msgid "Vlastní výběr"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:281
+#: modules/cookies/includes/admin.php:289
 msgid "Stáhnout záznamy (CSV)"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:282
+#: modules/cookies/includes/admin.php:290
 msgid "Čas"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:282
+#: modules/cookies/includes/admin.php:290
 msgid "Volba"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:282
+#: modules/cookies/includes/admin.php:290
 msgid "Kategorie"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:282
+#: modules/cookies/includes/admin.php:290
 msgid "Revize"
 msgstr ""
 
-#: modules/cookies/includes/admin.php:285
+#: modules/cookies/includes/admin.php:293
 msgid "Zatím žádný záznam."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:295
+#: modules/cookies/includes/admin.php:303
 msgid "Vypni starý cookie plugin (CookieYes apod.) – dvě lišty najednou nesmí běžet."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:296
+#: modules/cookies/includes/admin.php:304
 msgid "Vypni cookies Breakdance: Breakdance → Settings → Privacy → „Disable Page & Session Cookies“. Breakdance jinak ukládá počet zobrazení stránek a návštěv (pro podmínky Page View Count a Session Count u popupů) – nejsou nezbytné a lišta je nezná. Pokud tyto podmínky na webu používáš, nech je zapnuté a dopiš je do Vlastních cookies (kategorie preferencni)."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:297
+#: modules/cookies/includes/admin.php:305
 msgid "Záložka Měření: vlož ID služeb (GA4, Google Ads, GTM, Sklik, Meta Pixel, LinkedIn, Clarity, Hotjar) a stejné kódy odstraň odjinud (Site Kit, Breakdance → Settings → Custom Code, kód v hlavičce)."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:298
+#: modules/cookies/includes/admin.php:306
 msgid "Patička: odkaz „Nastavení cookies“ v elementu Marmal – Patička otevře okno tohoto modulu automaticky."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:299
+#: modules/cookies/includes/admin.php:307
 msgid "Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:300
+#: modules/cookies/includes/admin.php:308
 msgid "Projdi web: videa a mapy mají místo sebe náhled, dokud návštěvník nesouhlasí. Nové služby se objeví v záložce Kategorie a cookies jako „nalezeno“."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:301
+#: modules/cookies/includes/admin.php:309
 msgid "Tlačítkem Náhled lišty na webu zkontroluj vzhled (náhled nic neukládá)."
 msgstr ""
 
-#: modules/cookies/includes/admin.php:303
+#: modules/cookies/includes/admin.php:311
 msgid "Vlastní odkaz na otevření nastavení: třída <code>marmal-cookies-nastaveni</code>, odkaz na <code>#nastaveni-cookies</code> nebo shortcode <code>[marmal_cookies_nastaveni]</code>. Ve skriptech: <code>MarmalCookies.souhlas('analyticke')</code>, událost <code>marmal:cookies</code>. V Google Tag Manageru: událost <code>marmal_consent</code> a proměnné dataLayer <code>marmal_analyticke</code>, <code>marmal_marketingove</code>, <code>marmal_preferencni</code>."
 msgstr ""
 
-#: modules/cookies/includes/data.php:26
+#: modules/cookies/includes/data.php:27
 msgid "Nezbytné"
 msgstr ""
 
-#: modules/cookies/includes/data.php:27
+#: modules/cookies/includes/data.php:28
 msgid "Preferenční"
 msgstr ""
 
-#: modules/cookies/includes/data.php:28
+#: modules/cookies/includes/data.php:29
 msgid "Analytické"
 msgstr ""
 
-#: modules/cookies/includes/data.php:29
+#: modules/cookies/includes/data.php:30
 msgid "Marketingové"
 msgstr ""
 
-#: modules/cookies/includes/data.php:36
+#: modules/cookies/includes/data.php:37
 msgid "Zajišťují základní funkce webu, například zapamatování vaší volby cookies. Bez nich web nefunguje, proto je nelze vypnout."
 msgstr ""
 
-#: modules/cookies/includes/data.php:37
+#: modules/cookies/includes/data.php:38
 msgid "Pamatují si vaše volby, například jazyk webu."
 msgstr ""
 
-#: modules/cookies/includes/data.php:38
+#: modules/cookies/includes/data.php:39
 msgid "Pomáhají nám zjistit, kolik lidí web navštěvuje a co je zajímá (Google Analytics). Údaje vyhodnocujeme souhrnně."
 msgstr ""
 
-#: modules/cookies/includes/data.php:39
+#: modules/cookies/includes/data.php:40
 msgid "Umožňují přehrát vložená videa a mapy třetích stran a měřit účinnost reklamy. Poskytovatelé (např. Google) mohou údaje použít i na jiných webech."
 msgstr ""
 
-#: modules/cookies/includes/data.php:55
+#: modules/cookies/includes/data.php:56
 msgid "Volba cookies (tento web)"
 msgstr ""
 
-#: modules/cookies/includes/data.php:56 modules/cookies/includes/data.php:61 modules/cookies/includes/data.php:67 modules/cookies/includes/data.php:68 modules/cookies/includes/data.php:76
+#: modules/cookies/includes/data.php:57 modules/cookies/includes/data.php:62 modules/cookies/includes/data.php:68 modules/cookies/includes/data.php:69 modules/cookies/includes/data.php:77
 msgid "tento web"
 msgstr ""
 
-#: modules/cookies/includes/data.php:56
+#: modules/cookies/includes/data.php:57
 msgid "Uloží vaši volbu cookies a datum souhlasu"
 msgstr ""
 
-#: modules/cookies/includes/data.php:61
+#: modules/cookies/includes/data.php:62
 msgid "Přihlášení do administrace (jen správci webu)"
 msgstr ""
 
-#: modules/cookies/includes/data.php:61 modules/cookies/includes/data.php:67 modules/cookies/includes/data.php:177
+#: modules/cookies/includes/data.php:62 modules/cookies/includes/data.php:68 modules/cookies/includes/data.php:178
 msgid "relace"
 msgstr ""
 
-#: modules/cookies/includes/data.php:67
+#: modules/cookies/includes/data.php:68
 msgid "Obsah košíku"
 msgstr ""
 
-#: modules/cookies/includes/data.php:68
+#: modules/cookies/includes/data.php:69
 msgid "Nákupní relace"
 msgstr ""
 
-#: modules/cookies/includes/data.php:68
+#: modules/cookies/includes/data.php:69
 msgid "2 dny"
 msgstr ""
 
-#: modules/cookies/includes/data.php:76
+#: modules/cookies/includes/data.php:77
 msgid "Zapamatuje zvolený jazyk webu"
 msgstr ""
 
-#: modules/cookies/includes/data.php:76 modules/cookies/includes/data.php:109 modules/cookies/includes/data.php:121 modules/cookies/includes/data.php:158
+#: modules/cookies/includes/data.php:77 modules/cookies/includes/data.php:110 modules/cookies/includes/data.php:122 modules/cookies/includes/data.php:159
 msgid "1 rok"
 msgstr ""
 
-#: modules/cookies/includes/data.php:85
+#: modules/cookies/includes/data.php:86
 msgid "Měření konverzí z reklam Google"
 msgstr ""
 
-#: modules/cookies/includes/data.php:85 modules/cookies/includes/data.php:133 modules/cookies/includes/data.php:134 modules/cookies/includes/data.php:159
+#: modules/cookies/includes/data.php:86 modules/cookies/includes/data.php:134 modules/cookies/includes/data.php:135 modules/cookies/includes/data.php:160
 msgid "3 měsíce"
 msgstr ""
 
-#: modules/cookies/includes/data.php:86 modules/cookies/includes/data.php:134
+#: modules/cookies/includes/data.php:87 modules/cookies/includes/data.php:135
 msgid "Cílení a vyhodnocení reklamy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:86 modules/cookies/includes/data.php:321
+#: modules/cookies/includes/data.php:87 modules/cookies/includes/data.php:325
 msgid "13 měsíců"
 msgstr ""
 
-#: modules/cookies/includes/data.php:97
+#: modules/cookies/includes/data.php:98
 msgid "Rozlišuje jednotlivé návštěvníky pro statistiky"
 msgstr ""
 
-#: modules/cookies/includes/data.php:98
+#: modules/cookies/includes/data.php:99
 msgid "Uchovává stav návštěvy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:109 modules/cookies/includes/data.php:121
+#: modules/cookies/includes/data.php:110 modules/cookies/includes/data.php:122
 msgid "Rozlišuje návštěvníky pro analýzu chování"
 msgstr ""
 
-#: modules/cookies/includes/data.php:110
+#: modules/cookies/includes/data.php:111
 msgid "Data aktuální návštěvy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:110
+#: modules/cookies/includes/data.php:111
 msgid "30 minut"
 msgstr ""
 
-#: modules/cookies/includes/data.php:122
+#: modules/cookies/includes/data.php:123
 msgid "Spojuje zobrazení stránek jedné návštěvy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:122
+#: modules/cookies/includes/data.php:123
 msgid "1 den"
 msgstr ""
 
-#: modules/cookies/includes/data.php:133
+#: modules/cookies/includes/data.php:134
 msgid "Měření a cílení reklamy na Facebooku a Instagramu"
 msgstr ""
 
-#: modules/cookies/includes/data.php:145
+#: modules/cookies/includes/data.php:146
 msgid "Propojení návštěvy s reklamou Sklik a měření konverzí"
 msgstr ""
 
-#: modules/cookies/includes/data.php:145 modules/cookies/includes/data.php:157 modules/cookies/includes/data.php:160
+#: modules/cookies/includes/data.php:146 modules/cookies/includes/data.php:158 modules/cookies/includes/data.php:161
 msgid "30 dní"
 msgstr ""
 
-#: modules/cookies/includes/data.php:146
+#: modules/cookies/includes/data.php:147
 msgid "Identifikátor prohlížeče pro reklamu Sklik"
 msgstr ""
 
-#: modules/cookies/includes/data.php:146
+#: modules/cookies/includes/data.php:147
 msgid "podle Seznam.cz"
 msgstr ""
 
-#: modules/cookies/includes/data.php:157
+#: modules/cookies/includes/data.php:158
 msgid "Měření konverzí z reklam na LinkedInu"
 msgstr ""
 
-#: modules/cookies/includes/data.php:158
+#: modules/cookies/includes/data.php:159
 msgid "Identifikátor prohlížeče"
 msgstr ""
 
-#: modules/cookies/includes/data.php:159
+#: modules/cookies/includes/data.php:160
 msgid "Cílení reklamy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:160
+#: modules/cookies/includes/data.php:161
 msgid "Synchronizace reklamních identifikátorů"
 msgstr ""
 
-#: modules/cookies/includes/data.php:175
+#: modules/cookies/includes/data.php:176
 msgid "Video z YouTube"
 msgstr ""
 
-#: modules/cookies/includes/data.php:177 modules/cookies/includes/data.php:185
+#: modules/cookies/includes/data.php:178 modules/cookies/includes/data.php:186
 msgid "Statistika přehrávání vloženého videa"
 msgstr ""
 
-#: modules/cookies/includes/data.php:178
+#: modules/cookies/includes/data.php:179
 msgid "Odhad rychlosti připojení pro přehrávání"
 msgstr ""
 
-#: modules/cookies/includes/data.php:178 modules/cookies/includes/data.php:191
+#: modules/cookies/includes/data.php:179 modules/cookies/includes/data.php:192
 msgid "6 měsíců"
 msgstr ""
 
-#: modules/cookies/includes/data.php:184
+#: modules/cookies/includes/data.php:185
 msgid "Video z Vimea"
 msgstr ""
 
-#: modules/cookies/includes/data.php:185 modules/cookies/includes/data.php:321
+#: modules/cookies/includes/data.php:186 modules/cookies/includes/data.php:325
 msgid "2 roky"
 msgstr ""
 
-#: modules/cookies/includes/data.php:190
+#: modules/cookies/includes/data.php:191
 msgid "Mapa Google"
 msgstr ""
 
-#: modules/cookies/includes/data.php:191
+#: modules/cookies/includes/data.php:192
 msgid "Nastavení a měření vložené mapy"
 msgstr ""
 
-#: modules/cookies/includes/data.php:219
+#: modules/cookies/includes/data.php:222
 msgid "Používáme cookies"
 msgstr ""
 
-#: modules/cookies/includes/data.php:220
+#: modules/cookies/includes/data.php:223
 msgid "Nezbytné cookies potřebujeme, aby web fungoval. Analytické a marketingové použijeme jen s vaším souhlasem – pomáhají nám web zlepšovat. Volbu můžete kdykoli změnit odkazem Nastavení cookies v patičce."
 msgstr ""
 
-#: modules/cookies/includes/data.php:224
+#: modules/cookies/includes/data.php:227
 msgid "Více o cookies"
 msgstr ""
 
-#: modules/cookies/includes/data.php:225
+#: modules/cookies/includes/data.php:228
+msgid "Používáme cookies. Analytické a marketingové jen s vaším souhlasem."
+msgstr ""
+
+#: modules/cookies/includes/data.php:229
 msgid "Vyberte, které cookies smíme používat. Nezbytné jsou vždy zapnuté, ostatní jen s vaším souhlasem. Volbu můžete kdykoli změnit."
 msgstr ""
 
-#: modules/cookies/includes/data.php:506
+#: modules/cookies/includes/data.php:513
 msgid "ID měření GA4 má tvar G-XXXXXXXXXX – neuloženo."
 msgstr ""
 
-#: modules/cookies/includes/data.php:517
+#: modules/cookies/includes/data.php:524
 #, php-format
 msgid "%1$s: neplatné ID (tvar %2$s) – neuloženo."
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:273 modules/cookies/includes/frontend.php:280 modules/cookies/includes/frontend.php:420 modules/cookies/includes/frontend.php:498 modules/paticka/includes/admin.php:224 modules/paticka/includes/data.php:64
-msgid "Nastavení cookies"
+#: modules/cookies/includes/frontend.php:322
+msgid "Souhlas s cookies"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:274 includes/gallery.php:396
-msgid "Zavřít"
-msgstr ""
-
-#: modules/cookies/includes/frontend.php:275
+#: modules/cookies/includes/frontend.php:324 modules/cookies/includes/frontend.php:358
 msgid "Zavřít bez souhlasu"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:276
+#: modules/cookies/includes/frontend.php:356 modules/cookies/includes/frontend.php:363 modules/cookies/includes/frontend.php:503 modules/cookies/includes/frontend.php:581 modules/paticka/includes/admin.php:224 modules/paticka/includes/data.php:64
+msgid "Nastavení cookies"
+msgstr ""
+
+#: modules/cookies/includes/frontend.php:357 includes/gallery.php:396
+msgid "Zavřít"
+msgstr ""
+
+#: modules/cookies/includes/frontend.php:359
 msgid "Uložit výběr"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:277
+#: modules/cookies/includes/frontend.php:360
 msgid "Seznam cookies"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:278
+#: modules/cookies/includes/frontend.php:361
 msgid "vždy zapnuté"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:279 modules/cookies/includes/frontend.php:476
+#: modules/cookies/includes/frontend.php:362 modules/cookies/includes/frontend.php:559
 msgid "Název"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:279 modules/cookies/includes/frontend.php:476
+#: modules/cookies/includes/frontend.php:362 modules/cookies/includes/frontend.php:559
 msgid "Poskytovatel"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:279 modules/cookies/includes/frontend.php:476
+#: modules/cookies/includes/frontend.php:362 modules/cookies/includes/frontend.php:559
 msgid "Účel"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:279 modules/cookies/includes/frontend.php:476
+#: modules/cookies/includes/frontend.php:362 modules/cookies/includes/frontend.php:559
 msgid "Platnost"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:300
+#: modules/cookies/includes/frontend.php:383
 msgid "preferenčními"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:301
+#: modules/cookies/includes/frontend.php:384
 msgid "analytickými"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:302
+#: modules/cookies/includes/frontend.php:385
 msgid "marketingovými"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:415
+#: modules/cookies/includes/frontend.php:498
 #, php-format
 msgid "%1$s se načte až po souhlasu s %2$s cookies."
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:419
+#: modules/cookies/includes/frontend.php:502
 msgid "Povolit a zobrazit"
 msgstr ""
 
-#: modules/cookies/includes/frontend.php:491
+#: modules/cookies/includes/frontend.php:574
 msgid "Změnit nastavení cookies"
 msgstr ""
 
@@ -1956,10 +2179,6 @@ msgstr ""
 
 #: includes/moduly.php:271
 msgid "Zapnuto"
-msgstr ""
-
-#: includes/moduly.php:272
-msgid "Vypnuto"
 msgstr ""
 
 #: includes/moduly.php:273
