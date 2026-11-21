@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.16.0-beta1 – 2026-11-21 (větev `obrazky`, testovací)
+## 0.16.0 – 2026-11-21
 - **Nový modul Obrázky** (`obrazky`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – aby na web nešly zbytečně těžké obrázky. Nastavení v **MarMal → Obrázky**:
   - **převod při nahrání** (filtr `wp_handle_upload` – knihovna médií, builder Breakdance, REST, `media_sideload_image`): JPG a PNG se uloží rovnou jako WebP (volitelně AVIF, když ho server umí), orientace podle EXIF, zmenšení na nastavené maximum (výchozí 1920 px), odstranění metadat (EXIF, GPS, XMP; profil ICC zůstane u Imagick), kvalita 80; zmenšeniny pak vzniknou ve stejném formátu. GIF, SVG, ICO, WebP a AVIF beze změny. Když převod selže nebo by WebP byl větší než originál, zůstane originál (chyba v logu modulu). Jen pro uživatele s právem `upload_files` (ne soubory z veřejných formulářů). Doplňkově `big_image_size_threshold`, `wp_editor_set_quality`, `image_editor_output_format`,
   - **přehled knihovny** (jen čtení): formáty, kandidáti na převod (používané JPG nad 200 kB a PNG nad 50 kB – prahy jdou nastavit; použití z dat Breakdance publikovaných, naplánovaných, soukromých a konceptových příspěvků bez revizí, obsahu, náhledových obrázků a Rank Math; celé názvy souborů, ne podřetězce), odhad úspory, 20 největších používaných obrázků s odkazem na stránku; logo a ikona webu se nepřevádějí,
