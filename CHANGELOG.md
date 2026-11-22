@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.17.0-beta1 – 2026-11-21 (větev `fonty-cookies-obrazky`, čeká na test na ticha-trida.cz)
+## 0.17.0 – 2026-11-22 (vydáno po Martinově testu na ticha-trida.cz; 0.17.0-beta1 z 2026-11-21)
 Podle zadání z optimalizace rychlosti ticha-trida.cz (PageSpeed 21. 11. 2026: mobil 81, počítač 94).
 - **Cookies – samostatné rozvržení pro mobil** (MarMal → Cookies → Vzhled): „Rozložení na mobilu“ *Kompaktní lišta dole* (výchozí) / *Okno uprostřed* / *Stejné jako na počítači* (chování do 0.16) a „Bod zlomu pro mobil“ (výchozí 767 px); na záložce Texty „Krátký text pro mobil“ (max. 160 znaků, výchozí „Používáme cookies. Analytické a marketingové jen s vaším souhlasem.“).
   - kompaktní lišta: plná šířka, přilepená dole, `env(safe-area-inset-bottom)`, nadpis skrytý, text 14 px (max. 3 řádky), za ním odkazy Více o cookies · Nastavení, Přijmout vše a Odmítnout vše vedle sebe (2 × 50 %, stejný vzhled, výška 44 px, nezalomí se ani na 320 px), křížek 44 × 44 px; okno nastavení na telefonu přes celou obrazovku. Na 375 × 812 px má lišta ~140 px (dřív ~330 px),
