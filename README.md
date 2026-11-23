@@ -12,6 +12,7 @@ Co web používá, se zapíná v **WP admin → MarMal → Moduly**. Autor: Mart
 | Efekty | podle webu | Knihovna CSS efektů (třídy `mm-…`, 89 efektů v 10 kategoriích), galerie s náhledy, barvy z Global Settings Breakdance. Nahrazuje plugin MarMal Effects. Na web se načítají jen zapnuté kategorie. |
 | Patička | zapnuto | Copyright s rokem spuštění webu (© 2019–2026), podpis autora „Web vytvořil Martin Malý – marmal.cz“ (UTM, nofollow mimo úvodní stránku), údaje o podnikateli podle § 435 OZ, odkazy na ochranu osobních údajů a nastavení cookies. Nastavení v **MarMal → Patička**, výstup shortcody a dynamickými daty (MarMal → Patička). |
 | Cookies | vypnuto | Vlastní cookie lišta podle pravidel ÚOOÚ místo CookieYes: souhlas předem, „Odmítnout vše“ v první vrstvě, okno nastavení po kategoriích, Google Consent Mode v2 + GA4, blokování skriptů a náhledy videí/map do souhlasu, autodetekce služeb, seznam cookies `[marmal_cookies_seznam]`, záznam souhlasů. Nastavení v **MarMal → Cookies**. |
+| Ochrana osobních údajů | vypnuto | Stránka Zásady ochrany osobních údajů podle čl. 13 GDPR: údaje o správci (Patička je přebírá odsud), účely zaškrtávátky, zpracovatelé, práva, ÚOOÚ; chybějící údaje žlutě „[DOPLŇTE]“; koncept → zveřejnění na adrese dosavadní stránky zásad. Nastavení v **MarMal → Ochrana os. údajů**. |
 | Fonty | vypnuto | Google Fonts z vlastní domény: odkazy na fonts.googleapis.com ve stránce nahradí lokálně staženými woff2 (uploads/marmal-fonty), odstraní preconnect na Google, font-display swap, přednačtení písma textu a nadpisů podle Global Settings (nebo ručně, max. 3 soubory), přehled, kde se které písmo používá. Fonty se dál vybírají v Breakdance. Nastavení v **MarMal → Fonty**. |
 | Obrázky | vypnuto | JPG a PNG se při nahrání uloží jako WebP (volitelně AVIF), zmenšené na max. 1920 px, bez EXIF/GPS. Hromadný převod používaných obrázků do WebP s přepisem odkazů v datech Breakdance (mediální objekty včetně srcset, pozadí, text, vlastní CSS), v obsahu, Rank Math a globálních volbách; záloha souborů i dat stránek, pozastavení, vrácení dávky i jednoho obrázku, úklid starých souborů po 14 dnech; `sizes="auto"` u lazy obrázků (prohlížeč stáhne velikost podle místa na stránce), přehled obrázků na pozadí v plné velikosti. Nastavení v **MarMal → Obrázky**. |
 | SEO a sdílení | vypnuto | Titulek, popisek, canonical, noindex, Open Graph a Twitter u každé stránky (box „SEO a sdílení“ s náhledem Googlu a Facebooku), výchozí hodnoty webu, automatické texty z Developerských projektů (filtr `marmal_seo_data`), obrázek 1200 × 630 pro sdílení, drobečková navigace – element **Marmal – Drobečková navigace** s kompletním nastavením vzhledu nebo `[marmal_drobecky]` + BreadcrumbList, úklid sitemap, vlastní řádky robots.txt, převod z Yoastu / Rank Mathu, vícejazyčné weby (Polylang, WPML – vlastní název webu, vzor, popisek, obrázek a „Úvod“ pro každý jazyk, og:locale:alternate). Když běží jiný SEO plugin, nic nevypisuje. Nastavení v **MarMal → SEO**. |
@@ -56,11 +57,18 @@ Dokud starý plugin běží, modul se nenačte (jinak by se funkce deklarovaly d
 - Rok se po Novém roce opraví skriptem i na stránce ze staré page cache (jen u shortcodů).
 - Nastavení cookies: Complianz (`cmplz-show-banner`), CookieYes (`cky-banner-element`), Cookiebot (`Cookiebot.renew()`), jiný plugin přes vlastní CSS třídu.
 
+## Ochrana osobních údajů – použití
+
+- Zapnout v **MarMal → Moduly → Ochrana osobních údajů**. Údaje o správci (firma, sídlo, IČO, DIČ, rejstřík) se vyplňují tady a Patička je přebírá; bez tohoto modulu se vyplňují v Patičce.
+- **MarMal → Ochrana os. údajů**: e-mail pro ochranu údajů, účely, zpracovatelé → Uložit → „Vytvořit návrh stránky“ → Náhled → doplnit vše žluté → „Zveřejnit návrh“.
+- Shortcody: `[marmal_gdpr_spravce]`, `[marmal_gdpr_kontakt]`, `[marmal_gdpr_prijemci]`, `[marmal_gdpr_cookies]`, `[marmal_gdpr_ucinnost]`, pod formuláře `[marmal_gdpr_formular text="…"]`.
+
 ## Cookies – použití
 
 - Zapnout v **MarMal → Moduly → Cookies**, vypnout starý cookie plugin (CookieYes apod. – modul na něj upozorní).
 - **MarMal → Cookies**: Vzhled (box / lišta / okno, na mobilu kompaktní lišta dole / okno / stejné jako na počítači s nastavitelným bodem zlomu, barvy z Global Settings nebo vlastní s kontrolou kontrastu), Texty (krátký text pro mobil; prázdné = výchozí, překlad přes Polylang / WPML), Kategorie a cookies (služby automaticky / nalezené / ručně, vlastní cookies řádkem `název | poskytovatel | účel | platnost | kategorie`), Měření (ID GA4, Consent Mode v2 základní / rozšířený, zkrácení GA cookies na 13 měsíců), Záznam souhlasů (platnost souhlasu, revize, export CSV), Jak zapojit.
 - Měřicí kódy vkládá modul sám podle ID v záložce Měření: GA4, Google Ads, Google Tag Manager, Sklik (SEM), Meta Pixel, LinkedIn, Clarity, Hotjar – vše s Consent Mode v2 (výchozí stav `denied`) a až po souhlasu s příslušnou kategorií. Pro GTM událost `marmal_consent` v dataLayer. Známé skripty (GA, Meta Pixel, Hotjar, Clarity) a iframy (YouTube, Vimeo, Google Mapy) v HTML stránky zablokuje do souhlasu; iframy nahradí náhledem s tlačítkem „Povolit a zobrazit“. Rozhoduje se v prohlížeči, takže to funguje i s page cache.
+- Stránka Zásady cookies: MarMal → Cookies → Texty → „Vytvořit stránku Zásady cookies“ (koncept se vzorovým textem a tabulkou), po publikování na ni vede „Více o cookies“ v liště a odkaz „Zásady cookies“ v Patičce.
 - Odkaz na otevření okna: tlačítko cookies v elementu **Marmal – Patička** (režim „MarMal – Cookies“ se zvolí sám), třída `marmal-cookies-nastaveni`, odkaz `#nastaveni-cookies`, shortcode `[marmal_cookies_nastaveni]`. Tabulka cookies na stránku zásad: `[marmal_cookies_seznam]`.
 - JS API: `MarmalCookies.otevrit()`, `MarmalCookies.souhlas('analyticke')`, událost `marmal:cookies` (detail = povolené kategorie). Vlastní skript do souhlasu: `<script type="text/plain" data-marmal-kat="analyticke">…</script>`.
 - Souhlas návštěvníka: cookie `marmal_consent` (revize, kategorie, náhodné ID, čas); záznamy bez IP v tabulce `{prefix}marmal_souhlasy`, úklid podle nastavení (cron `marmal_cookies_uklid`). Náhled lišty: `?marmal_cookies_nahled=1` (jen správce, nic neukládá).
@@ -84,7 +92,7 @@ Veřejné funkce (vždy nejdřív `function_exists`):
 ## Požadavky
 
 - WordPress 6.0+, PHP 7.4+
-- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty, Patička, Cookies a Fonty fungují i bez něj)
+- Breakdance 2.8+ (pro elementy a dynamická data; moduly Efekty, Patička, Cookies, Fonty a Ochrana osobních údajů fungují i bez něj)
 
 ## Instalace
 

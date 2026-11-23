@@ -72,6 +72,7 @@ CONTENT = [
         toggle('skryt_copyright', 'Skrýt copyright'),
         toggle('skryt_drzitele', 'Copyright jen s roky (bez názvu)'),
         toggle('skryt_zasady', 'Skrýt odkaz Ochrana osobních údajů'),
+        toggle('skryt_zasady_cookies', 'Skrýt odkaz Zásady cookies'),
         toggle('skryt_cookies', 'Skrýt odkaz Nastavení cookies'),
         toggle('skryt_autora', 'Skrýt podpis autora'),
         toggle('skryt_udaje', 'Skrýt údaje o podnikateli'),

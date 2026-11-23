@@ -47,6 +47,8 @@ function prazdne(): array
         'rejstrik'       => '',
         'zasady_stranka' => 0,
         'zasady_text'    => '',
+        'cz_stranka'     => 0,    // stránka Zásady cookies (0 = automaticky)
+        'cz_text'        => '',
         'cookies'        => 'auto',
         'cookies_trida'  => '',
         'cookies_text'   => '',
@@ -61,6 +63,7 @@ function vychozi_texty(): array
         'autor_odkaz'  => 'marmal.cz',
         'autor_url'    => 'https://marmal.cz/',
         'zasady_text'  => __('Ochrana osobních údajů', 'marmal-breakdance-plus'),
+        'cz_text'      => __('Zásady cookies', 'marmal-breakdance-plus'),
         'cookies_text' => __('Nastavení cookies', 'marmal-breakdance-plus'),
     );
 }
@@ -104,7 +107,20 @@ function nastaveni(): array
         $ulozene['rok'] = rok_navrh();
         add_option(OPTION, $ulozene, '', true);
     }
-    return array_merge(prazdne(), array_intersect_key($ulozene, prazdne()));
+    $s = array_merge(prazdne(), array_intersect_key($ulozene, prazdne()));
+    if (udaje_z_gdpr()) {
+        $s = array_merge($s, array_intersect_key((array) \MarmalElements\Gdpr\udaje_spravce(), array_flip(array('firma', 'sidlo', 'ico', 'dic', 'rejstrik'))));
+    }
+    return $s;
+}
+
+/**
+ * Údaje o podnikateli (firma, sídlo, IČO, DIČ, rejstřík) spravuje modul Ochrana osobních údajů,
+ * když je zapnutý – Patička je jen přebírá. Bez něj se vyplňují tady.
+ */
+function udaje_z_gdpr(): bool
+{
+    return function_exists('MarmalElements\Gdpr\udaje_spravce');
 }
 
 /**
@@ -124,7 +140,7 @@ function text(string $klic): string
 /** Vlastní texty, které jdou na vícejazyčném webu přeložit (Polylang / WPML). */
 function prekladane_klice(): array
 {
-    return array('drzitel', 'autor_pred', 'autor_odkaz', 'rejstrik', 'zasady_text', 'cookies_text');
+    return array('drzitel', 'autor_pred', 'autor_odkaz', 'rejstrik', 'zasady_text', 'cz_text', 'cookies_text');
 }
 
 function preklad(string $klic, string $hodnota): string
@@ -289,6 +305,43 @@ function zasady_url(): string
     return (string) get_privacy_policy_url();
 }
 
+/**
+ * Adresa stránky Zásady cookies: vybraná v Patičce → stránka z modulu Cookies → publikovaná stránka
+ * s adresou zasady-cookies / zasady-pouzivani-cookies / cookies. '' = žádná (odkaz se nezobrazí),
+ * stejně jako když vede na stejnou stránku jako Ochrana osobních údajů (dva odkazy na totéž nemají smysl).
+ */
+function cookies_zasady_url(): string
+{
+    $url = '';
+    $id  = (int) nastaveni()['cz_stranka'];
+    if ($id > 0) {
+        if (function_exists('pll_get_post')) {
+            $id = (int) (pll_get_post($id) ?: $id);
+        }
+        $id = (int) apply_filters('wpml_object_id', $id, 'page', true);
+        if ($id > 0 && get_post_status($id) === 'publish') {
+            $url = (string) get_permalink($id);
+        }
+    }
+    if ($url === '' && function_exists('MarmalElements\Cookies\zasady_url')) {
+        $url = (string) \MarmalElements\Cookies\zasady_url();
+    }
+    if ($url === '') {
+        foreach (array('zasady-cookies', 'zasady-pouzivani-cookies', 'cookies') as $slug) {
+            $p = get_page_by_path($slug);
+            if ($p && $p->post_status === 'publish') {
+                $pid = (int) $p->ID;
+                if (function_exists('pll_get_post')) {
+                    $pid = (int) (pll_get_post($pid) ?: $pid);
+                }
+                $url = (string) get_permalink($pid);
+                break;
+            }
+        }
+    }
+    return ($url !== '' && untrailingslashit($url) !== untrailingslashit(zasady_url())) ? $url : '';
+}
+
 /** Je na webu aktivní plugin z dané složky? (bez načítání wp-admin/includes/plugin.php) */
 function plugin_aktivni(array $slozky): bool
 {
@@ -362,7 +415,7 @@ function sanitizovat($vstup): array
 {
     $vstup = is_array($vstup) ? $vstup : array();
     $c     = prazdne();
-    $txt   = function (string $klic, int $max) use ($vstup): string {
+    $txt   = function (string $klic, int $max) use (&$vstup): string {
         return isset($vstup[$klic]) ? delka(sanitize_text_field((string) $vstup[$klic]), $max) : '';
     };
 
@@ -388,6 +441,13 @@ function sanitizovat($vstup): array
     }
     $c['autor_url'] = delka($url, 300);
 
+    if (udaje_z_gdpr()) {
+        // Údaje spravuje modul Ochrana osobních údajů – formulář Patičky je neposílá; uloží se kopie.
+        $u = (array) \MarmalElements\Gdpr\udaje_spravce();
+        foreach (array('firma', 'sidlo', 'ico', 'dic', 'rejstrik') as $k) {
+            $vstup[$k] = (string) ($u[$k] ?? '');
+        }
+    }
     $c['firma'] = $txt('firma', 160);
     $c['sidlo'] = $txt('sidlo', 200);
 
@@ -395,7 +455,7 @@ function sanitizovat($vstup): array
     $ico = isset($vstup['ico']) ? preg_replace('/\D/', '', (string) $vstup['ico']) : '';
     if ($ico !== '' && strlen($ico) <= 8) {
         $ico = str_pad($ico, 8, '0', STR_PAD_LEFT);
-        if (!ico_platne($ico)) {
+        if (!ico_platne($ico) && !udaje_z_gdpr()) {
             add_settings_error(OPTION, 'ico', __('IČO nemá platnou kontrolní číslici – zkontroluj ho prosím (uloženo i tak).', 'marmal-breakdance-plus'), 'warning');
         }
     } elseif ($ico !== '') {
@@ -417,6 +477,9 @@ function sanitizovat($vstup): array
     $stranka = isset($vstup['zasady_stranka']) ? absint($vstup['zasady_stranka']) : 0;
     $c['zasady_stranka'] = ($stranka > 0 && get_post_type($stranka) === 'page') ? $stranka : 0;
     $c['zasady_text']    = $txt('zasady_text', 80);
+    $cz                  = isset($vstup['cz_stranka']) ? absint($vstup['cz_stranka']) : 0;
+    $c['cz_stranka']     = ($cz > 0 && get_post_type($cz) === 'page') ? $cz : 0;
+    $c['cz_text']        = $txt('cz_text', 80);
 
     $rezim            = isset($vstup['cookies']) ? sanitize_key((string) $vstup['cookies']) : 'auto';
     $c['cookies']     = array_key_exists($rezim, cookies_rezimy()) ? $rezim : 'auto';

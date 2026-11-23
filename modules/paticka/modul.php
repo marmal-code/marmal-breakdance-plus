@@ -45,6 +45,8 @@ function dynamicka_pole(): array
         'marmal_paticka_rejstrik'  => array(__('Zápis v rejstříku', 'marmal-breakdance-plus'), function () { return text('rejstrik'); }, 'string'),
         'marmal_paticka_zasady'    => array(__('Ochrana osobních údajů – text', 'marmal-breakdance-plus'), function () { return text('zasady_text'); }, 'string'),
         'marmal_paticka_zasady_url' => array(__('Ochrana osobních údajů – odkaz', 'marmal-breakdance-plus'), __NAMESPACE__ . '\zasady_url', 'url'),
+        'marmal_paticka_cookies_zasady'     => array(__('Zásady cookies – text', 'marmal-breakdance-plus'), function () { return text('cz_text'); }, 'string'),
+        'marmal_paticka_cookies_zasady_url' => array(__('Zásady cookies – odkaz', 'marmal-breakdance-plus'), __NAMESPACE__ . '\cookies_zasady_url', 'url'),
     );
 }
 

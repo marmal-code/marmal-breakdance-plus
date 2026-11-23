@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.21.0-beta1 – 2026-11-23 (testovací verze, větev `slouceni-bety`)
+Sloučení dvou bet z 18. 11., které Martin otestoval na kukatkodoprirody.cz, s aktuální verzí 0.20.0 (vznikly z 0.13.0, proto nové číslo).
+
+### Ochrana osobních údajů (původně 0.15.0-beta2 z 2026-11-18, větev `gdpr`)
+- **Nový modul Ochrana osobních údajů** (`gdpr`, zapínatelný v MarMal → Moduly, výchozí vypnuto) – připraví stránku Zásady ochrany osobních údajů podle čl. 13 GDPR a zákona č. 110/2019 Sb.:
+  - MarMal → Ochrana os. údajů: kontakt pro ochranu údajů (e-mail, telefon, korespondenční adresa, datová schránka, pověřenec), účely zpracování zaškrtávátky (dotazy a poptávky, objednávky a smlouvy, fakturace a účetnictví, přihlášky na akce, fotografie z akcí, newsletter, sociální sítě, uchazeči o zaměstnání), zpracovatelé (hosting, e-mail, účetní, newsletter, u WooCommerce dopravci a platební brána, další řádky), datum účinnosti, návod „Jak nasadit – krok za krokem“,
+  - každý účel na stránce ve stejné struktuře: jaké údaje · proč · právní základ · jak dlouho · zda je poskytnutí povinné; vždy provoz webu, cookies (odkaz na Zásady cookies), předávání mimo EU, automatizované rozhodování, zabezpečení, práva (čl. 15–18, 20, 21, odvolání souhlasu, lhůta 1 měsíc), stížnost u ÚOOÚ, účinnost,
+  - **údaje o správci (firma / jméno, sídlo, IČO, DIČ, zápis v rejstříku) se vyplňují v tomto modulu** a modul Patička je přebírá odsud (v MarMal → Patička se při zapnutém modulu jen zobrazí s odkazem); dokud se nastavení neuloží, převezmou se údaje dosud vyplněné v Patičce; po uložení se zkopírují i do Patičky (kdyby se modul vypnul, patička o ně nepřijde); bez tohoto modulu se údaje vyplňují v Patičce jako dosud; co chybí, je na stránce **žlutě zvýrazněné „[DOPLŇTE: …]“**, v administraci je kontrolní seznam a žlutá pole, upozornění na stránkách MarMal a v editoru stránky,
+  - proměnlivé části jsou shortcody, které se aktualizují samy: `[marmal_gdpr_spravce]`, `[marmal_gdpr_kontakt]`, `[marmal_gdpr_prijemci]`, `[marmal_gdpr_cookies]`, `[marmal_gdpr_ucinnost]`; pod formuláře `[marmal_gdpr_formular]` (informace s odkazem na zásady),
+  - bezpečné nasazení: modul vytvoří **koncept**, zveřejněnou stránku nepřepisuje; „Zveřejnit návrh“ převezme adresu dosavadní stránky zásad (např. /gdpr/), nastaví ji jako stránku ochrany osobních údajů ve WordPressu i v Patičce a původní stránku ponechá jako koncept „(původní)“.
+
+### Zásady cookies (původně 0.14.0-beta2 z 2026-11-18, větev `zasady-cookies`)
+- **Cookies – stránka Zásady cookies**:
+  - MarMal → Cookies → Texty: „Stránka Zásady cookies“ (výchozí automaticky podle adresy `zasady-cookies`, `zasady-pouzivani-cookies` nebo `cookies`) a tlačítko **„Vytvořit stránku Zásady cookies“** – založí koncept se vzorovým textem v 11 oddílech: V kostce · Kdo cookies zpracovává (správce z Patičky) · Co jsou cookies (relační / trvalé, vlastní / třetích stran) · Právní základ (§ 89 odst. 3 ZEK, čl. 6 odst. 1 písm. a) GDPR) · Seznam cookies · Služby třetích stran · Jak dlouho údaje uchováváme · Změna a odvolání souhlasu · Cookies v nastavení prohlížeče (odkazy na návody Chrome, Firefox, Safari, Edge) · Vaše práva (stížnost u ÚOOÚ) · Změny zásad,
+  - nové shortcody, které se aktualizují samy: `[marmal_cookies_poskytovatele]` (třetí strany podle služeb na webu, sloučené podle poskytovatele, s odkazy na jejich zásady a větou o zpracování mimo EU) a `[marmal_cookies_souhlas]` (jak dlouho platí volba a jak dlouho se uchovává záznam o souhlasu – podle nastavení modulu); `[marmal_cookies_seznam tlacitko="ne"]` bez tlačítka,
+  - v registru služeb poskytovatel a odkaz na jeho zásady (Google, Meta, Microsoft, LinkedIn, Hotjar, Vimeo, Seznam); GTM se mezi služby přidá sám podle ID,
+  - oprava: tlačítko v tabulce cookies se už nepočítá jako odkaz „Nastavení cookies“ v patičce,
+  - odkaz „Více o cookies“ v liště i v okně nastavení vede na publikovanou stránku Zásady cookies, jinak na zásady ochrany osobních údajů,
+  - upozornění v administraci, když je ikonka skrytá a na webu se 7 dní neobjevil odkaz „Nastavení cookies“ (ÚOOÚ: odkaz v patičce je minimum),
+  - návod „Jak zapojit“: postup se stránkou Zásady cookies a věta pro Zásady ochrany osobních údajů.
+- **Patička – odkaz „Zásady cookies“**: nový odkaz mezi „Ochrana osobních údajů“ a „Nastavení cookies“; stránka z MarMal → Patička, jinak z modulu Cookies, jinak podle adresy; když web samostatnou stránku nemá (nebo je stejná jako ochrana osobních údajů), odkaz se nezobrazí. Element „Marmal – Patička“: přepínač „Skrýt odkaz Zásady cookies“; shortcody `zasady_cookies="ne"`; dynamická data „Zásady cookies – text / odkaz“.
+
 ## 0.20.0 – 2026-11-23 (vydáno po Martinově testu; 0.20.0-beta1 ve větvi `faze-2`)
 - **Nový modul Přesměrování** (`presmerovani`, MarMal → Moduly, výchozí vypnuto; nastavení v **MarMal → Přesměrování**):
   - přesměrování **301** (trvale), **302 / 307** (dočasně) a **410** (stránka zrušena – stavový kód 410 se šablonou 404),

@@ -80,6 +80,30 @@ add_action('wp_head', function () {
 }, 1);
 
 /**
+ * Je na stránce odkaz pro otevření nastavení (Patička, shortcode, vlastní odkaz)? Zapíše čas, nejvýš jednou za den.
+ * Administrace podle toho upozorní, když je skrytá ikonka a odkaz na webu chybí (ÚOOÚ: odkaz v patičce = minimum).
+ */
+function zapsat_odkaz_nastaveni(string $html): void
+{
+    // Tlačítka ze shortcodů [marmal_cookies_nastaveni] a [marmal_cookies_seznam] jsou jen na jedné stránce – nepočítají se.
+    $najdeno = (bool) preg_match('/href=["\'][^"\']*#nastaveni-cookies["\']/i', $html);
+    if (!$najdeno && preg_match_all('/class=["\']([^"\']*\bmarmal-cookies-nastaveni\b[^"\']*)["\']/i', $html, $m)) {
+        foreach ($m[1] as $tridy) {
+            if (strpos($tridy, 'marmal-ck-odkaz') === false && strpos($tridy, 'marmal-ck-seznam__btn') === false) {
+                $najdeno = true;
+                break;
+            }
+        }
+    }
+    if (!$najdeno) {
+        return;
+    }
+    if (time() - (int) get_option(OPTION_ODKAZ, 0) > DAY_IN_SECONDS) {
+        update_option(OPTION_ODKAZ, time(), false);
+    }
+}
+
+/**
  * Načítá stránka fonty z Googlu (přenos IP adresy návštěvníka)? Zapíše čas, nejvýš jednou za den.
  * Modul Fonty běží dřív (vnořený buffer) – když je zapnutý a fonty stáhl, tady už nic nenajde.
  */
@@ -514,6 +538,7 @@ add_action('template_redirect', function () {
         list($html, $nalez) = blokovat_html($html);
         zapsat_nalezene($nalez);
         zapsat_google_fonty($html);
+        zapsat_odkaz_nastaveni($html);
         return $html;
     });
 }, 0);
@@ -540,6 +565,8 @@ function zapsat_nalezene(array $ids): void
 add_action('init', function () {
     add_shortcode('marmal_cookies_seznam', __NAMESPACE__ . '\sc_seznam');
     add_shortcode('marmal_cookies_nastaveni', __NAMESPACE__ . '\sc_nastaveni');
+    add_shortcode('marmal_cookies_poskytovatele', __NAMESPACE__ . '\sc_poskytovatele');
+    add_shortcode('marmal_cookies_souhlas', __NAMESPACE__ . '\sc_souhlas');
 
     if (function_exists('pll_register_string')) {
         $s = nastaveni();
@@ -554,7 +581,7 @@ add_action('init', function () {
 /** [marmal_cookies_seznam nadpis="h3"] – tabulka cookies podle kategorií pro stránku zásad. */
 function sc_seznam($atts = array()): string
 {
-    $a  = shortcode_atts(array('nadpis' => 'h3'), (array) $atts, 'marmal_cookies_seznam');
+    $a  = shortcode_atts(array('nadpis' => 'h3', 'tlacitko' => 'ano'), (array) $atts, 'marmal_cookies_seznam');
     $hn = in_array($a['nadpis'], array('h2', 'h3', 'h4'), true) ? $a['nadpis'] : 'h3';
     $hl = array(__('Název', 'marmal-breakdance-plus'), __('Poskytovatel', 'marmal-breakdance-plus'), __('Účel', 'marmal-breakdance-plus'), __('Platnost', 'marmal-breakdance-plus'));
     $o  = '<div class="marmal-ck-seznam">';
@@ -571,8 +598,47 @@ function sc_seznam($atts = array()): string
         }
         $o .= '</tbody></table></div>';
     }
-    $o .= '<p><button type="button" class="marmal-ck-seznam__btn marmal-cookies-nastaveni" data-marmal-cookies="marmal">' . esc_html__('Změnit nastavení cookies', 'marmal-breakdance-plus') . '</button></p>';
+    if ($a['tlacitko'] !== 'ne') {
+        $o .= '<p><button type="button" class="marmal-ck-seznam__btn marmal-cookies-nastaveni" data-marmal-cookies="marmal">' . esc_html__('Změnit nastavení cookies', 'marmal-breakdance-plus') . '</button></p>';
+    }
     return $o . '</div>';
+}
+
+/** [marmal_cookies_poskytovatele] – třetí strany, jejichž služby web používá, s odkazy na jejich zásady (aktualizuje se samo). */
+function sc_poskytovatele($atts = array()): string
+{
+    $p = aktivni_poskytovatele();
+    if (!$p) {
+        return '<p class="marmal-ck-posk">' . esc_html__('Web nepoužívá služby třetích stran, které by ukládaly cookies.', 'marmal-breakdance-plus') . '</p>';
+    }
+    $o = '<ul class="marmal-ck-posk">';
+    foreach ($p as $x) {
+        $o .= '<li><strong>' . esc_html($x[0]) . '</strong> – ' . esc_html(implode(', ', array_unique($x[3])))
+            . ' (<a href="' . esc_url($x[1], array('https')) . '" target="_blank" rel="noopener">' . esc_html__('zásady ochrany soukromí', 'marmal-breakdance-plus') . '</a>)</li>';
+    }
+    $o .= '</ul>';
+    if (array_filter(array_column($p, 2))) {
+        $o .= '<p class="marmal-ck-posk__eu">' . esc_html__('Tito poskytovatelé mohou údaje zpracovávat i mimo Evropskou unii, zejména v USA. Jak údaje chrání a jaké záruky pro předávání používají, popisují ve svých zásadách ochrany soukromí.', 'marmal-breakdance-plus') . '</p>';
+    }
+    return $o;
+}
+
+/** [marmal_cookies_souhlas] – jak dlouho platí volba a jak dlouho se uchovává záznam o souhlasu (čísla z nastavení). */
+function sc_souhlas($atts = array()): string
+{
+    $roky = (int) nastaveni()['uchovat'];
+    /* translators: %d: počet let */
+    $uchovat = sprintf(_n('%d rok', '%d roky', $roky, 'marmal-breakdance-plus'), $roky);
+    if ($roky >= 5) {
+        /* translators: %d: počet let (5 a více) */
+        $uchovat = sprintf(__('%d let', 'marmal-breakdance-plus'), $roky);
+    }
+    return '<p class="marmal-ck-souhlas">' . esc_html(sprintf(
+        /* translators: 1: platnost volby (např. 6 měsíců), 2: doba uchování záznamu (např. 3 roky) */
+        __('Vaši volbu cookies si pamatujeme %1$s, potom se vás zeptáme znovu. Záznam o udělení nebo odmítnutí souhlasu (náhodný identifikátor, zvolené kategorie, datum a čas a verze textů – bez IP adresy) uchováváme %2$s, abychom mohli doložit, že jste souhlas udělili (čl. 7 odst. 1 GDPR).', 'marmal-breakdance-plus'),
+        platnost_text('platnost_souhlasu'),
+        $uchovat
+    )) . '</p>';
 }
 
 /** [marmal_cookies_nastaveni text="…"] – tlačítko, které otevře okno nastavení cookies. */
