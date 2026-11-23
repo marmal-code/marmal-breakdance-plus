@@ -45,3 +45,8 @@
 .marmal-seo-nast__tab th{background:#f6f7f7}
 .marmal-seo-nast code{user-select:all}
 .marmal-seo-nast__kroky li{margin-bottom:6px}
+.marmal-seo-nast__hodiny{border-collapse:collapse}
+.marmal-seo-nast__hodiny th{width:90px;padding:3px 10px 3px 0;font-weight:400;text-align:left}
+.marmal-seo-nast__hodiny td{padding:3px 0}
+.marmal-seo-nast__hodiny input{width:180px}
+#firma input[name$="[firma_psc]"]{width:7em}

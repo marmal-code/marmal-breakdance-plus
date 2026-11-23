@@ -56,6 +56,25 @@ function prazdne(): array
         'drobecky_rodice'    => array(), // typ obsahu => ID nadřazené stránky
         'robots'             => '',     // vlastní řádky robots.txt
         'jazyky'             => array(), // jazyk => přepsání JAZYK_POLE pro další jazyky (Polylang, WPML)
+        // Data o firmě (firma.php) – název, sídlo, IČO a DIČ z modulu Ochrana os. údajů / Patičky
+        'firma_schema'  => true,
+        'firma_typ'     => 'Organization',
+        'firma_nazev'   => '',      // prázdné = z GDPR / Patičky
+        'firma_telefon' => '',      // prázdné = z GDPR
+        'firma_email'   => '',      // prázdné = z GDPR
+        'firma_ulice'   => '',      // adresa provozovny; prázdné = ze sídla
+        'firma_psc'     => '',
+        'firma_mesto'   => '',
+        'firma_zeme'    => 'CZ',
+        'firma_logo'    => 0,       // prázdné = logo webu / ikona webu
+        'firma_hodiny'  => array(), // po…ne => „8:00–16:00“
+        'firma_site'    => '',      // profily na sítích, jeden odkaz na řádek
+        'firma_gps'     => '',      // „50.0123, 14.4567“
+        // AI vyhledávání (ai.php)
+        'ai_roboti'     => 'vse',   // vse | bez_treninku
+        'indexnow'      => true,
+        'llms'          => false,
+        'llms_uvod'     => '',
     );
 }
 
@@ -296,6 +315,7 @@ function sanitizovat($in): array
     }
     $out['robots'] = robots_sanitizovat($in['robots'] ?? '');
     $out['jazyky'] = jazyky_sanitizovat($in['jazyky'] ?? array());
+    $out = array_merge($out, geo_sanitizovat($in));
 
     if (function_exists(__NAMESPACE__ . '\og_vytvorit')) {
         $obrazky = array_merge(array($out['obrazek']), array_column($out['jazyky'], 'obrazek'));
@@ -304,6 +324,57 @@ function sanitizovat($in): array
         }
     }
     return $out;
+}
+
+/** Data o firmě a AI vyhledávání (firma.php, ai.php). */
+function geo_sanitizovat(array $in): array
+{
+    $o = array();
+    $o['firma_schema'] = !empty($in['firma_schema']);
+    $typ = (string) ($in['firma_typ'] ?? 'Organization');
+    $o['firma_typ'] = function_exists(__NAMESPACE__ . '\\firma_typy') && array_key_exists($typ, firma_typy()) ? $typ : 'Organization';
+    $o['firma_nazev']   = cisty_text($in['firma_nazev'] ?? '', 120);
+    $o['firma_telefon'] = mb_substr(preg_replace('/[^0-9+()\/ \-]/', '', (string) ($in['firma_telefon'] ?? '')), 0, 30, 'UTF-8');
+    $o['firma_telefon'] = trim($o['firma_telefon']);
+    $email = sanitize_email((string) ($in['firma_email'] ?? ''));
+    $o['firma_email']   = is_email($email) ? $email : '';
+    $o['firma_ulice']   = cisty_text($in['firma_ulice'] ?? '', 120);
+    $o['firma_psc']     = mb_substr(preg_replace('/[^0-9A-Za-z \-]/', '', (string) ($in['firma_psc'] ?? '')), 0, 12, 'UTF-8');
+    $o['firma_psc']     = trim($o['firma_psc']);
+    $o['firma_mesto']   = cisty_text($in['firma_mesto'] ?? '', 80);
+    $zeme = strtoupper((string) ($in['firma_zeme'] ?? 'CZ'));
+    $o['firma_zeme']    = preg_match('/^[A-Z]{2}$/', $zeme) ? $zeme : 'CZ';
+    $logo = absint($in['firma_logo'] ?? 0);
+    $o['firma_logo']    = ($logo && wp_attachment_is_image($logo)) ? $logo : 0;
+    $o['firma_hodiny']  = array();
+    $hodiny = is_array($in['firma_hodiny'] ?? null) ? $in['firma_hodiny'] : array();
+    foreach (array('po', 'ut', 'st', 'ct', 'pa', 'so', 'ne') as $den) {
+        $h = is_scalar($hodiny[$den] ?? '') ? cisty_text((string) ($hodiny[$den] ?? ''), 60) : '';
+        if ($h !== '') {
+            $o['firma_hodiny'][$den] = $h;
+        }
+    }
+    $site = array();
+    foreach (preg_split('/[\r\n]+/', (string) ($in['firma_site'] ?? '')) as $r) {
+        $u = esc_url_raw(trim((string) $r), array('https'));
+        if ($u !== '') {
+            $site[] = $u;
+        }
+    }
+    $o['firma_site'] = implode("\n", array_slice(array_unique($site), 0, 15));
+    $gps = cisty_text($in['firma_gps'] ?? '', 40);
+    $o['firma_gps'] = ($gps === '' || (function_exists(__NAMESPACE__ . '\\gps') && gps($gps))) ? $gps : '';
+    if ($gps !== '' && $o['firma_gps'] === '') {
+        add_settings_error(OPTION, 'gps', __('Souřadnice nemají tvar „50.0123, 14.4567“ – neuloženy.', 'marmal-breakdance-plus'));
+    }
+    $ai = (string) ($in['ai_roboti'] ?? 'vse');
+    $o['ai_roboti'] = in_array($ai, array('vse', 'bez_treninku'), true) ? $ai : 'vse';
+    $o['indexnow']  = !empty($in['indexnow']);
+    $o['llms']      = !empty($in['llms']);
+    $uvod = wp_strip_all_tags((string) ($in['llms_uvod'] ?? ''));
+    $uvod = preg_replace("/\r\n?/", "\n", $uvod);
+    $o['llms_uvod'] = trim(mb_substr((string) $uvod, 0, 1000, 'UTF-8'));
+    return $o;
 }
 
 /**

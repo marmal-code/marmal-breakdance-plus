@@ -186,6 +186,9 @@ function stranka(): void
         <p><?php esc_html_e('Výchozí hodnoty pro celý web. U jednotlivých stránek je přepíšeš v boxu „SEO a sdílení“ pod editorem stránky.', 'marmal-breakdance-plus'); ?></p>
 
         <?php settings_errors(OPTION); ?>
+        <?php if (isset($_GET['indexnow'])) : // phpcs:ignore WordPress.Security.NonceVerification -- jen zpráva po přesměrování ?>
+            <div class="notice notice-success is-dismissible"><p><?php echo esc_html(sprintf(/* translators: %d: počet */ __('IndexNow: odesláno %d adres. Výsledek najdeš v boxu AI vyhledávání.', 'marmal-breakdance-plus'), absint($_GET['indexnow']))); // phpcs:ignore WordPress.Security.NonceVerification ?></p></div>
+        <?php endif; ?>
         <?php foreach (upozorneni() as $u) : ?>
             <div class="notice notice-<?php echo esc_attr($u['typ'] === 'error' ? 'error' : ($u['typ'] === 'warning' ? 'warning' : 'info')); ?> inline"><p><?php echo esc_html($u['text']); ?></p></div>
         <?php endforeach; ?>
@@ -249,6 +252,8 @@ function stranka(): void
             </div>
 
             <?php jazyky_box($s); ?>
+
+            <?php firma_box($s); ?>
 
             <div class="marmal-seo-nast__box">
                 <h2><?php esc_html_e('Typy obsahu a indexování', 'marmal-breakdance-plus'); ?></h2>
@@ -343,6 +348,8 @@ function stranka(): void
                     </tr>
                 </table>
             </div>
+
+            <?php ai_box($s); ?>
 
             <?php submit_button(); ?>
         </form>

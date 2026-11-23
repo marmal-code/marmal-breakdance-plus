@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.22.0-beta1 – 2026-11-23 (testovací verze, větev `geo`)
+SEO fáze 3 – GEO (AI vyhledávání). V MarMal → SEO dva nové boxy:
+- **Firma pro vyhledávače a AI** – na úvodní stránce strukturovaná data `Organization` nebo místní podnik (`LocalBusiness` a 14 podtypů: odborné služby, stavební firma, klimatizace a topení, realitní kancelář, advokát, účetní, péče o děti, sportovní klub, obchod, restaurace…) + `WebSite`. Název, sídlo, IČO, DIČ, telefon a e-mail se berou z modulu Ochrana osobních údajů (jinak z Patičky); doplňuje se jen typ firmy, logo (jinak logo / ikona webu), otevírací doba po dnech („8:00–16:00“, „8–12, 13–16“, stejné dny se sloučí), profily na sítích (sameAs), souřadnice a případně adresa provozovny. Sídlo se samo rozdělí na ulici, PSČ a město. Místní podnik bez adresy se vypíše jako obecná organizace; administrace ukáže, co chybí. Filtr `marmal_seo_firma_schema`.
+- **AI vyhledávání (GEO)**:
+  - **AI roboti** – „Povolit vše“ (výchozí, robots.txt beze změny) nebo „Zakázat trénování AI, povolit AI vyhledávání“ (Disallow pro GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, Meta-ExternalAgent, Bytespider; OAI-SearchBot, ChatGPT-User, Claude-SearchBot, PerplexityBot a Google zůstanou povolené),
+  - **IndexNow** (výchozí zapnuto) – nová, změněná, zrušená nebo smazaná stránka (i stará adresa po přejmenování) se do minuty ohlásí Seznamu a přes api.indexnow.org Bingu a dalším; víc změn = jeden požadavek; jen ostrý web (`wp_get_environment_type()` = production) viditelný pro vyhledávače a bez jiného SEO pluginu; klíč v souboru `/{klíč}.txt`, který vrací modul; výsledek posledního odeslání v administraci, tlačítko „Ohlásit celý web“ (po spuštění webu),
+  - **llms.txt** (volitelně, výchozí vypnuto) – `/llms.txt` v Markdownu: název a popis webu, vlastní úvodní text, indexované stránky podle typů obsahu s popisky (bez noindex a stránek s heslem; na vícejazyčném webu výchozí jazyk), kontakt; cache 12 h, obnoví se při uložení stránky nebo nastavení; `X-Robots-Tag: noindex`.
+
 ## 0.21.0 – 2026-11-23 (vydáno po Martinově testu na kukatkodoprirody.cz; 0.21.0-beta1 ve větvi `slouceni-bety`)
 Sloučení dvou bet z 18. 11., které Martin otestoval na kukatkodoprirody.cz, s aktuální verzí 0.20.0 (vznikly z 0.13.0, proto nové číslo).
 

@@ -356,7 +356,7 @@ msgstr "Cannot write the font file."
 msgid "Nejde zapsat CSS fontů."
 msgstr "Cannot write the font CSS."
 
-#: modules/obrazky/manifest.php:25 modules/obrazky/includes/admin.php:25 modules/obrazky/includes/admin.php:25 modules/seo/includes/admin.php:386
+#: modules/obrazky/manifest.php:25 modules/obrazky/includes/admin.php:25 modules/obrazky/includes/admin.php:25 modules/seo/includes/admin.php:393
 msgid "Obrázky"
 msgstr "Images"
 
@@ -849,11 +849,260 @@ msgstr ""
 msgid "Titulek, popisek, canonical a náhled pro sdílení (Open Graph, Twitter) u každé stránky. Výchozí hodnoty pro celý web, přepsání u stránky, automatické texty z jiných pluginů (Developerské projekty), noindex i v sitemap a převod z Yoastu / Rank Mathu. Když běží jiný SEO plugin, modul nic nevypisuje."
 msgstr ""
 
+#: modules/seo/includes/admin-geo.php:18
+msgid "Pondělí"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:18
+msgid "Úterý"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:18
+msgid "Středa"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:18
+msgid "Čtvrtek"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:18
+msgid "Pátek"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:18
+msgid "Sobota"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:18
+msgid "Neděle"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:20
+msgid "MarMal → Ochrana os. údajů"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:21
+msgid "MarMal → Patička"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:36
+msgid "Firma pro vyhledávače a AI"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:37
+msgid "Na úvodní stránce se vypíšou strukturovaná data o firmě (Organization / LocalBusiness) a o webu. Google, Seznam i AI vyhledávače (ChatGPT, Gemini, Perplexity) z nich jednoznačně poznají, kdo firma je, kde sídlí a jak ji kontaktovat."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:41
+#, php-format
+msgid "Název, sídlo, IČO a DIČ se berou z %3$s (teď: %1$s, %2$s). Šedé texty ukazují, co se použije, když pole necháš prázdné."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:45 modules/presmerovani/includes/admin.php:377
+msgid "Upravit"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:47
+msgid "Modul Ochrana osobních údajů ani Patička není zapnutý – vyplň název a adresu tady."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:50
+#, php-format
+msgid "Doplň: %s."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:54
+msgid "Vypisovat"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:55
+msgid "Strukturovaná data o firmě a webu na úvodní stránce"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:58
+msgid "Typ firmy"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:62
+msgid "Místní podnik (provozovna, kam chodí zákazníci, nebo služby v regionu) dostane adresu, otevírací dobu a souřadnice. Firma bez provozovny pro zákazníky = první volba."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:65
+msgid "Název firmy"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:67
+msgid "Jen když se má lišit (např. obchodní značka místo „s.r.o.“)."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:70
+msgid "Telefon a e-mail"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:75
+msgid "Adresa provozovny"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:76
+msgid "Ulice a číslo"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:77
+msgid "PSČ"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:78
+msgid "Město"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:79
+msgid "Země (kód)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:80
+msgid "Prázdné = sídlo firmy. Vyplň, jen když se provozovna liší od sídla."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:83
+msgid "Otevírací doba"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:87
+msgid "např. 8:00–16:00"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:87
+msgid "zavřeno"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:90
+msgid "Např. „8:00–16:00“ nebo s pauzou „8–12, 13–16“. Prázdné = zavřeno. Jen u místního podniku."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:93
+msgid "Logo"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:95
+msgid "Čtvercové nebo na šířku, aspoň 112 × 112 px (PNG / SVG převedené do PNG). Prázdné = logo webu, jinak ikona webu."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:98
+msgid "Profily firmy"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:100
+msgid "Jeden odkaz (https) na řádek: sociální sítě, Firmy.cz, profil na Google Mapách. Vyhledávače a AI pak propojí web s firmou."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:103
+msgid "Souřadnice provozovny"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:105
+msgid "Nepovinné. Na Mapy.cz / Google Mapách pravým tlačítkem na místo → zkopírovat souřadnice."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:110
+#, php-format
+msgid "Kontrola po uložení: <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Validátor schema.org</a> → adresa úvodní stránky."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:113
+msgid "Vypisuje se jako místní podnik."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:126
+msgid "AI vyhledávání (GEO)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:127
+msgid "Do odpovědí ChatGPT, Gemini, Perplexity a AI přehledů Googlu se web dostane hlavně stejně jako do vyhledávání: kvalitní obsah s konkrétními fakty, správné titulky a popisky, data o firmě. Tady jsou technické doplňky."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:130
+msgid "AI roboti"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:132
+msgid "Povolit vše (výchozí)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:133
+msgid "Zakázat trénování AI, povolit AI vyhledávání"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:137
+#, php-format
+msgid "„Zakázat trénování“ přidá do robots.txt zákaz pro %s. Roboti AI vyhledávání (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, PerplexityBot) i Google zůstanou povolení. Google-Extended zakáže i použití obsahu v aplikaci Gemini – ve Vyhledávání Google a AI přehledech zůstane web beze změny."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:142
+msgid "IndexNow"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:143
+msgid "Ohlašovat nové a změněné stránky Seznamu a Bingu (IndexNow)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:144
+msgid "Po publikování nebo úpravě stránky pošle modul do minuty její adresu vyhledávačům Seznam a Bing (IndexNow ji sdílí i s dalšími). Bing používá i Copilot. Google IndexNow nepodporuje. Odesílá se jen adresa, nic jiného, a jen z ostrého webu viditelného pro vyhledávače."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:148
+msgid "Teď se nic neodesílá – web je skrytý před vyhledávači, není ostrý (WP_ENVIRONMENT_TYPE) nebo běží jiný SEO plugin."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:157
+#, php-format
+msgid "Naposledy odesláno %1$s: %2$d adres – %3$s."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:164
+msgid "Zatím nic neodesláno."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:167
+msgid "Ohlásit celý web"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:168
+msgid "(po spuštění nového webu)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:175
+msgid "Vytvářet /llms.txt (přehled webu pro jazykové modely)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:176
+msgid "Nepovinné. Je to návrh standardu, který velké AI vyhledávače zatím nečtou (Google uvádí, že ho nepotřebuje). Neuškodí – hodí se hlavně, když se na něj klient ptá. Obsahuje název a popis webu, indexované stránky s popisky a kontakt."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:180 modules/seo/includes/admin.php:331 modules/seo/includes/admin.php:337
+msgid "Pozor:"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:180
+msgid "v kořeni webu je soubor llms.txt – server vrací ten a tento se nepoužije. Smaž ho, pokud ho nechceš."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:182
+msgid "Text pod nadpisem (nepovinné)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:183
+msgid "Např. komu firma pomáhá, ve kterém regionu působí a čím se liší."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:195 modules/seo/includes/import.php:250 modules/presmerovani/includes/admin.php:87 includes/moduly.php:243
+msgid "Nemáš oprávnění."
+msgstr "You do not have permission."
+
 #: modules/seo/includes/admin.php:27
 msgid "SEO"
 msgstr ""
 
-#: modules/seo/includes/admin.php:33 modules/seo/includes/admin.php:153 modules/seo/includes/admin.php:234
+#: modules/seo/includes/admin.php:33 modules/seo/includes/admin.php:153 modules/seo/includes/admin.php:237
 msgid "Výchozí obrázek pro sdílení"
 msgstr ""
 
@@ -874,19 +1123,19 @@ msgstr ""
 msgid "Odebrat"
 msgstr ""
 
-#: modules/seo/includes/admin.php:117 modules/seo/includes/admin.php:200
+#: modules/seo/includes/admin.php:117 modules/seo/includes/admin.php:203
 msgid "Název webu v titulcích"
 msgstr ""
 
-#: modules/seo/includes/admin.php:118 modules/seo/includes/admin.php:209
+#: modules/seo/includes/admin.php:118 modules/seo/includes/admin.php:212
 msgid "Vzor titulku"
 msgstr ""
 
-#: modules/seo/includes/admin.php:119 modules/seo/includes/admin.php:218
+#: modules/seo/includes/admin.php:119 modules/seo/includes/admin.php:221
 msgid "Titulek úvodní stránky"
 msgstr ""
 
-#: modules/seo/includes/admin.php:120 modules/seo/includes/admin.php:229
+#: modules/seo/includes/admin.php:120 modules/seo/includes/admin.php:232
 msgid "Výchozí popisek"
 msgstr ""
 
@@ -919,270 +1168,279 @@ msgstr ""
 msgid "Výchozí hodnoty pro celý web. U jednotlivých stránek je přepíšeš v boxu „SEO a sdílení“ pod editorem stránky."
 msgstr ""
 
-#: modules/seo/includes/admin.php:197 modules/seo/includes/admin.php:386
+#: modules/seo/includes/admin.php:190
+#, php-format
+msgid "IndexNow: odesláno %d adres. Výsledek najdeš v boxu AI vyhledávání."
+msgstr ""
+
+#: modules/seo/includes/admin.php:200 modules/seo/includes/admin.php:393
 msgid "Titulky"
 msgstr ""
 
-#: modules/seo/includes/admin.php:202
+#: modules/seo/includes/admin.php:205
 msgid "Prázdné = název z Nastavení → Obecné. Použije se za oddělovačem a v og:site_name (např. „Žehrovické byty“ místo „zehrovickebyty.cz“)."
 msgstr ""
 
-#: modules/seo/includes/admin.php:205 modules/seo/includes/admin.php:292
+#: modules/seo/includes/admin.php:208 modules/seo/includes/admin.php:297
 msgid "Oddělovač"
 msgstr ""
 
-#: modules/seo/includes/admin.php:213
+#: modules/seo/includes/admin.php:216
 #, php-format
 msgid "Pro stránky bez vlastního titulku. Zástupné symboly %%nazev%%, %%web%%, %%oddelovac%%, %%popis_webu%%. Teď např.: %s"
 msgstr ""
 
-#: modules/seo/includes/admin.php:220
+#: modules/seo/includes/admin.php:223
 msgid "Když ho nemá úvodní stránka vyplněný ve svém boxu. Píše se celý, bez „| web“ na konci, např. „Žehrovické byty – nové byty 1+kk až 2+1 u Kladna“."
 msgstr ""
 
-#: modules/seo/includes/admin.php:226
+#: modules/seo/includes/admin.php:229
 msgid "Popisek, obrázek a jazyk"
 msgstr ""
 
-#: modules/seo/includes/admin.php:231
+#: modules/seo/includes/admin.php:234
 msgid "Pro stránky bez vlastního popisku (a bez ručně vyplněného výňatku). Doporučeno 120–160 znaků."
 msgstr ""
 
-#: modules/seo/includes/admin.php:237
+#: modules/seo/includes/admin.php:240
 msgid "Pro stránky bez vlastního ani náhledového obrázku. Ideálně 1200 × 630 px – výřez v tomto rozměru (JPEG) se vytvoří sám po uložení."
 msgstr ""
 
-#: modules/seo/includes/admin.php:241
+#: modules/seo/includes/admin.php:244
 msgid "Jazyk pro sdílení (og:locale)"
 msgstr ""
 
-#: modules/seo/includes/admin.php:243
+#: modules/seo/includes/admin.php:246
 #, php-format
 msgid "Automaticky podle jazyka stránky (teď %s)"
 msgstr ""
 
-#: modules/seo/includes/admin.php:246
+#: modules/seo/includes/admin.php:249
 msgid "Na CZ + EN webu s Polylangem nebo WPML nech automaticky – jazyk se vezme z překladu stránky."
 msgstr ""
 
-#: modules/seo/includes/admin.php:254
+#: modules/seo/includes/admin.php:259
 msgid "Typy obsahu a indexování"
 msgstr ""
 
-#: modules/seo/includes/admin.php:257
+#: modules/seo/includes/admin.php:262
 msgid "Box „SEO a sdílení“ u"
 msgstr ""
 
-#: modules/seo/includes/admin.php:262
+#: modules/seo/includes/admin.php:267
 msgid "Nic nezaškrtnuté = všechny. Titulek a popisek ze vzoru dostanou všechny stránky webu i tak."
 msgstr ""
 
-#: modules/seo/includes/admin.php:266
+#: modules/seo/includes/admin.php:271
 msgid "Neindexovat"
 msgstr ""
 
-#: modules/seo/includes/admin.php:268
+#: modules/seo/includes/admin.php:273
 msgid "Archivy autorů (/author/…) – na webu firmy jen kopie blogu"
 msgstr ""
 
-#: modules/seo/includes/admin.php:269
+#: modules/seo/includes/admin.php:274
 msgid "Archivy podle data (/2026/11/…)"
 msgstr ""
 
-#: modules/seo/includes/admin.php:270
+#: modules/seo/includes/admin.php:275
 msgid "Štítky příspěvků"
 msgstr ""
 
-#: modules/seo/includes/admin.php:271
+#: modules/seo/includes/admin.php:276
 msgid "Stránky příloh (samostatná stránka obrázku)"
 msgstr ""
 
-#: modules/seo/includes/admin.php:272
+#: modules/seo/includes/admin.php:277
 msgid "Výsledky vyhledávání na webu jsou neindexované vždy. Neindexované archivy zmizí i ze sitemap."
 msgstr ""
 
-#: modules/seo/includes/admin.php:279 modules/seo/includes/drobecky.php:327
+#: modules/seo/includes/admin.php:284 modules/seo/includes/drobecky.php:327
 msgid "Drobečková navigace"
 msgstr "Breadcrumb"
 
-#: modules/seo/includes/admin.php:280
+#: modules/seo/includes/admin.php:285
 msgid "Na web ji vložíš elementem <strong>Shortcode</strong> s kódem <code>[marmal_drobecky]</code> – nejlépe do šablony (detail bytu, příspěvek, stránka). Na úvodní stránce se nezobrazí. Vzhled přebírá písmo a barvy z místa, kam ji vložíš; volby: <code>oddelovac=\"»\"</code>, <code>uvod=\"Domů\"</code>, <code>aktualni=\"ne\"</code>."
 msgstr ""
 
-#: modules/seo/includes/admin.php:283
+#: modules/seo/includes/admin.php:288
 msgid "Pro Google"
 msgstr ""
 
-#: modules/seo/includes/admin.php:284
+#: modules/seo/includes/admin.php:289
 msgid "Vypisovat strukturovaná data BreadcrumbList (Google pak ve výsledcích ukáže cestu místo adresy)"
 msgstr ""
 
-#: modules/seo/includes/admin.php:285
+#: modules/seo/includes/admin.php:290
 msgid "Funguje i bez viditelné navigace. Když používáš element Breadcrumbs z Breakdance, ověř v testu výsledků s bohatým obsahem, že BreadcrumbList není na stránce dvakrát."
 msgstr ""
 
-#: modules/seo/includes/admin.php:288
+#: modules/seo/includes/admin.php:293
 msgid "Text první položky"
 msgstr ""
 
-#: modules/seo/includes/admin.php:289 modules/seo/includes/drobecky.php:30
+#: modules/seo/includes/admin.php:294 modules/seo/includes/ai.php:271 modules/seo/includes/drobecky.php:30
 msgid "Úvod"
 msgstr "Home"
 
-#: modules/seo/includes/admin.php:300
+#: modules/seo/includes/admin.php:305
 #, php-format
 msgid "Nadřazená stránka – %s"
 msgstr ""
 
-#: modules/seo/includes/admin.php:305
+#: modules/seo/includes/admin.php:310
 msgid "— žádná (archiv typu, když existuje) —"
 msgstr ""
 
-#: modules/seo/includes/admin.php:310
+#: modules/seo/includes/admin.php:315
 msgid "Např. u jednotek „Přehled bytů“ → Úvod › Přehled bytů › Byt 1.01."
 msgstr ""
 
-#: modules/seo/includes/admin.php:317
+#: modules/seo/includes/admin.php:322
 msgid "Sitemap a robots.txt"
 msgstr ""
 
-#: modules/seo/includes/admin.php:319
+#: modules/seo/includes/admin.php:324
 msgid "Sitemap"
 msgstr ""
 
-#: modules/seo/includes/admin.php:321
+#: modules/seo/includes/admin.php:326
 msgid "sitemap WordPressu; modul z ní vyřazuje neindexované stránky a archivy. Tuto adresu vlož do Google Search Console → Soubory Sitemap."
 msgstr ""
 
-#: modules/seo/includes/admin.php:323
+#: modules/seo/includes/admin.php:328
 msgid "Vypnutá"
 msgstr ""
 
-#: modules/seo/includes/admin.php:323
+#: modules/seo/includes/admin.php:328
 msgid "WordPress ji nevytváří, když je web skrytý před vyhledávači, nebo ji vypnul jiný plugin."
 msgstr ""
 
-#: modules/seo/includes/admin.php:326 modules/seo/includes/admin.php:332
-msgid "Pozor:"
-msgstr ""
-
-#: modules/seo/includes/admin.php:326
+#: modules/seo/includes/admin.php:331
 msgid "v kořeni webu je soubor sitemap.xml (zbytek po starém webu nebo pluginu) – smaž ho, aby Google nečetl zastaralou sitemap."
 msgstr ""
 
-#: modules/seo/includes/admin.php:332
+#: modules/seo/includes/admin.php:337
 msgid "v kořeni webu je fyzický soubor robots.txt – WordPress ani modul ho neovlivní a řádky níže se nepoužijí. Pokud v něm nic zvláštního není, smaž ho (přes FTP / správce souborů hostingu)."
 msgstr ""
 
-#: modules/seo/includes/admin.php:334
+#: modules/seo/includes/admin.php:339
 msgid "generuje WordPress: zakáže /wp-admin/ a přidá odkaz na sitemap."
 msgstr ""
 
-#: modules/seo/includes/admin.php:340
+#: modules/seo/includes/admin.php:345
 msgid "Vlastní řádky robots.txt"
 msgstr ""
 
-#: modules/seo/includes/admin.php:342
+#: modules/seo/includes/admin.php:347
 msgid "Obvykle nic. Přidají se na konec robots.txt. Povolené jen řádky User-agent, Disallow, Allow, Sitemap, Crawl-delay a komentáře (#). Pozor: „Disallow: /“ zakáže celý web."
 msgstr ""
 
-#: modules/seo/includes/admin.php:353
+#: modules/seo/includes/admin.php:360
 msgid "Kontrola po nasazení"
 msgstr ""
 
-#: modules/seo/includes/admin.php:355
+#: modules/seo/includes/admin.php:362
 #, php-format
 msgid "Náhled sdílení: <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Facebook Sharing Debugger</a> → vlož adresu stránky → „Scrape Again“ (Facebook si jinak pamatuje starý náhled)."
 msgstr ""
 
-#: modules/seo/includes/admin.php:356
+#: modules/seo/includes/admin.php:363
 #, php-format
 msgid "Drobečková navigace pro Google: <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Test výsledků s bohatou podporou</a>."
 msgstr ""
 
-#: modules/seo/includes/admin.php:357
+#: modules/seo/includes/admin.php:364
 msgid "Google Search Console → Kontrola URL u úvodu a jedné podstránky → „Požádat o indexování“; Soubory Sitemap → wp-sitemap.xml."
 msgstr ""
 
-#: modules/seo/includes/admin.php:372
+#: modules/seo/includes/admin.php:379
 msgid "Převod z Yoast SEO / Rank Math"
 msgstr ""
 
-#: modules/seo/includes/admin.php:373
+#: modules/seo/includes/admin.php:380
 msgid "Převede titulky, popisky, obrázky pro sdílení a noindex stránek a z nastavení webu oddělovač a výchozí obrázek. Data původního pluginu zůstanou beze změny. Postup: 1. převést, 2. zkontrolovat pár stránek, 3. deaktivovat Yoast / Rank Math – teprve pak modul začne vypisovat."
 msgstr ""
 
-#: modules/seo/includes/admin.php:378
+#: modules/seo/includes/admin.php:385
 #, php-format
 msgid "Převedeno z %1$s: %2$d stránek – titulky %3$d, popisky %4$d, obrázky %5$d, noindex %6$d. Přeskočeno (už vyplněné): %7$d."
 msgstr ""
 
-#: modules/seo/includes/admin.php:382
+#: modules/seo/includes/admin.php:389
 #, php-format
 msgid "Nastavení webu: %s."
 msgstr ""
 
-#: modules/seo/includes/admin.php:386
+#: modules/seo/includes/admin.php:393
 msgid "Zdroj"
 msgstr ""
 
-#: modules/seo/includes/admin.php:386
+#: modules/seo/includes/admin.php:393
 msgid "Stránek s daty"
 msgstr ""
 
-#: modules/seo/includes/admin.php:386
+#: modules/seo/includes/admin.php:393
 msgid "Popisky"
 msgstr ""
 
-#: modules/seo/includes/admin.php:391
+#: modules/seo/includes/admin.php:398
 #, php-format
 msgid "nastavení webu: %s"
 msgstr ""
 
-#: modules/seo/includes/admin.php:404
+#: modules/seo/includes/admin.php:411
 msgid "přepsat už vyplněné"
 msgstr ""
 
-#: modules/seo/includes/admin.php:405
+#: modules/seo/includes/admin.php:412
 msgid "Převést"
 msgstr ""
 
-#: modules/seo/includes/admin.php:408
+#: modules/seo/includes/admin.php:415
 msgid "žádná data"
 msgstr ""
 
-#: modules/seo/includes/data.php:265 modules/seo/includes/data.php:335
+#: modules/seo/includes/ai.php:288
+msgid "Kontakt"
+msgstr "Contact"
+
+#: modules/seo/includes/data.php:284 modules/seo/includes/data.php:406
 #, php-format
 msgid "Vzor titulku musí obsahovat %nazev% – jinak by všechny stránky měly stejný titulek. Použije se výchozí vzor."
 msgstr ""
 
-#: modules/seo/includes/data.php:509
+#: modules/seo/includes/data.php:368
+msgid "Souřadnice nemají tvar „50.0123, 14.4567“ – neuloženy."
+msgstr ""
+
+#: modules/seo/includes/data.php:580
 #, php-format
 msgid "Na webu běží %s – modul SEO proto nic nevypisuje. Nejdřív převeď data (MarMal → SEO → Převod), pak ten plugin deaktivuj."
 msgstr ""
 
-#: modules/seo/includes/data.php:514
+#: modules/seo/includes/data.php:585
 msgid "Web je skrytý před vyhledávači (Nastavení → Zobrazování → „Požádat vyhledávače, aby neindexovaly tento web“). Po spuštění webu to vypni."
 msgstr ""
 
-#: modules/seo/includes/data.php:517
+#: modules/seo/includes/data.php:588
 msgid "Chybí ikona webu (favicon) – nastav ji ve Vzhled → Přizpůsobit → Identita webu → Ikona webu (čtverec aspoň 512 × 512 px)."
 msgstr ""
 
-#: modules/seo/includes/data.php:520
+#: modules/seo/includes/data.php:591
 msgid "Není nastavený výchozí obrázek pro sdílení – stránky bez náhledového obrázku se na Facebooku ukážou bez obrázku."
 msgstr ""
 
-#: modules/seo/includes/data.php:739
+#: modules/seo/includes/data.php:810
 #, php-format
 msgid "Výsledky hledání „%s“"
 msgstr "Search results for “%s”"
 
-#: modules/seo/includes/data.php:743 modules/seo/includes/drobecky.php:143
+#: modules/seo/includes/data.php:814 modules/seo/includes/drobecky.php:143
 msgid "Stránka nenalezena"
 msgstr "Page not found"
 
-#: modules/seo/includes/data.php:789
+#: modules/seo/includes/data.php:860
 #, php-format
 msgid "Strana %d"
 msgstr "Page %d"
@@ -1199,9 +1457,97 @@ msgstr "Parent page"
 msgid "Aktuální stránka"
 msgstr "Current page"
 
-#: modules/seo/includes/import.php:250 modules/presmerovani/includes/admin.php:87 includes/moduly.php:243
-msgid "Nemáš oprávnění."
-msgstr "You do not have permission."
+#: modules/seo/includes/firma.php:23
+msgid "Firma / organizace bez provozovny pro zákazníky"
+msgstr ""
+
+#: modules/seo/includes/firma.php:24
+msgid "Spolek, nezisková organizace"
+msgstr ""
+
+#: modules/seo/includes/firma.php:25
+msgid "Vzdělávací organizace (škola, kroužky)"
+msgstr ""
+
+#: modules/seo/includes/firma.php:26
+msgid "Sportovní organizace"
+msgstr ""
+
+#: modules/seo/includes/firma.php:27
+msgid "Místní podnik – obecně"
+msgstr ""
+
+#: modules/seo/includes/firma.php:28
+msgid "Odborné služby (poradenství, projekce, akustika…)"
+msgstr ""
+
+#: modules/seo/includes/firma.php:29
+msgid "Služby pro dům a stavbu"
+msgstr ""
+
+#: modules/seo/includes/firma.php:30
+msgid "Stavební firma"
+msgstr ""
+
+#: modules/seo/includes/firma.php:31
+msgid "Klimatizace, topení, vzduchotechnika"
+msgstr ""
+
+#: modules/seo/includes/firma.php:32
+msgid "Realitní kancelář, prodej nemovitostí"
+msgstr ""
+
+#: modules/seo/includes/firma.php:33
+msgid "Advokátní kancelář, právní služby"
+msgstr ""
+
+#: modules/seo/includes/firma.php:34
+msgid "Účetní a daňové služby"
+msgstr ""
+
+#: modules/seo/includes/firma.php:35
+msgid "Péče o děti (školka, lesní klub)"
+msgstr ""
+
+#: modules/seo/includes/firma.php:36
+msgid "Sportovní klub se sportovištěm"
+msgstr ""
+
+#: modules/seo/includes/firma.php:37
+msgid "Obchod"
+msgstr ""
+
+#: modules/seo/includes/firma.php:38
+msgid "Restaurace, kavárna"
+msgstr ""
+
+#: modules/seo/includes/firma.php:39
+msgid "Kosmetika, kadeřnictví, wellness"
+msgstr ""
+
+#: modules/seo/includes/firma.php:40
+msgid "Autoservis, prodej aut"
+msgstr ""
+
+#: modules/seo/includes/firma.php:41
+msgid "Cestovní kancelář"
+msgstr ""
+
+#: modules/seo/includes/firma.php:213
+msgid "adresa (ulice a město) – bez ní se místo místního podniku vypíše jen organizace"
+msgstr ""
+
+#: modules/seo/includes/firma.php:216
+msgid "název firmy (MarMal → Ochrana os. údajů nebo Patička)"
+msgstr ""
+
+#: modules/seo/includes/firma.php:219
+msgid "telefon nebo e-mail"
+msgstr ""
+
+#: modules/seo/includes/firma.php:222
+msgid "logo"
+msgstr ""
 
 #: modules/seo/includes/import.php:256
 msgid "Neznámý zdroj."
@@ -3512,10 +3858,6 @@ msgstr ""
 msgid "vypnuto"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:377
-msgid "Upravit"
-msgstr ""
-
 #: modules/presmerovani/includes/admin.php:378 includes/moduly.php:328
 msgid "Vypnout"
 msgstr "Turn off"
@@ -4286,21 +4628,3 @@ msgstr "Migrate from the old plugin"
 #: includes/moduly.php:342
 msgid "Moduly jde přepínat i z aplikace sprava.marmal.cz (MarMal Agent)."
 msgstr "Modules can also be switched from the sprava.marmal.cz app (MarMal Agent)."
-
-#~ msgid "Stránka „Více o cookies“"
-#~ msgstr "“More about cookies” page"
-
-#~ msgid "— stránka zásad z Patičky / Nastavení → Soukromí —"
-#~ msgstr "— privacy page from Footer / Settings → Privacy —"
-
-#~ msgid "Žádná stránka – odkaz se v liště nezobrazí."
-#~ msgstr "No page – the link will not be shown in the banner."
-
-#~ msgid "Na stránku zásad cookies vlož shortcode <code>[marmal_cookies_seznam]</code> – tabulka cookies podle kategorií se bude aktualizovat sama."
-#~ msgstr "Put the shortcode <code>[marmal_cookies_seznam]</code> on the cookie policy page – the cookie table by category updates itself."
-
-#~ msgid "ochrana osobních údajů a nastavení cookies; zasady=\"ne\" / cookies=\"ne\""
-#~ msgstr "privacy policy and cookie settings; zasady=\"ne\" / cookies=\"ne\""
-
-#~ msgid "Přednačíst běžný řez (400) hlavních fontů – nejvýš 2 soubory na stránku"
-#~ msgstr "Preload the regular weight (400) of the main fonts – at most 2 files per page"
