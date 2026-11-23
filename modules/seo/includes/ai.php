@@ -5,8 +5,8 @@
  *  AI roboti v robots.txt   „povolit vše“ (výchozí, nic se nepřidává) nebo „zakázat trénování“ –
  *                           Disallow pro roboty, kteří obsah sbírají na trénování modelů; roboti
  *                           AI vyhledávání (OAI-SearchBot, Claude-SearchBot, PerplexityBot…) zůstanou povolení.
- *  IndexNow                 nová / změněná / zrušená stránka se ohlásí Seznamu a Bingu (IndexNow
- *                           sdílí adresy i s dalšími vyhledávači). Jen ostrý web (produkce, viditelný pro
+ *  IndexNow                 nová / změněná / zrušená stránka se ohlásí přes api.indexnow.org – IndexNow ji
+ *                           předá všem zapojeným vyhledávačům (Seznam, Bing, Yandex, Naver…). Jen ostrý web (produkce, viditelný pro
  *                           vyhledávače). Klíč = soubor /{klíč}.txt, který vrací modul.
  *  llms.txt                 volitelný přehled webu pro jazykové modely (/llms.txt), výchozí vypnuto.
  *
@@ -23,6 +23,7 @@ const OPT_INDEXNOW = 'marmal_bdp_seo_indexnow';        // klíč + výsledek pos
 const OPT_FRONTA   = 'marmal_bdp_seo_indexnow_fronta'; // adresy k odeslání (bez autoload)
 const MAX_FRONTA   = 500;
 const LLMS_CACHE   = 'marmal_seo_llms';
+const INDEXNOW_API = 'https://api.indexnow.org/indexnow';
 
 // ================================================================= AI roboti v robots.txt
 
@@ -54,6 +55,12 @@ add_filter('robots_txt', function ($obsah, $verejny) {
 }, 21, 2);
 
 // ================================================================= IndexNow
+
+/** Adresa souboru s klíčem (ověřují ji vyhledávače). */
+function indexnow_soubor(): string
+{
+    return home_url('/' . indexnow_klic() . '.txt');
+}
 
 /** Klíč IndexNow (vytvoří se při prvním použití; není tajný – je veřejně v souboru /{klíč}.txt). */
 function indexnow_klic(): string
@@ -143,18 +150,25 @@ function indexnow_odeslat(): array
     $telo = wp_json_encode(array(
         'host'        => $host,
         'key'         => $klic,
-        'keyLocation' => home_url('/' . $klic . '.txt'),
+        'keyLocation' => indexnow_soubor(),
         'urlList'     => array_values(array_slice($fronta, 0, 10000)),
     ));
-    $vysledek = array('cas' => time(), 'pocet' => count($fronta), 'cile' => array());
-    foreach (array('IndexNow' => 'https://api.indexnow.org/indexnow', 'Seznam' => 'https://search.seznam.cz/indexnow') as $nazev => $url) {
-        $r = wp_safe_remote_post($url, array(
-            'timeout'     => 10,
-            'redirection' => 0,
-            'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
-            'body'        => $telo,
-        ));
-        $vysledek['cile'][$nazev] = is_wp_error($r) ? $r->get_error_message() : (int) wp_remote_retrieve_response_code($r);
+    $vysledek = array('cas' => time(), 'pocet' => count($fronta), 'cile' => array(), 'zprava' => '');
+    // Jeden společný cíl: IndexNow adresy předá všem zapojeným vyhledávačům (Bing, Seznam, Yandex, Naver…).
+    $r = wp_safe_remote_post(INDEXNOW_API, array(
+        'timeout'     => 10,
+        'redirection' => 0,
+        'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+        'body'        => $telo,
+    ));
+    if (is_wp_error($r)) {
+        $vysledek['cile']['IndexNow'] = $r->get_error_message();
+    } else {
+        $kod = (int) wp_remote_retrieve_response_code($r);
+        $vysledek['cile']['IndexNow'] = $kod;
+        if ($kod < 200 || $kod >= 300) {
+            $vysledek['zprava'] = mb_substr(sanitize_text_field((string) wp_remote_retrieve_body($r)), 0, 200, 'UTF-8');
+        }
     }
     $o = (array) get_option(OPT_INDEXNOW, array());
     $o['posledni'] = $vysledek;

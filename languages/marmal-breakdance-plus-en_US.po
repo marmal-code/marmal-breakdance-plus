@@ -1058,43 +1058,63 @@ msgstr ""
 msgid "Naposledy odesláno %1$s: %2$d adres – %3$s."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:164
+#: modules/seo/includes/admin-geo.php:167
 msgid "Zatím nic neodesláno."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:167
+#: modules/seo/includes/admin-geo.php:170
 msgid "Ohlásit celý web"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:168
+#: modules/seo/includes/admin-geo.php:171
 msgid "(po spuštění nového webu)"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:175
-msgid "Vytvářet /llms.txt (přehled webu pro jazykové modely)"
-msgstr ""
-
 #: modules/seo/includes/admin-geo.php:176
-msgid "Nepovinné. Je to návrh standardu, který velké AI vyhledávače zatím nečtou (Google uvádí, že ho nepotřebuje). Neuškodí – hodí se hlavně, když se na něj klient ptá. Obsahuje název a popis webu, indexované stránky s popisky a kontakt."
+msgid "Kontrola:"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:180 modules/seo/includes/admin.php:331 modules/seo/includes/admin.php:337
-msgid "Pozor:"
+#: modules/seo/includes/admin-geo.php:177
+msgid "soubor s klíčem"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:178
+msgid "(musí ukázat jen řetězec znaků)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:179
+msgid "ověřit u Seznamu"
 msgstr ""
 
 #: modules/seo/includes/admin-geo.php:180
+msgid "(ohlásí úvodní stránku přímo Seznamu; „200“ = v pořádku, „403“ = Seznam si nedokázal stáhnout klíč – zkontroluj firewall / bezpečnostní plugin)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:187
+msgid "Vytvářet /llms.txt (přehled webu pro jazykové modely)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:188
+msgid "Nepovinné. Je to návrh standardu, který velké AI vyhledávače zatím nečtou (Google uvádí, že ho nepotřebuje). Neuškodí – hodí se hlavně, když se na něj klient ptá. Obsahuje název a popis webu, indexované stránky s popisky a kontakt."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:192 modules/seo/includes/admin.php:331 modules/seo/includes/admin.php:337
+msgid "Pozor:"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:192
 msgid "v kořeni webu je soubor llms.txt – server vrací ten a tento se nepoužije. Smaž ho, pokud ho nechceš."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:182
+#: modules/seo/includes/admin-geo.php:194
 msgid "Text pod nadpisem (nepovinné)"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:183
+#: modules/seo/includes/admin-geo.php:195
 msgid "Např. komu firma pomáhá, ve kterém regionu působí a čím se liší."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:195 modules/seo/includes/import.php:250 modules/presmerovani/includes/admin.php:87 includes/moduly.php:243
+#: modules/seo/includes/admin-geo.php:207 modules/seo/includes/import.php:250 modules/presmerovani/includes/admin.php:87 includes/moduly.php:243
 msgid "Nemáš oprávnění."
 msgstr "You do not have permission."
 
@@ -1279,7 +1299,7 @@ msgstr ""
 msgid "Text první položky"
 msgstr ""
 
-#: modules/seo/includes/admin.php:294 modules/seo/includes/ai.php:271 modules/seo/includes/drobecky.php:30
+#: modules/seo/includes/admin.php:294 modules/seo/includes/ai.php:285 modules/seo/includes/drobecky.php:30
 msgid "Úvod"
 msgstr "Home"
 
@@ -1401,7 +1421,7 @@ msgstr ""
 msgid "žádná data"
 msgstr ""
 
-#: modules/seo/includes/ai.php:288
+#: modules/seo/includes/ai.php:302
 msgid "Kontakt"
 msgstr "Contact"
 

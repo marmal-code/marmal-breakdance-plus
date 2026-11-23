@@ -159,6 +159,9 @@ function ai_box(array $s): void
                                     (int) ($posledni['pocet'] ?? 0),
                                     implode(', ', $cile)
                                 ));
+                                if (!empty($posledni['zprava'])) {
+                                    echo ' <code>' . esc_html((string) $posledni['zprava']) . '</code>';
+                                }
                                 ?>
                             <?php else : ?>
                                 <?php esc_html_e('Zatím nic neodesláno.', 'marmal-breakdance-plus'); ?>
@@ -168,6 +171,15 @@ function ai_box(array $s): void
                                 <span class="description"><?php esc_html_e('(po spuštění nového webu)', 'marmal-breakdance-plus'); ?></span>
                             <?php endif; ?>
                         </p>
+                        <?php if ($muze) : ?>
+                            <p class="description">
+                                <?php esc_html_e('Kontrola:', 'marmal-breakdance-plus'); ?>
+                                <a href="<?php echo esc_url(indexnow_soubor()); ?>" target="_blank" rel="noopener"><?php esc_html_e('soubor s klíčem', 'marmal-breakdance-plus'); ?></a>
+                                <?php esc_html_e('(musí ukázat jen řetězec znaků)', 'marmal-breakdance-plus'); ?> ·
+                                <a href="<?php echo esc_url(add_query_arg(array('url' => rawurlencode(home_url('/')), 'key' => indexnow_klic()), 'https://search.seznam.cz/indexnow')); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('ověřit u Seznamu', 'marmal-breakdance-plus'); ?></a>
+                                <?php esc_html_e('(ohlásí úvodní stránku přímo Seznamu; „200“ = v pořádku, „403“ = Seznam si nedokázal stáhnout klíč – zkontroluj firewall / bezpečnostní plugin)', 'marmal-breakdance-plus'); ?>
+                            </p>
+                        <?php endif; ?>
                     <?php endif; ?></td>
             </tr>
             <tr>
