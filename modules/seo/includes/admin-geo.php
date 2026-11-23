@@ -140,8 +140,8 @@ function ai_box(array $s): void
             </tr>
             <tr>
                 <th scope="row"><?php esc_html_e('IndexNow', 'marmal-breakdance-plus'); ?></th>
-                <td><?php zaskrtavatko('indexnow', __('Ohlašovat nové a změněné stránky Seznamu a Bingu (IndexNow)', 'marmal-breakdance-plus')); ?>
-                    <p class="description"><?php esc_html_e('Po publikování nebo úpravě stránky pošle modul do minuty její adresu vyhledávačům Seznam a Bing (IndexNow ji sdílí i s dalšími). Bing používá i Copilot. Google IndexNow nepodporuje. Odesílá se jen adresa, nic jiného, a jen z ostrého webu viditelného pro vyhledávače.', 'marmal-breakdance-plus'); ?></p>
+                <td><?php zaskrtavatko('indexnow', __('Ohlašovat nové a změněné stránky vyhledávačům (IndexNow – Seznam, Bing a další)', 'marmal-breakdance-plus')); ?>
+                    <p class="description"><?php esc_html_e('Po publikování nebo úpravě stránky pošle modul do minuty její adresu přes IndexNow – ten ji předá všem zapojeným vyhledávačům (Seznam, Bing, Yandex, Naver). Bing používá i Copilot. Google IndexNow nepodporuje. Odesílá se jen adresa, nic jiného, a jen z ostrého webu viditelného pro vyhledávače.', 'marmal-breakdance-plus'); ?></p>
                     <?php if ($s['indexnow']) : ?>
                         <p>
                             <?php if (!$muze) : ?>
@@ -179,6 +179,19 @@ function ai_box(array $s): void
                                 <a href="<?php echo esc_url(add_query_arg(array('url' => rawurlencode(home_url('/')), 'key' => indexnow_klic()), 'https://search.seznam.cz/indexnow')); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('ověřit u Seznamu', 'marmal-breakdance-plus'); ?></a>
                                 <?php esc_html_e('(ohlásí úvodní stránku přímo Seznamu; „200“ = v pořádku, „403“ = Seznam si nedokázal stáhnout klíč – zkontroluj firewall / bezpečnostní plugin)', 'marmal-breakdance-plus'); ?>
                             </p>
+                            <?php $stazeni = indexnow_stazeni(); ?>
+                            <p class="description"><strong><?php esc_html_e('Kdo si naposledy stáhl soubor s klíčem:', 'marmal-breakdance-plus'); ?></strong>
+                                <?php if (!$stazeni) : ?>
+                                    <?php esc_html_e('zatím nikdo (nebo požadavek zastavil hosting dřív, než došel k WordPressu).', 'marmal-breakdance-plus'); ?>
+                                <?php endif; ?>
+                            </p>
+                            <?php if ($stazeni) : ?>
+                                <ul class="marmal-seo-nast__stazeni">
+                                    <?php foreach ($stazeni as $x) : ?>
+                                        <li><?php echo esc_html(wp_date('j. n. Y H:i:s', (int) $x['cas']) . ' – ' . ($x['ua'] !== '' ? $x['ua'] : __('(bez identifikace)', 'marmal-breakdance-plus'))); ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?></td>
             </tr>

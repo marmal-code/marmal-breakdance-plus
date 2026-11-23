@@ -24,6 +24,7 @@ const OPT_FRONTA   = 'marmal_bdp_seo_indexnow_fronta'; // adresy k odeslání (b
 const MAX_FRONTA   = 500;
 const LLMS_CACHE   = 'marmal_seo_llms';
 const INDEXNOW_API = 'https://api.indexnow.org/indexnow';
+const OPT_STAZENI  = 'marmal_bdp_seo_indexnow_stazeni'; // posledních 10 stažení souboru s klíčem (čas + robot)
 
 // ================================================================= AI roboti v robots.txt
 
@@ -200,7 +201,8 @@ add_action('parse_request', function ($wp) {
         $o = get_option(OPT_INDEXNOW, array());
         $k = is_array($o) ? (string) ($o['klic'] ?? '') : '';
         if ($k !== '' && $cesta === $k . '.txt') {
-            poslat_text($k);
+            indexnow_zapsat_stazeni();
+            poslat_text($k, false);
         }
     }
     if ($cesta === 'llms.txt' && !empty(nastaveni()['llms'])) {
@@ -208,12 +210,33 @@ add_action('parse_request', function ($wp) {
     }
 }, 0);
 
-function poslat_text(string $text): void
+/**
+ * Diagnostika: kdo si stáhl soubor s klíčem (vyhledávač ho stahuje při ověření). Jen čas a identifikace
+ * robota (User-Agent, max 150 znaků) – žádná IP adresa. Posledních 10.
+ */
+function indexnow_zapsat_stazeni(): void
+{
+    $ua = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
+    $s  = (array) get_option(OPT_STAZENI, array());
+    array_unshift($s, array('cas' => time(), 'ua' => mb_substr($ua, 0, 150, 'UTF-8')));
+    update_option(OPT_STAZENI, array_slice($s, 0, 10), false);
+}
+
+/** @return array<int, array{cas:int, ua:string}> */
+function indexnow_stazeni(): array
+{
+    $s = get_option(OPT_STAZENI, array());
+    return is_array($s) ? array_values(array_filter($s, 'is_array')) : array();
+}
+
+function poslat_text(string $text, bool $noindex = true): void
 {
     if (!headers_sent()) {
         status_header(200);
         header('Content-Type: text/plain; charset=utf-8');
-        header('X-Robots-Tag: noindex');
+        if ($noindex) {
+            header('X-Robots-Tag: noindex');
+        }
         header('X-Content-Type-Options: nosniff');
     }
     echo $text; // phpcs:ignore WordPress.Security.EscapeOutput -- prostý text (text/plain), ne HTML

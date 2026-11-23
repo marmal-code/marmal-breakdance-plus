@@ -1040,11 +1040,11 @@ msgid "IndexNow"
 msgstr ""
 
 #: modules/seo/includes/admin-geo.php:143
-msgid "Ohlašovat nové a změněné stránky Seznamu a Bingu (IndexNow)"
+msgid "Ohlašovat nové a změněné stránky vyhledávačům (IndexNow – Seznam, Bing a další)"
 msgstr ""
 
 #: modules/seo/includes/admin-geo.php:144
-msgid "Po publikování nebo úpravě stránky pošle modul do minuty její adresu vyhledávačům Seznam a Bing (IndexNow ji sdílí i s dalšími). Bing používá i Copilot. Google IndexNow nepodporuje. Odesílá se jen adresa, nic jiného, a jen z ostrého webu viditelného pro vyhledávače."
+msgid "Po publikování nebo úpravě stránky pošle modul do minuty její adresu přes IndexNow – ten ji předá všem zapojeným vyhledávačům (Seznam, Bing, Yandex, Naver). Bing používá i Copilot. Google IndexNow nepodporuje. Odesílá se jen adresa, nic jiného, a jen z ostrého webu viditelného pro vyhledávače."
 msgstr ""
 
 #: modules/seo/includes/admin-geo.php:148
@@ -1088,31 +1088,43 @@ msgstr ""
 msgid "(ohlásí úvodní stránku přímo Seznamu; „200“ = v pořádku, „403“ = Seznam si nedokázal stáhnout klíč – zkontroluj firewall / bezpečnostní plugin)"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:187
+#: modules/seo/includes/admin-geo.php:183
+msgid "Kdo si naposledy stáhl soubor s klíčem:"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:185
+msgid "zatím nikdo (nebo požadavek zastavil hosting dřív, než došel k WordPressu)."
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:191
+msgid "(bez identifikace)"
+msgstr ""
+
+#: modules/seo/includes/admin-geo.php:200
 msgid "Vytvářet /llms.txt (přehled webu pro jazykové modely)"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:188
+#: modules/seo/includes/admin-geo.php:201
 msgid "Nepovinné. Je to návrh standardu, který velké AI vyhledávače zatím nečtou (Google uvádí, že ho nepotřebuje). Neuškodí – hodí se hlavně, když se na něj klient ptá. Obsahuje název a popis webu, indexované stránky s popisky a kontakt."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:192 modules/seo/includes/admin.php:331 modules/seo/includes/admin.php:337
+#: modules/seo/includes/admin-geo.php:205 modules/seo/includes/admin.php:331 modules/seo/includes/admin.php:337
 msgid "Pozor:"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:192
+#: modules/seo/includes/admin-geo.php:205
 msgid "v kořeni webu je soubor llms.txt – server vrací ten a tento se nepoužije. Smaž ho, pokud ho nechceš."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:194
+#: modules/seo/includes/admin-geo.php:207
 msgid "Text pod nadpisem (nepovinné)"
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:195
+#: modules/seo/includes/admin-geo.php:208
 msgid "Např. komu firma pomáhá, ve kterém regionu působí a čím se liší."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:207 modules/seo/includes/import.php:250 modules/presmerovani/includes/admin.php:87 includes/moduly.php:243
+#: modules/seo/includes/admin-geo.php:220 modules/seo/includes/import.php:250 modules/presmerovani/includes/admin.php:87 includes/moduly.php:243
 msgid "Nemáš oprávnění."
 msgstr ""
 
@@ -1297,7 +1309,7 @@ msgstr ""
 msgid "Text první položky"
 msgstr ""
 
-#: modules/seo/includes/admin.php:294 modules/seo/includes/ai.php:285 modules/seo/includes/drobecky.php:30
+#: modules/seo/includes/admin.php:294 modules/seo/includes/ai.php:308 modules/seo/includes/drobecky.php:30
 msgid "Úvod"
 msgstr ""
 
@@ -1419,7 +1431,7 @@ msgstr ""
 msgid "žádná data"
 msgstr ""
 
-#: modules/seo/includes/ai.php:302
+#: modules/seo/includes/ai.php:325
 msgid "Kontakt"
 msgstr ""
 

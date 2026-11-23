@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.22.0-beta2 – 2026-11-23 (testovací verze, větev `geo`)
+## 0.22.0-beta3 – 2026-11-23 (testovací verze, větev `geo`)
+- IndexNow – diagnostika: v administraci „Kdo si naposledy stáhl soubor s klíčem“ (posledních 10: čas a identifikace robota, bez IP) – ukáže, jestli se Seznam k souboru vůbec dostane; soubor s klíčem bez hlavičky `X-Robots-Tag`; opravený popis volby (od beta2 se posílá přes api.indexnow.org).
+
+## 0.22.0-beta2 – 2026-11-23
 - IndexNow: adresy se posílají jen na api.indexnow.org, který je předá všem zapojeným vyhledávačům včetně Seznamu (podle nápovědy Seznamu stačí ohlásit jednomu) – přímé volání Seznamu v beta1 vracelo 403. U chyby se ukáže i odpověď služby; v administraci odkaz na soubor s klíčem a „ověřit u Seznamu“ (jednorázové ohlášení úvodní stránky přímo Seznamu pro kontrolu).
 
 ## 0.22.0-beta1 – 2026-11-23
