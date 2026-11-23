@@ -34,7 +34,7 @@ msgstr ""
 msgid "Google Fonts z webu stáhne k sobě a návštěvníkům je posílá z vlastní domény – Google nedostane jejich IP adresu (GDPR) a stránka se načte rychleji. Fonty dál vybíráš v Breakdance jako dosud."
 msgstr ""
 
-#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:144 modules/obrazky/manifest.php:31 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:226 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
+#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:144 modules/obrazky/manifest.php:31 modules/seo/manifest.php:30 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:226 modules/efekty/manifest.php:46 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr ""
 
@@ -312,7 +312,7 @@ msgstr ""
 msgid "Global Settings – jiné nastavení (např. H1–H6, tlačítka, formuláře)"
 msgstr ""
 
-#: modules/fonty/includes/preload.php:314
+#: modules/fonty/includes/preload.php:321
 #, php-format
 msgid "%1$s → %2$s, ID elementu %3$s"
 msgstr ""
@@ -354,7 +354,7 @@ msgstr ""
 msgid "Nejde zapsat CSS fontů."
 msgstr ""
 
-#: modules/obrazky/manifest.php:25 modules/obrazky/includes/admin.php:25 modules/obrazky/includes/admin.php:25
+#: modules/obrazky/manifest.php:25 modules/obrazky/includes/admin.php:25 modules/obrazky/includes/admin.php:25 modules/seo/includes/admin.php:320
 msgid "Obrázky"
 msgstr ""
 
@@ -802,41 +802,452 @@ msgstr ""
 msgid "Záloha neexistuje."
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:96
+#: modules/obrazky/includes/pozadi.php:103
 msgid "4. Obrázky na pozadí v plné velikosti"
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:97
+#: modules/obrazky/includes/pozadi.php:104
 msgid "Obrázek na pozadí sekce, sloupce nebo divu se nezmenšuje podle obrazovky – prohlížeč stáhne přesně zvolenou velikost. U velikosti „Full“ je to originál (často 1920 px a stovky kB i na mobilu). V Breakdance u elementu nastav Design → Background → Image Size (např. 1536x1536 na desktopu, Large na tabletu, Medium Large na mobilu)."
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:100
+#: modules/obrazky/includes/pozadi.php:107
 msgid "Najít obrázky na pozadí v plné velikosti"
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:105
+#: modules/obrazky/includes/pozadi.php:112
 msgid "Žádný obrázek na pozadí nepoužívá plnou velikost."
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:108
+#: modules/obrazky/includes/pozadi.php:115
 msgid "Stránka / šablona"
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:108
+#: modules/obrazky/includes/pozadi.php:115
 msgid "Element"
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:108
+#: modules/obrazky/includes/pozadi.php:115
 msgid "Obrázek"
 msgstr ""
 
-#: modules/obrazky/includes/pozadi.php:108
+#: modules/obrazky/includes/pozadi.php:115
 msgid "Plná velikost na"
 msgstr ""
 
 #: modules/obrazky/includes/prevod.php:64
 #, php-format
 msgid "Nahrání %1$s: převod se nepovedl, zůstal původní soubor (%2$s)."
+msgstr ""
+
+#: modules/seo/manifest.php:24 modules/seo/includes/admin.php:27 modules/seo/includes/metabox.php:23
+msgid "SEO a sdílení"
+msgstr ""
+
+#: modules/seo/manifest.php:25
+msgid "Titulek, popisek, canonical a náhled pro sdílení (Open Graph, Twitter) u každé stránky. Výchozí hodnoty pro celý web, přepsání u stránky, automatické texty z jiných pluginů (Developerské projekty), noindex i v sitemap a převod z Yoastu / Rank Mathu. Když běží jiný SEO plugin, modul nic nevypisuje."
+msgstr ""
+
+#: modules/seo/includes/admin.php:27
+msgid "SEO"
+msgstr ""
+
+#: modules/seo/includes/admin.php:33 modules/seo/includes/admin.php:165
+msgid "Výchozí obrázek pro sdílení"
+msgstr ""
+
+#: modules/seo/includes/admin.php:34 modules/seo/includes/metabox.php:132
+msgid "Použít obrázek"
+msgstr ""
+
+#: modules/seo/includes/admin.php:55
+#, php-format
+msgid "Běží %s – modul SEO nic nevypisuje. Převod dat najdeš v MarMal → SEO."
+msgstr ""
+
+#: modules/seo/includes/admin.php:111
+msgid "O projektu"
+msgstr ""
+
+#: modules/seo/includes/admin.php:116
+msgid "MarMal – SEO a sdílení"
+msgstr ""
+
+#: modules/seo/includes/admin.php:117
+msgid "Výchozí hodnoty pro celý web. U jednotlivých stránek je přepíšeš v boxu „SEO a sdílení“ pod editorem stránky."
+msgstr ""
+
+#: modules/seo/includes/admin.php:128 modules/seo/includes/admin.php:320
+msgid "Titulky"
+msgstr ""
+
+#: modules/seo/includes/admin.php:131
+msgid "Název webu v titulcích"
+msgstr ""
+
+#: modules/seo/includes/admin.php:133
+msgid "Prázdné = název z Nastavení → Obecné. Použije se za oddělovačem a v og:site_name (např. „Žehrovické byty“ místo „zehrovickebyty.cz“)."
+msgstr ""
+
+#: modules/seo/includes/admin.php:136 modules/seo/includes/admin.php:226
+msgid "Oddělovač"
+msgstr ""
+
+#: modules/seo/includes/admin.php:140
+msgid "Vzor titulku"
+msgstr ""
+
+#: modules/seo/includes/admin.php:144
+#, php-format
+msgid "Pro stránky bez vlastního titulku. Zástupné symboly %%nazev%%, %%web%%, %%oddelovac%%, %%popis_webu%%. Teď např.: %s"
+msgstr ""
+
+#: modules/seo/includes/admin.php:149
+msgid "Titulek úvodní stránky"
+msgstr ""
+
+#: modules/seo/includes/admin.php:151
+msgid "Když ho nemá úvodní stránka vyplněný ve svém boxu. Píše se celý, bez „| web“ na konci, např. „Žehrovické byty – nové byty 1+kk až 2+1 u Kladna“."
+msgstr ""
+
+#: modules/seo/includes/admin.php:157
+msgid "Popisek, obrázek a jazyk"
+msgstr ""
+
+#: modules/seo/includes/admin.php:160
+msgid "Výchozí popisek"
+msgstr ""
+
+#: modules/seo/includes/admin.php:162
+msgid "Pro stránky bez vlastního popisku (a bez ručně vyplněného výňatku). Doporučeno 120–160 znaků."
+msgstr ""
+
+#: modules/seo/includes/admin.php:170 modules/seo/includes/metabox.php:51
+msgid "Vybrat obrázek"
+msgstr ""
+
+#: modules/seo/includes/admin.php:171
+msgid "Odebrat"
+msgstr ""
+
+#: modules/seo/includes/admin.php:173
+msgid "Pro stránky bez vlastního ani náhledového obrázku. Ideálně 1200 × 630 px – výřez v tomto rozměru (JPEG) se vytvoří sám po uložení."
+msgstr ""
+
+#: modules/seo/includes/admin.php:177
+msgid "Jazyk pro sdílení (og:locale)"
+msgstr ""
+
+#: modules/seo/includes/admin.php:179
+#, php-format
+msgid "Automaticky podle jazyka stránky (teď %s)"
+msgstr ""
+
+#: modules/seo/includes/admin.php:182
+msgid "Na CZ + EN webu s Polylangem nebo WPML nech automaticky – jazyk se vezme z překladu stránky."
+msgstr ""
+
+#: modules/seo/includes/admin.php:188
+msgid "Typy obsahu a indexování"
+msgstr ""
+
+#: modules/seo/includes/admin.php:191
+msgid "Box „SEO a sdílení“ u"
+msgstr ""
+
+#: modules/seo/includes/admin.php:196
+msgid "Nic nezaškrtnuté = všechny. Titulek a popisek ze vzoru dostanou všechny stránky webu i tak."
+msgstr ""
+
+#: modules/seo/includes/admin.php:200
+msgid "Neindexovat"
+msgstr ""
+
+#: modules/seo/includes/admin.php:202
+msgid "Archivy autorů (/author/…) – na webu firmy jen kopie blogu"
+msgstr ""
+
+#: modules/seo/includes/admin.php:203
+msgid "Archivy podle data (/2026/11/…)"
+msgstr ""
+
+#: modules/seo/includes/admin.php:204
+msgid "Štítky příspěvků"
+msgstr ""
+
+#: modules/seo/includes/admin.php:205
+msgid "Stránky příloh (samostatná stránka obrázku)"
+msgstr ""
+
+#: modules/seo/includes/admin.php:206
+msgid "Výsledky vyhledávání na webu jsou neindexované vždy. Neindexované archivy zmizí i ze sitemap."
+msgstr ""
+
+#: modules/seo/includes/admin.php:213 modules/seo/includes/drobecky.php:233
+msgid "Drobečková navigace"
+msgstr ""
+
+#: modules/seo/includes/admin.php:214
+msgid "Na web ji vložíš elementem <strong>Shortcode</strong> s kódem <code>[marmal_drobecky]</code> – nejlépe do šablony (detail bytu, příspěvek, stránka). Na úvodní stránce se nezobrazí. Vzhled přebírá písmo a barvy z místa, kam ji vložíš; volby: <code>oddelovac=\"»\"</code>, <code>uvod=\"Domů\"</code>, <code>aktualni=\"ne\"</code>."
+msgstr ""
+
+#: modules/seo/includes/admin.php:217
+msgid "Pro Google"
+msgstr ""
+
+#: modules/seo/includes/admin.php:218
+msgid "Vypisovat strukturovaná data BreadcrumbList (Google pak ve výsledcích ukáže cestu místo adresy)"
+msgstr ""
+
+#: modules/seo/includes/admin.php:219
+msgid "Funguje i bez viditelné navigace. Když používáš element Breadcrumbs z Breakdance, ověř v testu výsledků s bohatým obsahem, že BreadcrumbList není na stránce dvakrát."
+msgstr ""
+
+#: modules/seo/includes/admin.php:222
+msgid "Text první položky"
+msgstr ""
+
+#: modules/seo/includes/admin.php:223 modules/seo/includes/drobecky.php:30
+msgid "Úvod"
+msgstr ""
+
+#: modules/seo/includes/admin.php:234
+#, php-format
+msgid "Nadřazená stránka – %s"
+msgstr ""
+
+#: modules/seo/includes/admin.php:239
+msgid "— žádná (archiv typu, když existuje) —"
+msgstr ""
+
+#: modules/seo/includes/admin.php:244
+msgid "Např. u jednotek „Přehled bytů“ → Úvod › Přehled bytů › Byt 1.01."
+msgstr ""
+
+#: modules/seo/includes/admin.php:251
+msgid "Sitemap a robots.txt"
+msgstr ""
+
+#: modules/seo/includes/admin.php:253
+msgid "Sitemap"
+msgstr ""
+
+#: modules/seo/includes/admin.php:255
+msgid "sitemap WordPressu; modul z ní vyřazuje neindexované stránky a archivy. Tuto adresu vlož do Google Search Console → Soubory Sitemap."
+msgstr ""
+
+#: modules/seo/includes/admin.php:257
+msgid "Vypnutá"
+msgstr ""
+
+#: modules/seo/includes/admin.php:257
+msgid "WordPress ji nevytváří, když je web skrytý před vyhledávači, nebo ji vypnul jiný plugin."
+msgstr ""
+
+#: modules/seo/includes/admin.php:260 modules/seo/includes/admin.php:266
+msgid "Pozor:"
+msgstr ""
+
+#: modules/seo/includes/admin.php:260
+msgid "v kořeni webu je soubor sitemap.xml (zbytek po starém webu nebo pluginu) – smaž ho, aby Google nečetl zastaralou sitemap."
+msgstr ""
+
+#: modules/seo/includes/admin.php:266
+msgid "v kořeni webu je fyzický soubor robots.txt – WordPress ani modul ho neovlivní a řádky níže se nepoužijí. Pokud v něm nic zvláštního není, smaž ho (přes FTP / správce souborů hostingu)."
+msgstr ""
+
+#: modules/seo/includes/admin.php:268
+msgid "generuje WordPress: zakáže /wp-admin/ a přidá odkaz na sitemap."
+msgstr ""
+
+#: modules/seo/includes/admin.php:274
+msgid "Vlastní řádky robots.txt"
+msgstr ""
+
+#: modules/seo/includes/admin.php:276
+msgid "Obvykle nic. Přidají se na konec robots.txt. Povolené jen řádky User-agent, Disallow, Allow, Sitemap, Crawl-delay a komentáře (#). Pozor: „Disallow: /“ zakáže celý web."
+msgstr ""
+
+#: modules/seo/includes/admin.php:287
+msgid "Kontrola po nasazení"
+msgstr ""
+
+#: modules/seo/includes/admin.php:289
+#, php-format
+msgid "Náhled sdílení: <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Facebook Sharing Debugger</a> → vlož adresu stránky → „Scrape Again“ (Facebook si jinak pamatuje starý náhled)."
+msgstr ""
+
+#: modules/seo/includes/admin.php:290
+#, php-format
+msgid "Drobečková navigace pro Google: <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Test výsledků s bohatou podporou</a>."
+msgstr ""
+
+#: modules/seo/includes/admin.php:291
+msgid "Google Search Console → Kontrola URL u úvodu a jedné podstránky → „Požádat o indexování“; Soubory Sitemap → wp-sitemap.xml."
+msgstr ""
+
+#: modules/seo/includes/admin.php:306
+msgid "Převod z Yoast SEO / Rank Math"
+msgstr ""
+
+#: modules/seo/includes/admin.php:307
+msgid "Převede titulky, popisky, obrázky pro sdílení a noindex stránek a z nastavení webu oddělovač a výchozí obrázek. Data původního pluginu zůstanou beze změny. Postup: 1. převést, 2. zkontrolovat pár stránek, 3. deaktivovat Yoast / Rank Math – teprve pak modul začne vypisovat."
+msgstr ""
+
+#: modules/seo/includes/admin.php:312
+#, php-format
+msgid "Převedeno z %1$s: %2$d stránek – titulky %3$d, popisky %4$d, obrázky %5$d, noindex %6$d. Přeskočeno (už vyplněné): %7$d."
+msgstr ""
+
+#: modules/seo/includes/admin.php:316
+#, php-format
+msgid "Nastavení webu: %s."
+msgstr ""
+
+#: modules/seo/includes/admin.php:320
+msgid "Zdroj"
+msgstr ""
+
+#: modules/seo/includes/admin.php:320
+msgid "Stránek s daty"
+msgstr ""
+
+#: modules/seo/includes/admin.php:320
+msgid "Popisky"
+msgstr ""
+
+#: modules/seo/includes/admin.php:325
+#, php-format
+msgid "nastavení webu: %s"
+msgstr ""
+
+#: modules/seo/includes/admin.php:338
+msgid "přepsat už vyplněné"
+msgstr ""
+
+#: modules/seo/includes/admin.php:339
+msgid "Převést"
+msgstr ""
+
+#: modules/seo/includes/admin.php:342
+msgid "žádná data"
+msgstr ""
+
+#: modules/seo/includes/data.php:99
+#, php-format
+msgid "Vzor titulku musí obsahovat %nazev% – jinak by všechny stránky měly stejný titulek. Použije se výchozí vzor."
+msgstr ""
+
+#: modules/seo/includes/data.php:284
+#, php-format
+msgid "Na webu běží %s – modul SEO proto nic nevypisuje. Nejdřív převeď data (MarMal → SEO → Převod), pak ten plugin deaktivuj."
+msgstr ""
+
+#: modules/seo/includes/data.php:289
+msgid "Web je skrytý před vyhledávači (Nastavení → Zobrazování → „Požádat vyhledávače, aby neindexovaly tento web“). Po spuštění webu to vypni."
+msgstr ""
+
+#: modules/seo/includes/data.php:292
+msgid "Chybí ikona webu (favicon) – nastav ji ve Vzhled → Přizpůsobit → Identita webu → Ikona webu (čtverec aspoň 512 × 512 px)."
+msgstr ""
+
+#: modules/seo/includes/data.php:295
+msgid "Není nastavený výchozí obrázek pro sdílení – stránky bez náhledového obrázku se na Facebooku ukážou bez obrázku."
+msgstr ""
+
+#: modules/seo/includes/data.php:495
+#, php-format
+msgid "Výsledky hledání „%s“"
+msgstr ""
+
+#: modules/seo/includes/data.php:499 modules/seo/includes/drobecky.php:143
+msgid "Stránka nenalezena"
+msgstr ""
+
+#: modules/seo/includes/data.php:545
+#, php-format
+msgid "Strana %d"
+msgstr ""
+
+#: modules/seo/includes/drobecky.php:141
+msgid "Výsledky hledání"
+msgstr ""
+
+#: modules/seo/includes/import.php:250 includes/moduly.php:243
+msgid "Nemáš oprávnění."
+msgstr ""
+
+#: modules/seo/includes/import.php:256
+msgid "Neznámý zdroj."
+msgstr ""
+
+#: modules/seo/includes/metabox.php:35
+msgid "Titulek"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:39
+#, php-format
+msgid "Ve výsledcích Googlu a v záložce prohlížeče. Doporučeno do 60 znaků. Prázdné = šedý text. Lze použít %nazev%, %web%, %oddelovac%."
+msgstr ""
+
+#: modules/seo/includes/metabox.php:42
+msgid "Popisek"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:46
+msgid "Text pod titulkem ve výsledcích Googlu a při sdílení. Doporučeno 120–160 znaků, delší Google zkrátí."
+msgstr ""
+
+#: modules/seo/includes/metabox.php:48 modules/seo/includes/metabox.php:131
+msgid "Obrázek pro sdílení"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:52
+msgid "Odebrat (použít výchozí)"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:54
+msgid "Ideálně 1200 × 630 px (poměr 1,91 : 1) – výřez se vytvoří sám. Prázdné = náhledový obrázek stránky, jinak výchozí obrázek webu. Půdorys ani text v obrázku se v náhledu nečte dobře."
+msgstr ""
+
+#: modules/seo/includes/metabox.php:59
+msgid "Neindexovat (noindex) – stránka se nezobrazí ve vyhledávačích a zmizí ze sitemap"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:62
+msgid "Neindexování nastavil jiný plugin (např. Developerské projekty)."
+msgstr ""
+
+#: modules/seo/includes/metabox.php:66
+msgid "Náhled ve výsledcích Googlu"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:72
+msgid "Náhled při sdílení (Facebook, Messenger, WhatsApp)"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:74
+msgid "bez obrázku"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:81
+msgid "Stránka je neindexovaná – ve výsledcích Googlu se neobjeví."
+msgstr ""
+
+#: modules/seo/includes/metabox.php:134
+#, php-format
+msgid "%d znaků"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:135
+msgid "– Google zkrátí"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:136
+msgid "– krátký"
+msgstr ""
+
+#: modules/seo/includes/metabox.php:137
+msgid "(použije se šedý text)"
 msgstr ""
 
 #: modules/cookies/manifest.php:25 modules/cookies/includes/admin.php:26 modules/cookies/includes/admin.php:26
@@ -2155,10 +2566,6 @@ msgstr ""
 
 #: includes/moduly.php:43 includes/moduly.php:229 includes/moduly.php:229
 msgid "Moduly"
-msgstr ""
-
-#: includes/moduly.php:243
-msgid "Nemáš oprávnění."
 msgstr ""
 
 #: includes/moduly.php:264

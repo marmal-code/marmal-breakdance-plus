@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0-beta1 – 2026-11-23 (testovací ZIP, větev `seo`)
+- **Nový modul SEO a sdílení** (`seo`, zapínatelný v MarMal → Moduly, výchozí vypnuto). Když běží Yoast, Rank Math, SEOPress, AIOSEO, The SEO Framework, Slim SEO nebo Squirrly, nic nevypisuje a v administraci upozorní.
+  - **box „SEO a sdílení“** u stránek, příspěvků a veřejných typů obsahu (klasický i blokový editor): titulek (počítadlo, doporučeno do 60 znaků), popisek (120–160), obrázek pro sdílení, noindex; náhled ve výsledcích Googlu a při sdílení na Facebooku; prázdné pole ukáže šedě, co se použije místo něj,
+  - **pořadí hodnot**: vyplněno u stránky → filtr `marmal_seo_data` (např. Developerské projekty) → výchozí (vzor titulku, ručně vyplněný výňatek / výchozí popisek, náhledový obrázek / výchozí obrázek webu),
+  - **MarMal → SEO**: název webu v titulcích, oddělovač, vzor titulku (`%nazev%`, `%web%`, `%oddelovac%`, `%popis_webu%`), titulek úvodní stránky, výchozí popisek a obrázek, og:locale (automaticky podle jazyka stránky – Polylang / WPML), typy obsahu s boxem, neindexování archivů autorů, data, štítků a stránek příloh,
+  - **hlavička**: `<title>` přes `pre_get_document_title`, meta description, canonical (výchozí WordPressu odebrán; stránkování archivů `/page/2/`), robots `noindex, follow` přes `wp_robots` (vyhledávání vždy), Open Graph (type, title, description, url, site_name, locale, image + rozměry, typ, alt; u příspěvků article:published/modified_time), Twitter `summary_large_image`. Archivy: titulek ze vzoru + „Strana N“; 404 a vyhledávání bez og značek,
+  - **obrázek pro sdílení 1200 × 630 px (JPEG)** se vytváří jen pro opravdu použité obrázky (při uložení stránky / nastavení, jinak jednorázově na pozadí) a zapisuje se do metadat přílohy (smaže se s ní); do té doby velikost large,
+  - **drobečková navigace**: shortcode `[marmal_drobecky]` (oddelovac, uvod, aktualni) + JSON-LD BreadcrumbList v hlavičce; cesta podle nadřazených stránek, u příspěvků stránka blogu → rubrika, u vlastních typů nadřazená stránka z nastavení (např. Jednotky → Přehled bytů) nebo archiv typu; filtr `marmal_seo_drobecky`,
+  - **sitemap** `/wp-sitemap.xml` (WordPress): bez stránek s noindex (filtr `marmal_seo_sitemap_vyradit` pro další), bez autorů a štítků, když jsou neindexované; **robots.txt**: vlastní řádky (jen známé direktivy), upozornění na fyzický robots.txt / sitemap.xml v kořeni webu a na skrytý web,
+  - **převod z Yoast SEO a Rank Math**: titulky, popisky, obrázky, noindex stránek; oddělovač a výchozí obrázek webu; proměnné (`%%title%%`, `%title%`, `%%sep%%`…) převedené na zástupné symboly; titulek shodný se vzorem se neukládá; data původního pluginu beze změny, vyplněné hodnoty se nepřepisují (volitelně ano),
+  - upozornění: chybí favicon, výchozí obrázek, web skrytý před vyhledávači.
+- Anglické překlady textů na webu (Úvod, Strana, Výsledky hledání…); administrace modulu SEO zatím jen česky.
+
 ## 0.17.0 – 2026-11-22 (vydáno po Martinově testu na ticha-trida.cz; 0.17.0-beta1 z 2026-11-21)
 Podle zadání z optimalizace rychlosti ticha-trida.cz (PageSpeed 21. 11. 2026: mobil 81, počítač 94).
 - **Cookies – samostatné rozvržení pro mobil** (MarMal → Cookies → Vzhled): „Rozložení na mobilu“ *Kompaktní lišta dole* (výchozí) / *Okno uprostřed* / *Stejné jako na počítači* (chování do 0.16) a „Bod zlomu pro mobil“ (výchozí 767 px); na záložce Texty „Krátký text pro mobil“ (max. 160 znaků, výchozí „Používáme cookies. Analytické a marketingové jen s vaším souhlasem.“).
