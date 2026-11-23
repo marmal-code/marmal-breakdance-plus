@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.19.0-beta1 – 2026-11-23 (testovací ZIP, větev `drobecky-element`)
+## 0.19.0 – 2026-11-23 (vydáno po Martinově testu v builderu na Žehrovických bytech)
 - **Nový element „Marmal – Drobečková navigace“** (modul SEO a sdílení) s nastavením vzhledu v Design tabu:
   - Rozložení: zarovnání (vlevo / na střed / vpravo), mezera mezi položkou a oddělovačem, mezera mezi řádky (s breakpointy),
   - Odkazy: písmo, barva a barva po najetí, podtržení (jen po najetí / vždy / vždy, po najetí zmizí / nikdy), barva, tloušťka a odsazení podtržení, pozadí a pozadí po najetí, vnitřní odsazení, zaoblení,
