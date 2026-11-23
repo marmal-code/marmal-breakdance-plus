@@ -1,0 +1,57 @@
+{# VYGENEROVÁNO skriptem tools/drobecky_element.py – neupravovat ručně. #}
+%%SELECTOR%% {
+  width: {{ design.container.width.style }};
+  {{ macros.backgroundColor(design.container.background) }}
+  {{ macros.borders(design.container.borders) }}
+  {{ macros.spacing_padding_all(design.container.padding) }}
+  {{ macros.typography(design.typography, globalSettings)  }}
+  {{ macros.spacing_margin_y(design.spacing) }}
+}
+
+{# Rozložení, odkazy, aktuální stránka a oddělovač – CSS proměnné (výchozí hodnoty v default.css; prázdný prvek nic nemění) #}
+%%SELECTOR%% .marmal-drobecky {
+  {% if design.rozlozeni.zarovnani == 'stred' %}--marmal-drobecky-zarovnani: center;{% endif %}
+  {% if design.rozlozeni.zarovnani == 'vpravo' %}--marmal-drobecky-zarovnani: flex-end;{% endif %}
+  {% if design.rozlozeni.mezera.style %}--marmal-drobecky-gap: {{ design.rozlozeni.mezera.style }};{% endif %}
+  {% if design.rozlozeni.radky.style %}--marmal-drobecky-gap-row: {{ design.rozlozeni.radky.style }};{% endif %}
+  {% if design.odkazy.barva %}--marmal-drobecky-odkaz: {{ design.odkazy.barva }};{% endif %}
+  {% if design.odkazy.barva_hover %}--marmal-drobecky-odkaz-hover: {{ design.odkazy.barva_hover }};{% endif %}
+  {% if design.odkazy.podtrzeni == 'vzdy' %}--marmal-drobecky-podtrzeni: underline;--marmal-drobecky-podtrzeni-hover: underline;{% endif %}
+  {% if design.odkazy.podtrzeni == 'bez_hover' %}--marmal-drobecky-podtrzeni: underline;--marmal-drobecky-podtrzeni-hover: none;{% endif %}
+  {% if design.odkazy.podtrzeni == 'nikdy' %}--marmal-drobecky-podtrzeni: none;--marmal-drobecky-podtrzeni-hover: none;{% endif %}
+  {% if design.odkazy.podtrzeni_barva %}--marmal-drobecky-podtrzeni-barva: {{ design.odkazy.podtrzeni_barva }};{% endif %}
+  {% if design.odkazy.podtrzeni_hover %}--marmal-drobecky-podtrzeni-barva-hover: {{ design.odkazy.podtrzeni_hover }};{% endif %}
+  {% if design.odkazy.podtrzeni_tloustka.style %}--marmal-drobecky-podtrzeni-tloustka: {{ design.odkazy.podtrzeni_tloustka.style }};{% endif %}
+  {% if design.odkazy.podtrzeni_odsazeni.style %}--marmal-drobecky-podtrzeni-odsazeni: {{ design.odkazy.podtrzeni_odsazeni.style }};{% endif %}
+  {% if design.odkazy.pozadi %}--marmal-drobecky-odkaz-bg: {{ design.odkazy.pozadi }};{% endif %}
+  {% if design.odkazy.pozadi_hover %}--marmal-drobecky-odkaz-bg-hover: {{ design.odkazy.pozadi_hover }};{% endif %}
+  {% if design.odkazy.zaobleni.style %}--marmal-drobecky-odkaz-radius: {{ design.odkazy.zaobleni.style }};{% endif %}
+  {% if design.aktualni.barva %}--marmal-drobecky-aktualni: {{ design.aktualni.barva }};{% endif %}
+  {% if design.aktualni.pruhlednost %}--marmal-drobecky-aktualni-opacity: {{ design.aktualni.pruhlednost / 100 }};{% endif %}
+  {% if design.aktualni.pozadi %}--marmal-drobecky-aktualni-bg: {{ design.aktualni.pozadi }};{% endif %}
+  {% if design.aktualni.zaobleni.style %}--marmal-drobecky-aktualni-radius: {{ design.aktualni.zaobleni.style }};{% endif %}
+  {% if design.oddelovac.barva %}--marmal-drobecky-odd-barva: {{ design.oddelovac.barva }};{% endif %}
+  {% if design.oddelovac.velikost.style %}--marmal-drobecky-odd-velikost: {{ design.oddelovac.velikost.style }};{% endif %}
+  {% if design.oddelovac.pruhlednost %}--marmal-drobecky-odd-opacity: {{ design.oddelovac.pruhlednost / 100 }};{% endif %}
+}
+%%SELECTOR%% .marmal-drobecky a.marmal-drobecky__odkaz.marmal-drobecky__odkaz {
+  {{ macros.typography(design.odkazy.pismo, globalSettings) }}
+  {{ macros.spacing_padding_all(design.odkazy.odsazeni) }}
+}
+
+{# První položka – proměnné nastavené na její <li> platí jen pro ni; prázdné = sekce Odkazy #}
+%%SELECTOR%% .marmal-drobecky .marmal-drobecky__polozka--uvod {
+  {% if design.uvod.barva %}--marmal-drobecky-odkaz: {{ design.uvod.barva }};--marmal-drobecky-aktualni: {{ design.uvod.barva }};{% endif %}
+  {% if design.uvod.barva_hover %}--marmal-drobecky-odkaz-hover: {{ design.uvod.barva_hover }};{% endif %}
+  {% if design.uvod.ikona_velikost.style %}--marmal-drobecky-ikona: {{ design.uvod.ikona_velikost.style }};{% endif %}
+  {% if design.uvod.ikona_barva %}--marmal-drobecky-ikona-barva: {{ design.uvod.ikona_barva }};{% endif %}
+}
+%%SELECTOR%% .marmal-drobecky .marmal-drobecky__polozka--uvod a.marmal-drobecky__odkaz.marmal-drobecky__odkaz,
+%%SELECTOR%% .marmal-drobecky .marmal-drobecky__polozka--uvod .marmal-drobecky__aktualni {
+  {{ macros.typography(design.uvod.pismo, globalSettings) }}
+}
+
+%%SELECTOR%% .marmal-drobecky .marmal-drobecky__aktualni {
+  {{ macros.typography(design.aktualni.pismo, globalSettings) }}
+  {{ macros.spacing_padding_all(design.aktualni.odsazeni) }}
+}

@@ -195,59 +195,197 @@ add_action('wp_head', function () {
     }
 }, 2);
 
+/** CSS drobečkové navigace (soubor assets/drobecky.css; element ho má v default.css). */
 function drobecky_css(): string
 {
-    return '.marmal-drobecky__seznam{display:flex;flex-wrap:wrap;align-items:center;gap:var(--marmal-drobecky-gap,.5em);list-style:none;margin:0;padding:0}'
-        . '.marmal-drobecky__polozka{display:inline-flex;align-items:center;gap:var(--marmal-drobecky-gap,.5em);margin:0}'
-        . '.marmal-drobecky__polozka+.marmal-drobecky__polozka::before{content:var(--marmal-drobecky-odd,"›");opacity:var(--marmal-drobecky-odd-opacity,.6)}'
-        . '.marmal-drobecky a.marmal-drobecky__odkaz{color:var(--marmal-drobecky-odkaz,inherit);text-decoration:none}'
-        . '.marmal-drobecky a.marmal-drobecky__odkaz:hover,.marmal-drobecky a.marmal-drobecky__odkaz:focus-visible{color:var(--marmal-drobecky-odkaz-hover,inherit);text-decoration:underline}'
-        . '.marmal-drobecky__aktualni{color:var(--marmal-drobecky-aktualni,inherit);opacity:var(--marmal-drobecky-aktualni-opacity,.75)}';
+    static $css = null;
+    if (null === $css) {
+        $soubor = dirname(__DIR__) . '/assets/drobecky.css';
+        $css    = is_readable($soubor) ? (string) file_get_contents($soubor) : '';
+    }
+    return $css;
 }
 
-/** HTML drobečkové navigace (prázdný řetězec = nic). */
-function drobecky_html(array $atr = array()): string
+/** Vestavěná ikona domečku pro první položku. */
+function drobecky_ikona_domu(): string
 {
-    $atr  = shortcode_atts(array('oddelovac' => '', 'uvod' => '', 'aktualni' => 'ano'), $atr, 'marmal_drobecky');
-    $cesta = drobecky();
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>';
+}
+
+/** Povolené značky a atributy SVG z ikony Breakdance (žádné skripty, odkazy ani on* atributy). */
+function drobecky_svg_povolene(): array
+{
+    $s = array('class' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true, 'stroke-linecap' => true, 'stroke-linejoin' => true, 'stroke-miterlimit' => true, 'fill-rule' => true, 'clip-rule' => true, 'opacity' => true, 'fill-opacity' => true, 'stroke-opacity' => true, 'transform' => true);
+    return array(
+        'svg'      => $s + array('xmlns' => true, 'viewbox' => true, 'width' => true, 'height' => true, 'aria-hidden' => true, 'focusable' => true, 'role' => true, 'preserveaspectratio' => true),
+        'g'        => $s,
+        'path'     => $s + array('d' => true),
+        'circle'   => $s + array('cx' => true, 'cy' => true, 'r' => true),
+        'ellipse'  => $s + array('cx' => true, 'cy' => true, 'rx' => true, 'ry' => true),
+        'rect'     => $s + array('x' => true, 'y' => true, 'width' => true, 'height' => true, 'rx' => true, 'ry' => true),
+        'line'     => $s + array('x1' => true, 'y1' => true, 'x2' => true, 'y2' => true),
+        'polyline' => $s + array('points' => true),
+        'polygon'  => $s + array('points' => true),
+    );
+}
+
+/** SVG z hodnoty ikony Breakdance (klíč svgCode), pročištěné; '' = žádná ikona. */
+function drobecky_svg($hodnota, int $hloubka = 0): string
+{
+    if ($hloubka > 4) {
+        return '';
+    }
+    $svg = '';
+    if (is_string($hodnota)) {
+        $svg = stripos(ltrim($hodnota), '<svg') === 0 ? $hodnota : '';
+    } elseif (is_array($hodnota)) {
+        if (isset($hodnota['svgCode']) && is_string($hodnota['svgCode'])) {
+            $svg = $hodnota['svgCode'];
+        } else {
+            foreach ($hodnota as $dite) {
+                $svg = drobecky_svg($dite, $hloubka + 1);
+                if ($svg !== '') {
+                    return $svg;
+                }
+            }
+        }
+    }
+    if ($svg === '') {
+        return '';
+    }
+    $svg = wp_kses($svg, drobecky_svg_povolene());
+    if (stripos($svg, '<svg') === false) {
+        return '';
+    }
+    return (string) preg_replace('/<svg\b/i', '<svg aria-hidden="true" focusable="false"', $svg, 1);
+}
+
+/** Ukázková cesta pro builder (šablona nemá vlastní stránku, aby šel element stylovat). */
+function drobecky_ukazka(): array
+{
+    return array(
+        polozka(drobecky_uvod(), home_url('/')),
+        polozka(__('Nadřazená stránka', 'marmal-breakdance-plus'), home_url('/')),
+        polozka(__('Aktuální stránka', 'marmal-breakdance-plus'), ''),
+    );
+}
+
+/**
+ * HTML drobečkové navigace.
+ *
+ * Volby (všechny nepovinné, neplatná hodnota = výchozí):
+ *   oddelovac      znak z drobecky_oddelovace() (prázdné = z nastavení SEO)
+ *   oddelovac_svg  pročištěné SVG místo znaku
+ *   uvod           text první položky (prázdné = z nastavení)
+ *   uvod_zobrazit  text | ikona | ikona_text
+ *   uvod_svg       pročištěné SVG ikony úvodu (prázdné = domeček)
+ *   skryt_uvod     bez první položky (jen viditelně – schema pro Google zůstává)
+ *   aktualni       ano | ne (ne = bez poslední položky)
+ *   radky          zalamovat | jeden_radek
+ *   css            ano | ne (ne = bez vloženého <style>, element má CSS v default.css)
+ *   cesta          vlastní cesta (pole položek) – jen ukázka v builderu
+ *
+ * @return string prázdný řetězec = nic (úvodní stránka)
+ */
+function drobecky_vykreslit(array $o = array()): string
+{
+    $cesta = isset($o['cesta']) && is_array($o['cesta']) ? $o['cesta'] : drobecky();
     if (!$cesta) {
         return '';
     }
-    if ($atr['uvod'] !== '') {
-        $cesta[0]['nazev'] = cisty_text($atr['uvod'], 60);
+    $uvodText = cisty_text($o['uvod'] ?? '', 60);
+    if ($uvodText !== '') {
+        $cesta[0]['nazev'] = $uvodText;
     }
-    if ($atr['aktualni'] === 'ne' && count($cesta) > 2) {
+    $bezAktualni = ($o['aktualni'] ?? 'ano') === 'ne' && count($cesta) > 2;
+    if ($bezAktualni) {
         array_pop($cesta);
-        $bezAktualni = true;
     }
-    $odd   = in_array($atr['oddelovac'], drobecky_oddelovace(), true) ? $atr['oddelovac'] : (string) nastaveni()['drobecky_oddelovac'];
-    $odd   = in_array($odd, drobecky_oddelovace(), true) ? $odd : '›';
-    $styl  = $odd !== '›' ? ' style="--marmal-drobecky-odd:&quot;' . esc_attr($odd) . '&quot;"' : '';
+    $skrytUvod = !empty($o['skryt_uvod']) && count($cesta) > 1;
+    $zobrazit  = (string) ($o['uvod_zobrazit'] ?? 'text');
+    $zobrazit  = in_array($zobrazit, array('text', 'ikona', 'ikona_text'), true) ? $zobrazit : 'text';
 
-    static $css = false;
+    $odd = (string) ($o['oddelovac'] ?? '');
+    if (!in_array($odd, drobecky_oddelovace(), true)) {
+        $odd = (string) nastaveni()['drobecky_oddelovac'];
+        $odd = in_array($odd, drobecky_oddelovace(), true) ? $odd : '›';
+    }
+    $oddSvg  = isset($o['oddelovac_svg']) ? drobecky_svg($o['oddelovac_svg']) : '';
+    $oddHtml = '<span class="marmal-drobecky__odd" aria-hidden="true">' . ($oddSvg !== '' ? $oddSvg : esc_html($odd)) . '</span>';
+
+    $tridy = 'marmal-drobecky';
+    if (($o['radky'] ?? '') === 'jeden_radek') {
+        $tridy .= ' marmal-drobecky--radek';
+    }
+
     $out = '';
-    if (!$css) {
+    static $css = false;
+    if (($o['css'] ?? 'ano') !== 'ne' && !$css) {
         $out .= '<style id="marmal-drobecky-css">' . drobecky_css() . '</style>';
         $css  = true;
     }
-    $out .= '<nav class="marmal-drobecky" aria-label="' . esc_attr__('Drobečková navigace', 'marmal-breakdance-plus') . '"' . $styl . '><ol class="marmal-drobecky__seznam">';
-    $n    = count($cesta);
+    $out .= '<nav class="' . esc_attr($tridy) . '" aria-label="' . esc_attr__('Drobečková navigace', 'marmal-breakdance-plus') . '"><ol class="marmal-drobecky__seznam">';
+    $n     = count($cesta);
+    $prvni = true;
     foreach ($cesta as $i => $p) {
-        $posledni = ($i === $n - 1) && empty($bezAktualni);
-        $out .= '<li class="marmal-drobecky__polozka">';
+        if ($i === 0 && $skrytUvod) {
+            continue;
+        }
+        $posledni = ($i === $n - 1) && !$bezAktualni;
+        $obsah    = esc_html($p['nazev']);
+        if ($i === 0 && $zobrazit !== 'text') {
+            $ikona = isset($o['uvod_svg']) ? drobecky_svg($o['uvod_svg']) : '';
+            $ikona = '<span class="marmal-drobecky__ikona">' . ($ikona !== '' ? $ikona : drobecky_ikona_domu()) . '</span>';
+            $obsah = $ikona . ($zobrazit === 'ikona' ? '<span class="marmal-drobecky__sr">' . $obsah . '</span>' : '<span class="marmal-drobecky__text">' . $obsah . '</span>');
+        }
+        $out .= '<li class="marmal-drobecky__polozka' . ($i === 0 ? ' marmal-drobecky__polozka--uvod' : '') . ($posledni ? ' marmal-drobecky__polozka--aktualni' : '') . '">';
+        if (!$prvni) {
+            $out .= $oddHtml;
+        }
         if ($posledni || $p['url'] === '') {
-            $out .= '<span class="marmal-drobecky__aktualni"' . ($posledni ? ' aria-current="page"' : '') . '>' . esc_html($p['nazev']) . '</span>';
+            $out .= '<span class="marmal-drobecky__aktualni"' . ($posledni ? ' aria-current="page"' : '') . '>' . $obsah . '</span>';
         } else {
-            $out .= '<a class="marmal-drobecky__odkaz" href="' . esc_url($p['url']) . '">' . esc_html($p['nazev']) . '</a>';
+            $out .= '<a class="marmal-drobecky__odkaz" href="' . esc_url($p['url']) . '">' . $obsah . '</a>';
         }
         $out .= '</li>';
+        $prvni = false;
     }
     return $out . '</ol></nav>';
 }
 
-add_shortcode('marmal_drobecky', function ($atr) {
-    if (!vypisuje()) {
-        return '';
+/** Shortcode [marmal_drobecky oddelovac="›" uvod="Úvod" aktualni="ne"]. */
+function drobecky_html(array $atr = array()): string
+{
+    $atr = shortcode_atts(array('oddelovac' => '', 'uvod' => '', 'aktualni' => 'ano'), $atr, 'marmal_drobecky');
+    return drobecky_vykreslit($atr);
+}
+
+/**
+ * Element „Marmal – Drobečková navigace“ (elements/Drobecky_Navigace/ssr.php).
+ * $c = Content → Drobečková navigace; v builderu bez vlastní cesty ukáže ukázku.
+ */
+function drobecky_element_html(array $c, bool $builder = false): string
+{
+    $o = array(
+        'oddelovac'     => is_string($c['oddelovac'] ?? null) ? $c['oddelovac'] : '',
+        'oddelovac_svg' => $c['oddelovac_ikona'] ?? null,
+        'uvod'          => is_string($c['uvod_text'] ?? null) ? $c['uvod_text'] : '',
+        'uvod_zobrazit' => is_string($c['uvod_zobrazit'] ?? null) ? $c['uvod_zobrazit'] : 'text',
+        'uvod_svg'      => $c['uvod_ikona'] ?? null,
+        'skryt_uvod'    => !empty($c['skryt_uvod']),
+        'aktualni'      => !empty($c['skryt_aktualni']) ? 'ne' : 'ano',
+        'radky'         => is_string($c['radky'] ?? null) ? $c['radky'] : 'zalamovat',
+        'css'           => 'ne',
+    );
+    $html = drobecky_vykreslit($o);
+    if ($html === '' && $builder) {
+        $o['cesta'] = drobecky_ukazka();
+        $html       = drobecky_vykreslit($o);
     }
+    return $html;
+}
+
+// Viditelná navigace funguje i vedle jiného SEO pluginu (je čistě vizuální); schema jen bez něj (bezi()).
+add_shortcode('marmal_drobecky', function ($atr) {
     return drobecky_html(is_array($atr) ? $atr : array());
 });

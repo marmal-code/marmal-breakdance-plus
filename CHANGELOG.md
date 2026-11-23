@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.19.0-beta1 – 2026-11-23 (testovací ZIP, větev `drobecky-element`)
+- **Nový element „Marmal – Drobečková navigace“** (modul SEO a sdílení) s nastavením vzhledu v Design tabu:
+  - Rozložení: zarovnání (vlevo / na střed / vpravo), mezera mezi položkou a oddělovačem, mezera mezi řádky (s breakpointy),
+  - Odkazy: písmo, barva a barva po najetí, podtržení (jen po najetí / vždy / vždy, po najetí zmizí / nikdy), barva, tloušťka a odsazení podtržení, pozadí a pozadí po najetí, vnitřní odsazení, zaoblení,
+  - První položka (Úvod): vlastní písmo a barvy, velikost a barva ikony,
+  - Aktuální stránka: písmo, barva, krytí, pozadí, vnitřní odsazení, zaoblení,
+  - Oddělovač: barva, velikost, krytí.
+  Content tab: text první položky, první položka jako text / jen ikona / ikona a text (vlastní ikona nebo domeček), skrytí první položky nebo aktuální stránky, oddělovač (znak nebo vlastní ikona), dlouhá cesta zalomit / jeden řádek se zkrácením. V builderu ukáže ukázkovou cestu, aby šel stylovat i v šabloně.
+- Drobečková navigace: oddělovač je samostatný prvek `.marmal-drobecky__odd` (dřív CSS `::before`), první položka má třídu `__polozka--uvod`, poslední `__polozka--aktualni`; CSS v souboru `modules/seo/assets/drobecky.css`.
+- Viditelná drobečková navigace (shortcode i element) funguje i na webu s jiným SEO pluginem (Rank Math, Yoast) – strukturovaná data BreadcrumbList vypisuje modul jen bez něj.
+
 ## 0.18.0 – 2026-11-23 (vydáno po Martinově testu na Žehrovických bytech)
 - **Nový modul SEO a sdílení** (`seo`, zapínatelný v MarMal → Moduly, výchozí vypnuto). Když běží Yoast, Rank Math, SEOPress, AIOSEO, The SEO Framework, Slim SEO nebo Squirrly, nic nevypisuje a v administraci upozorní.
   - **box „SEO a sdílení“** u stránek, příspěvků a veřejných typů obsahu (klasický i blokový editor): titulek (počítadlo, doporučeno do 60 znaků), popisek (120–160), obrázek pro sdílení, noindex; náhled ve výsledcích Googlu a při sdílení na Facebooku; prázdné pole ukáže šedě, co se použije místo něj,

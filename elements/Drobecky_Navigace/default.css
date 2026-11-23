@@ -1,0 +1,26 @@
+/* VYGENEROVÁNO skriptem tools/drobecky_element.py z modules/seo/assets/drobecky.css – neupravovat ručně. */
+.marmal-drobecky-element {
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Marmal – Breakdance Plus, modul SEO: drobečková navigace [marmal_drobecky] a element „Marmal – Drobečková navigace“.
+   Vzhled se mění CSS proměnnými (element je nastavuje z Design tabu) – nevyplněná proměnná = výchozí hodnota.
+   Odkazy se zdvojenou třídou, aby je nepřebila globální barva odkazů Breakdance (.breakdance a). */
+.marmal-drobecky{display:block;min-width:0}
+.marmal-drobecky__seznam{display:flex;flex-wrap:wrap;align-items:center;justify-content:var(--marmal-drobecky-zarovnani,flex-start);column-gap:var(--marmal-drobecky-gap,.5em);row-gap:var(--marmal-drobecky-gap-row,.25em);list-style:none;margin:0;padding:0}
+.marmal-drobecky__polozka{display:inline-flex;align-items:center;gap:var(--marmal-drobecky-gap,.5em);margin:0;padding:0;min-width:0}
+.marmal-drobecky__polozka::before,.marmal-drobecky__polozka::marker{content:none}
+.marmal-drobecky__odd{display:inline-flex;align-items:center;color:var(--marmal-drobecky-odd-barva,currentColor);opacity:var(--marmal-drobecky-odd-opacity,.6);font-size:var(--marmal-drobecky-odd-velikost,1em);line-height:1;user-select:none}
+.marmal-drobecky__odd svg,.marmal-drobecky__ikona svg{width:1em;height:1em;display:block}
+.marmal-drobecky__odd svg:not([fill]),.marmal-drobecky__ikona svg:not([fill]){fill:currentColor}
+a.marmal-drobecky__odkaz.marmal-drobecky__odkaz{display:inline-flex;align-items:center;gap:.35em;color:var(--marmal-drobecky-odkaz,inherit);background:var(--marmal-drobecky-odkaz-bg,transparent);border-radius:var(--marmal-drobecky-odkaz-radius,0);text-decoration-line:var(--marmal-drobecky-podtrzeni,none);text-decoration-color:var(--marmal-drobecky-podtrzeni-barva,currentColor);text-decoration-thickness:var(--marmal-drobecky-podtrzeni-tloustka,auto);text-underline-offset:var(--marmal-drobecky-podtrzeni-odsazeni,auto);transition:color .2s,background-color .2s,text-decoration-color .2s}
+a.marmal-drobecky__odkaz.marmal-drobecky__odkaz:hover,a.marmal-drobecky__odkaz.marmal-drobecky__odkaz:focus-visible{color:var(--marmal-drobecky-odkaz-hover,var(--marmal-drobecky-odkaz,inherit));background:var(--marmal-drobecky-odkaz-bg-hover,var(--marmal-drobecky-odkaz-bg,transparent));text-decoration-line:var(--marmal-drobecky-podtrzeni-hover,underline);text-decoration-color:var(--marmal-drobecky-podtrzeni-barva-hover,var(--marmal-drobecky-podtrzeni-barva,currentColor))}
+.marmal-drobecky__ikona{display:inline-flex;align-items:center;font-size:var(--marmal-drobecky-ikona,1.15em);color:var(--marmal-drobecky-ikona-barva,currentColor);line-height:1}
+.marmal-drobecky__aktualni{display:inline-block;color:var(--marmal-drobecky-aktualni,inherit);opacity:var(--marmal-drobecky-aktualni-opacity,.75);background:var(--marmal-drobecky-aktualni-bg,transparent);border-radius:var(--marmal-drobecky-aktualni-radius,0)}
+.marmal-drobecky__sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.marmal-drobecky--radek .marmal-drobecky__seznam{flex-wrap:nowrap;overflow:hidden}
+.marmal-drobecky--radek .marmal-drobecky__polozka{flex:0 0 auto;white-space:nowrap}
+.marmal-drobecky--radek .marmal-drobecky__polozka:last-child{flex:0 1 auto}
+.marmal-drobecky--radek .marmal-drobecky__polozka:last-child>.marmal-drobecky__aktualni,.marmal-drobecky--radek .marmal-drobecky__polozka:last-child>.marmal-drobecky__odkaz{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.marmal-drobecky__hlaska{margin:0;padding:8px 12px;border:1px dashed currentColor;font-size:13px;opacity:.7}

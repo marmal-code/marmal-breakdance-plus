@@ -984,7 +984,7 @@ msgstr ""
 msgid "Výsledky vyhledávání na webu jsou neindexované vždy. Neindexované archivy zmizí i ze sitemap."
 msgstr ""
 
-#: modules/seo/includes/admin.php:213 modules/seo/includes/drobecky.php:233
+#: modules/seo/includes/admin.php:213 modules/seo/includes/drobecky.php:327
 msgid "Drobečková navigace"
 msgstr "Breadcrumb"
 
@@ -1173,6 +1173,14 @@ msgstr "Page %d"
 #: modules/seo/includes/drobecky.php:141
 msgid "Výsledky hledání"
 msgstr "Search results"
+
+#: modules/seo/includes/drobecky.php:268
+msgid "Nadřazená stránka"
+msgstr "Parent page"
+
+#: modules/seo/includes/drobecky.php:269
+msgid "Aktuální stránka"
+msgstr "Current page"
 
 #: modules/seo/includes/import.php:250 includes/moduly.php:243
 msgid "Nemáš oprávnění."
@@ -2417,6 +2425,10 @@ msgstr "Business details are not filled in (MarMal → Footer)."
 #: modules/paticka/includes/render.php:137
 msgid "Žádný odkaz: chybí stránka se zásadami a cookie plugin (MarMal → Patička)."
 msgstr "No link: privacy page and cookie plugin are missing (MarMal → Footer)."
+
+#: elements/Drobecky_Navigace/ssr.php:12
+msgid "Modul SEO a sdílení je vypnutý – zapni ho v MarMal → Moduly."
+msgstr ""
 
 #: elements/Paticka_Webu/ssr.php:12
 msgid "Modul Patička je vypnutý – zapni ho v MarMal → Moduly."
