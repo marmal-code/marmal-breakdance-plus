@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.18.0-beta1 – 2026-11-23 (testovací ZIP, větev `seo`)
+## 0.18.0 – 2026-11-23 (vydáno po Martinově testu na Žehrovických bytech)
 - **Nový modul SEO a sdílení** (`seo`, zapínatelný v MarMal → Moduly, výchozí vypnuto). Když běží Yoast, Rank Math, SEOPress, AIOSEO, The SEO Framework, Slim SEO nebo Squirrly, nic nevypisuje a v administraci upozorní.
   - **box „SEO a sdílení“** u stránek, příspěvků a veřejných typů obsahu (klasický i blokový editor): titulek (počítadlo, doporučeno do 60 znaků), popisek (120–160), obrázek pro sdílení, noindex; náhled ve výsledcích Googlu a při sdílení na Facebooku; prázdné pole ukáže šedě, co se použije místo něj,
   - **pořadí hodnot**: vyplněno u stránky → filtr `marmal_seo_data` (např. Developerské projekty) → výchozí (vzor titulku, ručně vyplněný výňatek / výchozí popisek, náhledový obrázek / výchozí obrázek webu),
