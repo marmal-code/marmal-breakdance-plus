@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.20.0-beta1 – 2026-11-23 (testovací verze, větev `faze-2`)
+## 0.20.0 – 2026-11-23 (vydáno po Martinově testu; 0.20.0-beta1 ve větvi `faze-2`)
 - **Nový modul Přesměrování** (`presmerovani`, MarMal → Moduly, výchozí vypnuto; nastavení v **MarMal → Přesměrování**):
   - přesměrování **301** (trvale), **302 / 307** (dočasně) a **410** (stránka zrušena – stavový kód 410 se šablonou 404),
   - stará adresa jako cesta (`/o-nas.html`) nebo celá adresa starého webu; na velikosti písmen, lomítku na konci a parametrech nezáleží; **celá sekce** `/blog/*` – zbytek adresy se doplní za cíl nebo místo `*` (`/clanky/*`), nejdelší sekce má přednost, přesná adresa před sekcí,
