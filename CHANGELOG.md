@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.21.0-beta1 – 2026-11-23 (testovací verze, větev `slouceni-bety`)
+## 0.21.0 – 2026-11-23 (vydáno po Martinově testu na kukatkodoprirody.cz; 0.21.0-beta1 ve větvi `slouceni-bety`)
 Sloučení dvou bet z 18. 11., které Martin otestoval na kukatkodoprirody.cz, s aktuální verzí 0.20.0 (vznikly z 0.13.0, proto nové číslo).
 
 ### Ochrana osobních údajů (původně 0.15.0-beta2 z 2026-11-18, větev `gdpr`)
