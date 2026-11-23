@@ -79,7 +79,7 @@ function stranka_blogu(): array
 function rodic_typu(string $typ): array
 {
     $rodice = (array) nastaveni()['drobecky_rodice'];
-    $id     = absint($rodice[$typ] ?? 0);
+    $id     = preklad(absint($rodice[$typ] ?? 0), aktualni_jazyk());
     if ($id) {
         return stranka_s_predky($id);
     }
@@ -100,7 +100,7 @@ function drobecky(): array
     if (is_front_page()) {
         return array();
     }
-    $cesta = array(polozka(drobecky_uvod(), home_url('/')));
+    $cesta = array(polozka(drobecky_uvod(), uvod_url()));
 
     if (is_home()) {
         $cesta = array_merge($cesta, stranka_blogu());

@@ -82,6 +82,9 @@ function znacky(array $k): array
     }
     $url = $k['canonical'] !== '' ? absolutni($k['canonical']) : '';
     $z[] = array('meta', 'property', 'og:locale', locale_og());
+    foreach (locale_alternativy((int) $k['post_id']) as $loc) {
+        $z[] = array('meta', 'property', 'og:locale:alternate', $loc);
+    }
     $z[] = array('meta', 'property', 'og:type', $k['og_type']);
     $z[] = array('meta', 'property', 'og:title', $k['title']);
     if ($k['description'] !== '') {

@@ -1,0 +1,33 @@
+/* Marmal – Breakdance Plus, modul Přesměrování: MarMal → Přesměrování */
+.marmal-presm{max-width:1200px}
+.marmal-presm__box{background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:16px 20px;margin:16px 0}
+.marmal-presm__box h2{margin-top:0;font-size:15px}
+.marmal-presm__radek{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:10px}
+.marmal-presm__radek label{display:flex;flex-direction:column;gap:4px}
+.marmal-presm__radek label>span{font-weight:600;font-size:12px;color:#50575e}
+.marmal-presm__radek .regular-text{width:320px;max-width:100%}
+.marmal-presm__siroky select,.marmal-presm__siroky .regular-text{width:420px;max-width:100%}
+.marmal-presm__sipka{font-size:20px;color:#8c8f94;padding-bottom:4px}
+.marmal-presm__hledat{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:18px 0 8px}
+.marmal-presm__pocet{color:#646970;margin-left:auto}
+.marmal-presm__tabulka code{background:none;padding:0;font-size:13px;word-break:break-all}
+.marmal-presm__tabulka td,.marmal-presm__tabulka th{vertical-align:middle}
+.marmal-presm__tabulka tr.is-vypnute td{opacity:.55}
+.marmal-presm__akce{white-space:nowrap;text-align:right}
+.marmal-presm__smazat{color:#b32d2e}
+.marmal-presm__chyba{color:#b32d2e;font-weight:600}
+.marmal-presm__chyby{margin:0 0 10px 20px;list-style:disc}
+.marmal-presm__stitek{display:inline-block;background:#f0f0f1;border-radius:3px;padding:0 6px;font-size:11px;color:#50575e}
+.marmal-presm__prazdno{padding:20px;background:#fff;border:1px dashed #c3c4c7;border-radius:6px;text-align:center;color:#646970}
+.marmal-presm__hromadne{display:flex;gap:8px}
+.marmal-presm__strany .button{min-width:32px;text-align:center}
+.marmal-presm__ukazka{background:#f6f7f7;border:1px solid #dcdcde;padding:10px 12px;border-radius:4px;max-width:520px;overflow:auto}
+.marmal-presm__filtry{display:flex;gap:6px;flex-wrap:wrap}
+.marmal-presm__filtry .is-aktivni{background:#2271b1;border-color:#2271b1;color:#fff}
+.marmal-presm__stary tr[hidden]{display:none}
+.marmal-presm__stary .regular-text{width:100%;min-width:220px}
+.marmal-presm__stav{display:inline-block;border-radius:3px;padding:1px 7px;font-size:12px;font-weight:600}
+.marmal-presm__stav--navrh{background:#e7f5ec;color:#00672e}
+.marmal-presm__stav--nic{background:#fcf0e3;color:#8a4600}
+.marmal-presm__stav--soubor{background:#f0f0f1;color:#50575e}
+.marmal-presm__stav--pravidlo,.marmal-presm__stav--existuje{background:#eaf2fa;color:#135e96}

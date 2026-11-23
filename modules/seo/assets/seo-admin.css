@@ -37,6 +37,9 @@
 .marmal-seo-nast .regular-text,.marmal-seo-nast textarea.large-text{max-width:620px}
 .marmal-seo-nast__obr{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .marmal-seo-nast__obr img{max-width:240px;height:auto;border:1px solid #dcdcde;border-radius:4px}
+.marmal-seo-nast__obr img[hidden],.marmal-seo-nast__obr [hidden]{display:none}
+.marmal-seo-nast__jazyk{margin:22px 0 0;padding-top:14px;border-top:1px solid #f0f0f1;font-size:14px}
+.marmal-seo-nast__jazyk:first-of-type{border-top:0;padding-top:0}
 .marmal-seo-nast__tab{border-collapse:collapse;margin:8px 0}
 .marmal-seo-nast__tab th,.marmal-seo-nast__tab td{border:1px solid #dcdcde;padding:6px 10px;text-align:left}
 .marmal-seo-nast__tab th{background:#f6f7f7}

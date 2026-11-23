@@ -90,6 +90,76 @@ function vyber(string $nazev, array $moznosti, string $vybrano, string $id = '')
     echo '</select>';
 }
 
+/** Výběr obrázku z knihovny médií (skryté pole s ID + náhled). */
+function vyber_obrazku(string $nazev, int $img, string $id): void
+{
+    $src = $img ? wp_get_attachment_image_src($img, 'medium_large') : null;
+    ?>
+    <div class="marmal-seo-nast__obr" data-marmal-obr>
+        <input type="hidden" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($nazev); ?>" value="<?php echo (int) $img; ?>">
+        <img src="<?php echo $src ? esc_url($src[0]) : ''; ?>" alt=""<?php echo $src ? '' : ' hidden'; ?>>
+        <button type="button" class="button" data-vybrat><?php esc_html_e('Vybrat obrázek', 'marmal-breakdance-plus'); ?></button>
+        <button type="button" class="button-link marmal-seo__odebrat" data-odebrat<?php echo $img ? '' : ' hidden'; ?>><?php esc_html_e('Odebrat', 'marmal-breakdance-plus'); ?></button>
+    </div>
+    <?php
+}
+
+/** Box „Další jazyky“ (jen vícejazyčný web s Polylangem / WPML). */
+function jazyky_box(array $s): void
+{
+    $jazyky = jazyky();
+    if (!$jazyky) {
+        return;
+    }
+    $vychozi = vychozi_jazyk();
+    $ulozene = (array) ($s['jazyky'] ?? array());
+    $pole    = array(
+        'web'           => array(__('Název webu v titulcích', 'marmal-breakdance-plus'), nazev_webu(), 80),
+        'vzor'          => array(__('Vzor titulku', 'marmal-breakdance-plus'), vzor(), MAX_TITLE),
+        'titulek_uvod'  => array(__('Titulek úvodní stránky', 'marmal-breakdance-plus'), nahradit(titulek_uvodu_auto()), MAX_TITLE),
+        'popis'         => array(__('Výchozí popisek', 'marmal-breakdance-plus'), $s['popis'], MAX_DESC),
+        'drobecky_uvod' => array(__('Text „Úvod“ v drobečkové navigaci', 'marmal-breakdance-plus'), function_exists(__NAMESPACE__ . '\drobecky_uvod') ? drobecky_uvod() : '', 60),
+    );
+    ?>
+    <div class="marmal-seo-nast__box" id="jazyky">
+        <h2><?php esc_html_e('Další jazyky', 'marmal-breakdance-plus'); ?></h2>
+        <p><?php echo esc_html(sprintf(
+            /* translators: %s: název výchozího jazyka */
+            __('Hodnoty výše platí pro výchozí jazyk (%s). Pro další jazyky tu vyplň jen to, co se má lišit – prázdné pole = stejné jako ve výchozím jazyce (název a popis webu přeloží Polylang / WPML v Překladech řetězců). Titulek a popisek konkrétní stránky píšeš v boxu „SEO a sdílení“ u jejího překladu. Značky hreflang vypisuje Polylang / WPML.', 'marmal-breakdance-plus'),
+            $jazyky[$vychozi]['nazev'] ?? $vychozi
+        )); ?></p>
+        <?php foreach ($jazyky as $j => $l) : ?>
+            <?php
+            if ($l['vychozi']) {
+                continue;
+            }
+            $h = (array) ($ulozene[$j] ?? array());
+            ?>
+            <h3 class="marmal-seo-nast__jazyk"><?php echo esc_html($l['nazev']); ?> <code><?php echo esc_html($j); ?></code></h3>
+            <table class="form-table" role="presentation">
+                <?php foreach ($pole as $klic => list($popisek, $placeholder, $max)) : ?>
+                    <tr>
+                        <th scope="row"><label for="ms-<?php echo esc_attr($j . '-' . $klic); ?>"><?php echo esc_html($popisek); ?></label></th>
+                        <td>
+                            <?php if ($klic === 'popis') : ?>
+                                <textarea id="ms-<?php echo esc_attr($j . '-' . $klic); ?>" name="<?php echo esc_attr(OPTION . '[jazyky][' . $j . '][' . $klic . ']'); ?>" rows="2" class="large-text" maxlength="<?php echo (int) $max; ?>" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_textarea((string) ($h[$klic] ?? '')); ?></textarea>
+                            <?php else : ?>
+                                <input type="text" id="ms-<?php echo esc_attr($j . '-' . $klic); ?>" name="<?php echo esc_attr(OPTION . '[jazyky][' . $j . '][' . $klic . ']'); ?>" value="<?php echo esc_attr((string) ($h[$klic] ?? '')); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" class="regular-text" maxlength="<?php echo (int) $max; ?>">
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <th scope="row"><?php esc_html_e('Výchozí obrázek pro sdílení', 'marmal-breakdance-plus'); ?></th>
+                    <td><?php vyber_obrazku(OPTION . '[jazyky][' . $j . '][obrazek]', (int) ($h['obrazek'] ?? 0), 'ms-' . $j . '-obrazek'); ?>
+                        <p class="description"><?php esc_html_e('Jen když má mít jazyk jiný obrázek (např. s anglickým textem).', 'marmal-breakdance-plus'); ?></p></td>
+                </tr>
+            </table>
+        <?php endforeach; ?>
+    </div>
+    <?php
+}
+
 /** Stav sitemap a robots.txt pro kontrolu. */
 function stav_indexovani(): array
 {
@@ -110,7 +180,6 @@ function stranka(): void
     $stav  = stav_indexovani();
     $prikl = nahradit(vzor(), __('O projektu', 'marmal-breakdance-plus'));
     $img   = (int) $s['obrazek'];
-    $imgSrc = $img ? wp_get_attachment_image_src($img, 'medium_large') : null;
     ?>
     <div class="wrap marmal-seo-nast">
         <h1><?php esc_html_e('MarMal – SEO a sdílení', 'marmal-breakdance-plus'); ?></h1>
@@ -164,12 +233,7 @@ function stranka(): void
                     <tr>
                         <th scope="row"><?php esc_html_e('Výchozí obrázek pro sdílení', 'marmal-breakdance-plus'); ?></th>
                         <td>
-                            <input type="hidden" id="ms-obrazek" name="<?php echo esc_attr(OPTION); ?>[obrazek]" value="<?php echo (int) $img; ?>">
-                            <div class="marmal-seo-nast__obr">
-                                <img id="ms-obrazek-nahled" src="<?php echo $imgSrc ? esc_url($imgSrc[0]) : ''; ?>" alt=""<?php echo $imgSrc ? '' : ' hidden'; ?>>
-                                <button type="button" class="button" id="ms-obrazek-vybrat"><?php esc_html_e('Vybrat obrázek', 'marmal-breakdance-plus'); ?></button>
-                                <button type="button" class="button-link" id="ms-obrazek-odebrat"<?php echo $img ? '' : ' hidden'; ?>><?php esc_html_e('Odebrat', 'marmal-breakdance-plus'); ?></button>
-                            </div>
+                            <?php vyber_obrazku(OPTION . '[obrazek]', $img, 'ms-obrazek'); ?>
                             <p class="description"><?php esc_html_e('Pro stránky bez vlastního ani náhledového obrázku. Ideálně 1200 × 630 px – výřez v tomto rozměru (JPEG) se vytvoří sám po uložení.', 'marmal-breakdance-plus'); ?></p>
                         </td>
                     </tr>
@@ -183,6 +247,8 @@ function stranka(): void
                     </tr>
                 </table>
             </div>
+
+            <?php jazyky_box($s); ?>
 
             <div class="marmal-seo-nast__box">
                 <h2><?php esc_html_e('Typy obsahu a indexování', 'marmal-breakdance-plus'); ?></h2>

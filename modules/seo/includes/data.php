@@ -55,6 +55,7 @@ function prazdne(): array
         'drobecky_oddelovac' => '›',
         'drobecky_rodice'    => array(), // typ obsahu => ID nadřazené stránky
         'robots'             => '',     // vlastní řádky robots.txt
+        'jazyky'             => array(), // jazyk => přepsání JAZYK_POLE pro další jazyky (Polylang, WPML)
     );
 }
 
@@ -63,16 +64,180 @@ function vychozi_vzor(): string
     return '%nazev% %oddelovac% %web%';
 }
 
+/** Hodnoty, které jdou u vícejazyčného webu nastavit pro každý další jazyk zvlášť. */
+const JAZYK_POLE = array('web', 'vzor', 'titulek_uvod', 'popis', 'obrazek', 'drobecky_uvod');
+
+/**
+ * Nastavení pro aktuální jazyk: výchozí jazyk = základní hodnoty, další jazyk = základní hodnoty
+ * přepsané vyplněnými poli z $s['jazyky'][jazyk]. Jednojazyčný web a administrace = základní hodnoty.
+ */
 function nastaveni(): array
 {
-    static $cache = null;
-    if (null !== $cache && !defined('MARMAL_SEO_TEST')) {
-        return $cache;
+    static $cache = array();
+    $jazyk = aktualni_jazyk();
+    if (isset($cache[$jazyk]) && !defined('MARMAL_SEO_TEST')) {
+        return $cache[$jazyk];
     }
     $ulozene = get_option(OPTION, array());
     $s       = array_merge(prazdne(), is_array($ulozene) ? $ulozene : array());
-    $cache   = $s;
+    if ($jazyk !== '' && $jazyk !== vychozi_jazyk() && !empty($s['jazyky'][$jazyk]) && is_array($s['jazyky'][$jazyk])) {
+        foreach (JAZYK_POLE as $klic) {
+            $v = $s['jazyky'][$jazyk][$klic] ?? '';
+            if ($v !== '' && $v !== 0 && $v !== '0' && $v !== null) {
+                $s[$klic] = $v;
+            }
+        }
+    }
+    $cache[$jazyk] = $s;
     return $s;
+}
+
+// ================================================================= jazyky (Polylang, WPML)
+
+/**
+ * Jazyky webu: slug => [nazev, locale, vychozi]. Prázdné pole = jednojazyčný web
+ * (i když je Polylang / WPML zapnutý jen s jedním jazykem).
+ */
+function jazyky(): array
+{
+    static $c = null;
+    if (null !== $c && !defined('MARMAL_SEO_TEST')) {
+        return $c;
+    }
+    $c = array();
+    if (function_exists('pll_languages_list')) {
+        $vychozi = function_exists('pll_default_language') ? (string) pll_default_language() : '';
+        foreach ((array) pll_languages_list(array('fields' => '')) as $l) {
+            if (is_object($l) && !empty($l->slug)) {
+                $c[(string) $l->slug] = array('nazev' => (string) ($l->name ?? $l->slug), 'locale' => (string) ($l->locale ?? ''), 'vychozi' => (string) $l->slug === $vychozi);
+            }
+        }
+    } elseif (has_filter('wpml_active_languages')) {
+        $vychozi = (string) apply_filters('wpml_default_language', null);
+        foreach ((array) apply_filters('wpml_active_languages', null, array('skip_missing' => 0)) as $kod => $l) {
+            if (is_array($l)) {
+                $c[(string) $kod] = array('nazev' => (string) ($l['native_name'] ?? $kod), 'locale' => (string) ($l['default_locale'] ?? ''), 'vychozi' => (string) $kod === $vychozi);
+            }
+        }
+    }
+    return $c = (count($c) > 1 ? $c : array());
+}
+
+function vychozi_jazyk(): string
+{
+    foreach (jazyky() as $slug => $l) {
+        if ($l['vychozi']) {
+            return (string) $slug;
+        }
+    }
+    return '';
+}
+
+/** Jazyk vynucený pro výpočet (náhled v boxu u stránky v administraci). null = žádný. */
+function vynuceny_jazyk(): ?string
+{
+    return $GLOBALS['marmal_seo_jazyk'] ?? null;
+}
+
+function vynutit_jazyk(?string $jazyk): void
+{
+    $GLOBALS['marmal_seo_jazyk'] = $jazyk;
+}
+
+/** Jazyk, pro který se počítá výstup: vynucený, jinak jazyk stránky na webu. V administraci ''. */
+function aktualni_jazyk(): string
+{
+    $v = vynuceny_jazyk();
+    if (null !== $v) {
+        return $v;
+    }
+    if (is_admin() || !jazyky()) {
+        return '';
+    }
+    if (function_exists('pll_current_language')) {
+        return (string) pll_current_language();
+    }
+    return (string) apply_filters('wpml_current_language', null);
+}
+
+function jazyk_prispevku(int $post_id): string
+{
+    if (function_exists('pll_get_post_language')) {
+        return (string) pll_get_post_language($post_id);
+    }
+    if (has_filter('wpml_post_language_details')) {
+        $d = apply_filters('wpml_post_language_details', null, $post_id);
+        return is_array($d) ? (string) ($d['language_code'] ?? '') : '';
+    }
+    return '';
+}
+
+/** Překlady příspěvku: jazyk => ID (včetně něj samotného). Jednojazyčný web = []. */
+function preklady(int $post_id): array
+{
+    if (!$post_id || !jazyky()) {
+        return array();
+    }
+    if (function_exists('pll_get_post_translations')) {
+        return array_map('intval', (array) pll_get_post_translations($post_id));
+    }
+    $out = array();
+    $typ = (string) (get_post_type($post_id) ?: 'page');
+    foreach (array_keys(jazyky()) as $j) {
+        $t = (int) apply_filters('wpml_object_id', $post_id, $typ, false, $j);
+        if ($t) {
+            $out[$j] = $t;
+        }
+    }
+    return $out;
+}
+
+/** ID příspěvku v daném jazyce (když překlad není, původní ID). */
+function preklad(int $post_id, string $jazyk): int
+{
+    if (!$post_id || $jazyk === '' || !jazyky()) {
+        return $post_id;
+    }
+    if (function_exists('pll_get_post')) {
+        $t = (int) pll_get_post($post_id, $jazyk);
+        return $t ?: $post_id;
+    }
+    $t = (int) apply_filters('wpml_object_id', $post_id, (string) (get_post_type($post_id) ?: 'page'), true, $jazyk);
+    return $t ?: $post_id;
+}
+
+/** Adresa úvodní stránky v aktuálním jazyce. */
+function uvod_url(): string
+{
+    if (jazyky() && function_exists('pll_home_url')) {
+        $u = (string) pll_home_url(aktualni_jazyk());
+        if ($u !== '') {
+            return $u;
+        }
+    }
+    return home_url('/');
+}
+
+/** og:locale ostatních jazyků (u stránky jen těch, do kterých je přeložená). */
+function locale_alternativy(int $post_id): array
+{
+    $jazyky = jazyky();
+    if (!$jazyky) {
+        return array();
+    }
+    $kde = $post_id ? array_keys(preklady($post_id)) : array_keys($jazyky);
+    $out = array();
+    $ted = locale_og();
+    foreach ($kde as $j) {
+        $loc = (string) ($jazyky[$j]['locale'] ?? '');
+        if (preg_match('/^([a-z]{2,3})[_-]([A-Za-z]{2})/', $loc, $m)) {
+            $loc = $m[1] . '_' . strtoupper($m[2]);
+            if ($loc !== $ted) {
+                $out[$loc] = true;
+            }
+        }
+    }
+    return array_keys($out);
 }
 
 /** Text bez HTML a zalomení, s omezenou délkou. */
@@ -93,7 +258,8 @@ function sanitizovat($in): array
     $out = prazdne();
 
     $out['web']          = cisty_text($in['web'] ?? '', 80);
-    $out['oddelovac']    = in_array(($in['oddelovac'] ?? '|'), oddelovace(), true) ? $in['oddelovac'] : '|';
+    $odd                 = (string) ($in['oddelovac'] ?? '|');
+    $out['oddelovac']    = in_array($odd, oddelovace(), true) ? $odd : '|';
     $out['vzor']         = cisty_text($in['vzor'] ?? '', MAX_TITLE);
     if ($out['vzor'] !== '' && strpos($out['vzor'], '%nazev%') === false) {
         add_settings_error(OPTION, 'vzor', __('Vzor titulku musí obsahovat %nazev% – jinak by všechny stránky měly stejný titulek. Použije se výchozí vzor.', 'marmal-breakdance-plus'));
@@ -129,11 +295,54 @@ function sanitizovat($in): array
         }
     }
     $out['robots'] = robots_sanitizovat($in['robots'] ?? '');
+    $out['jazyky'] = jazyky_sanitizovat($in['jazyky'] ?? array());
 
-    if ($out['obrazek'] && function_exists(__NAMESPACE__ . '\og_vytvorit')) {
-        og_vytvorit($out['obrazek']);
+    if (function_exists(__NAMESPACE__ . '\og_vytvorit')) {
+        $obrazky = array_merge(array($out['obrazek']), array_column($out['jazyky'], 'obrazek'));
+        foreach (array_unique(array_filter(array_map('intval', $obrazky))) as $obr) {
+            og_vytvorit($obr);
+        }
     }
     return $out;
+}
+
+/**
+ * Přepsání pro další jazyky. Bez Polylangu / WPML (dočasně vypnutý) zůstanou uložená beze změny,
+ * aby se při uložení nastavení neztratila.
+ */
+function jazyky_sanitizovat($in): array
+{
+    $zname = jazyky();
+    if (!$zname) {
+        $stare = get_option(OPTION, array());
+        $in    = is_array($stare) && is_array($stare['jazyky'] ?? null) ? $stare['jazyky'] : array();
+    }
+    $out = array();
+    foreach ((array) $in as $j => $h) {
+        $j = sanitize_key((string) $j);
+        if (!is_array($h) || $j === '' || ($zname && (!isset($zname[$j]) || $zname[$j]['vychozi']))) {
+            continue;
+        }
+        $r = array(
+            'web'           => cisty_text($h['web'] ?? '', 80),
+            'vzor'          => cisty_text($h['vzor'] ?? '', MAX_TITLE),
+            'titulek_uvod'  => cisty_text($h['titulek_uvod'] ?? '', MAX_TITLE),
+            'popis'         => cisty_text($h['popis'] ?? '', MAX_DESC),
+            'obrazek'       => absint($h['obrazek'] ?? 0),
+            'drobecky_uvod' => cisty_text($h['drobecky_uvod'] ?? '', 60),
+        );
+        if ($r['vzor'] !== '' && strpos($r['vzor'], '%nazev%') === false) {
+            add_settings_error(OPTION, 'vzor-' . $j, __('Vzor titulku musí obsahovat %nazev% – jinak by všechny stránky měly stejný titulek. Použije se výchozí vzor.', 'marmal-breakdance-plus'));
+            $r['vzor'] = '';
+        }
+        if ($r['obrazek'] && !wp_attachment_is_image($r['obrazek'])) {
+            $r['obrazek'] = 0;
+        }
+        if (array_filter($r)) {
+            $out[$j] = $r;
+        }
+    }
+    return array_slice($out, 0, 20, true);
 }
 
 /** Veřejné typy obsahu (kromě příloh): slug => název. */
@@ -160,12 +369,28 @@ function typy_obsahu(): array
 function nazev_webu(): string
 {
     $s = nastaveni()['web'];
-    return $s !== '' ? $s : cisty_text(get_bloginfo('name'), 80);
+    return $s !== '' ? $s : cisty_text(prelozeny_text(get_bloginfo('name'), 'Blog Title'), 80);
 }
 
 function popis_webu(): string
 {
-    return cisty_text(get_bloginfo('description'), 160);
+    return cisty_text(prelozeny_text(get_bloginfo('description'), 'Tagline'), 160);
+}
+
+/**
+ * Název / popis webu v jazyce vynuceném pro náhled v administraci (na webu ho Polylang / WPML
+ * přeloží sám). $wpml = název řetězce v doméně „WP“ ve WPML.
+ */
+function prelozeny_text(string $text, string $wpml): string
+{
+    $j = vynuceny_jazyk();
+    if (null === $j || $j === '' || $text === '' || $j === vychozi_jazyk()) {
+        return $text;
+    }
+    if (function_exists('pll_translate_string')) {
+        return (string) pll_translate_string($text, $j);
+    }
+    return (string) apply_filters('wpml_translate_single_string', $text, 'WP', $wpml, $j);
 }
 
 function oddelovac(): string
@@ -346,7 +571,11 @@ function titulek_uvodu_auto(): string
 
 function je_uvod(int $post_id): bool
 {
-    return get_option('show_on_front') === 'page' && (int) get_option('page_on_front') === $post_id;
+    if (get_option('show_on_front') !== 'page') {
+        return false;
+    }
+    $uvod = (int) get_option('page_on_front');
+    return $uvod === $post_id || ($uvod && in_array($post_id, preklady($uvod), true));
 }
 
 /**
@@ -356,6 +585,21 @@ function je_uvod(int $post_id): bool
  * @return array{title:string,description:string,image_id:int,noindex:bool,zaloha:array,zdroj:array}
  */
 function data_prispevku(int $post_id): array
+{
+    $jazyk = jazyky() ? jazyk_prispevku($post_id) : '';
+    if ($jazyk === '') {
+        return data_prispevku_v_jazyce($post_id);
+    }
+    $pred = vynuceny_jazyk();
+    vynutit_jazyk($jazyk);
+    try {
+        return data_prispevku_v_jazyce($post_id);
+    } finally {
+        vynutit_jazyk($pred);
+    }
+}
+
+function data_prispevku_v_jazyce(int $post_id): array
 {
     $v = vlastni($post_id);
     $f = z_filtru($post_id);
@@ -467,7 +711,7 @@ function kontext(): array
         $titulek          = titulek_uvodu_auto();
         $k['description'] = $s['popis'];
         $k['image_id']    = (int) $s['obrazek'];
-        $k['canonical']   = strankovani(home_url('/'), $paged);
+        $k['canonical']   = strankovani(uvod_url(), $paged);
     } elseif (is_singular() || is_home()) {
         $post_id = is_home() ? (int) get_option('page_for_posts') : (int) get_queried_object_id();
         if ($post_id) {

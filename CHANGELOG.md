@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.20.0-beta1 – 2026-11-23 (testovací verze, větev `faze-2`)
+- **Nový modul Přesměrování** (`presmerovani`, MarMal → Moduly, výchozí vypnuto; nastavení v **MarMal → Přesměrování**):
+  - přesměrování **301** (trvale), **302 / 307** (dočasně) a **410** (stránka zrušena – stavový kód 410 se šablonou 404),
+  - stará adresa jako cesta (`/o-nas.html`) nebo celá adresa starého webu; na velikosti písmen, lomítku na konci a parametrech nezáleží; **celá sekce** `/blog/*` – zbytek adresy se doplní za cíl nebo místo `*` (`/clanky/*`), nejdelší sekce má přednost, přesná adresa před sekcí,
+  - nová adresa jako cesta, jiný web, nebo **stránka webu** (`post:ID`) – vede vždy na její aktuální adresu; cesta k existující stránce se při uložení převede na stránku sama; adresy na stejné doméně se ukládají bez domény (fungují i po přesunu ze stagingu); parametry (`?utm_…`) se předají dál (vypínatelné),
+  - ochrany: nejde přesměrovat úvodní stránku, administraci, přihlášení, REST ani soubory WordPressu; kontrola smyčky; smazaná cílová stránka = žádné přesměrování; zbytek sekce nesmí změnit doménu cíle,
+  - **automaticky při změně adresy** publikované stránky / příspěvku / vlastního typu (i u podstránek, max. 200): 301 ze staré adresy na stránku; při přejmenování zpět se pravidlo samo odstraní,
+  - **chyby 404**: adresa, počet, poslední výskyt, web, ze kterého návštěvník přišel (jen doména + cesta), příznak robota – **bez IP adres a prohlížečů**; skenery (`.php`, `.env`, `/wp-admin`…) se nezapisují; max. 2000 záznamů, úklid po 90 dnech (nastavitelné 7–365); tlačítko **Přesměrovat** předvyplní formulář i s návrhem stránky,
+  - **převod ze starého webu**: adresy ze sitemapy starého webu (i index sitemap, jen stejná doména, max. 3000 adres) nebo vložený seznam; u každé adresy stav (existuje i na novém webu / už přesměrováno / návrh / bez návrhu / soubor), **návrh nové stránky** podle shody adresy nebo podobnosti názvu; zaškrtnuté řádky se vytvoří najednou (cíl jde přepsat s našeptáváním stránek webu, nebo zvolit 410),
+  - **import / export CSV** (stará adresa; nová adresa; kód; poznámka) – středník i čárka, UTF-8 i Windows-1250 z Excelu, max. 2 MB / 5000 řádků, existující adresy se přepíší, chyby po řádcích; export s ochranou proti vzorcům v Excelu,
+  - seznam s hledáním, řazením (nejnovější / nejpoužívanější / podle adresy), počtem použití, původem (ručně / změna adresy / import / starý web / z chyby 404), hromadné vypnutí, zapnutí a smazání,
+  - tabulky `{prefix}marmal_presmerovani` a `{prefix}marmal_404`; na webu jeden dotaz podle indexu na požadavek (bez pravidel žádný), sekce v krátkém seznamu v paměti; upozornění, když běží Redirection, Safe Redirect Manager, 301 Redirects nebo přesměrování Rank Mathu.
+- **SEO – vícejazyčné weby (Polylang, WPML)**: v MarMal → SEO box **Další jazyky** – pro každý další jazyk vlastní název webu, vzor titulku, titulek úvodní stránky, výchozí popisek, výchozí obrázek pro sdílení a text „Úvod“ v drobečkové navigaci (prázdné = jako výchozí jazyk). Na webu se použijí hodnoty jazyka stránky, náhled v boxu u stránky počítá s jazykem jejího překladu (i přeložený název a popis webu). Dále `og:locale:alternate` pro jazyky, do kterých je stránka přeložená, přeložená úvodní stránka se bere jako úvodní (titulek úvodu), drobečková navigace odkazuje na úvod a nadřazenou stránku v jazyce stránky, canonical úvodu s Polylangem podle jazyka. Značky hreflang dál vypisuje Polylang / WPML.
+- SEO: oprava – sanitizace nastavení bez zadaného oddělovače vracela prázdnou hodnotu (projevilo se jen při ukládání nastavení z kódu).
+
 ## 0.19.0 – 2026-11-23 (vydáno po Martinově testu v builderu na Žehrovických bytech)
 - **Nový element „Marmal – Drobečková navigace“** (modul SEO a sdílení) s nastavením vzhledu v Design tabu:
   - Rozložení: zarovnání (vlevo / na střed / vpravo), mezera mezi položkou a oddělovačem, mezera mezi řádky (s breakpointy),
