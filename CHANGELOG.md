@@ -1,12 +1,14 @@
 # Changelog
 
-## 0.22.0-beta3 – 2026-11-23 (testovací verze, větev `geo`)
+## 0.22.0 – 2026-11-24 (vydáno po Martinově testu; bety 1–3 ve větvi `geo`)
+
+### 0.22.0-beta3 – 2026-11-23
 - IndexNow – diagnostika: v administraci „Kdo si naposledy stáhl soubor s klíčem“ (posledních 10: čas a identifikace robota, bez IP) – ukáže, jestli se Seznam k souboru vůbec dostane; soubor s klíčem bez hlavičky `X-Robots-Tag`; opravený popis volby (od beta2 se posílá přes api.indexnow.org).
 
-## 0.22.0-beta2 – 2026-11-23
+### 0.22.0-beta2 – 2026-11-23
 - IndexNow: adresy se posílají jen na api.indexnow.org, který je předá všem zapojeným vyhledávačům včetně Seznamu (podle nápovědy Seznamu stačí ohlásit jednomu) – přímé volání Seznamu v beta1 vracelo 403. U chyby se ukáže i odpověď služby; v administraci odkaz na soubor s klíčem a „ověřit u Seznamu“ (jednorázové ohlášení úvodní stránky přímo Seznamu pro kontrolu).
 
-## 0.22.0-beta1 – 2026-11-23
+### 0.22.0-beta1 – 2026-11-23
 SEO fáze 3 – GEO (AI vyhledávání). V MarMal → SEO dva nové boxy:
 - **Firma pro vyhledávače a AI** – na úvodní stránce strukturovaná data `Organization` nebo místní podnik (`LocalBusiness` a 14 podtypů: odborné služby, stavební firma, klimatizace a topení, realitní kancelář, advokát, účetní, péče o děti, sportovní klub, obchod, restaurace…) + `WebSite`. Název, sídlo, IČO, DIČ, telefon a e-mail se berou z modulu Ochrana osobních údajů (jinak z Patičky); doplňuje se jen typ firmy, logo (jinak logo / ikona webu), otevírací doba po dnech („8:00–16:00“, „8–12, 13–16“, stejné dny se sloučí), profily na sítích (sameAs), souřadnice a případně adresa provozovny. Sídlo se samo rozdělí na ulici, PSČ a město. Místní podnik bez adresy se vypíše jako obecná organizace; administrace ukáže, co chybí. Filtr `marmal_seo_firma_schema`.
 - **AI vyhledávání (GEO)**:
