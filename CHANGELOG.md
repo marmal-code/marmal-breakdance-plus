@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.23.0 – připravuje se (větev `sitemap-soubor`)
+## 0.23.0 – 2026-11-27 (vydáno po Martinově testu; 0.23.0-beta1 ve větvi `sitemap-soubor`)
 
 ### 0.23.0-beta1 – 2026-11-27
 - **Přesměrování → Převod ze starého webu: nahrání sitemapy souborem** – pro případ, kdy starý web už neběží nebo sitemapu nejde stáhnout (ochrana proti robotům, heslo, staging na stejné doméně):
