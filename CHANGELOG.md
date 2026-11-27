@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.23.0 – připravuje se (větev `sitemap-soubor`)
+
+### 0.23.0-beta1 – 2026-11-27
+- **Přesměrování → Převod ze starého webu: nahrání sitemapy souborem** – pro případ, kdy starý web už neběží nebo sitemapu nejde stáhnout (ochrana proti robotům, heslo, staging na stejné doméně):
+  - sitemapa `.xml` i komprimovaná `.xml.gz`, víc souborů najednou (Yoast / Rank Math po částech: page-sitemap.xml, post-sitemap.xml…), max 20 souborů, 5 MB na soubor,
+  - seznam adres `.txt` / `.csv` – adresa v prvním sloupci (export ze Screaming Frogu, Search Console, Excelu); hlavička a řádky bez adresy se přeskočí, uvozovky se odstraní, Windows-1250 se převede na UTF-8,
+  - nahraný index sitemap: dílčí sitemapy, které nejsou mezi nahranými soubory, se zkusí stáhnout ze starého webu; když to nejde, modul poradí nahrát je přímo,
+  - zdroje jde **kombinovat** (adresa sitemapy + soubory + vložený seznam) – adresy se sloučí bez duplicit; chyba jednoho zdroje nezastaví ostatní (žluté upozornění se seznamem problémů po souborech),
+  - odkazy na starý web v tabulce návrhů fungují i u souboru (doména podle první absolutní adresy),
+  - bezpečnost: jen soubory z formuláře (`is_uploaded_file`), povolené přípony, limit velikosti i po rozbalení .gz, XML s DOCTYPE odmítnuto, `LIBXML_NONET`; soubor se jen přečte z dočasné složky, nikam se neukládá; úkon dál jen pro `manage_options` s nonce.
+
 ## 0.22.0 – 2026-11-24 (vydáno po Martinově testu; bety 1–3 ve větvi `geo`)
 
 ### 0.22.0-beta3 – 2026-11-23

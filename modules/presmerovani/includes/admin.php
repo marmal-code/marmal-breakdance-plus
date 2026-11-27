@@ -148,12 +148,13 @@ add_action('admin_post_marmal_presmerovani', function () {
         case 'stary_nacist':
             $res = pripravit_stary_web(
                 isset($_POST['sitemap']) ? esc_url_raw(wp_unslash($_POST['sitemap'])) : '',
-                isset($_POST['seznam']) ? sanitize_textarea_field(wp_unslash($_POST['seznam'])) : ''
+                isset($_POST['seznam']) ? sanitize_textarea_field(wp_unslash($_POST['seznam'])) : '',
+                nahrane_soubory(isset($_FILES['soubory']) && is_array($_FILES['soubory']) ? $_FILES['soubory'] : array()) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- kontroluje nahrane_soubory() a adresy_ze_souboru()
             );
             if (is_wp_error($res)) {
                 zprava('error', $res->get_error_message());
             } else {
-                zprava('success', sprintf(/* translators: %d: počet */ __('Načteno %d adres starého webu. Zkontroluj návrhy a vytvoř přesměrování.', 'marmal-breakdance-plus'), $res));
+                zprava($res['chyby'] ? 'warning' : 'success', sprintf(/* translators: %d: počet */ __('Načteno %d adres starého webu. Zkontroluj návrhy a vytvoř přesměrování.', 'marmal-breakdance-plus'), $res['pocet']), $res['chyby']);
             }
             $zpet = url(array('tab' => 'stary'));
             break;
@@ -474,12 +475,15 @@ function tab_stary(): void
         ?>
         <div class="marmal-presm__box">
             <h2><?php esc_html_e('1. Adresy starého webu', 'marmal-breakdance-plus'); ?></h2>
-            <p><?php esc_html_e('Ideálně před spuštěním nového webu: zadej sitemapu starého webu (ještě běží), nebo vlož seznam adres. Modul pro každou adresu zjistí, jestli na novém webu existuje, a když ne, navrhne novou stránku podle názvu. Ty návrhy jen zkontroluješ a potvrdíš.', 'marmal-breakdance-plus'); ?></p>
-            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+            <p><?php esc_html_e('Ideálně před spuštěním nového webu: zadej sitemapu starého webu (ještě běží), nahraj ji jako soubor, nebo vlož seznam adres. Zdroje jde kombinovat – adresy se sloučí. Modul pro každou adresu zjistí, jestli na novém webu existuje, a když ne, navrhne novou stránku podle názvu. Ty návrhy jen zkontroluješ a potvrdíš.', 'marmal-breakdance-plus'); ?></p>
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" enctype="multipart/form-data">
                 <?php nonce_pole('stary_nacist'); ?>
                 <p><label><strong><?php esc_html_e('Sitemapa starého webu', 'marmal-breakdance-plus'); ?></strong><br>
                     <input type="url" name="sitemap" class="large-text" placeholder="https://stary-web.cz/sitemap_index.xml"></label></p>
                 <p class="description"><?php esc_html_e('WordPress: /wp-sitemap.xml, Yoast a Rank Math: /sitemap_index.xml, Divi a jiné: /sitemap.xml. Pokud starý web běží na stejné doméně jako nový (staging), zadej sitemapu ještě před přepnutím, nebo vlož seznam adres.', 'marmal-breakdance-plus'); ?></p>
+                <p><label><strong><?php esc_html_e('… nebo nahraj soubor se sitemapou', 'marmal-breakdance-plus'); ?></strong><br>
+                    <input type="file" name="soubory[]" multiple accept=".xml,.gz,.txt,.csv,application/xml,text/xml,text/plain,text/csv,application/gzip"></label></p>
+                <p class="description"><?php esc_html_e('Když starý web už neběží nebo sitemapu nejde stáhnout (ochrana proti robotům, heslo, staging): sitemapa .xml nebo .xml.gz, případně seznam adres .txt / .csv (adresa v prvním sloupci – třeba export ze Screaming Frogu nebo Search Console). Yoast a Rank Math mají sitemapu po částech (page-sitemap.xml, post-sitemap.xml…) – vyber všechny najednou. Max 5 MB na soubor.', 'marmal-breakdance-plus'); ?></p>
                 <p><label><strong><?php esc_html_e('… nebo seznam adres (jedna na řádek)', 'marmal-breakdance-plus'); ?></strong><br>
                     <textarea name="seznam" rows="8" class="large-text" placeholder="https://stary-web.cz/o-nas/&#10;/sluzby/akustika.html&#10;/kontakt"></textarea></label></p>
                 <?php submit_button(__('Načíst adresy', 'marmal-breakdance-plus'), 'primary', 'submit', false); ?>

@@ -2,9 +2,11 @@
 /**
  * Modul Přesměrování – převod ze starého webu (redesign).
  *
- * 1. Adresy starého webu: ze sitemapy (sitemap_index.xml, wp-sitemap.xml, sitemap.xml – i vnořené)
- *    nebo vložený seznam (jedna adresa na řádek). Sitemapa se stahuje přes wp_safe_remote_get
- *    (bez přesměrování na jinou doménu, limit velikosti a počtu).
+ * 1. Adresy starého webu: ze sitemapy (sitemap_index.xml, wp-sitemap.xml, sitemap.xml – i vnořené),
+ *    z nahraných souborů (sitemapa .xml / .xml.gz, seznam .txt / .csv – i export ze Screaming Frogu)
+ *    nebo vložený seznam (jedna adresa na řádek). Zdroje se dají kombinovat, adresy se sloučí.
+ *    Sitemapa se stahuje přes wp_safe_remote_get (bez přesměrování na jinou doménu, limit velikosti
+ *    a počtu). Nahraný soubor se jen přečte z dočasné složky, nikam se neukládá.
  * 2. Pro každou adresu stav: existuje na novém webu / už má přesměrování / návrh nové stránky
  *    (shoda posledního úseku adresy s adresou stránky, jinak nejpodobnější název) / bez návrhu.
  * 3. Správce návrhy zkontroluje a potvrdí – vzniknou pravidla s původem „stary-web“.
@@ -23,6 +25,8 @@ const MAX_ADRES   = 3000;
 const MAX_SITEMAP = 30;
 const MAX_BAJTU   = 5242880; // 5 MB na jednu sitemapu
 const PRAH_NAVRHU = 60;      // % podobnosti pro návrh
+const MAX_SOUBORU = 20;      // nahraných souborů najednou
+const PRIPONY     = array('xml', 'gz', 'txt', 'csv');
 
 /**
  * Adresy ze sitemapy (i indexu sitemap). Jen http(s) a jen stejná doména jako první sitemapa.
@@ -34,8 +38,23 @@ function nacist_sitemapu(string $url)
     if ($url === '') {
         return new \WP_Error('url', __('Zadej adresu sitemapy včetně https://.', 'marmal-breakdance-plus'));
     }
-    $host   = strtolower((string) wp_parse_url($url, PHP_URL_HOST));
-    $fronta = array($url);
+    $adresy = stahnout_sitemapy(array($url), strtolower((string) wp_parse_url($url, PHP_URL_HOST)), true);
+    if (is_wp_error($adresy)) {
+        return $adresy;
+    }
+    if (!$adresy) {
+        return new \WP_Error('prazdna', __('V sitemapě nejsou žádné adresy stránek.', 'marmal-breakdance-plus'));
+    }
+    return $adresy;
+}
+
+/**
+ * Stáhne sitemapy z fronty (i vnořené indexy) a vrátí adresy stránek stejného webu ($host).
+ * $chyba_prvni = chyba u první sitemapy se vrátí jako WP_Error (u ostatních se sitemapa přeskočí).
+ * @return array|\WP_Error
+ */
+function stahnout_sitemapy(array $fronta, string $host, bool $chyba_prvni = false)
+{
     $hotove = array();
     $adresy = array();
     while ($fronta && count($hotove) < MAX_SITEMAP && count($adresy) < MAX_ADRES) {
@@ -44,20 +63,21 @@ function nacist_sitemapu(string $url)
             continue;
         }
         $hotove[$u] = true;
+        $prvni = $chyba_prvni && count($hotove) === 1;
         $r = wp_safe_remote_get($u, array('timeout' => 15, 'redirection' => 2, 'limit_response_size' => MAX_BAJTU, 'user-agent' => 'Marmal-Presmerovani/1.0'));
         if (is_wp_error($r)) {
-            if (count($hotove) === 1) {
+            if ($prvni) {
                 return new \WP_Error('stazeni', sprintf(/* translators: %s: chyba */ __('Sitemapu se nepodařilo stáhnout: %s', 'marmal-breakdance-plus'), $r->get_error_message()));
             }
             continue;
         }
         if ((int) wp_remote_retrieve_response_code($r) !== 200) {
-            if (count($hotove) === 1) {
+            if ($prvni) {
                 return new \WP_Error('kod', sprintf(/* translators: %d: kód */ __('Sitemapa vrátila chybu %d.', 'marmal-breakdance-plus'), (int) wp_remote_retrieve_response_code($r)));
             }
             continue;
         }
-        foreach (rozebrat_sitemapu((string) wp_remote_retrieve_body($r)) as $typ => $locs) {
+        foreach (rozebrat_sitemapu(rozbalit((string) wp_remote_retrieve_body($r))) as $typ => $locs) {
             foreach ($locs as $loc) {
                 if (strtolower((string) wp_parse_url($loc, PHP_URL_HOST)) !== $host) {
                     continue; // jen stejný web
@@ -70,10 +90,142 @@ function nacist_sitemapu(string $url)
             }
         }
     }
-    if (!$adresy) {
-        return new \WP_Error('prazdna', __('V sitemapě nejsou žádné adresy stránek.', 'marmal-breakdance-plus'));
-    }
     return array_keys($adresy);
+}
+
+/** Obsah .gz rozbalí (max MAX_BAJTU), jiný vrátí beze změny. */
+function rozbalit(string $data): string
+{
+    if (strncmp($data, "\x1f\x8b", 2) !== 0) {
+        return $data;
+    }
+    if (!function_exists('gzdecode')) {
+        return '';
+    }
+    $out = @gzdecode($data, MAX_BAJTU); // phpcs:ignore WordPress.PHP.NoSilencedErrors -- poškozený / příliš velký archiv = prázdný výsledek
+    return is_string($out) ? $out : '';
+}
+
+/** Text do UTF-8 bez BOM (uložení z Excelu nebo Poznámkového bloku bývá Windows-1250). */
+function na_utf8(string $obsah): string
+{
+    $obsah = (string) preg_replace('/^\xEF\xBB\xBF/', '', $obsah);
+    if (!mb_check_encoding($obsah, 'UTF-8')) {
+        $prevod = function_exists('iconv') ? @iconv('Windows-1250', 'UTF-8//IGNORE', $obsah) : false; // phpcs:ignore WordPress.PHP.NoSilencedErrors
+        $obsah  = $prevod !== false ? $prevod : mb_convert_encoding($obsah, 'UTF-8', 'ISO-8859-2');
+    }
+    return (string) $obsah;
+}
+
+/**
+ * Seznam nahraných souborů z $_FILES položky (i multiple – pole tmp_name) do [[name, tmp_name, size, error], …].
+ * Jen soubory, které opravdu přišly formulářem (is_uploaded_file).
+ */
+function nahrane_soubory(array $pole): array
+{
+    $out = array();
+    if (!isset($pole['tmp_name'])) {
+        return $out;
+    }
+    $tmp = (array) $pole['tmp_name'];
+    foreach ($tmp as $i => $t) {
+        $chyba = (int) (((array) ($pole['error'] ?? array()))[$i] ?? UPLOAD_ERR_NO_FILE);
+        if ($chyba === UPLOAD_ERR_NO_FILE) {
+            continue;
+        }
+        $out[] = array(
+            'name'     => sanitize_file_name((string) (((array) ($pole['name'] ?? array()))[$i] ?? '')),
+            'tmp_name' => (string) $t,
+            'size'     => (int) (((array) ($pole['size'] ?? array()))[$i] ?? 0),
+            'error'    => $chyba,
+        );
+    }
+    return $out;
+}
+
+/**
+ * Adresy z nahraných souborů: sitemapa (.xml, .xml.gz – i Yoast / Rank Math po částech) nebo seznam
+ * (.txt, .csv – adresa v prvním sloupci, řádky bez adresy jako hlavička „Address“ se přeskočí).
+ * Index sitemap se nahraje jen se seznamem dílčích sitemap – ty se zkusí stáhnout, pokud starý web ještě běží.
+ * @return array{adresy: string[], chyby: string[]}
+ */
+function adresy_ze_souboru(array $soubory): array
+{
+    $adresy = array();
+    $chyby  = array();
+    $indexy = array();
+    if (count($soubory) > MAX_SOUBORU) {
+        $chyby[]  = sprintf(/* translators: %d: počet */ __('Najednou jde nahrát nejvýš %d souborů, další se přeskočily.', 'marmal-breakdance-plus'), MAX_SOUBORU);
+        $soubory = array_slice($soubory, 0, MAX_SOUBORU);
+    }
+    foreach ($soubory as $f) {
+        $xml   = array('url' => array(), 'sitemap' => array());
+        $jmeno = $f['name'] !== '' ? $f['name'] : '?';
+        if ($f['error'] !== UPLOAD_ERR_OK || $f['tmp_name'] === '' || !is_uploaded_file($f['tmp_name'])) {
+            $chyby[] = $jmeno . ' – ' . __('soubor se nepodařilo nahrát (možná je větší, než hosting dovolí).', 'marmal-breakdance-plus');
+            continue;
+        }
+        if ($f['size'] > MAX_BAJTU) {
+            $chyby[] = $jmeno . ' – ' . __('soubor je větší než 5 MB.', 'marmal-breakdance-plus');
+            continue;
+        }
+        if (!in_array(strtolower(pathinfo($jmeno, PATHINFO_EXTENSION)), PRIPONY, true)) {
+            $chyby[] = $jmeno . ' – ' . __('nahraj sitemapu .xml (.xml.gz) nebo seznam adres .txt / .csv.', 'marmal-breakdance-plus');
+            continue;
+        }
+        $obsah = rozbalit((string) file_get_contents($f['tmp_name'])); // phpcs:ignore WordPress.WP.AlternativeFunctions -- dočasný soubor z uploadu
+        $obsah = na_utf8($obsah);
+        if (trim($obsah) === '') {
+            $chyby[] = $jmeno . ' – ' . __('soubor je prázdný nebo poškozený.', 'marmal-breakdance-plus');
+            continue;
+        }
+        $pred = count($adresy);
+        if (strpos(ltrim($obsah), '<') === 0) {
+            $xml = rozebrat_sitemapu($obsah);
+            foreach ($xml['url'] as $loc) {
+                $adresy[$loc] = true;
+            }
+            foreach ($xml['sitemap'] as $loc) {
+                $indexy[$loc] = true;
+            }
+            if (!$xml['url'] && !$xml['sitemap']) {
+                $chyby[] = $jmeno . ' – ' . __('nejde o platnou sitemapu (XML s <loc>).', 'marmal-breakdance-plus');
+                continue;
+            }
+        } else {
+            foreach (adresy_z_textu($obsah, true) as $a) {
+                $adresy[$a] = true;
+            }
+        }
+        if (count($adresy) === $pred && !$xml['sitemap']) {
+            $chyby[] = $jmeno . ' – ' . __('nenašla se v něm žádná adresa.', 'marmal-breakdance-plus');
+        }
+        if (count($adresy) >= MAX_ADRES) {
+            break;
+        }
+    }
+    // Index sitemap: dílčí sitemapy, které nebyly nahrané (podle názvu souboru), zkusit stáhnout ze starého webu.
+    $nahrane = array_map('strtolower', array_column($soubory, 'name'));
+    foreach (array_keys($indexy) as $loc) {
+        $nazev = strtolower(basename((string) wp_parse_url($loc, PHP_URL_PATH)));
+        if (in_array($nazev, $nahrane, true) || in_array($nazev . '.gz', $nahrane, true) || in_array(preg_replace('/\.gz$/', '', $nazev), $nahrane, true)) {
+            unset($indexy[$loc]);
+        }
+    }
+    if ($indexy && count($adresy) < MAX_ADRES) {
+        $prvni = (string) array_key_first($indexy);
+        $host  = strtolower((string) wp_parse_url($prvni, PHP_URL_HOST));
+        $nove  = stahnout_sitemapy(array_keys($indexy), $host);
+        $nove  = is_wp_error($nove) ? array() : $nove;
+        $pred  = count($adresy);
+        foreach ($nove as $a) {
+            $adresy[$a] = true;
+        }
+        if (count($adresy) === $pred) {
+            $chyby[] = __('Nahraný index sitemap jen odkazuje na dílčí sitemapy a ty se nepodařilo stáhnout. Nahraj přímo dílčí sitemapy (např. page-sitemap.xml, post-sitemap.xml) – jde jich vybrat víc najednou.', 'marmal-breakdance-plus');
+        }
+    }
+    return array('adresy' => array_slice(array_keys($adresy), 0, MAX_ADRES), 'chyby' => $chyby);
 }
 
 /**
@@ -107,12 +259,18 @@ function rozebrat_sitemapu(string $xml): array
     return $out;
 }
 
-/** Adresy z vloženého textu (adresa nebo cesta na řádek; i „stará;nová“ – bere se první sloupec). */
-function adresy_z_textu(string $text): array
+/**
+ * Adresy z vloženého textu (adresa nebo cesta na řádek; i „stará;nová“ – bere se první sloupec).
+ * $jen_adresy = jen řádky začínající http(s):// nebo / (soubor: hlavička a jiné řádky se přeskočí).
+ */
+function adresy_z_textu(string $text, bool $jen_adresy = false): array
 {
     $out = array();
     foreach (preg_split('/\r\n|\r|\n/', $text) as $radek) {
-        $radek = trim((string) preg_split('/[;\t,]/', (string) $radek)[0]);
+        $radek = trim((string) preg_split('/[;\t,]/', (string) $radek)[0], " \t\"'");
+        if ($jen_adresy && !preg_match('#^(https?://|/)#i', $radek)) {
+            continue;
+        }
         if ($radek !== '' && count($out) < MAX_ADRES) {
             $out[$radek] = true;
         }
@@ -210,29 +368,61 @@ function navrh(string $cesta): array
     return $r;
 }
 
-/** Načte adresy (sitemap nebo text), spočítá návrhy a uloží seznam. @return int|\WP_Error počet */
-function pripravit_stary_web(string $sitemap, string $text)
+/**
+ * Načte adresy ze všech zadaných zdrojů (sitemapa, nahrané soubory, vložený text – sloučí je),
+ * spočítá návrhy a uloží seznam.
+ * @return array{pocet: int, chyby: string[]}|\WP_Error
+ */
+function pripravit_stary_web(string $sitemap, string $text, array $soubory = array())
 {
-    $adresy = $sitemap !== '' ? nacist_sitemapu($sitemap) : adresy_z_textu($text);
-    if (is_wp_error($adresy)) {
-        return $adresy;
+    $adresy = array();
+    $chyby  = array();
+    $zdroj  = '';
+    if ($sitemap !== '') {
+        $z = nacist_sitemapu($sitemap);
+        if (is_wp_error($z)) {
+            $chyby[] = $z->get_error_message();
+        } else {
+            $adresy = array_merge($adresy, $z);
+            $zdroj  = esc_url_raw($sitemap);
+        }
+    }
+    if ($soubory) {
+        $z      = adresy_ze_souboru($soubory);
+        $adresy = array_merge($adresy, $z['adresy']);
+        $chyby  = array_merge($chyby, $z['chyby']);
+    }
+    if (trim($text) !== '') {
+        $adresy = array_merge($adresy, adresy_z_textu($text));
+    }
+    if ($sitemap === '' && !$soubory && trim($text) === '') {
+        return new \WP_Error('nic', __('Zadej sitemapu, nahraj soubor nebo vlož seznam adres.', 'marmal-breakdance-plus'));
+    }
+    // Odkazy na starý web v tabulce: doména sitemapy, jinak první absolutní adresy ze souboru / seznamu.
+    if ($zdroj === '') {
+        foreach ($adresy as $a) {
+            if (preg_match('#^https?://#i', (string) $a)) {
+                $zdroj = esc_url_raw((string) $a);
+                break;
+            }
+        }
     }
     $radky = array();
-    foreach ($adresy as $a) {
+    foreach (array_slice($adresy, 0, MAX_ADRES) as $a) {
         $c = cesta((string) $a);
         if ($c !== '' && !isset($radky[$c])) {
             $radky[$c] = navrh($c);
         }
     }
     if (!$radky) {
-        return new \WP_Error('prazdne', __('Žádná platná adresa.', 'marmal-breakdance-plus'));
+        return $chyby ? new \WP_Error('prazdne', implode(' ', array_slice($chyby, 0, 5))) : new \WP_Error('prazdne', __('Žádná platná adresa.', 'marmal-breakdance-plus'));
     }
     $poradi = array('navrh' => 0, 'nic' => 1, 'soubor' => 2, 'pravidlo' => 3, 'existuje' => 4);
     uasort($radky, function ($a, $b) use ($poradi) {
         return ($poradi[$a['stav']] <=> $poradi[$b['stav']]) ?: strcmp($a['stara'], $b['stara']);
     });
-    update_option(OPT_STARY, array('cas' => time(), 'zdroj' => $sitemap !== '' ? esc_url_raw($sitemap) : 'seznam', 'radky' => array_values($radky)), false);
-    return count($radky);
+    update_option(OPT_STARY, array('cas' => time(), 'zdroj' => $zdroj !== '' ? $zdroj : 'seznam', 'radky' => array_values($radky)), false);
+    return array('pocet' => count($radky), 'chyby' => array_slice($chyby, 0, 30));
 }
 
 function stary_web(): array

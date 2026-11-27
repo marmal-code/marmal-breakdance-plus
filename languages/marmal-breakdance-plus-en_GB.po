@@ -36,7 +36,7 @@ msgstr "Fonts"
 msgid "Google Fonts z webu stáhne k sobě a návštěvníkům je posílá z vlastní domény – Google nedostane jejich IP adresu (GDPR) a stránka se načte rychleji. Fonty dál vybíráš v Breakdance jako dosud."
 msgstr "Downloads the website’s Google Fonts and serves them to visitors from your own domain – Google does not get their IP address (GDPR) and pages load faster. You keep choosing fonts in Breakdance as before."
 
-#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:144 modules/obrazky/manifest.php:31 modules/seo/manifest.php:30 modules/gdpr/manifest.php:28 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:279 modules/efekty/manifest.php:46 modules/presmerovani/manifest.php:29 modules/presmerovani/includes/admin.php:224 modules/paticka/manifest.php:32
+#: modules/fonty/manifest.php:29 modules/fonty/includes/admin.php:144 modules/obrazky/manifest.php:31 modules/seo/manifest.php:30 modules/gdpr/manifest.php:28 modules/cookies/manifest.php:31 modules/cookies/includes/data.php:279 modules/efekty/manifest.php:46 modules/presmerovani/manifest.php:29 modules/presmerovani/includes/admin.php:225 modules/paticka/manifest.php:32
 msgid "Nastavení"
 msgstr "Settings"
 
@@ -81,7 +81,7 @@ msgstr "The website could not be checked from the administration (%s). No proble
 msgid "Fonty na webu"
 msgstr "Fonts on the website"
 
-#: modules/fonty/includes/admin.php:108 modules/obrazky/includes/admin.php:344 modules/gdpr/includes/admin.php:218 modules/presmerovani/includes/admin.php:527
+#: modules/fonty/includes/admin.php:108 modules/obrazky/includes/admin.php:344 modules/gdpr/includes/admin.php:218 modules/presmerovani/includes/admin.php:531
 msgid "Stav"
 msgstr "Status"
 
@@ -556,7 +556,7 @@ msgstr "Scans the media library and finds the images the site actually uses (Bre
 msgid "Formát"
 msgstr "Format"
 
-#: modules/obrazky/includes/admin.php:247 modules/presmerovani/includes/admin.php:445
+#: modules/obrazky/includes/admin.php:247 modules/presmerovani/includes/admin.php:446
 msgid "Počet"
 msgstr "Count"
 
@@ -582,7 +582,7 @@ msgstr "The site uses %1$d images. Not converted: %2$d below the threshold, %3$d
 msgid "20 největších používaných obrázků"
 msgstr "20 largest images in use"
 
-#: modules/obrazky/includes/admin.php:270 modules/presmerovani/includes/admin.php:495
+#: modules/obrazky/includes/admin.php:270 modules/presmerovani/includes/admin.php:499
 msgid "Soubor"
 msgstr "File"
 
@@ -898,7 +898,7 @@ msgstr ""
 msgid "Název, sídlo, IČO a DIČ se berou z %3$s (teď: %1$s, %2$s). Šedé texty ukazují, co se použije, když pole necháš prázdné."
 msgstr ""
 
-#: modules/seo/includes/admin-geo.php:45 modules/presmerovani/includes/admin.php:377
+#: modules/seo/includes/admin-geo.php:45 modules/presmerovani/includes/admin.php:378
 msgid "Upravit"
 msgstr ""
 
@@ -3662,7 +3662,7 @@ msgstr "Effects gallery"
 msgid "Načítá se %1$d z %2$d kategorií efektů."
 msgstr "Loading %1$d of %2$d effect categories."
 
-#: modules/presmerovani/manifest.php:23 modules/presmerovani/includes/admin.php:28 modules/presmerovani/includes/admin.php:28 modules/presmerovani/includes/admin.php:220 modules/presmerovani/includes/admin.php:229
+#: modules/presmerovani/manifest.php:23 modules/presmerovani/includes/admin.php:28 modules/presmerovani/includes/admin.php:28 modules/presmerovani/includes/admin.php:221 modules/presmerovani/includes/admin.php:230
 msgid "Přesměrování"
 msgstr ""
 
@@ -3713,382 +3713,390 @@ msgstr ""
 msgid "Seznam chyb 404 vymazán."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:156
+#: modules/presmerovani/includes/admin.php:157
 #, php-format
 msgid "Načteno %d adres starého webu. Zkontroluj návrhy a vytvoř přesměrování."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:165
+#: modules/presmerovani/includes/admin.php:166
 #, php-format
 msgid "Vytvořeno přesměrování: %d."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:183
+#: modules/presmerovani/includes/admin.php:184
 #, php-format
 msgid "Importováno přesměrování: %d."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:221 modules/presmerovani/includes/admin.php:600
+#: modules/presmerovani/includes/admin.php:222 modules/presmerovani/includes/admin.php:604
 msgid "Chyby 404"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:222
+#: modules/presmerovani/includes/admin.php:223
 msgid "Převod ze starého webu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:223
+#: modules/presmerovani/includes/admin.php:224
 msgid "Import / export"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:233
+#: modules/presmerovani/includes/admin.php:234
 #, php-format
 msgid "Na webu běží i %s. Přesměrování nastavuj jen na jednom místě – jinak se mohou přebíjet."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:250
+#: modules/presmerovani/includes/admin.php:251
 msgid "— nebo vyber stránku —"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:292
+#: modules/presmerovani/includes/admin.php:293
 msgid "Upravit přesměrování"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:292
+#: modules/presmerovani/includes/admin.php:293
 msgid "Nové přesměrování"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:294 modules/presmerovani/includes/admin.php:348 modules/presmerovani/includes/admin.php:526
+#: modules/presmerovani/includes/admin.php:295 modules/presmerovani/includes/admin.php:349 modules/presmerovani/includes/admin.php:530
 msgid "Stará adresa"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:297 modules/presmerovani/includes/admin.php:349 modules/presmerovani/includes/admin.php:528
+#: modules/presmerovani/includes/admin.php:298 modules/presmerovani/includes/admin.php:350 modules/presmerovani/includes/admin.php:532
 msgid "Nová adresa"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:298
+#: modules/presmerovani/includes/admin.php:299
 msgid "nebo"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:299 modules/presmerovani/includes/admin.php:350 modules/presmerovani/includes/admin.php:529
+#: modules/presmerovani/includes/admin.php:300 modules/presmerovani/includes/admin.php:351 modules/presmerovani/includes/admin.php:533
 msgid "Typ"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:303
+#: modules/presmerovani/includes/admin.php:304
 msgid "301 – trvale (doporučeno)"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:304
+#: modules/presmerovani/includes/admin.php:305
 msgid "302 – dočasně"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:305
+#: modules/presmerovani/includes/admin.php:306
 msgid "307 – dočasně (zachová formulář)"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:306
+#: modules/presmerovani/includes/admin.php:307
 msgid "410 – stránka zrušena"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:315
+#: modules/presmerovani/includes/admin.php:316
 msgid "Stránka na tomto webu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:316
+#: modules/presmerovani/includes/admin.php:317
 msgid "Poznámka"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:319
+#: modules/presmerovani/includes/admin.php:320
 msgid "Stará adresa končící hvězdičkou (/blog/*) přesměruje celou sekci; zbytek adresy se doplní za novou adresu, nebo místo * v nové adrese (/clanky/*). Vybraná stránka vede vždy na její aktuální adresu, i když ji později přejmenuješ."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:321
+#: modules/presmerovani/includes/admin.php:322
 msgid "Uložit změny"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:321
+#: modules/presmerovani/includes/admin.php:322
 msgid "Přidat přesměrování"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:322
+#: modules/presmerovani/includes/admin.php:323
 msgid "Zrušit"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:330
+#: modules/presmerovani/includes/admin.php:331
 msgid "Hledat adresu nebo poznámku"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:332
+#: modules/presmerovani/includes/admin.php:333
 msgid "Nejnovější"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:333
+#: modules/presmerovani/includes/admin.php:334
 msgid "Nejpoužívanější"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:334
+#: modules/presmerovani/includes/admin.php:335
 msgid "Podle adresy"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:336
+#: modules/presmerovani/includes/admin.php:337
 msgid "Hledat"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:337 modules/presmerovani/includes/admin.php:436
+#: modules/presmerovani/includes/admin.php:338 modules/presmerovani/includes/admin.php:437
 #, php-format
 msgid "Celkem: %d"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:340
+#: modules/presmerovani/includes/admin.php:341
 msgid "Nic nenalezeno."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:340
+#: modules/presmerovani/includes/admin.php:341
 msgid "Zatím žádné přesměrování."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:347 modules/presmerovani/includes/admin.php:525
+#: modules/presmerovani/includes/admin.php:348 modules/presmerovani/includes/admin.php:529
 msgid "Vybrat vše"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:351
+#: modules/presmerovani/includes/admin.php:352
 msgid "Použito"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:352
+#: modules/presmerovani/includes/admin.php:353
 msgid "Vzniklo"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:359
+#: modules/presmerovani/includes/admin.php:360
 msgid "ručně"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:359
+#: modules/presmerovani/includes/admin.php:360
 msgid "změna adresy"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:359
+#: modules/presmerovani/includes/admin.php:360
 msgid "import"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:359
+#: modules/presmerovani/includes/admin.php:360
 msgid "starý web"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:359
+#: modules/presmerovani/includes/admin.php:360
 msgid "z chyby 404"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:366
+#: modules/presmerovani/includes/admin.php:367
 msgid "zrušeno"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:368
+#: modules/presmerovani/includes/admin.php:369
 msgid "Cílová stránka už neexistuje"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:373
+#: modules/presmerovani/includes/admin.php:374
 msgid "vypnuto"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:378 includes/moduly.php:328
+#: modules/presmerovani/includes/admin.php:379 includes/moduly.php:328
 msgid "Vypnout"
 msgstr "Turn off"
 
-#: modules/presmerovani/includes/admin.php:378 includes/moduly.php:330
+#: modules/presmerovani/includes/admin.php:379 includes/moduly.php:330
 msgid "Zapnout"
 msgstr "Turn on"
 
-#: modules/presmerovani/includes/admin.php:379
+#: modules/presmerovani/includes/admin.php:380
 msgid "Smazat"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:387
+#: modules/presmerovani/includes/admin.php:388
 msgid "Vypnout vybrané"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:388
+#: modules/presmerovani/includes/admin.php:389
 msgid "Zapnout vybrané"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:389
+#: modules/presmerovani/includes/admin.php:390
 msgid "Smazat vybrané"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:391
+#: modules/presmerovani/includes/admin.php:392
 msgid "Provést"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:426
+#: modules/presmerovani/includes/admin.php:427
 msgid "Hlídání chyb 404 je vypnuté (záložka Nastavení)."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:430
+#: modules/presmerovani/includes/admin.php:431
 #, php-format
 msgid "Adresy, na které někdo přišel a stránka neexistovala. Ukládá se jen adresa, počet, čas a web, ze kterého návštěvník přišel – žádné IP adresy. Záznamy starší než %d dní se mažou."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:433
+#: modules/presmerovani/includes/admin.php:434
 msgid "Hledat adresu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:434
+#: modules/presmerovani/includes/admin.php:435
 msgid "Včetně robotů"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:435 modules/paticka/includes/admin.php:136
+#: modules/presmerovani/includes/admin.php:436 modules/paticka/includes/admin.php:136
 msgid "Zobrazit"
 msgstr "Show"
 
-#: modules/presmerovani/includes/admin.php:439
+#: modules/presmerovani/includes/admin.php:440
 msgid "Žádné chyby 404. 🎉"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:444
+#: modules/presmerovani/includes/admin.php:445
 msgid "Adresa"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:446
+#: modules/presmerovani/includes/admin.php:447
 msgid "Naposledy"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:447
+#: modules/presmerovani/includes/admin.php:448
 msgid "Přišel z"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:453
+#: modules/presmerovani/includes/admin.php:454
 msgid "robot"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:458
+#: modules/presmerovani/includes/admin.php:459
 msgid "Přesměrovat"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:459
+#: modules/presmerovani/includes/admin.php:460
 msgid "Skrýt"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:466
+#: modules/presmerovani/includes/admin.php:467
 msgid "Vymazat celý seznam"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:476
+#: modules/presmerovani/includes/admin.php:477
 msgid "1. Adresy starého webu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:477
-msgid "Ideálně před spuštěním nového webu: zadej sitemapu starého webu (ještě běží), nebo vlož seznam adres. Modul pro každou adresu zjistí, jestli na novém webu existuje, a když ne, navrhne novou stránku podle názvu. Ty návrhy jen zkontroluješ a potvrdíš."
+#: modules/presmerovani/includes/admin.php:478
+msgid "Ideálně před spuštěním nového webu: zadej sitemapu starého webu (ještě běží), nahraj ji jako soubor, nebo vlož seznam adres. Zdroje jde kombinovat – adresy se sloučí. Modul pro každou adresu zjistí, jestli na novém webu existuje, a když ne, navrhne novou stránku podle názvu. Ty návrhy jen zkontroluješ a potvrdíš."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:480
+#: modules/presmerovani/includes/admin.php:481
 msgid "Sitemapa starého webu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:482
+#: modules/presmerovani/includes/admin.php:483
 msgid "WordPress: /wp-sitemap.xml, Yoast a Rank Math: /sitemap_index.xml, Divi a jiné: /sitemap.xml. Pokud starý web běží na stejné doméně jako nový (staging), zadej sitemapu ještě před přepnutím, nebo vlož seznam adres."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:483
+#: modules/presmerovani/includes/admin.php:484
+msgid "… nebo nahraj soubor se sitemapou"
+msgstr ""
+
+#: modules/presmerovani/includes/admin.php:486
+msgid "Když starý web už neběží nebo sitemapu nejde stáhnout (ochrana proti robotům, heslo, staging): sitemapa .xml nebo .xml.gz, případně seznam adres .txt / .csv (adresa v prvním sloupci – třeba export ze Screaming Frogu nebo Search Console). Yoast a Rank Math mají sitemapu po částech (page-sitemap.xml, post-sitemap.xml…) – vyber všechny najednou. Max 5 MB na soubor."
+msgstr ""
+
+#: modules/presmerovani/includes/admin.php:487
 msgid "… nebo seznam adres (jedna na řádek)"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:485
+#: modules/presmerovani/includes/admin.php:489
 msgid "Načíst adresy"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:493
+#: modules/presmerovani/includes/admin.php:497
 msgid "Návrh"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:494
+#: modules/presmerovani/includes/admin.php:498
 msgid "Bez návrhu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:496
+#: modules/presmerovani/includes/admin.php:500
 msgid "Už přesměrováno"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:497
+#: modules/presmerovani/includes/admin.php:501
 msgid "Existuje i na novém webu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:502
+#: modules/presmerovani/includes/admin.php:506
 msgid "2. Zkontroluj návrhy a vytvoř přesměrování"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:504
+#: modules/presmerovani/includes/admin.php:508
 #, php-format
 msgid "Vše (%d)"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:511
+#: modules/presmerovani/includes/admin.php:515
 msgid "Zaškrtnuté řádky se vytvoří jako přesměrování 301. Novou adresu můžeš přepsat (začni psát – nabídnou se stránky webu). Pro zrušený obsah bez náhrady zvol 410. Adresy, které existují i na novém webu, přesměrovávat nemusíš."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:552
+#: modules/presmerovani/includes/admin.php:556
 msgid "Vytvořit přesměrování z vybraných řádků"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:556
+#: modules/presmerovani/includes/admin.php:560
 msgid "Zahodit seznam a začít znovu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:565
+#: modules/presmerovani/includes/admin.php:569
 msgid "Export"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:566
+#: modules/presmerovani/includes/admin.php:570
 msgid "Všechna přesměrování jako CSV (otevřeš v Excelu). Hodí se jako záloha nebo k přenosu na jiný web."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:569
+#: modules/presmerovani/includes/admin.php:573
 msgid "Stáhnout CSV"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:573
+#: modules/presmerovani/includes/admin.php:577
 msgid "Import"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:574
+#: modules/presmerovani/includes/admin.php:578
 msgid "Sloupce: stará adresa ; nová adresa ; kód (301 / 302 / 307 / 410, prázdné = 301) ; poznámka. První řádek s názvy sloupců se přeskočí. Oddělovač středník i čárka, uložení z Excelu (CSV UTF-8 i obyčejné CSV) funguje. Existující stará adresa se přepíše."
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:578
+#: modules/presmerovani/includes/admin.php:582
 msgid "Importovat"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:580
+#: modules/presmerovani/includes/admin.php:584
 msgid "Ukázka:"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:598
+#: modules/presmerovani/includes/admin.php:602
 msgid "Změna adresy stránky"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:599
+#: modules/presmerovani/includes/admin.php:603
 msgid "Automaticky přesměrovat starou adresu, když u publikované stránky změníš adresu (i podstránky)"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:601
+#: modules/presmerovani/includes/admin.php:605
 msgid "Hlídat chyby 404"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:602
+#: modules/presmerovani/includes/admin.php:606
 msgid "Mazat záznamy starší než"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:602
+#: modules/presmerovani/includes/admin.php:606
 msgid "dní"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:603
+#: modules/presmerovani/includes/admin.php:607
 msgid "Parametry adresy"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:604
+#: modules/presmerovani/includes/admin.php:608
 msgid "Předat parametry (např. ?utm_source=…) na novou adresu"
 msgstr ""
 
-#: modules/presmerovani/includes/admin.php:607
+#: modules/presmerovani/includes/admin.php:611
 #, php-format
 msgid "Přesměrování v databázi: %d. Při vypnutí modulu zůstanou uložená a po zapnutí znovu fungují."
 msgstr ""
@@ -4139,25 +4147,62 @@ msgstr ""
 msgid "Dosažen nejvyšší počet přesměrování."
 msgstr ""
 
-#: modules/presmerovani/includes/stary-web.php:35
+#: modules/presmerovani/includes/stary-web.php:39
 msgid "Zadej adresu sitemapy včetně https://."
 msgstr ""
 
-#: modules/presmerovani/includes/stary-web.php:50
+#: modules/presmerovani/includes/stary-web.php:46
+msgid "V sitemapě nejsou žádné adresy stránek."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:70
 #, php-format
 msgid "Sitemapu se nepodařilo stáhnout: %s"
 msgstr ""
 
-#: modules/presmerovani/includes/stary-web.php:56
+#: modules/presmerovani/includes/stary-web.php:76
 #, php-format
 msgid "Sitemapa vrátila chybu %d."
 msgstr ""
 
-#: modules/presmerovani/includes/stary-web.php:74
-msgid "V sitemapě nejsou žádné adresy stránek."
+#: modules/presmerovani/includes/stary-web.php:158
+#, php-format
+msgid "Najednou jde nahrát nejvýš %d souborů, další se přeskočily."
 msgstr ""
 
-#: modules/presmerovani/includes/stary-web.php:228
+#: modules/presmerovani/includes/stary-web.php:165
+msgid "soubor se nepodařilo nahrát (možná je větší, než hosting dovolí)."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:169
+msgid "soubor je větší než 5 MB."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:173
+msgid "nahraj sitemapu .xml (.xml.gz) nebo seznam adres .txt / .csv."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:179
+msgid "soubor je prázdný nebo poškozený."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:192
+msgid "nejde o platnou sitemapu (XML s <loc>)."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:201
+msgid "nenašla se v něm žádná adresa."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:225
+msgid "Nahraný index sitemap jen odkazuje na dílčí sitemapy a ty se nepodařilo stáhnout. Nahraj přímo dílčí sitemapy (např. page-sitemap.xml, post-sitemap.xml) – jde jich vybrat víc najednou."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:399
+msgid "Zadej sitemapu, nahraj soubor nebo vlož seznam adres."
+msgstr ""
+
+#: modules/presmerovani/includes/stary-web.php:418
 msgid "Žádná platná adresa."
 msgstr ""
 
